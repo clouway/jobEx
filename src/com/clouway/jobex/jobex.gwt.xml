@@ -4,8 +4,12 @@
 
   <!-- Inherit the core Web Toolkit stuff.                  -->
   <inherits name='com.google.gwt.user.User'/>
+  <inherits name="com.evo.gad.Gad"/>
 
   <!-- Specify the app entry point class.                   -->
   <entry-point class='com.clouway.jobex.client.Jobex'/>
+  <servlet path="/ActionDispatcherService" class="com.clouway.jobex.server.communication.ActionDispatcherServiceImpl"/>
 
+  <source path="client"/>
+  <source path="shared"/>
 </module>
