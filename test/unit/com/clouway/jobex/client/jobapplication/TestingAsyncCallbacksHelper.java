@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.jobsreview;
+package com.clouway.jobex.client.jobapplication;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import org.mockito.invocation.InvocationOnMock;
@@ -15,11 +15,6 @@ import static org.mockito.Mockito.doAnswer;
  * To change this template use File | Settings | File Templates.
  */
 public class TestingAsyncCallbacksHelper {
-
-
-
-
-
 
 
   public static <T> Stubber doOnSuccess(final T returnedExpenses) {
@@ -56,8 +51,5 @@ public class TestingAsyncCallbacksHelper {
             }
         });
     }
-
-
-
 
 }
