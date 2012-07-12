@@ -1,9 +1,9 @@
 package com.clouway.jobex.client;
 
 import com.clouway.jobex.client.communication.JobExRequestFactory;
-import com.clouway.jobex.client.jobapplication.ApplyForJobEvent;
-import com.clouway.jobex.client.jobapplication.JobApplicationPresenter;
-import com.clouway.jobex.client.jobapplication.view.JobApplicationViewImpl;
+import com.clouway.jobex.client.applyingforjob.ApplyForJobEvent;
+import com.clouway.jobex.client.applyingforjob.JobApplicationPresenter;
+import com.clouway.jobex.client.applyingforjob.view.JobApplicationViewImpl;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;

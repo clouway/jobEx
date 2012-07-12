@@ -1,7 +1,7 @@
-package com.clouway.jobex.client.jobapplication.view;
+package com.clouway.jobex.client.applyingforjob.view;
 
+import com.clouway.jobex.client.applyingforjob.JobApplicationPresenter;
 import com.clouway.jobex.client.communication.JobExRequestFactory;
-import com.clouway.jobex.client.jobapplication.JobApplicationPresenter;
 import com.clouway.jobex.shared.proxies.CVProxy;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -14,7 +14,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,9 +74,9 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
 
 
   @Override
-  public void showErrors(ArrayList<String> errors) {
+  public void showErrors(List<String> errorstringList) {
     StringBuilder builder = new StringBuilder();
-    for (String string : errors) {
+    for (String string : errorstringList) {
       builder.append(string);
     }
     errors.setText(builder.toString());
@@ -88,10 +87,6 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
     errors.setText("System error occurred while trying to apply job !");
   }
 
-  @Override
-  public void setJobId(Long id) {
-    jobId = id;
-  }
 
   public void setPresenter(JobApplicationPresenter presenter) {
     this.presenter = presenter;
@@ -104,9 +99,6 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
   }
 
 
-  @Override
-  public void gotToNewCVCreationPage() {
-  }
 
   @Override
   public void goToCreateNewCVForm() {

@@ -1,8 +1,8 @@
-package com.clouway.jobex.client.jobapplication;
+package com.clouway.jobex.client.applyingforjob;
 
 import com.clouway.jobex.client.communication.JobExRequestFactory;
-import com.clouway.jobex.client.jobapplication.view.JobApplicationView;
-import com.clouway.jobex.server.jobapplication.JobApplicationService;
+import com.clouway.jobex.client.applyingforjob.view.JobApplicationView;
+import com.clouway.jobex.server.applyingforjob.JobApplicationService;
 import com.clouway.jobex.shared.entities.JobApplication;
 import com.clouway.jobex.shared.proxies.JobApplicationProxy;
 import org.junit.Before;
@@ -54,10 +54,9 @@ public class RequestFactoryJRETest {
 
     doThrow(new RuntimeException()).when(service).applyForJob(isA(JobApplication.class));
 
-    presenter.applyForJob(1l,2l);
+    presenter.applyForJob(1l, 2l);
 
     ArgumentCaptor<JobApplication> jobApplicationArgumentCaptor = ArgumentCaptor.forClass(JobApplication.class);
-
 
     verify(service).applyForJob(jobApplicationArgumentCaptor.capture());
 

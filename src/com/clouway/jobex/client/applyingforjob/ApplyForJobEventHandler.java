@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.jobapplication;
+package com.clouway.jobex.client.applyingforjob;
 
 import com.google.gwt.event.shared.EventHandler;
 

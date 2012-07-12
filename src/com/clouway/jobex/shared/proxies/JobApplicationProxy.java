@@ -1,11 +1,12 @@
 package com.clouway.jobex.shared.proxies;
 
-import com.clouway.jobex.server.jobapplication.JobApplicationLocator;
+import com.clouway.jobex.server.applyingforjob.JobApplicationLocator;
 import com.clouway.jobex.shared.entities.JobApplication;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
 /**
+ * Client side representation of JobApplication Entity
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
 @ProxyFor(value = JobApplication.class,locator = JobApplicationLocator.class)

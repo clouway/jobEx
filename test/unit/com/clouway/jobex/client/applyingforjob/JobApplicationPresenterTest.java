@@ -1,8 +1,9 @@
-package com.clouway.jobex.client.jobapplication;
+package com.clouway.jobex.client.applyingforjob;
 
 import com.clouway.jobex.client.communication.JobExRequestFactory;
-import com.clouway.jobex.client.jobapplication.view.JobApplicationView;
-import com.clouway.jobex.server.jobapplication.JobApplicationService;
+import com.clouway.jobex.client.applyingforjob.view.JobApplicationView;
+import com.clouway.jobex.server.applyingforjob.JobApplicationService;
+import com.clouway.jobex.server.cv.CvsService;
 import com.clouway.jobex.shared.entities.CV;
 import com.clouway.jobex.shared.entities.JobApplication;
 import com.clouway.jobex.shared.proxies.CVProxy;
@@ -33,7 +34,9 @@ public class JobApplicationPresenterTest {
 
   private JobExRequestFactory factory;
 
-  private JobApplicationService service;
+  private JobApplicationService jobApplicationService;
+
+  private CvsService cvsService;
 
   private JobApplicationPresenter presenter;
 
@@ -49,8 +52,13 @@ public class JobApplicationPresenterTest {
   public void setUp() throws Exception {
     initMocks(this);
     factory = RequestFactoryHelper.create(JobExRequestFactory.class);
-    service = RequestFactoryHelper.getService(JobApplicationService.class);
+
+    jobApplicationService = RequestFactoryHelper.getService(JobApplicationService.class);
+
+    cvsService = RequestFactoryHelper.getService(CvsService.class);
+
     context = factory.jobApplicationContext();
+
     presenter = new JobApplicationPresenter(factory, view);
   }
 
@@ -62,7 +70,7 @@ public class JobApplicationPresenterTest {
 
     ArgumentCaptor<JobApplication> jobApplicationArgumentCaptor = ArgumentCaptor.forClass(JobApplication.class);
 
-    verify(service).applyForJob(jobApplicationArgumentCaptor.capture());
+    verify(jobApplicationService).applyForJob(jobApplicationArgumentCaptor.capture());
 
     JobApplication jobApplication = jobApplicationArgumentCaptor.getValue();
 
@@ -79,14 +87,13 @@ public class JobApplicationPresenterTest {
   public void notifiesUserOfSystemError() {
 
 
+    doThrow(new RuntimeException()).when(jobApplicationService).applyForJob(isA(JobApplication.class));
 
-    doThrow(new RuntimeException()).when(service).applyForJob(isA(JobApplication.class));
-
-    presenter.applyForJob(1l,2l);
+    presenter.applyForJob(1l, 2l);
 
     ArgumentCaptor<JobApplication> jobApplicationArgumentCaptor = ArgumentCaptor.forClass(JobApplication.class);
 
-    verify(service).applyForJob(jobApplicationArgumentCaptor.capture());
+    verify(jobApplicationService).applyForJob(jobApplicationArgumentCaptor.capture());
 
     JobApplication jobApplication = jobApplicationArgumentCaptor.getValue();
 
@@ -110,11 +117,11 @@ public class JobApplicationPresenterTest {
 
     cvs.add(new CV());
 
-    when(service.fetchCreatedCVs()).thenReturn(cvs);
+    when(cvsService.fetchCreatedCVs()).thenReturn(cvs);
 
     presenter.onApplyForJob(new ApplyForJobEvent(jobId));
 
-    verify(service).fetchCreatedCVs();
+    verify(cvsService).fetchCreatedCVs();
 
     verify(view).showCreatedCVs(returnedCVArgumentCaptures.capture());
 
@@ -133,11 +140,11 @@ public class JobApplicationPresenterTest {
 
     ArrayList<CV> cvs = new ArrayList<CV>();
 
-    when(service.fetchCreatedCVs()).thenReturn(cvs);
+    when(cvsService.fetchCreatedCVs()).thenReturn(cvs);
 
     presenter.onApplyForJob(new ApplyForJobEvent(jobId));
 
-    verify(service).fetchCreatedCVs();
+    verify(cvsService).fetchCreatedCVs();
 
     verify(view).goToCreateNewCVForm();
   }
@@ -158,7 +165,7 @@ public class JobApplicationPresenterTest {
 //
 //    when(idProvider.getUserId()).thenReturn(userId);
 //
-//    doOnSuccess(cvs).when(service).fetchCreatedCVs(eq(userId), isA(AsyncCallback.class));
+//    doOnSuccess(cvs).when(jobApplicationService).fetchCreatedCVs(eq(userId), isA(AsyncCallback.class));
 //
 //    presenter.onApplyForJob(new ApplyForJobEvent(jobId));
 //
@@ -166,7 +173,7 @@ public class JobApplicationPresenterTest {
 //
 //    verify(view).setJobId(jobId);
 //
-//    verify(service).fetchCreatedCVs(eq(userId), isA(AsyncCallback.class));
+//    verify(jobApplicationService).fetchCreatedCVs(eq(userId), isA(AsyncCallback.class));
 //
 //    verify(view).showCreatedCVs(cvs);
 //  }
@@ -182,11 +189,11 @@ public class JobApplicationPresenterTest {
 //
 //    when(idProvider.getUserId()).thenReturn(userId);
 //
-//    doOnSuccess(cvs).when(service).fetchCreatedCVs(eq(userId), isA(AsyncCallback.class));
+//    doOnSuccess(cvs).when(jobApplicationService).fetchCreatedCVs(eq(userId), isA(AsyncCallback.class));
 //
 //    presenter.onApplyForJob(new ApplyForJobEvent(jobId));
 //
-//    verify(service).fetchCreatedCVs(eq(userId), isA(AsyncCallback.class));
+//    verify(jobApplicationService).fetchCreatedCVs(eq(userId), isA(AsyncCallback.class));
 //
 //    verify(view, never()).showCreatedCVs(cvs);
 //

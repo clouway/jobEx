@@ -1,6 +1,6 @@
-package com.clouway.jobex.client.jobapplication.view;
+package com.clouway.jobex.client.applyingforjob.view;
 
-import com.clouway.jobex.client.jobapplication.JobApplicationPresenter;
+import com.clouway.jobex.client.applyingforjob.JobApplicationPresenter;
 import com.clouway.jobex.shared.proxies.CVProxy;
 
 import java.util.List;

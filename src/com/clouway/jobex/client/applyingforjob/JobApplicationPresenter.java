@@ -1,7 +1,7 @@
-package com.clouway.jobex.client.jobapplication;
+package com.clouway.jobex.client.applyingforjob;
 
 import com.clouway.jobex.client.communication.JobExRequestFactory;
-import com.clouway.jobex.client.jobapplication.view.JobApplicationView;
+import com.clouway.jobex.client.applyingforjob.view.JobApplicationView;
 import com.clouway.jobex.shared.proxies.CVProxy;
 import com.clouway.jobex.shared.proxies.JobApplicationProxy;
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -61,7 +61,7 @@ public class JobApplicationPresenter implements ApplyForJobEventHandler {
    */
   @Override
   public void onApplyForJob(ApplyForJobEvent event) {
-    JobExRequestFactory.JobApplicationRequestContext requestContext = requestFactory.jobApplicationContext();
+    JobExRequestFactory.CVsRequestContext requestContext = requestFactory.cvsRequestContext();
     requestContext.fetchCreatedCVs().fire(new Receiver<List<CVProxy>>() {
       @Override
       public void onSuccess(List<CVProxy> response) {

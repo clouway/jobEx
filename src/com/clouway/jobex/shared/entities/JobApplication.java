@@ -1,6 +1,8 @@
 package com.clouway.jobex.shared.entities;
 
 /**
+ * A Data Transfer Object contains the CVId with which a user applies for a job and the
+ * job id to which the user applies
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
 public class JobApplication {

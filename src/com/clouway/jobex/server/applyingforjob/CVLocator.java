@@ -1,9 +1,10 @@
-package com.clouway.jobex.server.jobapplication;
+package com.clouway.jobex.server.applyingforjob;
 
 import com.clouway.jobex.shared.entities.CV;
 import com.google.web.bindery.requestfactory.shared.Locator;
 
 /**
+ * Locates CV Entities.
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
 public class CVLocator extends Locator<CV, Long> {

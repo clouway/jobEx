@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.jobapplication;
+package com.clouway.jobex.client.applyingforjob;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import org.mockito.invocation.InvocationOnMock;
