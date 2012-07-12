@@ -1,5 +1,8 @@
 package com.clouway.jobex.client.communication;
 
+import com.clouway.jobex.server.cv.CvRepositoryImpl;
+import com.clouway.jobex.server.cv.CvsServiceImpl;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.web.bindery.requestfactory.shared.ServiceLocator;
 
 /**
@@ -8,6 +11,6 @@ import com.google.web.bindery.requestfactory.shared.ServiceLocator;
 public class CvsServiceLocator implements ServiceLocator {
   @Override
   public Object getInstance(Class<?> clazz) {
-    return  null;
+    return new CvsServiceImpl(new CvRepositoryImpl("username", DatastoreServiceFactory.getDatastoreService()));
   }
 }

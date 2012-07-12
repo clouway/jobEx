@@ -50,7 +50,9 @@ public class JobApplicationPresenterTest {
 
   @Before
   public void setUp() throws Exception {
+
     initMocks(this);
+
     factory = RequestFactoryHelper.create(JobExRequestFactory.class);
 
     jobApplicationService = RequestFactoryHelper.getService(JobApplicationService.class);
@@ -149,55 +151,5 @@ public class JobApplicationPresenterTest {
     verify(view).goToCreateNewCVForm();
   }
 
-
-//
-//
-//  @Test
-//  public void returnsAListOfPreviouslyCreatedCVs() {
-//
-//    ArrayList<CV> cvs = new ArrayList<CV>();
-//
-//    cvs.add(new CV());
-//
-//    Long userId = 12l;
-//
-//    Long jobId = 1l;
-//
-//    when(idProvider.getUserId()).thenReturn(userId);
-//
-//    doOnSuccess(cvs).when(jobApplicationService).fetchCreatedCVs(eq(userId), isA(AsyncCallback.class));
-//
-//    presenter.onApplyForJob(new ApplyForJobEvent(jobId));
-//
-//    verify(idProvider).getUserId();
-//
-//    verify(view).setJobId(jobId);
-//
-//    verify(jobApplicationService).fetchCreatedCVs(eq(userId), isA(AsyncCallback.class));
-//
-//    verify(view).showCreatedCVs(cvs);
-//  }
-//
-//  @Test
-//  public void showsNewCVApplicationFormWhenNotPreviouslyCreatedCV() {
-//
-//    ArrayList<CV> cvs = new ArrayList<CV>();
-//
-//    Long userId = 12l;
-//
-//    Long jobId = 100l;
-//
-//    when(idProvider.getUserId()).thenReturn(userId);
-//
-//    doOnSuccess(cvs).when(jobApplicationService).fetchCreatedCVs(eq(userId), isA(AsyncCallback.class));
-//
-//    presenter.onApplyForJob(new ApplyForJobEvent(jobId));
-//
-//    verify(jobApplicationService).fetchCreatedCVs(eq(userId), isA(AsyncCallback.class));
-//
-//    verify(view, never()).showCreatedCVs(cvs);
-//
-//    verify(view).gotToNewCVCreationPage();
-//  }
 
 }

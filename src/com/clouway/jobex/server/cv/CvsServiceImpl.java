@@ -25,4 +25,9 @@ public class CvsServiceImpl implements CvsService {
   public List<CV> fetchCreatedCVs() {
     return cvRepository.getCreatedCVs();
   }
+
+  @Override
+  public void create(CV cv) {
+
+  }
 }

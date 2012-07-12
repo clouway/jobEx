@@ -1,0 +1,85 @@
+package com.clouway.jobex.client.creatingnewcv;
+
+import com.clouway.jobex.client.applyingforjob.RequestFactoryHelper;
+import com.clouway.jobex.client.communication.JobExRequestFactory;
+import com.clouway.jobex.client.creatingnewcv.view.CreatingNewCVWorkflowView;
+import com.clouway.jobex.server.cv.CvsService;
+import com.clouway.jobex.shared.entities.CV;
+import com.clouway.jobex.shared.proxies.CVProxy;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
+
+/**
+ * @author Adelin Ghanayem adelin.ghanaem@clouway.com
+ */
+public class CreatingNewCVWorkflowTest {
+
+
+  private JobExRequestFactory factory;
+
+  private CvsService service;
+
+  private JobExRequestFactory.CVsRequestContext context;
+
+  private CreatingNewCVWorkflow workflow;
+
+  @Mock
+  private CreatingNewCVWorkflowView view;
+
+
+  @Before
+  public void setUp() throws Exception {
+
+    initMocks(this);
+
+    factory = RequestFactoryHelper.create(JobExRequestFactory.class);
+
+    service = RequestFactoryHelper.getService(CvsService.class);
+
+    context = factory.cvsRequestContext();
+
+    workflow = new CreatingNewCVWorkflow(view, factory);
+
+  }
+
+  @Test
+  public void shouldInitializeTheDriverWithTheRequestFactory() {
+
+    workflow.initialize();
+
+    verify(view).initializeEditorWithRequestFactory(isA(JobExRequestFactory.class));
+
+    verify(view).edit(isA(JobExRequestFactory.CVsRequestContext.class), isA(CVProxy.class));
+
+  }
+
+
+  @Test
+  public void flushesEditorAndFiresRequestContext() {
+
+    ArgumentCaptor<CV> cvArgumentCaptor = ArgumentCaptor.forClass(CV.class);
+
+    when(view.flush()).thenReturn(context);
+
+    workflow.initialize();
+
+    workflow.create();
+
+    verify(service).create(cvArgumentCaptor.capture());
+
+    assertThat(cvArgumentCaptor.getValue(), is(notNullValue()));
+
+    verify(view).notifyUserOfSuccessfulCVCreation();
+  }
+
+}

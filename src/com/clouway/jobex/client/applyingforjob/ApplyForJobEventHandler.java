@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.EventHandler;
 
 /**
  * An implementation of this Class is responsible for Handling ApplyForJobEvent
- * which is fire when the user applies for job.
+ * which is flush when the user applies for job.
  *
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */

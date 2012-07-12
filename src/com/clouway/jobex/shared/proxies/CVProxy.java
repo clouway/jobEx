@@ -20,5 +20,21 @@ public interface CVProxy extends EntityProxy {
 
   public void setVersion(Long version);
 
+  public void setName(String name);
+
+  public void setEmail(String email);
+
+  public void setPhoneNumber(String phoneNumber);
+
+  public void setSkills(String skills);
+
+  public String getName();
+
+  public String getEmail();
+
+  public String getPhoneNumber();
+
+  public String getSkills();
+
 
 }

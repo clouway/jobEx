@@ -6,6 +6,7 @@
   <inherits name='com.google.gwt.user.User'/>
   <inherits name="com.google.gwt.place.Place"/>
   <inherits name="com.google.web.bindery.requestfactory.RequestFactory"/>
+  <inherits name="com.google.gwt.activity.Activity"/>
 
   <!-- Specify the app entry point class.                   -->
   <entry-point class='com.clouway.jobex.client.Jobex'/>

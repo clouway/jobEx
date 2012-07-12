@@ -14,6 +14,45 @@ public class CV implements Serializable {
 
   private Long version;
 
+  private String name;
+
+  private String email;
+
+  private String phoneNumber;
+
+  private String skills;
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+
+  public void setSkills(String skills) {
+    this.skills = skills;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
+
+  public String getSkills() {
+    return skills;
+  }
 
   public CV() {
   }
