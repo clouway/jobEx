@@ -1,6 +1,6 @@
 package com.clouway.jobex.server.jobsearch;
 
-import com.clouway.jobex.shared.entities.Job;
+import com.clouway.jobex.server.job.Job;
 import com.google.appengine.api.datastore.Entity;
 
 import java.util.List;

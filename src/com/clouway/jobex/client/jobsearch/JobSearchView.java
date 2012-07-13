@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.jobsearch;
 
-import com.clouway.jobex.client.JobProxy;
+import com.clouway.jobex.shared.JobProxy;
 
 import java.util.List;
 
@@ -9,16 +9,18 @@ import java.util.List;
  */
 public interface JobSearchView {
 
-  public void fillTableWithJobAds(List<JobProxy> listOfJobObjects);
-  public String getCategoryValue();
-  public String getLocationValue();
-  public void disableSearchButton();
-  public void enableSearchButton();
-//  public void clearTable();
+
+  void fillTableWithJobAds(List<JobProxy> listOfJobObjects);
+
+
+  String getCategoryValue();
+  String getLocationValue();
+  void disableSearchButton();
+  void enableSearchButton();
 
   public interface Presenter{
     void onSearchButtonClicked();
   }
 
-  public void setPresenter(Presenter presenter);
+  void setPresenter(Presenter presenter);
 }

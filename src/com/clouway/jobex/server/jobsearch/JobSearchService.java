@@ -1,6 +1,8 @@
 package com.clouway.jobex.server.jobsearch;
 
-import com.clouway.jobex.shared.entities.Job;
+
+
+import com.clouway.jobex.server.job.Job;
 
 import java.util.List;
 

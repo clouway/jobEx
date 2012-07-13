@@ -1,31 +1,26 @@
 package com.clouway.jobex.shared;
 
+import com.clouway.jobex.server.JobLocator;
 import com.clouway.jobex.server.job.Job;
-import com.clouway.jobex.server.job.JobLocator;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
-import java.util.Date;
-
 /**
- * @author Ivan Lazov <darkpain1989@gmail.com>
+ * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
 @ProxyFor(value = Job.class, locator = JobLocator.class)
-public interface JobProxy extends EntityProxy {
+public interface JobProxy extends EntityProxy{
 
-  void setCompany(String company);
+  public String getCategory();
 
-  String getCompany();
+  public void setCategory(String category);
 
-  void setPosition(String position);
+  public String getLocation();
 
-  String getPosition();
+  public void setLocation(String location);
 
-  void setCategory(String category);
+  public Long getId();
 
-  String getCategory();
+  public void setId(Long id);
 
-  void setExpirationDate(Date date);
-
-  Date getExpirationDate();
 }

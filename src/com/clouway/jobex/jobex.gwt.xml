@@ -17,5 +17,5 @@
 
   <source path="client"/>
   <source path="shared"/>
-  <!--<source path="inject"/>-->
+  <source path="inject"/>
 </module>

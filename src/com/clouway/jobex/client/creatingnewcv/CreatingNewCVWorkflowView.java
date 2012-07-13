@@ -9,6 +9,7 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
  */
 public interface CreatingNewCVWorkflowView {
 
+
   void notifyUserOfSuccessfulCVCreation();
 
   void initializeEditorWithRequestFactory(JobExRequestFactory requestFactory);

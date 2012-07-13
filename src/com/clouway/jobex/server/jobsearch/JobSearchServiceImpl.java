@@ -1,6 +1,6 @@
 package com.clouway.jobex.server.jobsearch;
 
-import com.clouway.jobex.shared.entities.Job;
+import com.clouway.jobex.server.job.Job;
 import com.google.inject.Inject;
 
 import java.util.ArrayList;
@@ -45,6 +45,7 @@ public class JobSearchServiceImpl implements JobSearchService {
 
 
     String location = job.getLocation();
+
     String category = job.getCategory();
 
     if(("").equals(location) && !("").equals(category)){
