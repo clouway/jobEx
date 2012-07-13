@@ -20,18 +20,15 @@ public interface JobExRequestFactory extends RequestFactory {
 
   @Service(value = JobApplicationService.class, locator = JobApplicationServiceLocator.class)
   public interface JobApplicationRequestContext extends RequestContext {
-
     Request<Void> applyForJob(JobApplicationProxy applicationProxy);
-
-
   }
 
   @Service(value = CvsService.class, locator = CvsServiceLocator.class)
   public interface CVsRequestContext extends RequestContext {
 
-    Request<List<CVProxy>> fetchCreatedCVs();
+    Request<List<CVProxy>> fetchCreatedCVs(String username);
 
-    Request<Void> create(CVProxy proxy);
+    Request<Void> create(String username,CVProxy proxy);
 
   }
 

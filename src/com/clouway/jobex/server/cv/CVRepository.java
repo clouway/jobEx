@@ -9,8 +9,8 @@ import java.util.List;
  */
 public interface CVRepository {
 
-  List<CV> getCreatedCVs();
+  List<CV> getCreatedCVs(String username);
 
-  void save(CV cv);
+  void save(String username, CV cv);
 
 }

@@ -72,7 +72,6 @@ public class CreatingNewCVWorkflowViewImpl extends Composite implements Creating
 
   @Override
   public void setWorkFlow(CreatingNewCVWorkflow presenter) {
-
     this.presenter = presenter;
     presenter.initialize();
   }

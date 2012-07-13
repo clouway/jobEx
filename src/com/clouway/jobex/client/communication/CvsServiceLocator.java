@@ -11,6 +11,6 @@ import com.google.web.bindery.requestfactory.shared.ServiceLocator;
 public class CvsServiceLocator implements ServiceLocator {
   @Override
   public Object getInstance(Class<?> clazz) {
-    return new CvsServiceImpl(new CvRepositoryImpl("username", DatastoreServiceFactory.getDatastoreService()));
+    return new CvsServiceImpl(new CvRepositoryImpl(DatastoreServiceFactory.getDatastoreService()));
   }
 }

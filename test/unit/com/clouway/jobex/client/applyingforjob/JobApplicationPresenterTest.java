@@ -2,6 +2,7 @@ package com.clouway.jobex.client.applyingforjob;
 
 import com.clouway.jobex.client.communication.JobExRequestFactory;
 import com.clouway.jobex.client.applyingforjob.view.JobApplicationView;
+import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
 import com.clouway.jobex.server.cv.CvsService;
 import com.clouway.jobex.shared.entities.CV;
@@ -42,8 +43,13 @@ public class JobApplicationPresenterTest {
 
   private JobExRequestFactory.JobApplicationRequestContext context;
 
+  private String username = "user";
+
   @Mock
   JobApplicationView view;
+
+  @Mock
+  UsernameProvider provider;
 
   @Captor
   ArgumentCaptor<ArrayList<CVProxy>> returnedCVArgumentCaptures;
@@ -61,12 +67,14 @@ public class JobApplicationPresenterTest {
 
     context = factory.jobApplicationContext();
 
-    presenter = new JobApplicationPresenter(factory, view);
+    presenter = new JobApplicationPresenter(factory, view, provider);
+
+
   }
 
 
   @Test
-  public void appliesJobApplicationForJobWhenUserSelectsACVForASpecifiedJob() {
+  public void  applyForJobWithSelectedWhenUserCV() {
 
     presenter.applyForJob(1l, 2l);
 
@@ -119,11 +127,13 @@ public class JobApplicationPresenterTest {
 
     cvs.add(new CV());
 
-    when(cvsService.fetchCreatedCVs()).thenReturn(cvs);
+    when(cvsService.fetchCreatedCVs(username)).thenReturn(cvs);
+
+    when(provider.getUsername()).thenReturn(username);
 
     presenter.onApplyForJob(new ApplyForJobEvent(jobId));
 
-    verify(cvsService).fetchCreatedCVs();
+    verify(cvsService).fetchCreatedCVs(username);
 
     verify(view).showCreatedCVs(returnedCVArgumentCaptures.capture());
 
@@ -142,11 +152,13 @@ public class JobApplicationPresenterTest {
 
     ArrayList<CV> cvs = new ArrayList<CV>();
 
-    when(cvsService.fetchCreatedCVs()).thenReturn(cvs);
+    when(cvsService.fetchCreatedCVs(username)).thenReturn(cvs);
+
+    when(provider.getUsername()).thenReturn(username);
 
     presenter.onApplyForJob(new ApplyForJobEvent(jobId));
 
-    verify(cvsService).fetchCreatedCVs();
+    verify(cvsService).fetchCreatedCVs(username);
 
     verify(view).goToCreateNewCVForm();
   }

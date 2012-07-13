@@ -3,6 +3,7 @@ package com.clouway.jobex.client;
 import com.clouway.jobex.client.communication.JobExRequestFactory;
 import com.clouway.jobex.client.creatingnewcv.CreatingNewCVWorkflow;
 import com.clouway.jobex.client.creatingnewcv.view.CreatingNewCVWorkflowViewImpl;
+import com.clouway.jobex.client.security.UsernameProvider;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -27,7 +28,21 @@ public class Jobex implements EntryPoint {
 
     CreatingNewCVWorkflowViewImpl view = new CreatingNewCVWorkflowViewImpl();
 
-    CreatingNewCVWorkflow creatingNewCVWorkflow = new CreatingNewCVWorkflow(view, factory);
+    UsernameProvider usernameProvider = new UsernameProvider() {
+      String username = "abc";
+
+      @Override
+      public String getUsername() {
+        return username;
+      }
+
+      @Override
+      public void setUsername(String username) {
+        this.username = username;
+      }
+    };
+
+    CreatingNewCVWorkflow creatingNewCVWorkflow = new CreatingNewCVWorkflow(view, factory,usernameProvider);
 
     view.setWorkFlow(creatingNewCVWorkflow);
 

@@ -22,12 +22,12 @@ public class CvsServiceImpl implements CvsService {
   }
 
   @Override
-  public List<CV> fetchCreatedCVs() {
-    return cvRepository.getCreatedCVs();
+  public List<CV> fetchCreatedCVs(String username) {
+    return cvRepository.getCreatedCVs(username);
   }
 
   @Override
-  public void create(CV cv) {
+  public void create(String username,CV cv) {
 
   }
 }

@@ -26,18 +26,18 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
   }
 
 
-  private String  email;
+  private String username ="adio";
 
-  private CvRepositoryImpl repository = new CvRepositoryImpl(email, service);
+  private CvRepositoryImpl repository = new CvRepositoryImpl(service);
 
   @Test
   public void returnsAllSavedCVs() {
 
     CV cv = new CV();
 
-    repository.save(cv);
+    repository.save(username,cv);
 
-    List<CV> cvs = repository.getCreatedCVs();
+    List<CV> cvs = repository.getCreatedCVs(username);
 
     assertThat(cvs, is(notNullValue()));
 
@@ -46,6 +46,27 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
   }
 
 
+  @Test
+  public void tryWithAnotherCV() {
+
+    CV cv = new CV();
+
+    cv.setEmail("mail@mail.com");
 
 
+    repository.save(username, cv);
+
+    List<CV> cvs = repository.getCreatedCVs(username);
+
+
+    assertThat(cvs, is(notNullValue()));
+
+    assertThat(cvs.size(), is(equalTo(1)));
+
+    assertThat(cvs.get(0).getEmail(), is(equalTo("mail@mail.com")));
+
+
+
+
+  }
 }

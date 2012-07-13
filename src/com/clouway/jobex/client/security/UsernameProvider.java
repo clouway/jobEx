@@ -3,10 +3,10 @@ package com.clouway.jobex.client.security;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public interface UserIdProvider {
+public interface UsernameProvider {
 
-  Long getUserId();
+  String getUsername();
 
-  void setUserId(Long id);
+  void setUsername(String username);
 
 }

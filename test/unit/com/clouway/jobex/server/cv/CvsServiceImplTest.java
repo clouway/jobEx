@@ -25,6 +25,7 @@ public class CvsServiceImplTest {
   CVRepository cvRepository;
 
   CvsServiceImpl service;
+  private String username="user";
 
   @Before
   public void setUp() throws Exception {
@@ -42,11 +43,11 @@ public class CvsServiceImplTest {
 
     cvs.add(new CV());
 
-    when(cvRepository.getCreatedCVs()).thenReturn(cvs);
+    when(cvRepository.getCreatedCVs(username)).thenReturn(cvs);
 
-    List<CV> returnedList = service.fetchCreatedCVs();
+    List<CV> returnedList = service.fetchCreatedCVs(username);
 
-    verify(cvRepository).getCreatedCVs();
+    verify(cvRepository).getCreatedCVs(username);
 
     assertThat(returnedList, is(notNullValue()));
 

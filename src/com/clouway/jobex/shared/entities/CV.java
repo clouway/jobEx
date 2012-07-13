@@ -61,6 +61,14 @@ public class CV implements Serializable {
     this.id = id;
   }
 
+  public CV(Long id,String name, String email, String phoneNumber, String skills) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.skills = skills;
+  }
+
   public Long getId() {
     return id;
   }

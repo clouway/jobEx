@@ -3,6 +3,7 @@ package com.clouway.jobex.client.creatingnewcv;
 import com.clouway.jobex.client.applyingforjob.RequestFactoryHelper;
 import com.clouway.jobex.client.communication.JobExRequestFactory;
 import com.clouway.jobex.client.creatingnewcv.view.CreatingNewCVWorkflowView;
+import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.server.cv.CvsService;
 import com.clouway.jobex.shared.entities.CV;
 import com.clouway.jobex.shared.proxies.CVProxy;
@@ -14,6 +15,7 @@ import org.mockito.Mock;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -34,7 +36,12 @@ public class CreatingNewCVWorkflowTest {
   private CreatingNewCVWorkflow workflow;
 
   @Mock
+  private UsernameProvider provider;
+
+  @Mock
   private CreatingNewCVWorkflowView view;
+
+  private String username = "user";
 
 
   @Before
@@ -48,12 +55,14 @@ public class CreatingNewCVWorkflowTest {
 
     context = factory.cvsRequestContext();
 
-    workflow = new CreatingNewCVWorkflow(view, factory);
+    workflow = new CreatingNewCVWorkflow(view, factory, provider);
 
   }
 
   @Test
   public void shouldInitializeTheDriverWithTheRequestFactory() {
+
+    when(provider.getUsername()).thenReturn(username);
 
     workflow.initialize();
 
@@ -67,6 +76,7 @@ public class CreatingNewCVWorkflowTest {
   @Test
   public void flushesEditorAndFiresRequestContext() {
 
+
     ArgumentCaptor<CV> cvArgumentCaptor = ArgumentCaptor.forClass(CV.class);
 
     when(view.flush()).thenReturn(context);
@@ -75,7 +85,7 @@ public class CreatingNewCVWorkflowTest {
 
     workflow.create();
 
-    verify(service).create(cvArgumentCaptor.capture());
+    verify(service).create(eq(username), cvArgumentCaptor.capture());
 
     assertThat(cvArgumentCaptor.getValue(), is(notNullValue()));
 

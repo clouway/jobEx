@@ -2,6 +2,7 @@ package com.clouway.jobex.client.applyingforjob;
 
 import com.clouway.jobex.client.communication.JobExRequestFactory;
 import com.clouway.jobex.client.applyingforjob.view.JobApplicationView;
+import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
 import com.clouway.jobex.shared.entities.JobApplication;
 import com.clouway.jobex.shared.proxies.JobApplicationProxy;
@@ -34,13 +35,16 @@ public class RequestFactoryJRETest {
   @Mock
   JobApplicationView view;
 
+  @Mock
+  UsernameProvider provider;
+
   @Before
   public void setUp() throws Exception {
     initMocks(this);
     factory = RequestFactoryHelper.create(JobExRequestFactory.class);
     service = RequestFactoryHelper.getService(JobApplicationService.class);
     context = factory.jobApplicationContext();
-    presenter = new JobApplicationPresenter(factory, view);
+    presenter = new JobApplicationPresenter(factory, view,provider );
   }
 
   @Test
@@ -66,7 +70,7 @@ public class RequestFactoryJRETest {
 
     assertThat(jobApplication.getJobId(), is(equalTo(1l)));
 
-    verify(view).notifyUserOfSuccessfulAppliance();
+    verify(view).notifyUserOfCommunicationError();
 
 
   }
