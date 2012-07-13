@@ -1,6 +1,7 @@
 package com.clouway.jobex.client;
 
 
+
 import com.clouway.jobex.client.jobsearch.JobSearchPresenter;
 import com.clouway.jobex.client.jobsearch.JobSearchViewImpl;
 import com.google.gwt.core.client.EntryPoint;
@@ -17,6 +18,7 @@ public class Jobex implements EntryPoint {
    * This is the entry point method.
    */
   public void onModuleLoad() {
+
 
 
     JobexRequestFactory jobexRequestFactory = GWT.create(JobexRequestFactory.class);
