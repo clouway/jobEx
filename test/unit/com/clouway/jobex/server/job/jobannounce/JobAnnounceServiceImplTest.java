@@ -1,9 +1,7 @@
-package com.clouway.jobex.server.jobannounce;
+package com.clouway.jobex.server.job.jobannounce;
 
 import com.clouway.jobex.server.job.Job;
 import com.clouway.jobex.server.job.JobRepository;
-import com.clouway.jobex.server.job.jobannounce.JobAnnounceService;
-import com.clouway.jobex.server.job.jobannounce.JobAnnounceServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
