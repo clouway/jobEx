@@ -1,12 +1,15 @@
 package com.clouway.jobex.client;
 
-import com.clouway.jobex.client.communication.JobExRequestFactory;
-import com.clouway.jobex.client.creatingnewcv.CreatingNewCVWorkflow;
-import com.clouway.jobex.client.creatingnewcv.view.CreatingNewCVWorkflowViewImpl;
-import com.clouway.jobex.client.security.UsernameProvider;
+import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
+import com.clouway.jobex.client.job.jobannounce.JobAnnounceView;
+import com.clouway.jobex.client.job.jobannounce.JobAnnounceViewImpl;
+import com.clouway.jobex.client.security.CompanyNameProvider;
+import com.clouway.jobex.client.security.CompanyNameProviderImpl;
+import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 
@@ -22,32 +25,20 @@ public class Jobex implements EntryPoint {
 
     EventBus eventBus = new SimpleEventBus();
 
-    JobExRequestFactory factory = GWT.create(JobExRequestFactory.class);
+    JobExRequestFactory requestFactory = GWT.create(JobExRequestFactory.class);
 
-    factory.initialize(eventBus);
+    requestFactory.initialize(eventBus);
 
-    CreatingNewCVWorkflowViewImpl view = new CreatingNewCVWorkflowViewImpl();
+    JobExRequestFactory.JobRequestContext requestContext = requestFactory.jobRequestContext();
 
-    UsernameProvider usernameProvider = new UsernameProvider() {
-      String username = "abc";
+    JobAnnounceView view = new JobAnnounceViewImpl();
 
-      @Override
-      public String getUsername() {
-        return username;
-      }
+    CompanyNameProvider companyNameProvider = new CompanyNameProviderImpl();
+    companyNameProvider.setCompanyName("company");
 
-      @Override
-      public void setUsername(String username) {
-        this.username = username;
-      }
-    };
+    JobAnnounceView.Presenter presenter = new JobAnnouncePresenterImpl(requestContext, view, companyNameProvider);
 
-    CreatingNewCVWorkflow creatingNewCVWorkflow = new CreatingNewCVWorkflow(view, factory,usernameProvider);
-
-    view.setWorkFlow(creatingNewCVWorkflow);
-
-    RootPanel.get().add(view);
-
+    RootPanel.get().add((Widget) view);
   }
 }
 

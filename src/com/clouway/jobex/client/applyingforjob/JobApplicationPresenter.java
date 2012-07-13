@@ -1,10 +1,10 @@
 package com.clouway.jobex.client.applyingforjob;
 
-import com.clouway.jobex.client.communication.JobExRequestFactory;
+import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.client.applyingforjob.view.JobApplicationView;
 import com.clouway.jobex.client.security.UsernameProvider;
-import com.clouway.jobex.shared.proxies.CVProxy;
-import com.clouway.jobex.shared.proxies.JobApplicationProxy;
+import com.clouway.jobex.shared.CVProxy;
+import com.clouway.jobex.shared.JobApplicationProxy;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 

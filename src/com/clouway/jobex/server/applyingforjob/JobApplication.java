@@ -1,4 +1,4 @@
-package com.clouway.jobex.shared.entities;
+package com.clouway.jobex.server.applyingforjob;
 
 /**
  * A Data Transfer Object contains the CVId with which a user applies for a job and the

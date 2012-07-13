@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.communication;
+package com.clouway.jobex.server.cv;
 
 import com.clouway.jobex.server.cv.CvRepositoryImpl;
 import com.clouway.jobex.server.cv.CvsServiceImpl;

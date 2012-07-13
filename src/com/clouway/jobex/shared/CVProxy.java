@@ -1,6 +1,6 @@
-package com.clouway.jobex.shared.proxies;
+package com.clouway.jobex.shared;
 
-import com.clouway.jobex.server.applyingforjob.CVLocator;
+import com.clouway.jobex.server.cv.CVLocator;
 import com.clouway.jobex.shared.entities.CV;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;

@@ -1,7 +1,5 @@
 package com.clouway.jobex.server.applyingforjob;
 
-import com.clouway.jobex.shared.entities.JobApplication;
-
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */

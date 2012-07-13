@@ -1,4 +1,4 @@
-package com.clouway.jobex.shared.entities;
+package com.clouway.jobex.server.cv;
 
 import java.io.Serializable;
 

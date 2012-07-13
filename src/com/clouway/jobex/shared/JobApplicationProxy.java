@@ -1,7 +1,7 @@
-package com.clouway.jobex.shared.proxies;
+package com.clouway.jobex.shared;
 
 import com.clouway.jobex.server.applyingforjob.JobApplicationLocator;
-import com.clouway.jobex.shared.entities.JobApplication;
+import com.clouway.jobex.server.applyingforjob.JobApplication;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 

@@ -5,13 +5,13 @@
   <!-- Inherit the core Web Toolkit stuff.                  -->
   <inherits name='com.google.gwt.user.User'/>
   <inherits name="com.google.gwt.place.Place"/>
-  <inherits name="com.google.web.bindery.requestfactory.RequestFactory"/>
   <inherits name="com.google.gwt.activity.Activity"/>
+
+  <inherits name="com.google.gwt.editor.Editor"/>
+  <inherits name="com.google.web.bindery.requestfactory.RequestFactory"/>
 
   <!-- Specify the app entry point class.                   -->
   <entry-point class='com.clouway.jobex.client.Jobex'/>
-  <!--<servlet path="/ActionDispatcherService" class="com.clouway.jobex.server.communication.ActionDispatcherServiceImpl"/>-->
-  <!--<servlet path="/ApplicationSerivce" class="com.clouway.jobex.server.communication.ApplicationServiceImpl"/>-->
 
   <source path="client"/>
   <source path="shared"/>

@@ -1,4 +1,4 @@
-package com.clouway.jobex.server.applyingforjob;
+package com.clouway.jobex.server.cv;
 
 import com.clouway.jobex.shared.entities.CV;
 import com.google.web.bindery.requestfactory.shared.Locator;

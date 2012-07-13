@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.creatingnewcv.view;
 
-import com.clouway.jobex.shared.proxies.CVProxy;
+import com.clouway.jobex.shared.CVProxy;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.uibinder.client.UiBinder;

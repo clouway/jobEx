@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.applyingforjob.view;
 
-import com.clouway.jobex.shared.proxies.CVProxy;
+import com.clouway.jobex.shared.CVProxy;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 

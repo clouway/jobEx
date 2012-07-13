@@ -1,8 +1,8 @@
 package com.clouway.jobex.client.creatingnewcv.view;
 
-import com.clouway.jobex.client.communication.JobExRequestFactory;
+import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.client.creatingnewcv.CreatingNewCVWorkflow;
-import com.clouway.jobex.shared.proxies.CVProxy;
+import com.clouway.jobex.shared.CVProxy;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 
 /**

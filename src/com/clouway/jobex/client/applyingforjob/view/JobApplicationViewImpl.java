@@ -1,8 +1,8 @@
 package com.clouway.jobex.client.applyingforjob.view;
 
 import com.clouway.jobex.client.applyingforjob.JobApplicationPresenter;
-import com.clouway.jobex.client.communication.JobExRequestFactory;
-import com.clouway.jobex.shared.proxies.CVProxy;
+import com.clouway.jobex.shared.JobExRequestFactory;
+import com.clouway.jobex.shared.CVProxy;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
