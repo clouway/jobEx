@@ -1,17 +1,11 @@
 package com.clouway.jobex.client;
 
-import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenter;
-import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
-import com.clouway.jobex.client.job.jobannounce.JobAnnounceView;
-import com.clouway.jobex.client.job.jobannounce.JobAnnounceViewImpl;
-import com.clouway.jobex.client.security.CompanyNameProvider;
-import com.clouway.jobex.client.security.CompanyNameProviderImpl;
-import com.clouway.jobex.shared.JobExRequestFactory;
+
+import com.clouway.jobex.client.jobsearch.JobSearchPresenter;
+import com.clouway.jobex.client.jobsearch.JobSearchViewImpl;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 
 /**
@@ -24,22 +18,14 @@ public class Jobex implements EntryPoint {
    */
   public void onModuleLoad() {
 
-    EventBus eventBus = new SimpleEventBus();
 
-    JobExRequestFactory requestFactory = GWT.create(JobExRequestFactory.class);
-
-    requestFactory.initialize(eventBus);
-
-    JobExRequestFactory.JobRequestContext requestContext = requestFactory.jobRequestContext();
-
-    JobAnnounceView view = new JobAnnounceViewImpl();
-
-    CompanyNameProvider companyNameProvider = new CompanyNameProviderImpl();
-    companyNameProvider.setCompanyName("company");
-
-    JobAnnouncePresenter presenter = new JobAnnouncePresenterImpl(requestContext, view, companyNameProvider);
-
-    RootPanel.get().add((Widget) view);
+    JobexRequestFactory jobexRequestFactory = GWT.create(JobexRequestFactory.class);
+    jobexRequestFactory.initialize(new SimpleEventBus());
+    JobexRequestFactory.JobRequest jobRequest = jobexRequestFactory.jobRequest();
+    JobSearchViewImpl jobSearchView = new JobSearchViewImpl();
+    JobSearchPresenter jobSearchPresenter = new JobSearchPresenter(jobexRequestFactory,jobSearchView);
+    jobSearchPresenter.setPresenterToTheView();
+    RootPanel.get().add(jobSearchView);
   }
 }
 
