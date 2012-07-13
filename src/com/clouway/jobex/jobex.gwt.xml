@@ -4,6 +4,7 @@
 
   <!-- Inherit the core Web Toolkit stuff.                  -->
   <inherits name='com.google.gwt.user.User'/>
+
   <inherits name="com.google.gwt.place.Place"/>
   <inherits name="com.google.gwt.activity.Activity"/>
   <inherits name="com.google.gwt.editor.Editor"/>
@@ -12,7 +13,6 @@
 
   <!-- Specify the app entry point class.                   -->
   <entry-point class='com.clouway.jobex.client.JobEx'/>
-
 
 
   <source path="client"/>

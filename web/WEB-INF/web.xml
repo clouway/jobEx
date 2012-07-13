@@ -6,14 +6,7 @@
          version="2.5">
 
 
-  <!--<servlet>-->
-    <!--<servlet-name>com.clouway.jobex.jobex ActionDispatcherService</servlet-name>-->
-    <!--<servlet-class>com.clouway.jobex.server.communication.ActionDispatcherServiceImpl</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>com.clouway.jobex.jobex ActionDispatcherService</servlet-name>-->
-    <!--<url-pattern>/jobex/ActionDispatcherService</url-pattern>-->
-  <!--</servlet-mapping>-->
+
   <filter>
     <filter-name>guiceFilter</filter-name>
     <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
