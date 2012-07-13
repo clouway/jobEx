@@ -1,0 +1,18 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:cellview="urn:import:com.google.gwt.user.cellview.client">
+
+
+  <g:HTMLPanel>
+    <g:FlowPanel>
+      <g:Label ui:field="messages"/>
+      <g:VerticalPanel>
+      </g:VerticalPanel>
+      <g:VerticalPanel>
+        <cellview:CellList ui:field="cVCellTable"/>
+      </g:VerticalPanel>
+      <g:Label text="" ui:field="errors"/>
+    </g:FlowPanel>
+  </g:HTMLPanel>
+
+</ui:UiBinder>
