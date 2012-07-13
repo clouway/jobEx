@@ -1,4 +1,4 @@
-package com.clouway.jobex.server.inject;
+package com.clouway.jobex.inject;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

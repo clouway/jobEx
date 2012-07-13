@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.jobsearch;
 
-import com.clouway.jobex.client.JobProxy;
-import com.clouway.jobex.client.JobexRequestFactory;
+import com.clouway.jobex.shared.JobExRequestFactory;
+import com.clouway.jobex.shared.JobProxy;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
@@ -13,10 +13,10 @@ import java.util.List;
 public class JobSearchPresenter implements JobSearchView.Presenter {
 
 
-  private final JobexRequestFactory factory;
+  private final JobExRequestFactory factory;
   private final JobSearchView jobSearchView;
 
-  public JobSearchPresenter(JobexRequestFactory factory, JobSearchView jobSearchView) {
+  public JobSearchPresenter(JobExRequestFactory factory, JobSearchView jobSearchView) {
     this.factory = factory;
     this.jobSearchView = jobSearchView;
 //    jobSearchView.setPresenter(this);
@@ -36,7 +36,7 @@ public class JobSearchPresenter implements JobSearchView.Presenter {
 
 
     jobSearchView.disableSearchButton();
-    JobexRequestFactory.JobRequest jobSearchRequest = factory.jobRequest();
+    JobExRequestFactory.JobRequest jobSearchRequest = factory.jobRequest();
     JobProxy jobProxy = jobSearchRequest.create(JobProxy.class);
 
     jobProxy.setLocation(location);

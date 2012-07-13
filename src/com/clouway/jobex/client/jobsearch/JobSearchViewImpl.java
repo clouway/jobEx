@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.jobsearch;
 
-import com.clouway.jobex.client.JobProxy;
+import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
@@ -85,7 +85,7 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
   //       new SimpleEventBus().fireEvent();
 
 //        EventBus eventBus;
-//        eventBus.fireEvent(new );
+//        eventBus.fireEvent(new ApplyForJobEvent(object.getId()));
       }
     });
 
@@ -111,7 +111,6 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
 //    }
     jobsCellTable.setVisibleRange(0, listOfJobObjects.size());
     jobsCellTable.setRowData(0, listOfJobObjects);
-//    jobsCellTable.addColumn();
   }
 
   @Override
@@ -133,16 +132,6 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
   public void enableSearchButton() {
     searchButton.setEnabled(true);
   }
-
-//  @Override
-//  public void clearTable(){
-//    for(int i=jobsCellTable.getRowCount()-1; i>=0; i--){
-//      jobsCellTable.getRowElement(i).deleteCell(2);
-//      jobsCellTable.getRowElement(i).deleteCell(1);
-//      jobsCellTable.getRowElement(i).deleteCell(0);
-//    }
-//
-//  }
 
 
   @UiHandler("searchButton")
