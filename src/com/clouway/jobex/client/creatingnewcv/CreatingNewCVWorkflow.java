@@ -1,7 +1,6 @@
 package com.clouway.jobex.client.creatingnewcv;
 
 import com.clouway.jobex.shared.JobExRequestFactory;
-import com.clouway.jobex.client.creatingnewcv.view.CreatingNewCVWorkflowView;
 import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.shared.CVProxy;
 

@@ -1,7 +1,6 @@
-package com.clouway.jobex.client.creatingnewcv.view;
+package com.clouway.jobex.client.creatingnewcv;
 
 import com.clouway.jobex.shared.JobExRequestFactory;
-import com.clouway.jobex.client.creatingnewcv.CreatingNewCVWorkflow;
 import com.clouway.jobex.shared.CVProxy;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

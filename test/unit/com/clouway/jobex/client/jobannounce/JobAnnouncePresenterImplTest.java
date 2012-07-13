@@ -1,12 +1,14 @@
 package com.clouway.jobex.client.jobannounce;
 
 import com.clouway.jobex.RequestFactoryHelper;
-import com.clouway.jobex.client.jobannounce.view.JobAnnounceView;
-import com.clouway.jobex.server.domain.Job;
-import com.clouway.jobex.server.jobannounce.JobAnnounceService;
+import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
+import com.clouway.jobex.client.job.jobannounce.JobAnnounceReceiver;
+import com.clouway.jobex.client.job.jobannounce.JobAnnounceView;
+import com.clouway.jobex.client.security.CompanyNameProvider;
+import com.clouway.jobex.server.job.Job;
+import com.clouway.jobex.server.job.jobannounce.JobAnnounceService;
+import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.shared.JobProxy;
-import com.clouway.jobex.shared.JobRequestContext;
-import com.clouway.jobex.shared.JobexRequestFactory;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,9 +19,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
@@ -28,7 +28,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class JobAnnouncePresenterImplTest {
 
   private JobAnnouncePresenterImpl presenter;
-  private JobRequestContext requestContext;
+  private JobExRequestFactory.JobRequestContext requestContext;
   private JobAnnounceService service;
   private Receiver<Void> receiver;
 
@@ -43,9 +43,9 @@ public class JobAnnouncePresenterImplTest {
 
     initMocks(this);
 
-    JobexRequestFactory requestFactory = RequestFactoryHelper.create(JobexRequestFactory.class);
+    JobExRequestFactory requestFactory = RequestFactoryHelper.create(JobExRequestFactory.class);
 
-    requestContext = requestFactory.jobRequest();
+    requestContext = requestFactory.jobRequestContext();
 
     receiver = new JobAnnounceReceiver(view);
 

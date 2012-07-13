@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.job.jobannounce;
 
+import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.shared.JobProxy;
-import com.clouway.jobex.shared.JobRequestContext;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -46,7 +46,7 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
 
     this.presenter = presenter;
 
-    JobRequestContext requestContext = presenter.getJobRequestContext();
+    JobExRequestFactory.JobRequestContext requestContext = presenter.getJobRequestContext();
     JobProxy jobProxy = requestContext.edit(presenter.getJobProxy());
 
     driver.edit(jobProxy, requestContext);

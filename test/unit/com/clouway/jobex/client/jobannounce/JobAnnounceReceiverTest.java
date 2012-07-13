@@ -1,6 +1,7 @@
 package com.clouway.jobex.client.jobannounce;
 
-import com.clouway.jobex.client.jobannounce.view.JobAnnounceView;
+import com.clouway.jobex.client.job.jobannounce.JobAnnounceReceiver;
+import com.clouway.jobex.client.job.jobannounce.JobAnnounceView;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

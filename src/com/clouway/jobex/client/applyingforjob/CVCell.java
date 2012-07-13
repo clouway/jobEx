@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.applyingforjob.view;
+package com.clouway.jobex.client.applyingforjob;
 
 import com.clouway.jobex.shared.CVProxy;
 import com.google.gwt.cell.client.AbstractCell;

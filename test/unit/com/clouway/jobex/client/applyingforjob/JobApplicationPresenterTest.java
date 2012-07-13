@@ -1,11 +1,10 @@
 package com.clouway.jobex.client.applyingforjob;
 
+import com.clouway.jobex.server.cv.CV;
 import com.clouway.jobex.shared.JobExRequestFactory;
-import com.clouway.jobex.client.applyingforjob.view.JobApplicationView;
 import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
 import com.clouway.jobex.server.cv.CvsService;
-import com.clouway.jobex.shared.entities.CV;
 import com.clouway.jobex.server.applyingforjob.JobApplication;
 import com.clouway.jobex.shared.CVProxy;
 import org.junit.Before;
