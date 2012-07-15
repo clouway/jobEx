@@ -1,11 +1,11 @@
 package com.clouway.jobex.server;
 
+import com.clouway.jobex.inject.MyConstraintValidatorFactory;
+import com.clouway.jobex.inject.MyRequestFactoryServlet;
 import com.clouway.jobex.server.job.JobRepository;
 import com.clouway.jobex.server.job.JobRepositoryImpl;
 import com.clouway.jobex.server.job.jobsearch.JobSearchServiceImpl;
 import com.clouway.jobex.server.job.jobsearch.JobSearchService;
-import com.clouway.jobex.inject.MyConstraintValidatorFactory;
-import com.clouway.jobex.inject.MyRequestFactoryServlet;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.inject.Guice;
