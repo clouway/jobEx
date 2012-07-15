@@ -3,8 +3,6 @@ package com.clouway.jobex.server.job;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.inject.Inject;
@@ -63,18 +61,5 @@ public class JobRepositoryImpl implements JobRepository{
 
     PreparedQuery preparedQuery = datastoreService.prepare(query);
     return convertToListOfJobObjects(preparedQuery.asList(FetchOptions.Builder.withDefaults()));
-  }
-
-  public void saveJob(String companyName, Job job) {
-
-    Key companyKey = KeyFactory.createKey("Company", companyName);
-
-    Entity entity = new Entity("Job", companyKey);
-    entity.setProperty("company", job.getCompany());
-    entity.setProperty("position", job.getPosition());
-    entity.setProperty("category", job.getCategory());
-    entity.setProperty("expirationDate", job.getExpirationDate());
-
-    datastoreService.put(entity);
   }
 }
