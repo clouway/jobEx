@@ -64,8 +64,8 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
 
     assertThat(cvs.get(0).getEmail(), is(equalTo("mail@mail.com")));
 
-
-
-
   }
+
+
+
 }

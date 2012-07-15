@@ -29,7 +29,7 @@ public interface JobExRequestFactory extends RequestFactory {
 
     Request<List<CVProxy>> fetchCreatedCVs(String username);
 
-    Request<Void> create(String username,CVProxy proxy);
+    Request<Void> add(String username, CVProxy proxy);
 
   }
 
