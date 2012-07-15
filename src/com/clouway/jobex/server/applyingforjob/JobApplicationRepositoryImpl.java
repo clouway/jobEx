@@ -1,6 +1,5 @@
 package com.clouway.jobex.server.applyingforjob;
 
-import com.clouway.jobex.shared.entities.JobApplication;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Query;

@@ -1,6 +1,5 @@
 package com.clouway.jobex.client.creatingnewcv;
 
-import com.clouway.jobex.client.creatingnewcv.view.CreatingNewCVWorkflowView;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 import org.junit.Before;
 import org.junit.Test;

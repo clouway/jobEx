@@ -1,0 +1,16 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:d='urn:import:com.clouway.jobex.client.job.jobannounce'>
+
+  <g:HTMLPanel>
+
+    <d:JobEditor ui:field="jobEditor" />
+
+    <div>
+      <g:Button ui:field="cancel" text="Cancel" />
+      <g:Button ui:field="announce" text="Announce" />
+    </div>
+
+  </g:HTMLPanel>
+
+</ui:UiBinder>

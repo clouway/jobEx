@@ -1,6 +1,5 @@
 package com.clouway.jobex.server.cv;
 
-import com.clouway.jobex.shared.entities.CV;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
