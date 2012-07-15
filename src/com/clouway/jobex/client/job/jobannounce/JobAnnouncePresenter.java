@@ -6,7 +6,7 @@ package com.clouway.jobex.client.job.jobannounce;
 public interface JobAnnouncePresenter {
 
   /**
-   * The method is used to create JobProxy object and after that sets the RequestContext
+   * The method is used to add JobProxy object and after that sets the RequestContext
    * which will be fired with given Receiver<Void>
    */
   void initialize();

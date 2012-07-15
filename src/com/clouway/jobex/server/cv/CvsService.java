@@ -2,6 +2,8 @@ package com.clouway.jobex.server.cv;
 
 import java.util.List;
 
+import java.util.List;
+
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
@@ -13,7 +15,7 @@ public interface CvsService {
    */
   List<CV> fetchCreatedCVs(String username);
 
-  void create(String username,CV cv);
+  void add(String username, CV cv);
 
 
 

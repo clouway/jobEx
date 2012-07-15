@@ -80,11 +80,14 @@ public class CreatingNewCVWorkflowTest {
 
     when(view.flush()).thenReturn(context);
 
+
+    when(provider.getUsername()).thenReturn(username);
+
     workflow.initialize();
 
     workflow.create();
 
-    verify(service).create(eq(username), cvArgumentCaptor.capture());
+    verify(service).add(eq(username), cvArgumentCaptor.capture());
 
     assertThat(cvArgumentCaptor.getValue(), is(notNullValue()));
 

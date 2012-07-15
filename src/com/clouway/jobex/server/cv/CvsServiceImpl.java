@@ -8,24 +8,24 @@ import java.util.List;
 public class CvsServiceImpl implements CvsService {
 
 
-  private final CVRepository cvRepository;
+  private final CVRepository repository;
 
   /**
    * Creates New CVServiceImpl
    *
-   * @param cvRepository: Cv Repository
+   * @param repository: Cv Repository
    */
-  public CvsServiceImpl(CVRepository cvRepository) {
-    this.cvRepository = cvRepository;
+  public CvsServiceImpl(CVRepository repository) {
+    this.repository = repository;
   }
 
   @Override
   public List<CV> fetchCreatedCVs(String username) {
-    return cvRepository.getCreatedCVs(username);
+    return repository.getCreatedCVs(username);
   }
 
   @Override
-  public void create(String username,CV cv) {
-
+  public void add(String username, CV cv) {
+    repository.save(username, cv);
   }
 }

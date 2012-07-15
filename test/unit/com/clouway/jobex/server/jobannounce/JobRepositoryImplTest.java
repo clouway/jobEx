@@ -17,8 +17,8 @@ import org.junit.Test;
 import java.util.Date;
 
 import static com.google.appengine.api.datastore.FetchOptions.Builder.*;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -37,7 +37,7 @@ public class JobRepositoryImplTest {
   public void setUp() {
     service.setUp();
     datastore = DatastoreServiceFactory.getDatastoreService();
-    repository = new JobRepositoryImpl();
+    repository = new JobRepositoryImpl(datastore);
   }
 
   @After
@@ -64,5 +64,6 @@ public class JobRepositoryImplTest {
     assertThat((String) savedJob.getProperty("position"), is(equalTo(job.getPosition())));
     assertThat((String) savedJob.getProperty("category"), is(equalTo(job.getCategory())));
     assertThat((Date) savedJob.getProperty("expirationDate"), is(equalTo(job.getExpirationDate())));
+
   }
 }

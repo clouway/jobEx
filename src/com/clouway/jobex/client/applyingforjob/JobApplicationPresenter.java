@@ -1,6 +1,7 @@
 package com.clouway.jobex.client.applyingforjob;
 
 import com.clouway.jobex.shared.JobExRequestFactory;
+import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.shared.CVProxy;
 import com.clouway.jobex.shared.JobApplicationProxy;

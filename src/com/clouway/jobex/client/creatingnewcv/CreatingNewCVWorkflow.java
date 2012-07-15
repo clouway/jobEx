@@ -1,8 +1,11 @@
 package com.clouway.jobex.client.creatingnewcv;
 
-import com.clouway.jobex.shared.JobExRequestFactory;
+
 import com.clouway.jobex.client.security.UsernameProvider;
+
 import com.clouway.jobex.shared.CVProxy;
+
+import com.clouway.jobex.shared.JobExRequestFactory;
 
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
@@ -34,7 +37,7 @@ public class CreatingNewCVWorkflow {
 
     CVProxy proxy = context.create(CVProxy.class);
 
-    context.create(provider.getUsername(), proxy).to(new CreatingNewCvReceiver(view));
+    context.add(provider.getUsername(), proxy).to(new CreatingNewCvReceiver(view));
 
     CVProxy mutableProxy = context.edit(proxy);
 
@@ -47,7 +50,9 @@ public class CreatingNewCVWorkflow {
 
   public void create() {
 
-    view.flush().fire();
+    view.flush();
+
+    context.fire();
 
   }
 }

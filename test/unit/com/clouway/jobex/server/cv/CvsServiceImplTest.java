@@ -1,5 +1,6 @@
 package com.clouway.jobex.server.cv;
 
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -21,15 +22,15 @@ public class CvsServiceImplTest {
 
 
   @Mock
-  CVRepository cvRepository;
+  CVRepository repository;
 
   CvsServiceImpl service;
-  private String username="user";
+  private String username = "user";
 
   @Before
   public void setUp() throws Exception {
     initMocks(this);
-    service = new CvsServiceImpl(cvRepository);
+    service = new CvsServiceImpl(repository);
 
   }
 
@@ -42,15 +43,33 @@ public class CvsServiceImplTest {
 
     cvs.add(new CV());
 
-    when(cvRepository.getCreatedCVs(username)).thenReturn(cvs);
+    when(repository.getCreatedCVs(username)).thenReturn(cvs);
 
     List<CV> returnedList = service.fetchCreatedCVs(username);
 
-    verify(cvRepository).getCreatedCVs(username);
+    verify(repository).getCreatedCVs(username);
 
     assertThat(returnedList, is(notNullValue()));
 
     assertThat(returnedList.size(), is(2));
   }
+
+
+  @Test
+  public void addsCvInRepository() {
+
+    CV cv = new CV();
+
+    cv.setEmail("mail@mail.com");
+
+    String username = "username";
+
+    service.add(username, cv);
+
+    verify(repository).save(username, cv);
+
+  }
+
+
 
 }
