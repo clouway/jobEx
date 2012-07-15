@@ -23,6 +23,11 @@ public class JobRepositoryImpl implements JobRepository{
     this.datastoreService = datastoreService;
   }
 
+  /**
+   * Get list of job objects by location from the datastore
+   * @param location a job location
+   * @return list with all jobs that have the current location parameter
+   */
   @Override
   public List<Job> getAllJobsByLocation(String location) {
     Query query = new Query("Job");
@@ -45,6 +50,11 @@ public class JobRepositoryImpl implements JobRepository{
     return listOfJobs;
   }
 
+  /**
+   * Get list of job objects by category from the datastore
+   * @param category a job category
+   * @return list with all jobs that have the current category parameter
+   */
   @Override
   public List<Job> getAllJobsByCategory(String category) {
     Query query = new Query("Job");
@@ -54,10 +64,18 @@ public class JobRepositoryImpl implements JobRepository{
     return convertToListOfJobObjects(preparedQuery.asList(FetchOptions.Builder.withDefaults()));
   }
 
+  /**
+   * Get list of job objects by location and category from the datastore
+   * @param location a job location
+   * @param category a job category
+   * @return list with all jobs that have the current location and category parameters
+   */
   @Override
   public List<Job> getAllJobsByLocationAndCategory(String location, String category) {
     Query query = new Query("Job");
-    query.setFilter(Query.CompositeFilterOperator.and(new Query.FilterPredicate("location", Query.FilterOperator.EQUAL, location), new Query.FilterPredicate("category", Query.FilterOperator.EQUAL, category)));
+    query.setFilter(Query.CompositeFilterOperator.and(
+            new Query.FilterPredicate("location", Query.FilterOperator.EQUAL, location),
+            new Query.FilterPredicate("category", Query.FilterOperator.EQUAL, category)));
 
     PreparedQuery preparedQuery = datastoreService.prepare(query);
     return convertToListOfJobObjects(preparedQuery.asList(FetchOptions.Builder.withDefaults()));
