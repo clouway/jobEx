@@ -1,7 +1,6 @@
 package com.clouway.jobex.server.applyingforjob;
 
 import com.clouway.jobex.server.AppEngineTestCase;
-import com.clouway.jobex.shared.entities.JobApplication;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;

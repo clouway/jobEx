@@ -1,7 +1,5 @@
 package com.clouway.jobex.server.cv;
 
-import com.clouway.jobex.shared.entities.CV;
-
 import java.util.List;
 
 /**

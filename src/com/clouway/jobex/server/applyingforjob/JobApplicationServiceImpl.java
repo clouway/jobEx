@@ -1,7 +1,5 @@
 package com.clouway.jobex.server.applyingforjob;
 
-import com.clouway.jobex.shared.entities.JobApplication;
-
 /**
  * An Implementation of JobApplicationService
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
