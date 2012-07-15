@@ -1,6 +1,8 @@
 package com.clouway.jobex.server.job;
 
 import com.clouway.jobex.server.job.jobannounce.JobAnnounceServiceImpl;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.web.bindery.requestfactory.shared.ServiceLocator;
 
 /**
@@ -8,9 +10,9 @@ import com.google.web.bindery.requestfactory.shared.ServiceLocator;
  */
 public class JobServiceLocator implements ServiceLocator {
 
-  private JobRepository repository = new JobRepositoryImpl();
-
   public Object getInstance(Class<?> clazz) {
-    return new JobAnnounceServiceImpl(repository);
+    DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
+    JobRepository jobRepository = new JobRepositoryImpl(datastoreService);
+    return new JobAnnounceServiceImpl(jobRepository);
   }
 }

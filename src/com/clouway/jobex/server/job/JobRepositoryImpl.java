@@ -1,7 +1,6 @@
 package com.clouway.jobex.server.job;
 
 import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -11,7 +10,12 @@ import com.google.appengine.api.datastore.KeyFactory;
  */
 public class JobRepositoryImpl implements JobRepository {
 
-  private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+  private final DatastoreService datastore;
+
+  public JobRepositoryImpl(DatastoreService datastore) {
+
+    this.datastore = datastore;
+  }
 
   public void saveJob(String companyName, Job job) {
 
