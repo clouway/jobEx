@@ -23,6 +23,11 @@ public class JobSearchServiceImpl implements JobSearchService {
     this.jobRepository = jobRepository;
   }
 
+  /**
+   * Search in the DatastoreService for jobs with given job parameters
+   * @param job the object from which the criteria for searching are taken
+   * @return list of the jobs according to the criteria given
+   */
   public List<Job> search(Job job) {
     
     List<Job> jobList = null;

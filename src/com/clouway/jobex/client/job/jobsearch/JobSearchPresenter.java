@@ -8,6 +8,8 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 import java.util.List;
 
 /**
+ * Handle the logic for the JobSearchViewImpl
+ *
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
 public class JobSearchPresenter{
@@ -31,6 +33,11 @@ public class JobSearchPresenter{
     search(jobSearchView.getLocationValue(), jobSearchView.getCategoryValue());
   }
 
+  /**
+   * Search for jbos and show the results in a cell table
+   * @param location criteria for searching
+   * @param category criteria for searching
+   */
   public void search(String location, String category) {
 
 

@@ -90,13 +90,9 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
         // Value is the button value.  Object is the row object.
   //       new SimpleEventBus().fireEvent();
 
-<<<<<<< HEAD
-//        EventBus eventBus;
-//        eventBus.fireEvent(new ApplyForJobEvent(object.getId()));
-=======
+
         eventBus.fireEvent(new ApplyForJobEvent(object.getId()));
 
->>>>>>> some refactoring
       }
     });
 
@@ -114,6 +110,11 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
     this.presenter = presenter;
   }
 
+
+  /**
+   * Show list of job adds in a cell table
+   * @param listOfJobObjects the list that is going to be shown
+   */
   @Override
   public void showJobAds(List<JobProxy> listOfJobObjects) {
 //    List<JobProxy> list = dataProvider.getList();
@@ -124,21 +125,35 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
     jobsCellTable.setRowData(0, listOfJobObjects);
   }
 
+  /**
+   *
+   * @return the category of a job from a textBox
+   */
   @Override
   public String getCategoryValue() {
-    return positionValue.getText();  //To change body of implemented methods use File | Settings | File Templates.
+    return positionValue.getText();
   }
 
+  /**
+   *
+   * @return the location of a job from a textBox
+   */
   @Override
   public String getLocationValue() {
-    return locationValue.getText();  //To change body of implemented methods use File | Settings | File Templates.
+    return locationValue.getText();
   }
 
+  /**
+   * Disable the search button
+   */
   @Override
   public void disableSearch() {
     searchButton.setEnabled(false);
   }
 
+  /**
+   * Enable the search button
+   */
   @Override
   public void enableSearch() {
     searchButton.setEnabled(true);
