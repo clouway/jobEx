@@ -3,25 +3,28 @@
              xmlns:d='urn:import:com.google.gwt.user.datepicker.client'>
 
   <g:HTMLPanel>
-    <div>
-      Company: <g:TextBox ui:field="company" />
-    </div>
 
-    <div>
-      Position: <g:TextBox ui:field="position" />
-    </div>
+    <table>
+      <tr>
+        <td>Company: </td>
+        <td><g:TextBox ui:field="company" /></td>
+      </tr>
 
-    <div>
-      Category: <g:TextBox ui:field="category" />
-    </div>
+      <tr>
+        <td>Position: </td>
+        <td><g:TextBox ui:field="position" /></td>
+      </tr>
 
-    <div>
-      Location: <g:TextBox ui:field="location" />
-    </div>
+      <tr>
+        <td>Category: </td>
+        <td><g:TextBox ui:field="category" /></td>
+      </tr>
 
-    <div>
-      Expiration Date: <d:DateBox ui:field="date" />
-    </div>
+      <tr>
+        <td>Expiration Date: </td>
+        <td><d:DateBox ui:field="date" /></td>
+      </tr>
+    </table>
 
 
 
