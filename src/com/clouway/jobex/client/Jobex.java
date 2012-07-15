@@ -1,5 +1,6 @@
 package com.clouway.jobex.client;
 
+import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenter;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
 import com.clouway.jobex.client.job.jobannounce.JobAnnounceView;
 import com.clouway.jobex.client.job.jobannounce.JobAnnounceViewImpl;
@@ -36,7 +37,7 @@ public class Jobex implements EntryPoint {
     CompanyNameProvider companyNameProvider = new CompanyNameProviderImpl();
     companyNameProvider.setCompanyName("company");
 
-    JobAnnounceView.Presenter presenter = new JobAnnouncePresenterImpl(requestContext, view, companyNameProvider);
+    JobAnnouncePresenter presenter = new JobAnnouncePresenterImpl(requestContext, view, companyNameProvider);
 
     RootPanel.get().add((Widget) view);
   }

@@ -16,9 +16,9 @@ import java.util.Date;
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public class JobAnnounceEditor extends Composite implements Editor<JobProxy> {
+public class JobEditor extends Composite implements Editor<JobProxy> {
 
-  interface JobAnnounceEditorUiBinder extends UiBinder<Widget, JobAnnounceEditor> {}
+  interface JobAnnounceEditorUiBinder extends UiBinder<Widget, JobEditor> {}
   private static JobAnnounceEditorUiBinder uiBinder = GWT.create(JobAnnounceEditorUiBinder.class);
 
   @UiField
@@ -44,7 +44,7 @@ public class JobAnnounceEditor extends Composite implements Editor<JobProxy> {
     }
   };
 
-  public JobAnnounceEditor() {
+  public JobEditor() {
     initWidget(uiBinder.createAndBindUi(this));
   }
 }

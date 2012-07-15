@@ -17,7 +17,6 @@ import org.mockito.Mock;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -59,7 +58,8 @@ public class JobAnnouncePresenterImplTest {
 
     JobProxy jobProxy = requestContext.create(JobProxy.class);
 
-    presenter.createRequest(jobProxy, receiver);
+    presenter.initialize();
+
     presenter.announceJob();
 
     ArgumentCaptor<Job> jobCaptor = ArgumentCaptor.forClass(Job.class);
@@ -73,17 +73,5 @@ public class JobAnnouncePresenterImplTest {
     assertThat(jobProxy.getCompany(), is(equalTo(job.getCompany())));
     assertThat(jobProxy.getPosition(), is(equalTo(job.getPosition())));
     assertThat(jobProxy.getCategory(), is(equalTo(job.getCategory())));
-  }
-
-  @Test
-  public void getJobRequestContext() {
-
-    assertNotNull(presenter.getJobRequestContext());
-  }
-
-  @Test
-  public void getJobProxy() {
-
-    assertNotNull(presenter.getJobProxy());
   }
 }

@@ -4,7 +4,7 @@
 
   <g:HTMLPanel>
 
-    <d:JobAnnounceEditor ui:field="jobAnnounceEditor" />
+    <d:JobEditor ui:field="jobEditor" />
 
     <div>
       <g:Button ui:field="cancel" text="Cancel" />

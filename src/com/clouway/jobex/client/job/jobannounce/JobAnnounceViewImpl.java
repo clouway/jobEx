@@ -21,13 +21,13 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
   interface JobAnnounceViewImplUiBinder extends UiBinder<Widget, JobAnnounceViewImpl> {}
   private static JobAnnounceViewImplUiBinder uiBinder = GWT.create(JobAnnounceViewImplUiBinder.class);
 
-  interface Driver extends RequestFactoryEditorDriver<JobProxy, JobAnnounceEditor> {}
+  interface Driver extends RequestFactoryEditorDriver<JobProxy, JobEditor> {}
   private final Driver driver = GWT.create(Driver.class);
 
-  private Presenter presenter;
+  private JobAnnouncePresenter presenter;
 
   @UiField
-  JobAnnounceEditor jobAnnounceEditor;
+  JobEditor jobEditor;
 
   @UiField
   Button cancel;
@@ -39,19 +39,12 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
 
     initWidget(uiBinder.createAndBindUi(this));
 
-    driver.initialize(jobAnnounceEditor);
+    driver.initialize(jobEditor);
   }
 
-  public void setPresenter(Presenter presenter) {
+  public void setPresenter(JobAnnouncePresenter presenter) {
 
     this.presenter = presenter;
-
-    JobExRequestFactory.JobRequestContext requestContext = presenter.getJobRequestContext();
-    JobProxy jobProxy = requestContext.edit(presenter.getJobProxy());
-
-    driver.edit(jobProxy, requestContext);
-
-    presenter.createRequest(jobProxy, new JobAnnounceReceiver(this));
   }
 
   @UiHandler("announce")
@@ -65,5 +58,11 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
 
   public void goToMainPlace() {
     Window.alert("Job was announced!");
+  }
+
+  @Override
+  public void edit(JobExRequestFactory.JobRequestContext context, JobProxy proxy) {
+    driver.edit(proxy, context);
+
   }
 }
