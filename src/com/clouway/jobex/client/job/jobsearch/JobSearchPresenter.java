@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.jobsearch;
+package com.clouway.jobex.client.job.jobsearch;
 
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.shared.JobProxy;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
-public class JobSearchPresenter implements JobSearchView.Presenter {
+public class JobSearchPresenter{
 
 
   private final JobExRequestFactory factory;
@@ -26,8 +26,7 @@ public class JobSearchPresenter implements JobSearchView.Presenter {
     jobSearchView.setPresenter(this);
   }
 
-  //
-  @Override
+
   public void onSearchButtonClicked() {
     search(jobSearchView.getLocationValue(), jobSearchView.getCategoryValue());
   }
@@ -35,7 +34,7 @@ public class JobSearchPresenter implements JobSearchView.Presenter {
   public void search(String location, String category) {
 
 
-    jobSearchView.disableSearchButton();
+    jobSearchView.disableSearch();
     JobExRequestFactory.JobRequest jobSearchRequest = factory.jobRequest();
     JobProxy jobProxy = jobSearchRequest.create(JobProxy.class);
 
@@ -50,8 +49,8 @@ public class JobSearchPresenter implements JobSearchView.Presenter {
 
       @Override
       public void onSuccess(List<JobProxy> response) {
-        jobSearchView.enableSearchButton();
-        jobSearchView.fillTableWithJobAds(response);
+        jobSearchView.enableSearch();
+        jobSearchView.showJobAds(response);
 
       }
     });

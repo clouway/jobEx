@@ -37,7 +37,7 @@ public class JobRepositoryImplTest {
   public void setUp() {
     service.setUp();
     datastore = DatastoreServiceFactory.getDatastoreService();
-    repository = new JobRepositoryImpl();
+    repository = new JobRepositoryImpl(datastore);
   }
 
   @After

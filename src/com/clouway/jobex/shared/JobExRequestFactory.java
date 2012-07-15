@@ -7,7 +7,7 @@ import com.clouway.jobex.server.cv.CvsServiceLocator;
 import com.clouway.jobex.server.cv.CvsService;
 import com.clouway.jobex.server.job.jobannounce.JobAnnounceService;
 import com.clouway.jobex.server.job.JobServiceLocator;
-import com.clouway.jobex.server.jobsearch.JobSearchServiceImpl;
+import com.clouway.jobex.server.job.jobsearch.JobSearchServiceImpl;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.RequestFactory;
