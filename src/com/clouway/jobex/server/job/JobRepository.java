@@ -16,6 +16,4 @@ public interface JobRepository {
   List<Job> getAllJobsByCategory(String category);
 
   List<Job> getAllJobsByLocationAndCategory(String location, String category);
-
-  void saveJob(String companyName, Job job);
 }
