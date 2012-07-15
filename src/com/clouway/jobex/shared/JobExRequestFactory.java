@@ -1,11 +1,13 @@
 package com.clouway.jobex.shared;
 
+import com.clouway.jobex.inject.MyServiceLocator;
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
 import com.clouway.jobex.server.applyingforjob.JobApplicationServiceLocator;
 import com.clouway.jobex.server.cv.CvsServiceLocator;
 import com.clouway.jobex.server.cv.CvsService;
 import com.clouway.jobex.server.job.jobannounce.JobAnnounceService;
 import com.clouway.jobex.server.job.JobServiceLocator;
+import com.clouway.jobex.server.job.jobsearch.JobSearchServiceImpl;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.RequestFactory;
@@ -14,10 +16,17 @@ import com.google.web.bindery.requestfactory.shared.Service;
 import java.util.List;
 
 /**
- * @author Adelin Ghanayem adelin.ghanaem@clouway.com
+ * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
-public interface JobExRequestFactory extends RequestFactory {
+public interface JobExRequestFactory extends RequestFactory{
 
+
+  @Service(value = JobSearchServiceImpl.class, locator = MyServiceLocator.class)
+  public interface JobRequest extends RequestContext{
+
+    Request<List<JobProxy>> search(JobProxy jobProxy);
+
+  }
 
   @Service(value = JobApplicationService.class, locator = JobApplicationServiceLocator.class)
   public interface JobApplicationRequestContext extends RequestContext {
@@ -47,6 +56,8 @@ public interface JobExRequestFactory extends RequestFactory {
   }
 
   JobRequestContext jobRequestContext();
+
+  JobRequest jobRequest();
 
   CVsRequestContext cvsRequestContext();
 

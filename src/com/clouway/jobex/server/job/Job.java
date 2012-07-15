@@ -8,12 +8,14 @@ import java.util.Date;
 public class Job {
 
   private Long id;
+  
   private Long version;
 
   private String company;
   private String position;
   private String category;
   private Date expirationDate;
+  private String location;
 
   public Job() {
   }
@@ -71,5 +73,15 @@ public class Job {
 
   public Date getExpirationDate() {
     return expirationDate;
+  }
+
+  public String getLocation() {
+    return location;
+  }
+
+  public void setLocation(String location) {
+
+    this.location = location;
+
   }
 }
