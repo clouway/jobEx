@@ -1,14 +1,11 @@
 package com.clouway.jobex.client.creatingnewcv;
 
 import com.clouway.jobex.client.applyingforjob.RequestFactoryHelper;
-<<<<<<< HEAD
 import com.clouway.jobex.server.cv.CV;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.server.cv.CvsService;
 import com.clouway.jobex.shared.CVProxy;
-=======
->>>>>>> commit
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;

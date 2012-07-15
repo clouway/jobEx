@@ -1,10 +1,7 @@
 package com.clouway.jobex.shared;
 
 import com.clouway.jobex.server.applyingforjob.JobApplicationLocator;
-<<<<<<< HEAD
 import com.clouway.jobex.server.applyingforjob.JobApplication;
-=======
->>>>>>> commit
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 

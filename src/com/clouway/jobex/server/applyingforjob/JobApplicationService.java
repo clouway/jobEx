@@ -1,10 +1,6 @@
 package com.clouway.jobex.server.applyingforjob;
 
-<<<<<<< HEAD
-=======
-import com.clouway.jobex.server.entities.JobApplication;
 
->>>>>>> commit
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
