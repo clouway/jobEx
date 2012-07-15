@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.jobsearch;
+package com.clouway.jobex.client.job.jobsearch;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;

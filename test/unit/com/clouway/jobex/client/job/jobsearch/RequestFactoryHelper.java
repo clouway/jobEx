@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.jobsearch;
+package com.clouway.jobex.client.job.jobsearch;
 
 import com.google.web.bindery.event.shared.SimpleEventBus;
 import com.google.web.bindery.requestfactory.server.ServiceLayer;
