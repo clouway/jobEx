@@ -1,17 +1,20 @@
 package com.clouway.jobex.client.job.jobsearch;
 
 import com.clouway.jobex.client.applyingforjob.ApplyForJobEvent;
+import com.clouway.jobex.client.applyingforjob.SelectCvPlace;
 import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -25,7 +28,7 @@ import java.util.List;
 /**
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
-public class JobSearchViewImpl extends Composite implements JobSearchView{
+public class JobSearchViewImpl extends Composite implements JobSearchView {
   private JobSearchPresenter presenter;
 
   interface JobSearchViewImplUiBinder extends UiBinder<HTMLPanel, JobSearchViewImpl> {
@@ -50,7 +53,9 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
   @Inject
   EventBus eventBus;
 
-  public JobSearchViewImpl() {
+
+  @Inject
+  public JobSearchViewImpl(final PlaceController placeController) {
     initWidget(ourUiBinder.createAndBindUi(this));
     dataProvider = new ListDataProvider<JobProxy>();
 
@@ -63,7 +68,7 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
       }
     };
 
-     location = new Column<JobProxy, String>(new TextCell()) {
+    location = new Column<JobProxy, String>(new TextCell()) {
       @Override
       public String getValue(JobProxy object) {
         return object.getLocation();
@@ -88,9 +93,9 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
     apply.setFieldUpdater(new FieldUpdater<JobProxy, String>() {
       public void update(int index, JobProxy object, String value) {
         // Value is the button value.  Object is the row object.
-  //       new SimpleEventBus().fireEvent();
+        //       new SimpleEventBus().fireEvent();
 
-
+        placeController.goTo(new SelectCvPlace());
         eventBus.fireEvent(new ApplyForJobEvent(object.getId()));
 
       }
@@ -112,6 +117,7 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
 
   /**
    * Show list of job ads in a cell table
+   *
    * @param listOfJobObjects the list that is going to be shown
    */
   @Override
@@ -125,7 +131,6 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
   }
 
   /**
-   *
    * @return the category of a job from a textBox
    */
   @Override
@@ -134,7 +139,6 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
   }
 
   /**
-   *
    * @return the location of a job from a textBox
    */
   @Override
@@ -160,7 +164,7 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
 
 
   @UiHandler("searchButton")
-  public void onSearchButtonClicked(ClickEvent event){
+  public void onSearchButtonClicked(ClickEvent event) {
     presenter.onSearchButtonClicked();
   }
 }

@@ -6,6 +6,7 @@ import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
@@ -22,6 +23,7 @@ public class JobSearchPresenter extends AbstractActivity {
   private final JobExRequestFactory factory;
   private final JobSearchView jobSearchView;
 
+  @Inject
   public JobSearchPresenter(JobExRequestFactory factory, JobSearchView jobSearchView) {
     this.factory = factory;
     this.jobSearchView = jobSearchView;
@@ -54,7 +56,9 @@ public class JobSearchPresenter extends AbstractActivity {
 
       @Override
       public void onSuccess(List<JobProxy> response) {
+
         jobSearchView.enableSearch();
+
         jobSearchView.showJobAds(response);
 
       }
@@ -65,6 +69,6 @@ public class JobSearchPresenter extends AbstractActivity {
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
     
     jobSearchView.setPresenter(this);
-    panel.setWidget((IsWidget) jobSearchView);  
+    panel.setWidget((JobSearchViewImpl)jobSearchView);
   }
 }

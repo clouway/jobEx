@@ -17,10 +17,9 @@ import java.util.List;
  */
 public class JobRepositoryImpl implements JobRepository{
 
-//  @Inject
   private DatastoreService datastoreService;
 
-  @Inject
+//  @Inject
   public JobRepositoryImpl(DatastoreService datastoreService) {
     this.datastoreService = datastoreService;
   }
@@ -87,6 +86,7 @@ public class JobRepositoryImpl implements JobRepository{
     entity.setProperty("position", job.getPosition());
     entity.setProperty("category", job.getCategory());
     entity.setProperty("expirationDate", job.getExpirationDate());
+    entity.setProperty("location",job.getLocation());
 
     datastoreService.put(entity);
   }

@@ -47,4 +47,6 @@ public interface JobApplicationView {
    * Redirects the view to Creating new CV Form;
    */
   void goToCreateNewCVForm();
+
+  void setJobId(Long id);
 }

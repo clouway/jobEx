@@ -1,10 +1,10 @@
 package com.clouway.jobex.shared;
 
-import com.clouway.jobex.inject.JobExServiceLocator;
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
 import com.clouway.jobex.server.applyingforjob.JobApplicationServiceLocator;
 import com.clouway.jobex.server.cv.CvsServiceLocator;
 import com.clouway.jobex.server.cv.CvsService;
+import com.clouway.jobex.server.job.JobSearchLocator;
 import com.clouway.jobex.server.job.jobannounce.JobAnnounceService;
 import com.clouway.jobex.server.job.JobServiceLocator;
 import com.clouway.jobex.server.job.jobsearch.JobSearchServiceImpl;
@@ -21,7 +21,7 @@ import java.util.List;
 public interface JobExRequestFactory extends RequestFactory{
 
 
-  @Service(value = JobSearchServiceImpl.class, locator = JobExServiceLocator.class)
+  @Service(value = JobSearchServiceImpl.class, locator = JobSearchLocator.class)
   public interface JobRequest extends RequestContext{
 
     Request<List<JobProxy>> search(JobProxy jobProxy);

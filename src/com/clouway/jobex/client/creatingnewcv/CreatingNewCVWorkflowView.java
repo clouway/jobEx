@@ -21,4 +21,6 @@ public interface CreatingNewCVWorkflowView {
   void notifyUserOfConnectionError();
 
   void setWorkFlow(CreatingNewCVWorkflow presenter);
+
+  void goToSelectCv();
 }

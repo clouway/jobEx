@@ -4,6 +4,8 @@ import com.clouway.jobex.inject.JobExConstraintValidatorFactory;
 import com.clouway.jobex.inject.JobExRequestFactoryServlet;
 import com.clouway.jobex.server.job.JobRepository;
 import com.clouway.jobex.server.job.JobRepositoryImpl;
+import com.clouway.jobex.server.job.jobannounce.JobAnnounceService;
+import com.clouway.jobex.server.job.jobannounce.JobAnnounceServiceImpl;
 import com.clouway.jobex.server.job.jobsearch.JobSearchServiceImpl;
 import com.clouway.jobex.server.job.jobsearch.JobSearchService;
 import com.google.appengine.api.datastore.DatastoreService;
@@ -24,7 +26,7 @@ import javax.validation.ValidatorFactory;
  */
 public class GuiceServletConfig extends GuiceServletContextListener {
 
-  @Override
+
   protected Injector getInjector() {
     return Guice.createInjector(new ServletModule() {
 
@@ -34,6 +36,7 @@ public class GuiceServletConfig extends GuiceServletContextListener {
 
         bind(JobRepository.class).to(JobRepositoryImpl.class);
         bind(JobSearchService.class).to(JobSearchServiceImpl.class);
+        bind(JobAnnounceService.class).to(JobAnnounceServiceImpl.class);
       }
 
       @Provides
