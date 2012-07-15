@@ -1,6 +1,9 @@
 package com.clouway.jobex.server.applyingforjob;
 
 import com.clouway.jobex.server.cv.CVRepository;
+<<<<<<< HEAD
+=======
+>>>>>>> commit
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

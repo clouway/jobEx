@@ -1,6 +1,9 @@
 package com.clouway.jobex.server.cv;
 
 import com.clouway.jobex.server.AppEngineTestCase;
+<<<<<<< HEAD
+=======
+>>>>>>> commit
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;

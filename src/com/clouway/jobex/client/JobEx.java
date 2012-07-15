@@ -1,5 +1,6 @@
 package com.clouway.jobex.client;
 
+
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenter;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
 import com.clouway.jobex.client.job.jobannounce.JobAnnounceView;
@@ -17,10 +18,11 @@ import com.google.web.bindery.event.shared.SimpleEventBus;
 /**
  * Entry point classes define <code>onModuleLoad()</code>
  */
-public class Jobex implements EntryPoint {
+public class JobEx implements EntryPoint {
 
   /**
-   * This is the entry point method.
+   * This is the entry point metho
+   * d.
    */
   public void onModuleLoad() {
 

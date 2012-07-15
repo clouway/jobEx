@@ -1,12 +1,21 @@
 package com.clouway.jobex.client.applyingforjob;
 
+<<<<<<< HEAD
 import com.clouway.jobex.server.cv.CV;
+=======
+import com.clouway.jobex.shared.CVProxy;
+>>>>>>> commit
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
 import com.clouway.jobex.server.cv.CvsService;
+<<<<<<< HEAD
 import com.clouway.jobex.server.applyingforjob.JobApplication;
 import com.clouway.jobex.shared.CVProxy;
+=======
+import com.clouway.jobex.server.entities.CV;
+import com.clouway.jobex.server.entities.JobApplication;
+>>>>>>> commit
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -73,7 +82,7 @@ public class JobApplicationPresenterTest {
 
 
   @Test
-  public void  applyForJobWithSelectedWhenUserCV() {
+  public void  applyForJobWithSelectedCV() {
 
     presenter.applyForJob(1l, 2l);
 

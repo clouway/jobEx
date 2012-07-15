@@ -1,8 +1,11 @@
 package com.clouway.jobex.client.creatingnewcv;
 
-import com.clouway.jobex.shared.JobExRequestFactory;
+
 import com.clouway.jobex.client.security.UsernameProvider;
+
 import com.clouway.jobex.shared.CVProxy;
+
+import com.clouway.jobex.shared.JobExRequestFactory;
 
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com

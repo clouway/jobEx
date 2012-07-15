@@ -2,6 +2,8 @@ package com.clouway.jobex.server.cv;
 
 import java.util.List;
 
+import java.util.List;
+
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */

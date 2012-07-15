@@ -1,6 +1,5 @@
 package com.clouway.jobex.shared;
 
-import com.clouway.jobex.server.cv.CV;
 import com.clouway.jobex.server.cv.CVLocator;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
@@ -9,7 +8,7 @@ import com.google.web.bindery.requestfactory.shared.ProxyFor;
  * Client side representation of CV Entity;
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-@ProxyFor(value = CV.class, locator = CVLocator.class)
+@ProxyFor(value = com.clouway.jobex.server.cv.CV.class, locator = CVLocator.class)
 public interface CVProxy extends EntityProxy {
 
   public Long getId();
