@@ -5,23 +5,14 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
 
-
-  <!--<servlet>-->
-    <!--<servlet-name>applicationService</servlet-name>-->
-    <!--<servlet-class>com.clouway.jobex.server.communication.ApplicationServiceImpl</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>applicationService</servlet-name>-->
-    <!--<url-pattern>/jobex/ApplicationService</url-pattern>-->
-  <!--</servlet-mapping>-->
-
-
   <servlet>
-    <servlet-name>factoryServlet</servlet-name>
+    <servlet-name>requestFactoryServlet</servlet-name>
     <servlet-class>com.google.web.bindery.requestfactory.server.RequestFactoryServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
-    <servlet-name>factoryServlet</servlet-name>
+    <servlet-name>requestFactoryServlet</servlet-name>
     <url-pattern>/gwtRequest</url-pattern>
   </servlet-mapping>
+
 </web-app>

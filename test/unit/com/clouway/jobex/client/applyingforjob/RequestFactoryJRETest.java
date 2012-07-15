@@ -1,11 +1,10 @@
 package com.clouway.jobex.client.applyingforjob;
 
-import com.clouway.jobex.client.communication.JobExRequestFactory;
-import com.clouway.jobex.client.applyingforjob.view.JobApplicationView;
+import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
-import com.clouway.jobex.shared.entities.JobApplication;
-import com.clouway.jobex.shared.proxies.JobApplicationProxy;
+import com.clouway.jobex.server.applyingforjob.JobApplication;
+import com.clouway.jobex.shared.JobApplicationProxy;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
