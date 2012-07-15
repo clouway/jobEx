@@ -1,6 +1,6 @@
 package com.clouway.jobex.server;
 
-import com.clouway.jobex.shared.entities.Job;
+import com.clouway.jobex.server.job.Job;
 import com.google.web.bindery.requestfactory.shared.Locator;
 
 /**

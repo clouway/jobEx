@@ -1,4 +1,4 @@
-package com.clouway.jobex.server.jobsearch;
+package com.clouway.jobex.server.job.jobsearch;
 
 import com.google.web.bindery.requestfactory.shared.ServiceLocator;
 

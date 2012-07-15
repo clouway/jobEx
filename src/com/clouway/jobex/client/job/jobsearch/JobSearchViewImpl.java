@@ -1,5 +1,6 @@
-package com.clouway.jobex.client.jobsearch;
+package com.clouway.jobex.client.job.jobsearch;
 
+import com.clouway.jobex.client.applyingforjob.ApplyForJobEvent;
 import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -16,6 +17,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.inject.Inject;
+import com.google.web.bindery.event.shared.EventBus;
 
 import java.util.List;
 
@@ -23,7 +26,7 @@ import java.util.List;
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
 public class JobSearchViewImpl extends Composite implements JobSearchView{
-  private Presenter presenter;
+  private JobSearchPresenter presenter;
 
   interface JobSearchViewImplUiBinder extends UiBinder<HTMLPanel, JobSearchViewImpl> {
   }
@@ -43,6 +46,9 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
   Column<JobProxy, String> location;
   Column<JobProxy, String> category;
   Column<JobProxy, String> apply;
+
+  @Inject
+  EventBus eventBus;
 
   public JobSearchViewImpl() {
     initWidget(ourUiBinder.createAndBindUi(this));
@@ -84,8 +90,13 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
         // Value is the button value.  Object is the row object.
   //       new SimpleEventBus().fireEvent();
 
+<<<<<<< HEAD
 //        EventBus eventBus;
 //        eventBus.fireEvent(new ApplyForJobEvent(object.getId()));
+=======
+        eventBus.fireEvent(new ApplyForJobEvent(object.getId()));
+
+>>>>>>> some refactoring
       }
     });
 
@@ -99,12 +110,12 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
   }
 
   @Override
-  public void setPresenter(Presenter presenter) {
+  public void setPresenter(JobSearchPresenter presenter) {
     this.presenter = presenter;
   }
 
   @Override
-  public void fillTableWithJobAds(List<JobProxy> listOfJobObjects) {
+  public void showJobAds(List<JobProxy> listOfJobObjects) {
 //    List<JobProxy> list = dataProvider.getList();
 //    for (JobProxy job : listOfJobObjects) {
 //      list.add(job);
@@ -124,12 +135,12 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
   }
 
   @Override
-  public void disableSearchButton() {
+  public void disableSearch() {
     searchButton.setEnabled(false);
   }
 
   @Override
-  public void enableSearchButton() {
+  public void enableSearch() {
     searchButton.setEnabled(true);
   }
 
