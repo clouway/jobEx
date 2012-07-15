@@ -1,7 +1,6 @@
 package com.clouway.jobex.server.job.jobsearch;
 
-import com.clouway.jobex.server.job.JobRepository;
-import com.clouway.jobex.shared.entities.Job;
+import com.clouway.jobex.server.job.Job;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;

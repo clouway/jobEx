@@ -1,7 +1,5 @@
-package com.clouway.jobex.client.jobsearch;
+package com.clouway.jobex.client.job.jobsearch;
 
-import com.clouway.jobex.client.job.jobsearch.JobSearchPresenter;
-import com.clouway.jobex.client.job.jobsearch.JobSearchView;
 import com.clouway.jobex.server.job.Job;
 import com.clouway.jobex.server.job.jobsearch.JobSearchServiceImpl;
 import com.clouway.jobex.shared.JobExRequestFactory;
@@ -64,7 +62,7 @@ public class JobSearchPresenterTest {
     ArgumentCaptor<Job> jobArgumentCaptor = ArgumentCaptor.forClass(Job.class);
 
 //    service.search(jobArgumentCaptor.capture());
-//    verify(jobSearchView).fillTableWithJobAds(null);
+//    verify(jobSearchView).showJobAds(null);
 //    verify(service).search(jobArgumentCaptor.capture());
 
   }
