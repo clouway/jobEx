@@ -34,4 +34,6 @@ public interface JobRepository {
    * @return list with all jobs that have the current location and category parameters
    */
   List<Job> getAllJobsByLocationAndCategory(String location, String category);
+
+  void saveJob(String companyName, Job job);
 }

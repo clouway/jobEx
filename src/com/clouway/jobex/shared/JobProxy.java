@@ -11,16 +11,23 @@ import com.google.web.bindery.requestfactory.shared.ProxyFor;
 @ProxyFor(value = Job.class, locator = JobLocator.class)
 public interface JobProxy extends EntityProxy{
 
-  public String getCategory();
+  String getCategory();
 
-  public void setCategory(String category);
+  void setCategory(String category);
 
-  public String getLocation();
+  String getLocation();
 
-  public void setLocation(String location);
+  void setLocation(String location);
 
-  public Long getId();
+  Long getId();
 
-  public void setId(Long id);
+  void setId(Long id);
+  
+  String getCompany();
+  
+  void setCompany(String company);
 
+  String getPosition();
+
+  void setPosition(String position);
 }

@@ -1,7 +1,7 @@
 package com.clouway.jobex.server;
 
-import com.clouway.jobex.inject.MyConstraintValidatorFactory;
-import com.clouway.jobex.inject.MyRequestFactoryServlet;
+import com.clouway.jobex.inject.JobExConstraintValidatorFactory;
+import com.clouway.jobex.inject.JobExRequestFactoryServlet;
 import com.clouway.jobex.server.job.JobRepository;
 import com.clouway.jobex.server.job.JobRepositoryImpl;
 import com.clouway.jobex.server.job.jobsearch.JobSearchServiceImpl;
@@ -30,7 +30,7 @@ public class GuiceServletConfig extends GuiceServletContextListener {
 
       @Override
       protected void configureServlets() {
-        serve("/gwtRequest").with(MyRequestFactoryServlet.class);
+        serve("/gwtRequest").with(JobExRequestFactoryServlet.class);
 
         bind(JobRepository.class).to(JobRepositoryImpl.class);
         bind(JobSearchService.class).to(JobSearchServiceImpl.class);
@@ -39,7 +39,7 @@ public class GuiceServletConfig extends GuiceServletContextListener {
       @Provides
       @Singleton
       ValidatorFactory getValidatorFactory(Injector injector) {
-        return Validation.byDefaultProvider().configure().constraintValidatorFactory(new MyConstraintValidatorFactory(injector)).buildValidatorFactory();
+        return Validation.byDefaultProvider().configure().constraintValidatorFactory(new JobExConstraintValidatorFactory(injector)).buildValidatorFactory();
       }
 
       @Provides

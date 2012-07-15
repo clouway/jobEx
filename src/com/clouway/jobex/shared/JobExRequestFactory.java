@@ -1,6 +1,6 @@
 package com.clouway.jobex.shared;
 
-import com.clouway.jobex.inject.MyServiceLocator;
+import com.clouway.jobex.inject.JobExServiceLocator;
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
 import com.clouway.jobex.server.applyingforjob.JobApplicationServiceLocator;
 import com.clouway.jobex.server.cv.CvsServiceLocator;
@@ -21,7 +21,7 @@ import java.util.List;
 public interface JobExRequestFactory extends RequestFactory{
 
 
-  @Service(value = JobSearchServiceImpl.class, locator = MyServiceLocator.class)
+  @Service(value = JobSearchServiceImpl.class, locator = JobExServiceLocator.class)
   public interface JobRequest extends RequestContext{
 
     Request<List<JobProxy>> search(JobProxy jobProxy);

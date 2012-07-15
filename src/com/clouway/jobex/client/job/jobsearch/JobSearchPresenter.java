@@ -2,6 +2,10 @@ package com.clouway.jobex.client.job.jobsearch;
 
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.shared.JobProxy;
+import com.google.gwt.activity.shared.AbstractActivity;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
@@ -12,7 +16,7 @@ import java.util.List;
  *
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
-public class JobSearchPresenter{
+public class JobSearchPresenter extends AbstractActivity {
 
 
   private final JobExRequestFactory factory;
@@ -21,11 +25,6 @@ public class JobSearchPresenter{
   public JobSearchPresenter(JobExRequestFactory factory, JobSearchView jobSearchView) {
     this.factory = factory;
     this.jobSearchView = jobSearchView;
-//    jobSearchView.setPresenter(this);
-  }
-
-  public void setPresenterToTheView() {
-    jobSearchView.setPresenter(this);
   }
 
 
@@ -34,7 +33,7 @@ public class JobSearchPresenter{
   }
 
   /**
-   * Search for jbos and show the results in a cell table
+   * Search for jobs and show the results in a cell table
    * @param location criteria for searching
    * @param category criteria for searching
    */
@@ -51,7 +50,6 @@ public class JobSearchPresenter{
     jobSearchRequest.search(jobProxy).fire(new Receiver<List<JobProxy>>() {
       @Override
       public void onFailure(ServerFailure error) {
-//        Window.alert("ERROR");
       }
 
       @Override
@@ -62,5 +60,11 @@ public class JobSearchPresenter{
       }
     });
 
+  }
+  
+  public void start(AcceptsOneWidget panel, EventBus eventBus) {
+    
+    jobSearchView.setPresenter(this);
+    panel.setWidget((IsWidget) jobSearchView);  
   }
 }

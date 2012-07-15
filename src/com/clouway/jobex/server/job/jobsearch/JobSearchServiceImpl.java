@@ -33,13 +33,11 @@ public class JobSearchServiceImpl implements JobSearchService {
     List<Job> jobList = null;
     jobList = new ArrayList<Job>();
 
-    if(job.getLocation().equals("loc1")){
     Job job1 = new Job();
     job1.setId(1l);
     job1.setLocation("varna");
     job1.setCategory("cat1");
     jobList.add(job1);
-    }
 
 
     Job job2 = new Job();
@@ -47,7 +45,6 @@ public class JobSearchServiceImpl implements JobSearchService {
     job2.setLocation("vadsana");
     job2.setCategory("cat2");
     jobList.add(job2);
-
 
 
     String location = job.getLocation();

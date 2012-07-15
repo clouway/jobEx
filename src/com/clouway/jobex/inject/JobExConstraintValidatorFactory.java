@@ -8,11 +8,11 @@ import javax.validation.ConstraintValidatorFactory;
 /**
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
-public class MyConstraintValidatorFactory implements ConstraintValidatorFactory {
+public class JobExConstraintValidatorFactory implements ConstraintValidatorFactory {
 
   private final Injector injector;
 
-  public MyConstraintValidatorFactory(Injector injector) {
+  public JobExConstraintValidatorFactory(Injector injector) {
     this.injector = injector;
   }
 

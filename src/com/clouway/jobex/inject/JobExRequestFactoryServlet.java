@@ -10,10 +10,10 @@ import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
  */
 
 @Singleton
-public class MyRequestFactoryServlet  extends RequestFactoryServlet {
+public class JobExRequestFactoryServlet extends RequestFactoryServlet {
 
   @Inject
-  public MyRequestFactoryServlet(MyServiceLayerDecorator decorator) {
+  public JobExRequestFactoryServlet(JobExServiceLayerDecorator decorator) {
     super(new DefaultExceptionHandler(), decorator);
   }
 }

@@ -1,9 +1,6 @@
-package com.clouway.jobex.client.jobannounce;
+package com.clouway.jobex.client.job.jobannounce;
 
 import com.clouway.jobex.RequestFactoryHelper;
-import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
-import com.clouway.jobex.client.job.jobannounce.JobAnnounceReceiver;
-import com.clouway.jobex.client.job.jobannounce.JobAnnounceView;
 import com.clouway.jobex.client.security.CompanyNameProvider;
 import com.clouway.jobex.server.job.Job;
 import com.clouway.jobex.server.job.jobannounce.JobAnnounceService;

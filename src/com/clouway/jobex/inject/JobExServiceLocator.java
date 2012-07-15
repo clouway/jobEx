@@ -7,12 +7,12 @@ import com.google.web.bindery.requestfactory.shared.ServiceLocator;
 /**
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
-public class MyServiceLocator implements ServiceLocator {
+public class JobExServiceLocator implements ServiceLocator {
 
   private Injector injector;
 
   @Inject
-  public MyServiceLocator(Injector injector) {
+  public JobExServiceLocator(Injector injector) {
     this.injector = injector;
   }
 

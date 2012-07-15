@@ -101,7 +101,6 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
     jobsCellTable.addColumn(category, "Category");
     jobsCellTable.addColumn(apply, "Apply");
 
-//    productCellTable.setColumnWidth(name, 200, Style.Unit.PCT);
 
   }
 
@@ -112,7 +111,7 @@ public class JobSearchViewImpl extends Composite implements JobSearchView{
 
 
   /**
-   * Show list of job adds in a cell table
+   * Show list of job ads in a cell table
    * @param listOfJobObjects the list that is going to be shown
    */
   @Override

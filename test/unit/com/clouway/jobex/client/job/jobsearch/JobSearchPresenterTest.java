@@ -37,17 +37,13 @@ public class JobSearchPresenterTest {
   Mockery context = new JUnit4Mockery();
   @Before
   public void setUp(){
-//    initMocks(this);
     factory = RequestFactoryHelper.create(JobExRequestFactory.class);
-//    eventBus = new SimpleEventBus();
-//    factory.initialize(eventBus, new InProcessRequestTransport(new SimpleRequestProcessor(ServiceLayer.create())));
     jobSearchView = context.mock(JobSearchView.class);
-    service = RequestFactoryHelper.getService(JobSearchServiceImpl.class);
     presenter = new JobSearchPresenter(factory, jobSearchView);
   }
 
   @Test
-  public void someKindOfTest(){
+  public void showJobAdsOnSuccess(){
 
 
     context.checking(new Expectations(){{
@@ -58,12 +54,6 @@ public class JobSearchPresenterTest {
     });
 
     presenter.search("loc1","cat1");
-
-    ArgumentCaptor<Job> jobArgumentCaptor = ArgumentCaptor.forClass(Job.class);
-
-//    service.search(jobArgumentCaptor.capture());
-//    verify(jobSearchView).showJobAds(null);
-//    verify(service).search(jobArgumentCaptor.capture());
 
   }
 }

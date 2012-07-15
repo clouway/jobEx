@@ -10,7 +10,7 @@ import java.util.List;
 public interface JobSearchView {
 
   /**
-   * Show a given list of job adds
+   * Show a given list of job ads
    *
    * @param listOfJobObjects the list that is going to be shown
    */
@@ -30,12 +30,12 @@ public interface JobSearchView {
 
 
   /**
-   * disable the search functionallity
+   * disable the search functionality
    */
   void disableSearch();
 
   /**
-   * enable the search functionallity
+   * enable the search functionality
    */
   void enableSearch();
 

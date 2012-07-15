@@ -61,7 +61,6 @@ public class JobRepositoryImplTest {
   @Test
   public void convertEntitiesListToJobObjectsList() {
     List<Entity> listOfEntites = new ArrayList<Entity>();
-//    loadEntities();
 
     listOfEntites.add(job);
     listOfEntites.add(job2);
@@ -78,7 +77,6 @@ public class JobRepositoryImplTest {
 
   @Test
   public void getAllJobAdsByLocation() {
-//    loadEntities();
     datastoreService.put(job);
     datastoreService.put(job2);
     datastoreService.put(job3);
@@ -92,7 +90,6 @@ public class JobRepositoryImplTest {
   @Test
   public void getAllJobsByCategory() {
 
-//    loadEntities();
     datastoreService.put(job);
     datastoreService.put(job2);
     datastoreService.put(job3);

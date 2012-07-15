@@ -13,13 +13,13 @@ import java.util.Set;
 /**
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
-public class MyServiceLayerDecorator  extends ServiceLayerDecorator {
+public class JobExServiceLayerDecorator extends ServiceLayerDecorator {
 
   private final Validator validator;
   private final Injector injector;
 
   @Inject
-  public MyServiceLayerDecorator(Validator validator, Injector injector) {
+  public JobExServiceLayerDecorator(Validator validator, Injector injector) {
     this.validator = validator;
     this.injector = injector;
   }
