@@ -37,7 +37,7 @@ public class CreatingNewCVWorkflow {
 
     CVProxy proxy = context.create(CVProxy.class);
 
-    context.create(provider.getUsername(), proxy).to(new CreatingNewCvReceiver(view));
+    context.add(provider.getUsername(), proxy).to(new CreatingNewCvReceiver(view));
 
     CVProxy mutableProxy = context.edit(proxy);
 
@@ -50,7 +50,9 @@ public class CreatingNewCVWorkflow {
 
   public void create() {
 
-    view.flush().fire();
+    view.flush();
+
+    context.fire();
 
   }
 }

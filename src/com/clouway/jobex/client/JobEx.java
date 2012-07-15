@@ -1,19 +1,17 @@
 package com.clouway.jobex.client;
 
 
-import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenter;
-import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
-import com.clouway.jobex.client.job.jobannounce.JobAnnounceView;
-import com.clouway.jobex.client.job.jobannounce.JobAnnounceViewImpl;
-import com.clouway.jobex.client.security.CompanyNameProvider;
-import com.clouway.jobex.client.security.CompanyNameProviderImpl;
+import com.clouway.jobex.client.creatingnewcv.CreatingNewCVWorkflow;
+import com.clouway.jobex.client.creatingnewcv.CreatingNewCVWorkflowView;
+import com.clouway.jobex.client.creatingnewcv.CreatingNewCVWorkflowViewImpl;
+import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.event.shared.EventBus;
-import com.google.web.bindery.event.shared.SimpleEventBus;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>
@@ -26,6 +24,7 @@ public class JobEx implements EntryPoint {
    */
   public void onModuleLoad() {
 
+
     EventBus eventBus = new SimpleEventBus();
 
     JobExRequestFactory requestFactory = GWT.create(JobExRequestFactory.class);
@@ -34,14 +33,21 @@ public class JobEx implements EntryPoint {
 
     JobExRequestFactory.JobRequestContext requestContext = requestFactory.jobRequestContext();
 
-    JobAnnounceView view = new JobAnnounceViewImpl();
+    CreatingNewCVWorkflowView view = new CreatingNewCVWorkflowViewImpl();
 
-    CompanyNameProvider companyNameProvider = new CompanyNameProviderImpl();
-    companyNameProvider.setCompanyName("company");
+    CreatingNewCVWorkflow creatingNewCVWorkflow = new CreatingNewCVWorkflow(view, requestFactory, new UsernameProvider() {
+      @Override
+      public String getUsername() {
+        return "Username";
+      }
 
-    JobAnnouncePresenter presenter = new JobAnnouncePresenterImpl(requestContext, view, companyNameProvider);
+      @Override
+      public void setUsername(String username) {
 
-    RootPanel.get().add((Widget) view);
+      }
+    });
+    view.setWorkFlow(creatingNewCVWorkflow);
+    RootPanel.get().add((IsWidget) view);
+
   }
 }
-

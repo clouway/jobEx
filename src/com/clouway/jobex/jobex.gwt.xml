@@ -11,7 +11,7 @@
   <inherits name="com.google.web.bindery.requestfactory.RequestFactory"/>
 
   <!-- Specify the app entry point class.                   -->
-  <entry-point class='com.clouway.jobex.client.Jobex'/>
+  <entry-point class='com.clouway.jobex.client.JobEx'/>
 
   <source path="client"/>
   <source path="shared"/>

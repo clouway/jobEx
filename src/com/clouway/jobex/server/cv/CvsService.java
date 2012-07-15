@@ -15,7 +15,7 @@ public interface CvsService {
    */
   List<CV> fetchCreatedCVs(String username);
 
-  void create(String username,CV cv);
+  void add(String username, CV cv);
 
 
 
