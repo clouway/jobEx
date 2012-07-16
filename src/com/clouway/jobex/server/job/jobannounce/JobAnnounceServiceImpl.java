@@ -2,6 +2,7 @@ package com.clouway.jobex.server.job.jobannounce;
 
 import com.clouway.jobex.server.job.Job;
 import com.clouway.jobex.server.job.JobRepository;
+import com.google.inject.Inject;
 
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
@@ -10,6 +11,7 @@ public class JobAnnounceServiceImpl implements JobAnnounceService {
 
   private final JobRepository repository;
 
+  @Inject
   public JobAnnounceServiceImpl(JobRepository repository) {
     this.repository = repository;
   }

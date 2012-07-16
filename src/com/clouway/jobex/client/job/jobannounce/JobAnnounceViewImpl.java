@@ -22,6 +22,7 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
   private static JobAnnounceViewImplUiBinder uiBinder = GWT.create(JobAnnounceViewImplUiBinder.class);
 
   interface Driver extends RequestFactoryEditorDriver<JobProxy, JobEditor> {}
+
   private final Driver driver = GWT.create(Driver.class);
 
   private JobAnnouncePresenter presenter;

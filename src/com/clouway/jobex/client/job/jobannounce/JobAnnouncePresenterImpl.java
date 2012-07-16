@@ -7,6 +7,7 @@ import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.inject.Inject;
 
 /**
  * JobAnnouncePresenterImpl class is used to announce new jobs
@@ -21,6 +22,7 @@ public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnn
 
   private JobProxy editableJobProxy;
 
+  @Inject
   public JobAnnouncePresenterImpl(JobExRequestFactory.JobRequestContext requestContext, JobAnnounceView view, CompanyNameProvider companyNameProvider) {
     this.requestContext = requestContext;
     this.view = view;

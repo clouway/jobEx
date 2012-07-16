@@ -11,29 +11,29 @@ import com.google.web.bindery.requestfactory.shared.ProxyFor;
 @ProxyFor(value = com.clouway.jobex.server.cv.CV.class, locator = CVLocator.class)
 public interface CVProxy extends EntityProxy {
 
-  public Long getId();
+  Long getId();
 
-  public Long getVersion();
+  Long getVersion();
 
-  public void setId(Long id);
+  void setId(Long id);
 
-  public void setVersion(Long version);
+  void setVersion(Long version);
 
-  public void setName(String name);
+  void setName(String name);
 
-  public void setEmail(String email);
+  void setEmail(String email);
 
-  public void setPhoneNumber(String phoneNumber);
+  void setPhoneNumber(String phoneNumber);
 
-  public void setSkills(String skills);
+  void setSkills(String skills);
 
-  public String getName();
+  String getName();
 
-  public String getEmail();
+  String getEmail();
 
-  public String getPhoneNumber();
+  String getPhoneNumber();
 
-  public String getSkills();
+  String getSkills();
 
 
 }
