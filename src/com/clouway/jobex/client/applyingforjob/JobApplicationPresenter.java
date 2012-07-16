@@ -24,6 +24,8 @@ public class JobApplicationPresenter extends AbstractActivity implements ApplyFo
 
   private final UsernameProvider provider;
 
+  private Long jobId;
+
   @Inject
   public JobApplicationPresenter(JobExRequestFactory requestFactory, JobApplicationView view, UsernameProvider provider) {
     this.requestFactory = requestFactory;
@@ -35,7 +37,7 @@ public class JobApplicationPresenter extends AbstractActivity implements ApplyFo
    * Apply A Cv for job. i.e Send a job application with the Job id which the user wants to apply for and the CV id
    * which the user wants to apply with.
    *
-   * @param jobId the id of the job that the user wants to apply for
+   * @param jobId
    * @param cvId  the id of the Cv with witch the user wants to apply for a job
    */
   public void applyForJob(Long jobId, Long cvId) {
@@ -53,6 +55,7 @@ public class JobApplicationPresenter extends AbstractActivity implements ApplyFo
       public void onFailure(ServerFailure error) {
         view.notifyUserOfCommunicationError();
       }
+
       @Override
       public void onSuccess(List<String> response) {
         if (response != null && response.size() > 0) {
@@ -71,8 +74,12 @@ public class JobApplicationPresenter extends AbstractActivity implements ApplyFo
    */
   @Override
   public void onApplyForJob(ApplyForJobEvent event) {
-    JobExRequestFactory.CVsRequestContext requestContext = requestFactory.cvsRequestContext();
     view.setJobId(event.getJobId());
+    fetchCreatedCVs();
+  }
+
+  private void fetchCreatedCVs() {
+    JobExRequestFactory.CVsRequestContext requestContext = requestFactory.cvsRequestContext();
     requestContext.fetchCreatedCVs(provider.getUsername()).fire(new Receiver<List<CVProxy>>() {
       @Override
       public void onSuccess(List<CVProxy> response) {
@@ -84,12 +91,12 @@ public class JobApplicationPresenter extends AbstractActivity implements ApplyFo
       }
 
     });
-
   }
 
   @Override
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
     view.setPresenter(this);
+    fetchCreatedCVs();
     panel.setWidget(view);
   }
 }

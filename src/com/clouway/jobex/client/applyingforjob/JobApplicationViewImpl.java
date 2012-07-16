@@ -11,6 +11,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -24,10 +25,6 @@ import java.util.List;
  */
 public class JobApplicationViewImpl extends Composite implements JobApplicationView {
 
-
-  public void setJobId(Long jobId) {
-    this.jobId = jobId;
-  }
 
   interface JobApplicationViewImplUiBinder extends UiBinder<HTMLPanel, JobApplicationViewImpl> {
   }
@@ -105,28 +102,22 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
     selectButton.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
       @Override
       public void update(int index, CVProxy cvProxy, String value) {
-        presenter.applyForJob(jobId, cvProxy.getId());
+        presenter.applyForJob(jobId,cvProxy.getId());
       }
     });
     cVCellTable.addColumn(selectButton);
 
-
-//    selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-//      @Override
-//      public void onSelectionChange(SelectionChangeEvent event) {
-//        Long cvId = selectionModel.getSelectedObject().getId();
-//        presenter.applyForJob(jobId, cvId);
-//      }
-//    });
     cVCellTable.setSelectionModel(selectionModel);
+
     HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+
     initWidget(rootElement);
   }
 
 
   @Override
   public void notifyUserOfSuccessfulAppliance() {
-    errors.setText("You have successfully applied for a job !");
+      Window.alert("You have successfully applied for A Job. ");
   }
 
 
@@ -159,5 +150,10 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
   @Override
   public void goToCreateNewCVForm() {
     controller.goTo(new CreateCvPlace());
+  }
+
+  @Override
+  public void setJobId(Long id) {
+    jobId = id;
   }
 }
