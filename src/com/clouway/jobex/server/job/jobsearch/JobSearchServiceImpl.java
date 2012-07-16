@@ -2,9 +2,8 @@ package com.clouway.jobex.server.job.jobsearch;
 
 import com.clouway.jobex.server.job.Job;
 import com.clouway.jobex.server.job.JobRepository;
-import com.google.inject.Inject;
+import com.google.appengine.api.datastore.Entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,16 +11,13 @@ import java.util.List;
  */
 public class JobSearchServiceImpl implements JobSearchService {
 
-  //  @Inject(optional = true)
   private JobRepository jobRepository;
+  private final DomainObjectConverter<Job> jobConverter;
 
-  //
-//  public JobSearchServiceImpl(){
-//
-//  }
-//  @Inject
-  public JobSearchServiceImpl(JobRepository jobRepository) {
+
+  public JobSearchServiceImpl(JobRepository jobRepository, DomainObjectConverter<Job> jobConverter) {
     this.jobRepository = jobRepository;
+    this.jobConverter = jobConverter;
   }
 
   /**
@@ -32,7 +28,7 @@ public class JobSearchServiceImpl implements JobSearchService {
    */
   public List<Job> search(Job job) {
 
-    List<Job> jobList = null;
+    List<Entity> jobList = null;
 
 
     String location = job.getLocation();
@@ -40,7 +36,7 @@ public class JobSearchServiceImpl implements JobSearchService {
     String category = job.getCategory();
 
     if(("").equals(location) && !("").equals(category)){
-      jobList = jobRepository.getAllJobsByCategory(category);
+      jobList =jobRepository.getAllJobsByCategory(category);
     }
     if(!("").equals(location) && ("").equals(category)) {
       jobList = jobRepository.getAllJobsByLocation(location);
@@ -49,9 +45,7 @@ public class JobSearchServiceImpl implements JobSearchService {
       jobList = jobRepository.getAllJobsByLocationAndCategory(location, category);
     }
 
-    return jobList;
-
-//    return jobRepository.getAllJobsByLocationAndCategory(job.getLocation(), job.getCategory());
+    return jobConverter.convertToDomainsFrom(jobList);
 
   }
 }

@@ -1,6 +1,7 @@
 package com.clouway.jobex.server.job.jobsearch;
 
 import com.clouway.jobex.server.job.Job;
+import com.google.appengine.api.datastore.Entity;
 
 import java.util.List;
 
@@ -15,4 +16,5 @@ public interface JobSearchService {
    * @return list of the jobs according to the criteria given
    */
   List<Job> search(Job job);
+
 }

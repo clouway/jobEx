@@ -16,16 +16,15 @@ public interface JobRepository {
    * @param location a job location
    * @return list with all jobs that have the current location parameter
    */
-  List<Job> getAllJobsByLocation(String location);
+  List<Entity> getAllJobsByLocation(String location);
 
-  List<Job> convertToListOfJobObjects(List<Entity> listOfEntities);
 
   /**
    * Get list of job objects by category
    * @param category a job category
    * @return list with all jobs that have the current category parameter
    */
-  List<Job> getAllJobsByCategory(String category);
+  List<Entity> getAllJobsByCategory(String category);
 
   /**
    * Get list of job objects by location and category
@@ -33,7 +32,7 @@ public interface JobRepository {
    * @param category a job category
    * @return list with all jobs that have the current location and category parameters
    */
-  List<Job> getAllJobsByLocationAndCategory(String location, String category);
+  List<Entity> getAllJobsByLocationAndCategory(String location, String category);
 
   void saveJob(String companyName, Job job);
 }

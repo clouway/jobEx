@@ -58,22 +58,7 @@ public class JobRepositoryImplTest {
     helper.tearDown();
   }
 
-  @Test
-  public void convertEntitiesListToJobObjectsList() {
-    List<Entity> listOfEntites = new ArrayList<Entity>();
 
-    listOfEntites.add(job);
-    listOfEntites.add(job2);
-    listOfEntites.add(job3);
-
-    List<Job> listOfJobObjects = jobRepository.convertToListOfJobObjects(listOfEntites);
-
-    assertThat(listOfJobObjects.size(), is(equalTo(3)));
-    assertThat(listOfJobObjects.get(0).getLocation(), is(equalTo("Veliko Tarnovo")));
-    assertThat(listOfJobObjects.get(1).getLocation(), is(equalTo("Varna")));
-    assertThat(listOfJobObjects.get(2).getLocation(), is(equalTo("Varna")));
-
-  }
 
   @Test
   public void getAllJobAdsByLocation() {
@@ -82,7 +67,7 @@ public class JobRepositoryImplTest {
     datastoreService.put(job3);
 
     String location = "Varna";
-    List<Job> jobsInSelectedLocation = jobRepository.getAllJobsByLocation(location);
+    List<Entity> jobsInSelectedLocation = jobRepository.getAllJobsByLocation(location);
 
     assertThat(jobsInSelectedLocation.size(), is(equalTo(2)));
   }
@@ -95,7 +80,7 @@ public class JobRepositoryImplTest {
     datastoreService.put(job3);
 
     String category = "cat1";
-    List<Job> jobsInSelectedCategory = jobRepository.getAllJobsByCategory(category);
+    List<Entity> jobsInSelectedCategory = jobRepository.getAllJobsByCategory(category);
 
     assertThat(jobsInSelectedCategory.size(), is(equalTo(2)));
 

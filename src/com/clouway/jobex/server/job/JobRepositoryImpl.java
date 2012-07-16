@@ -19,7 +19,6 @@ public class JobRepositoryImpl implements JobRepository{
 
   private DatastoreService datastoreService;
 
-//  @Inject
   public JobRepositoryImpl(DatastoreService datastoreService) {
     this.datastoreService = datastoreService;
   }
@@ -29,38 +28,27 @@ public class JobRepositoryImpl implements JobRepository{
    * @param location a job location
    * @return list with all jobs that have the current location parameter
    */
-  public List<Job> getAllJobsByLocation(String location) {
+  public List<Entity> getAllJobsByLocation(String location) {
     Query query = new Query("Job");
     query.setFilter(new Query.FilterPredicate("location", Query.FilterOperator.EQUAL, location));
 
     PreparedQuery preparedQuery = datastoreService.prepare(query);
-    return convertToListOfJobObjects(preparedQuery.asList(FetchOptions.Builder.withDefaults()));
+    return preparedQuery.asList(FetchOptions.Builder.withDefaults());
   }
 
-  public List<Job> convertToListOfJobObjects(List<Entity> listOfEntities) {
-    List<Job> listOfJobs = new ArrayList<Job>();
-    for (Entity entity : listOfEntities) {
-      Job job = new Job();
-      job.setId(entity.getKey().getId());
-      job.setLocation((String) entity.getProperty("location"));
-      job.setCategory((String) entity.getProperty("category"));
-      job.setPosition((String) entity.getProperty("position"));
-      listOfJobs.add(job);
-    }
-    return listOfJobs;
-  }
+
 
   /**
    * Get list of job objects by category from the datastore
    * @param category a job category
    * @return list with all jobs that have the current category parameter
    */
-  public List<Job> getAllJobsByCategory(String category) {
+  public List<Entity> getAllJobsByCategory(String category) {
     Query query = new Query("Job");
     query.setFilter(new Query.FilterPredicate("category", Query.FilterOperator.EQUAL, category));
     
     PreparedQuery preparedQuery = datastoreService.prepare(query);
-    return convertToListOfJobObjects(preparedQuery.asList(FetchOptions.Builder.withDefaults()));
+    return preparedQuery.asList(FetchOptions.Builder.withDefaults());
   }
 
   /**
@@ -69,14 +57,14 @@ public class JobRepositoryImpl implements JobRepository{
    * @param category a job category
    * @return list with all jobs that have the current location and category parameters
    */
-  public List<Job> getAllJobsByLocationAndCategory(String location, String category) {
+  public List<Entity> getAllJobsByLocationAndCategory(String location, String category) {
     Query query = new Query("Job");
     query.setFilter(Query.CompositeFilterOperator.and(
             new Query.FilterPredicate("location", Query.FilterOperator.EQUAL, location),
             new Query.FilterPredicate("category", Query.FilterOperator.EQUAL, category)));
 
     PreparedQuery preparedQuery = datastoreService.prepare(query);
-    return convertToListOfJobObjects(preparedQuery.asList(FetchOptions.Builder.withDefaults()));
+    return preparedQuery.asList(FetchOptions.Builder.withDefaults());
   }
 
   public void saveJob(String companyName, Job job) {
