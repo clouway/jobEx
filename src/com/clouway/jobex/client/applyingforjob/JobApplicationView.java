@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public interface JobApplicationView extends IsWidget{
+public interface JobApplicationView extends IsWidget {
 
   /**
    * notifies user of Successful job appliance when the user applies for a job
@@ -50,4 +50,6 @@ public interface JobApplicationView extends IsWidget{
   void goToCreateNewCVForm();
 
   void setJobId(Long id);
+
+
 }

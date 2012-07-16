@@ -1,6 +1,8 @@
 package com.clouway.jobex.server.applyingforjob;
 
 
+import java.util.List;
+
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
@@ -12,5 +14,5 @@ public interface JobApplicationService {
    *
    * @param application the job application to be applied with ;
    */
-  void applyForJob(JobApplication application);
+  List<String> applyForJob(JobApplication application);
 }
