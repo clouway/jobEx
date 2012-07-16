@@ -78,7 +78,7 @@ public class JobApplicationPresenterTest {
 
     presenter.onApplyForJob(new ApplyForJobEvent(1l));
 
-    presenter.applyForJob(2l, cvProxy.getId());
+    presenter.applyForJob(1l, 2l);
 
     ArgumentCaptor<JobApplication> jobApplicationArgumentCaptor = ArgumentCaptor.forClass(JobApplication.class);
 
@@ -103,7 +103,7 @@ public class JobApplicationPresenterTest {
 
     presenter.onApplyForJob(new ApplyForJobEvent(1l));
 
-    presenter.applyForJob(2l, cvProxy.getId());
+    presenter.applyForJob(1l, 2l);
 
     ArgumentCaptor<JobApplication> jobApplicationArgumentCaptor = ArgumentCaptor.forClass(JobApplication.class);
 
@@ -184,7 +184,7 @@ public class JobApplicationPresenterTest {
 
     when(jobApplicationService.applyForJob(isA(JobApplication.class))).thenReturn(errors);
 
-    presenter.applyForJob(cvId, cvProxy.getId());
+    presenter.applyForJob(jobId,cvId);
 
     verify(view, never()).notifyUserOfSuccessfulAppliance();
 
