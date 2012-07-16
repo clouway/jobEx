@@ -24,6 +24,7 @@ public class CreatingNewCvReceiver extends Receiver<Void> {
   @Override
   public void onSuccess(Void response) {
     view.notifyUserOfSuccessfulCVCreation();
+    view.goToSelectCv();
   }
 
 }

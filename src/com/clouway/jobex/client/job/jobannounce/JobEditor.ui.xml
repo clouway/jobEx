@@ -16,8 +16,14 @@
     </div>
 
     <div>
+      Location: <g:TextBox ui:field="location" />
+    </div>
+
+    <div>
       Expiration Date: <d:DateBox ui:field="date" />
     </div>
+
+
 
   </g:HTMLPanel>
 </ui:UiBinder>

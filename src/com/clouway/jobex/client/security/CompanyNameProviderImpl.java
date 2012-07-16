@@ -11,10 +11,11 @@ import com.google.gwt.user.client.Cookies;
 public class CompanyNameProviderImpl implements CompanyNameProvider {
 
   public void setCompanyName(String companyName) {
-    Cookies.setCookie("companyName", companyName);
+    Cookies.setCookie("companyName", "clouway");
   }
 
   public String getCompanyName() {
-    return Cookies.getCookie("companyName");
+    //return Cookies.getCookie("companyName");
+    return "clouway";
   }
 }
