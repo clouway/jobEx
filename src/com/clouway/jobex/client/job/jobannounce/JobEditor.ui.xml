@@ -21,6 +21,11 @@
       </tr>
 
       <tr>
+        <td>Location: </td>
+        <td><g:TextBox ui:field="location" /></td>
+      </tr>
+
+      <tr>
         <td>Expiration Date: </td>
         <td><d:DateBox ui:field="date" /></td>
       </tr>

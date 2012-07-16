@@ -1,9 +1,11 @@
 package com.clouway.jobex.client.job.jobannounce;
 
+import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -11,6 +13,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 
 /**
@@ -36,7 +39,12 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
   @UiField
   Button announce;
 
-  public JobAnnounceViewImpl() {
+  private PlaceController placeController;
+
+  @Inject
+  public JobAnnounceViewImpl(PlaceController placeController) {
+
+    this.placeController = placeController;
 
     initWidget(uiBinder.createAndBindUi(this));
 
@@ -57,8 +65,17 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
     }
   }
 
-  public void goToMainPlace() {
+  @UiHandler("cancel")
+  public void onButtonCancelClick(ClickEvent event) {
+    placeController.goTo(new JobSearchPlace());
+  }
 
+  /**
+   * Go to SearchPlace after announcing new job
+   */
+  public void goToSearchPlace() {
+    Window.alert("Job was announced!");
+    placeController.goTo(new JobSearchPlace());
   }
 
   @Override

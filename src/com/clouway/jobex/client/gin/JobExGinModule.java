@@ -65,8 +65,5 @@ public class JobExGinModule extends AbstractGinModule {
     return jobExRequestFactory;
   }
 
-  @Provides
-  JobExRequestFactory.JobRequestContext getJobRequestContext(JobExRequestFactory requestFactory) {
-    return requestFactory.jobRequestContext();
-  }
+
 }

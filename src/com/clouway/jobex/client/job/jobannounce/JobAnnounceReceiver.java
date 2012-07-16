@@ -22,6 +22,6 @@ public class JobAnnounceReceiver extends Receiver<Void> {
    * @param response a returned response
    */
   public void onSuccess(Void response) {
-    view.goToMainPlace();
+    view.goToSearchPlace();
   }
 }

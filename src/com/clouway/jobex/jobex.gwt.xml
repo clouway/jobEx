@@ -10,7 +10,6 @@
   <inherits name="com.google.gwt.editor.Editor"/>
   <inherits name="com.google.web.bindery.requestfactory.RequestFactory"/>
   <inherits name="com.google.gwt.inject.Inject"/>
-
   <!-- Specify the app entry point class.                   -->
   <entry-point class='com.clouway.jobex.client.JobEx'/>
 
