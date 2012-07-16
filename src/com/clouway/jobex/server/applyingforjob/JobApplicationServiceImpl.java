@@ -29,7 +29,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     if (jobApplicationRepository.getJobApplication(application.getCvId(), application.getJobId()) == null) {
       jobApplicationRepository.saveJobApplication(application);
     } else {
-      errors.add(errorMessages.JobApplicationIsPreviouslySubmitted());
+      errors.add(errorMessages.jobApplicationIsPreviouslySubmitted());
     }
     return errors;
   }

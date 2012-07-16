@@ -70,7 +70,7 @@ public class JobApplicationServiceImplTest {
 
     JobApplication jobApplication = new JobApplication(cvId, jobId);
 
-    when(errorMessages.JobApplicationIsPreviouslySubmitted()).thenReturn(error);
+    when(errorMessages.jobApplicationIsPreviouslySubmitted()).thenReturn(error);
 
     when(jobApplicationRepository.getJobApplication(cvId, jobId)).thenReturn(jobApplication);
 
@@ -80,7 +80,7 @@ public class JobApplicationServiceImplTest {
 
     verify(jobApplicationRepository, never()).saveJobApplication(jobApplication);
 
-    verify(errorMessages).JobApplicationIsPreviouslySubmitted();
+    verify(errorMessages).jobApplicationIsPreviouslySubmitted();
 
     assertThat(errors, is(notNullValue()));
 

@@ -12,7 +12,7 @@ public class JobApplicationServiceLocator implements ServiceLocator {
   public Object getInstance(Class<?> clazz) {
     return new JobApplicationServiceImpl(new JobApplicationRepositoryImpl(DatastoreServiceFactory.getDatastoreService()), new ErrorMessages() {
       @Override
-      public String JobApplicationIsPreviouslySubmitted() {
+      public String jobApplicationIsPreviouslySubmitted() {
         return "Job Application Is already Submitted. ";
       }
     });
