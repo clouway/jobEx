@@ -29,15 +29,17 @@ public class JobEditor extends Composite implements Editor<JobProxy> {
   @UiField
   TextBox position;
 
+  @Ignore
   @UiField
-  ListBox category;
+  ListBox selectCategory;
+
+  @Ignore
+  @UiField
+  ListBox selectLocation;
 
   @UiField
   @Ignore
   DateBox date;
-
-  @UiField
-  ListBox location;
 
   LeafValueEditor<Date> expirationDate = new LeafValueEditor<Date>() {
     public void setValue(Date value) {
@@ -49,19 +51,39 @@ public class JobEditor extends Composite implements Editor<JobProxy> {
     }
   };
 
+  LeafValueEditor<String> category = new LeafValueEditor<String>() {
+    public void setValue(String value) {
+      selectCategory.setValue(selectCategory.getSelectedIndex(), value);
+    }
+
+    public String getValue() {
+      return selectCategory.getValue(selectCategory.getSelectedIndex());
+    }
+  };
+
+  LeafValueEditor<String> location = new LeafValueEditor<String>() {
+    public void setValue(String value) {
+      selectLocation.setValue(selectLocation.getSelectedIndex(), value);
+    }
+
+    public String getValue() {
+      return selectLocation.getValue(selectLocation.getSelectedIndex());
+    }
+  };
+
   public JobEditor() {
     initWidget(uiBinder.createAndBindUi(this));
 
-    category.addItem("Banking");
-    category.addItem("Engineering");
-    category.addItem("IT");
-    category.addItem("Franchise");
-    category.addItem("Marketing");
+    selectCategory.addItem("Banking");
+    selectCategory.addItem("Engineering");
+    selectCategory.addItem("IT");
+    selectCategory.addItem("Franchise");
+    selectCategory.addItem("Marketing");
 
-    location.addItem("Burgas");
-    location.addItem("Plovdiv");
-    location.addItem("Sofia");
-    location.addItem("Varna");
-    location.addItem("Veliko Tarnovo");
+    selectLocation.addItem("Burgas");
+    selectLocation.addItem("Plovdiv");
+    selectLocation.addItem("Sofia");
+    selectLocation.addItem("Varna");
+    selectLocation.addItem("Veliko Tarnovo");
   }
 }
