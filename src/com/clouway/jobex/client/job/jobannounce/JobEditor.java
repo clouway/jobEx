@@ -19,6 +19,7 @@ import java.util.Date;
 public class JobEditor extends Composite implements Editor<JobProxy> {
 
   interface JobAnnounceEditorUiBinder extends UiBinder<Widget, JobEditor> {}
+
   private static JobAnnounceEditorUiBinder uiBinder = GWT.create(JobAnnounceEditorUiBinder.class);
 
   @UiField
@@ -33,6 +34,9 @@ public class JobEditor extends Composite implements Editor<JobProxy> {
   @UiField
   @Ignore
   DateBox date;
+
+  @UiField
+  TextBox location;
 
   LeafValueEditor<Date> expirationDate = new LeafValueEditor<Date>() {
     public void setValue(Date value) {

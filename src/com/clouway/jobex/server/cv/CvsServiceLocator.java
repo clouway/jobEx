@@ -1,7 +1,5 @@
 package com.clouway.jobex.server.cv;
 
-import com.clouway.jobex.server.cv.CvRepositoryImpl;
-import com.clouway.jobex.server.cv.CvsServiceImpl;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.web.bindery.requestfactory.shared.ServiceLocator;
 
