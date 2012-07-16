@@ -1,11 +1,17 @@
 package com.clouway.jobex.server.applyingforjob;
 
+import com.clouway.jobex.client.applyingforjob.ErrorMessages;
 import com.clouway.jobex.server.cv.CVRepository;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import java.util.List;
+
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -23,6 +29,9 @@ public class JobApplicationServiceImplTest {
   @Mock
   CVRepository cvRepository;
 
+  @Mock
+  ErrorMessages errorMessages;
+
   JobApplicationServiceImpl service;
 
   @Before
@@ -30,7 +39,7 @@ public class JobApplicationServiceImplTest {
 
     initMocks(this);
 
-    service = new JobApplicationServiceImpl(jobApplicationRepository);
+    service = new JobApplicationServiceImpl(jobApplicationRepository,errorMessages);
 
   }
 
@@ -46,6 +55,7 @@ public class JobApplicationServiceImplTest {
     service.applyForJob(jobApplication);
 
     verify(jobApplicationRepository).saveJobApplication(jobApplication);
+
   }
 
 
@@ -56,15 +66,25 @@ public class JobApplicationServiceImplTest {
 
     Long jobId = 34l;
 
+    String error = "some error !! ";
+
     JobApplication jobApplication = new JobApplication(cvId, jobId);
+
+    when(errorMessages.jobApplicationIsPreviouslySubmitted()).thenReturn(error);
 
     when(jobApplicationRepository.getJobApplication(cvId, jobId)).thenReturn(jobApplication);
 
-    service.applyForJob(jobApplication);
+    List<String> errors = service.applyForJob(jobApplication);
 
     verify(jobApplicationRepository).getJobApplication(cvId, jobId);
 
     verify(jobApplicationRepository, never()).saveJobApplication(jobApplication);
+
+    verify(errorMessages).jobApplicationIsPreviouslySubmitted();
+
+    assertThat(errors, is(notNullValue()));
+
+    assertThat(errors.size(), is(equalTo(1)));
 
   }
 

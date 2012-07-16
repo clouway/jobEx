@@ -58,7 +58,7 @@ public class RequestFactoryJRETest {
 
     doThrow(new RuntimeException()).when(service).applyForJob(isA(JobApplication.class));
 
-    presenter.applyForJob(1l, 2l);
+    presenter.applyForJob( 2l, cvProxy.getId());
 
     ArgumentCaptor<JobApplication> jobApplicationArgumentCaptor = ArgumentCaptor.forClass(JobApplication.class);
 
