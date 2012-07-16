@@ -58,7 +58,7 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
   }
 
   public void goToMainPlace() {
-    Window.alert("Job was announced!");
+
   }
 
   @Override

@@ -52,7 +52,6 @@ public class CreatingNewCVWorkflowViewImpl extends Composite implements Creating
 
   @Override
   public void notifyUserOfSuccessfulCVCreation() {
-    Window.alert("Yeah nigga !!1");
   }
 
   @Override

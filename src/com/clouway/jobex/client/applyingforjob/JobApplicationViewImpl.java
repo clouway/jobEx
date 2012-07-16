@@ -62,7 +62,6 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
       @Override
       public void onSelectionChange(SelectionChangeEvent event) {
         Long cvId = selectionModel.getSelectedObject().getId();
-        Window.alert(jobId.toString());
         presenter.applyForJob(jobId, cvId);
       }
     });
