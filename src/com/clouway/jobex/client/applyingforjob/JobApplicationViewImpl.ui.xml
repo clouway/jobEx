@@ -2,14 +2,34 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:cellview="urn:import:com.google.gwt.user.cellview.client">
 
+  <ui:style>.container {
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: solid;
+    background: #efeaf5;
+    text-align: center;
+    margin: auto;
+    padding: 5px;
+
+  }
+
+  .tablePanel {
+    width: 100%;
+    background: rgba(110, 158, 255, 0.20);
+  }
+
+  .table {
+    width: 100%;
+    border: 1px solid;
+  }
+
+  </ui:style>
 
   <g:HTMLPanel>
-    <g:FlowPanel>
+    <g:FlowPanel addStyleNames="{style.container}">
       <g:Label ui:field="messages"/>
-      <g:VerticalPanel>
-      </g:VerticalPanel>
-      <g:VerticalPanel>
-        <cellview:CellList ui:field="cVCellTable"/>
+      <g:VerticalPanel addStyleNames="{style.tablePanel}">
+        <cellview:CellTable ui:field="cVCellTable" addStyleNames="{style.table}"/>
       </g:VerticalPanel>
       <g:Label text="" ui:field="errors"/>
     </g:FlowPanel>

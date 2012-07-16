@@ -74,9 +74,11 @@ public class JobApplicationPresenterTest {
 
 
   @Test
-  public void  applyForJobWithSelectedCV() {
+  public void applyForJobWithSelectedCV() {
 
-    presenter.applyForJob(1l, 2l);
+    presenter.onApplyForJob(new ApplyForJobEvent(1l));
+
+    presenter.applyForJob(2l, cvProxy.getId());
 
     ArgumentCaptor<JobApplication> jobApplicationArgumentCaptor = ArgumentCaptor.forClass(JobApplication.class);
 
@@ -99,7 +101,9 @@ public class JobApplicationPresenterTest {
 
     doThrow(new RuntimeException()).when(jobApplicationService).applyForJob(isA(JobApplication.class));
 
-    presenter.applyForJob(1l, 2l);
+    presenter.onApplyForJob(new ApplyForJobEvent(1l));
+
+    presenter.applyForJob(2l, cvProxy.getId());
 
     ArgumentCaptor<JobApplication> jobApplicationArgumentCaptor = ArgumentCaptor.forClass(JobApplication.class);
 
@@ -163,5 +167,29 @@ public class JobApplicationPresenterTest {
     verify(view).goToCreateNewCVForm();
   }
 
+  @Test
+  public void notifiesUserWhenJobApplicationIsPreviouslySubmitted() {
+
+    Long jobId = 1l;
+
+    Long cvId = 1l;
+
+    final String error = "some Error";
+
+    JobApplication jobApplication = new JobApplication(jobId, cvId);
+
+    ArrayList<String> errors = new ArrayList<String>();
+
+    errors.add(error);
+
+    when(jobApplicationService.applyForJob(isA(JobApplication.class))).thenReturn(errors);
+
+    presenter.applyForJob(cvId, cvProxy.getId());
+
+    verify(view, never()).notifyUserOfSuccessfulAppliance();
+
+    verify(view).showErrors(errors);
+
+  }
 
 }

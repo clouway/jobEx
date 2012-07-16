@@ -30,7 +30,7 @@ public interface JobExRequestFactory extends RequestFactory{
 
   @Service(value = JobApplicationService.class, locator = JobApplicationServiceLocator.class)
   public interface JobApplicationRequestContext extends RequestContext {
-    Request<Void> applyForJob(JobApplicationProxy applicationProxy);
+    Request<List<String>> applyForJob(JobApplicationProxy applicationProxy);
   }
 
   @Service(value = CvsService.class, locator = CvsServiceLocator.class)
