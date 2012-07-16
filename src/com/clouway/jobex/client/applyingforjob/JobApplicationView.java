@@ -50,4 +50,5 @@ public interface JobApplicationView extends IsWidget{
   void goToCreateNewCVForm();
 
   void setJobId(Long id);
+
 }

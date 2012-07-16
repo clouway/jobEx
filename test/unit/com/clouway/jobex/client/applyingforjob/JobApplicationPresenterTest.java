@@ -74,7 +74,7 @@ public class JobApplicationPresenterTest {
 
 
   @Test
-  public void  applyForJobWithSelectedCV() {
+  public void applyForJobWithSelectedCV() {
 
     presenter.applyForJob(1l, 2l);
 
@@ -161,6 +161,30 @@ public class JobApplicationPresenterTest {
     verify(cvsService).fetchCreatedCVs(username);
 
     verify(view).goToCreateNewCVForm();
+  }
+
+  @Test
+  public void notifiesUserWhenJobApplicationIsPreviouslySubmitted() {
+
+    Long jobId = 1l;
+
+    Long cvId = 1l;
+
+    final String error = "some Error";
+
+    JobApplication jobApplication = new JobApplication(jobId, cvId);
+
+    ArrayList<String> errors = new ArrayList<String>();
+    errors.add(error);
+
+    when(jobApplicationService.applyForJob(isA(JobApplication.class))).thenReturn(errors);
+
+    presenter.applyForJob(jobId, cvId);
+
+    verify(view, never()).notifyUserOfSuccessfulAppliance();
+
+    verify(view).showErrors(errors);
+
   }
 
 

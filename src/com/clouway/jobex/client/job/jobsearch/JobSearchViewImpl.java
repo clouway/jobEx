@@ -99,6 +99,7 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
       public void update(int index, JobProxy object, String value) {
 
         placeController.goTo(new SelectCvPlace());
+
         eventBus.fireEvent(new ApplyForJobEvent(object.getId()));
 
       }

@@ -2,17 +2,18 @@ package com.clouway.jobex.client.applyingforjob;
 
 
 import com.clouway.jobex.shared.CVProxy;
-import com.clouway.jobex.shared.JobExRequestFactory;
+import com.google.gwt.cell.client.ButtonCell;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.cellview.client.CellList;
-import com.google.gwt.user.client.Window;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 
@@ -34,7 +35,7 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
   private static JobApplicationViewImplUiBinder ourUiBinder = GWT.create(JobApplicationViewImplUiBinder.class);
 
   @UiField(provided = true)
-  CellList<CVProxy> cVCellTable;
+  CellTable<CVProxy> cVCellTable;
 
   @UiField
   Label errors;
@@ -54,17 +55,69 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
 
   public JobApplicationViewImpl() {
 
-    CVCell cvCell = new CVCell();
+//    CVCell cvCell = new CVCell();
 
-    cVCellTable = new CellList<CVProxy>(cvCell);
+    cVCellTable = new CellTable<CVProxy>();
 
-    selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+    cVCellTable.addColumn(new TextColumn<CVProxy>() {
       @Override
-      public void onSelectionChange(SelectionChangeEvent event) {
-        Long cvId = selectionModel.getSelectedObject().getId();
-        presenter.applyForJob(jobId, cvId);
+      public String getValue(CVProxy object) {
+        return String.valueOf(object.getId());
+      }
+    }, "Id");
+
+    cVCellTable.addColumn(new TextColumn<CVProxy>() {
+      @Override
+      public String getValue(CVProxy object) {
+        return object.getName();
+      }
+    }, "name");
+
+    cVCellTable.addColumn(new TextColumn<CVProxy>() {
+      @Override
+      public String getValue(CVProxy object) {
+        return object.getEmail();
+      }
+    }, "email");
+
+    cVCellTable.addColumn(new TextColumn<CVProxy>() {
+      @Override
+      public String getValue(CVProxy object) {
+        return object.getPhoneNumber();
+      }
+    }, "phone number");
+
+    cVCellTable.addColumn(new TextColumn<CVProxy>() {
+      @Override
+      public String getValue(CVProxy object) {
+        return object.getSkills();
+      }
+    }, "skills:");
+
+
+    Column<CVProxy, String> selectButton = new Column<CVProxy, String>(new ButtonCell()) {
+      @Override
+      public String getValue(final CVProxy object) {
+        return "select";
+      }
+    };
+
+    selectButton.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
+      @Override
+      public void update(int index, CVProxy cvProxy, String value) {
+        presenter.applyForJob(jobId, cvProxy.getId());
       }
     });
+    cVCellTable.addColumn(selectButton);
+
+
+//    selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+//      @Override
+//      public void onSelectionChange(SelectionChangeEvent event) {
+//        Long cvId = selectionModel.getSelectedObject().getId();
+//        presenter.applyForJob(jobId, cvId);
+//      }
+//    });
     cVCellTable.setSelectionModel(selectionModel);
     HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
     initWidget(rootElement);
@@ -78,9 +131,9 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
 
 
   @Override
-  public void showErrors(List<String> errorstringList) {
+  public void showErrors(List<String> errorsList) {
     StringBuilder builder = new StringBuilder();
-    for (String string : errorstringList) {
+    for (String string : errorsList) {
       builder.append(string);
     }
     errors.setText(builder.toString());

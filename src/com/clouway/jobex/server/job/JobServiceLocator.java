@@ -11,8 +11,12 @@ import com.google.web.bindery.requestfactory.shared.ServiceLocator;
 public class JobServiceLocator implements ServiceLocator {
 
   public Object getInstance(Class<?> clazz) {
+
     DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
+
     JobRepository jobRepository = new JobRepositoryImpl(datastoreService);
+
     return new JobAnnounceServiceImpl(jobRepository);
+
   }
 }
