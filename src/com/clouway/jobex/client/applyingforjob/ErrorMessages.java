@@ -5,6 +5,6 @@ package com.clouway.jobex.client.applyingforjob;
 */
 public interface ErrorMessages {
 
- public String JobApplicationIsPreviouslySubmitted();
+ public String jobApplicationIsPreviouslySubmitted();
 
 }
