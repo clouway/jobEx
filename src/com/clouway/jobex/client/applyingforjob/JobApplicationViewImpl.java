@@ -4,6 +4,7 @@ package com.clouway.jobex.client.applyingforjob;
 import com.clouway.jobex.shared.CVProxy;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellList;
@@ -13,6 +14,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
+import com.google.inject.Inject;
 
 import java.util.List;
 
@@ -21,6 +23,10 @@ import java.util.List;
  */
 public class JobApplicationViewImpl extends Composite implements JobApplicationView {
 
+
+  public void setJobId(Long jobId) {
+    this.jobId = jobId;
+  }
 
   interface JobApplicationViewImplUiBinder extends UiBinder<HTMLPanel, JobApplicationViewImpl> {
   }
@@ -36,6 +42,8 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
   @UiField
   Label messages;
 
+  @Inject
+  PlaceController controller;
 
   private JobApplicationPresenter presenter;
 
@@ -46,9 +54,6 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
 
   public JobApplicationViewImpl() {
 
-    JobExRequestFactory factory = GWT.create(JobExRequestFactory.class);
-
-
     CVCell cvCell = new CVCell();
 
     cVCellTable = new CellList<CVProxy>(cvCell);
@@ -57,8 +62,7 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
       @Override
       public void onSelectionChange(SelectionChangeEvent event) {
         Long cvId = selectionModel.getSelectedObject().getId();
-        presenter.applyForJob(jobId,cvId);
-        Window.alert("Selected ... !");
+        presenter.applyForJob(jobId, cvId);
       }
     });
     cVCellTable.setSelectionModel(selectionModel);
@@ -99,9 +103,8 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
   }
 
 
-
   @Override
   public void goToCreateNewCVForm() {
-    Window.alert("got to new CV creation ... !");
+    controller.goTo(new CreateCvPlace());
   }
 }

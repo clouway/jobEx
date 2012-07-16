@@ -8,4 +8,5 @@ import com.clouway.jobex.server.job.Job;
 public interface JobAnnounceService {
 
   void announceJob(String companyName, Job job);
+
 }
