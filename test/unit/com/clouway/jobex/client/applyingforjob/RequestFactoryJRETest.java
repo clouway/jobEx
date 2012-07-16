@@ -44,7 +44,7 @@ public class RequestFactoryJRETest {
     factory = RequestFactoryHelper.create(JobExRequestFactory.class);
     service = RequestFactoryHelper.getService(JobApplicationService.class);
     context = factory.jobApplicationContext();
-    presenter = new JobApplicationPresenter(factory, view,provider );
+    presenter = new JobApplicationPresenter(factory, view, provider);
   }
 
   @Test
@@ -58,7 +58,7 @@ public class RequestFactoryJRETest {
 
     doThrow(new RuntimeException()).when(service).applyForJob(isA(JobApplication.class));
 
-    presenter.applyForJob( 2l, cvProxy.getId());
+    presenter.applyForJob(1l, 2l);
 
     ArgumentCaptor<JobApplication> jobApplicationArgumentCaptor = ArgumentCaptor.forClass(JobApplication.class);
 
