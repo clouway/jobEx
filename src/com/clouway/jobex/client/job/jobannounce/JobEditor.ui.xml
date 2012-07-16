@@ -17,12 +17,12 @@
 
       <tr>
         <td>Category: </td>
-        <td><g:TextBox ui:field="category" /></td>
+        <td><g:ListBox ui:field="category" /></td>
       </tr>
 
       <tr>
         <td>Location: </td>
-        <td><g:TextBox ui:field="location" /></td>
+        <td><g:ListBox ui:field="location" /></td>
       </tr>
 
       <tr>

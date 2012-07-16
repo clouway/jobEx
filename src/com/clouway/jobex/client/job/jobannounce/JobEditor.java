@@ -7,6 +7,7 @@ import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
@@ -29,14 +30,14 @@ public class JobEditor extends Composite implements Editor<JobProxy> {
   TextBox position;
 
   @UiField
-  TextBox category;
+  ListBox category;
 
   @UiField
   @Ignore
   DateBox date;
 
   @UiField
-  TextBox location;
+  ListBox location;
 
   LeafValueEditor<Date> expirationDate = new LeafValueEditor<Date>() {
     public void setValue(Date value) {
@@ -50,5 +51,17 @@ public class JobEditor extends Composite implements Editor<JobProxy> {
 
   public JobEditor() {
     initWidget(uiBinder.createAndBindUi(this));
+
+    category.addItem("Banking");
+    category.addItem("Engineering");
+    category.addItem("IT");
+    category.addItem("Franchise");
+    category.addItem("Marketing");
+
+    location.addItem("Burgas");
+    location.addItem("Plovdiv");
+    location.addItem("Sofia");
+    location.addItem("Varna");
+    location.addItem("Veliko Tarnovo");
   }
 }
