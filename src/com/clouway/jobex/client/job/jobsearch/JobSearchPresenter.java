@@ -41,6 +41,10 @@ public class JobSearchPresenter extends AbstractActivity {
    */
   public void search(String location, String category) {
 
+    if ("".equals(location) && "".equals(category)) {
+      jobSearchView.noSearchCriteriaMessage();
+      return;
+    }
 
     jobSearchView.disableSearch();
     JobExRequestFactory.JobRequest jobSearchRequest = factory.jobRequest();

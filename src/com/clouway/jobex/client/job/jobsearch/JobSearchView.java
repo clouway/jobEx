@@ -40,5 +40,15 @@ public interface JobSearchView {
   void enableSearch();
 
 
+  /**
+   * Set view's presenter
+   *
+   * @param presenter a presenter which will drive the view
+   */
   void setPresenter(JobSearchPresenter presenter);
+
+  /**
+   * Alert use when trying to search without criteria (location/category)
+   */
+  void noSearchCriteriaMessage();
 }

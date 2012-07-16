@@ -45,10 +45,7 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
   TextBox positionValue;
   @UiField
   Button searchButton;
-  Column<JobProxy, String> id;
-  Column<JobProxy, String> location;
-  Column<JobProxy, String> category;
-  Column<JobProxy, String> apply;
+
 
   @Inject
   EventBus eventBus;
@@ -61,39 +58,45 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
 
     dataProvider.addDataDisplay(jobsCellTable);
 
-    id = new Column<JobProxy, String>(new TextCell()) {
+    Column<JobProxy, String> id = new Column<JobProxy, String>(new TextCell()) {
       @Override
       public String getValue(JobProxy object) {
         return String.valueOf(object.getId());
       }
     };
 
-    location = new Column<JobProxy, String>(new TextCell()) {
+    Column<JobProxy, String> location = new Column<JobProxy, String>(new TextCell()) {
       @Override
       public String getValue(JobProxy object) {
         return object.getLocation();
       }
     };
 
-    category = new Column<JobProxy, String>(new TextCell()) {
+    Column<JobProxy, String> category = new Column<JobProxy, String>(new TextCell()) {
       @Override
       public String getValue(JobProxy object) {
         return String.valueOf(object.getCategory());
       }
     };
 
-    apply = new Column<JobProxy, String>(new ButtonCell()) {
+    Column<JobProxy, String> apply = new Column<JobProxy, String>(new ButtonCell()) {
       @Override
       public String getValue(JobProxy object) {
         return "APPLY";
       }
     };
 
+    Column<JobProxy, String> position = new Column<JobProxy, String>(new TextCell()) {
+      @Override
+      public String getValue(JobProxy object) {
+        return String.valueOf(object.getPosition());
+      }
+    };
+
+
 
     apply.setFieldUpdater(new FieldUpdater<JobProxy, String>() {
       public void update(int index, JobProxy object, String value) {
-        // Value is the button value.  Object is the row object.
-        //       new SimpleEventBus().fireEvent();
 
         placeController.goTo(new SelectCvPlace());
         eventBus.fireEvent(new ApplyForJobEvent(object.getId()));
@@ -104,6 +107,7 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
     jobsCellTable.addColumn(id, "JobId");
     jobsCellTable.addColumn(location, "Location");
     jobsCellTable.addColumn(category, "Category");
+    jobsCellTable.addColumn(position, "Position");
     jobsCellTable.addColumn(apply, "Apply");
 
 
@@ -122,10 +126,6 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
    */
   @Override
   public void showJobAds(List<JobProxy> listOfJobObjects) {
-//    List<JobProxy> list = dataProvider.getList();
-//    for (JobProxy job : listOfJobObjects) {
-//      list.add(job);
-//    }
     jobsCellTable.setVisibleRange(0, listOfJobObjects.size());
     jobsCellTable.setRowData(0, listOfJobObjects);
   }
@@ -162,6 +162,10 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
     searchButton.setEnabled(true);
   }
 
+  @Override
+  public void noSearchCriteriaMessage() {
+    Window.alert("Please enter search criteria (location/category)");
+  }
 
   @UiHandler("searchButton")
   public void onSearchButtonClicked(ClickEvent event) {

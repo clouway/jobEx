@@ -2,13 +2,14 @@ package com.clouway.jobex.client.applyingforjob;
 
 
 import com.clouway.jobex.shared.CVProxy;
+import com.google.gwt.user.client.ui.IsWidget;
 
 import java.util.List;
 
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public interface JobApplicationView {
+public interface JobApplicationView extends IsWidget{
 
   /**
    * notifies user of Successful job appliance when the user applies for a job

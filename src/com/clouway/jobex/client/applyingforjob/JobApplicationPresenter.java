@@ -88,6 +88,6 @@ public class JobApplicationPresenter extends AbstractActivity implements ApplyFo
   @Override
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
     view.setPresenter(this);
-    panel.setWidget((JobApplicationViewImpl) view);
+    panel.setWidget(view);
   }
 }

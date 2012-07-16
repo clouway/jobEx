@@ -43,7 +43,8 @@ public class JobRepositoryImpl implements JobRepository{
       Job job = new Job();
       job.setId(entity.getKey().getId());
       job.setLocation((String) entity.getProperty("location"));
-      job.setCategory((String) entity.getProperty("position"));
+      job.setCategory((String) entity.getProperty("category"));
+      job.setPosition((String) entity.getProperty("position"));
       listOfJobs.add(job);
     }
     return listOfJobs;

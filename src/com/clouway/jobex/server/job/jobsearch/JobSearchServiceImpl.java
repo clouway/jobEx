@@ -32,40 +32,26 @@ public class JobSearchServiceImpl implements JobSearchService {
    */
   public List<Job> search(Job job) {
 
-//    List<Job> jobList = null;
-//    jobList = new ArrayList<Job>();
-//
-//    Job job1 = new Job();
-//    job1.setId(1l);
-//    job1.setLocation("varna");
-//    job1.setCategory("cat1");
-//    jobList.add(job1);
-//
-//
-//    Job job2 = new Job();
-//    job2.setId(2l);
-//    job2.setLocation("vadsana");
-//    job2.setCategory("cat2");
-//    jobList.add(job2);
-//
-//
-//    String location = job.getLocation();
-//
-//    String category = job.getCategory();
-//
-//    if(("").equals(location) && !("").equals(category)){
-//      jobList = jobRepository.getAllJobsByCategory(category);
-//    }
-//    if(!("").equals(location) && ("").equals(category)) {
-//      jobList = jobRepository.getAllJobsByLocation(location);
-//    }
-//    if(!("").equals(location) && !("").equals(category)){
-//      jobList = jobRepository.getAllJobsByLocationAndCategory(location, category);
-//    }
-//
-//    return jobList;
+    List<Job> jobList = null;
 
-    return jobRepository.getAllJobsByLocationAndCategory(job.getLocation(), job.getCategory());
+
+    String location = job.getLocation();
+
+    String category = job.getCategory();
+
+    if(("").equals(location) && !("").equals(category)){
+      jobList = jobRepository.getAllJobsByCategory(category);
+    }
+    if(!("").equals(location) && ("").equals(category)) {
+      jobList = jobRepository.getAllJobsByLocation(location);
+    }
+    if(!("").equals(location) && !("").equals(category)){
+      jobList = jobRepository.getAllJobsByLocationAndCategory(location, category);
+    }
+
+    return jobList;
+
+//    return jobRepository.getAllJobsByLocationAndCategory(job.getLocation(), job.getCategory());
 
   }
 }

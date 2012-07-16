@@ -3,7 +3,7 @@
              xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
   <g:HTMLPanel>
     Location:<g:TextBox ui:field="locationValue"/>
-    Position:<g:TextBox ui:field="positionValue"/>
+    Category:<g:TextBox ui:field="positionValue"/>
     <g:Button ui:field="searchButton">Search</g:Button>
     <c:CellTable ui:field="jobsCellTable" />
   </g:HTMLPanel>
