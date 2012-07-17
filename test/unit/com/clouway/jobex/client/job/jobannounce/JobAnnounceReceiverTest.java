@@ -29,6 +29,6 @@ public class JobAnnounceReceiverTest {
 
     receiver.onSuccess(null);
 
-    verify(view).goToMainPlace();
+    verify(view).goToSearchPlace();
   }
 }

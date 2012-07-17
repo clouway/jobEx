@@ -16,15 +16,16 @@ import com.google.inject.Inject;
  */
 public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnnouncePresenter {
 
-  private final JobExRequestFactory.JobRequestContext requestContext;
+  private final JobExRequestFactory requestFactory;
   private final JobAnnounceView view;
   private final CompanyNameProvider companyNameProvider;
 
+  private JobExRequestFactory.JobRequestContext requestContext;
   private JobProxy editableJobProxy;
 
   @Inject
-  public JobAnnouncePresenterImpl(JobExRequestFactory.JobRequestContext requestContext, JobAnnounceView view, CompanyNameProvider companyNameProvider) {
-    this.requestContext = requestContext;
+  public JobAnnouncePresenterImpl(JobExRequestFactory requestFactory, JobAnnounceView view, CompanyNameProvider companyNameProvider) {
+    this.requestFactory = requestFactory;
     this.view = view;
     this.companyNameProvider = companyNameProvider;
   }
@@ -37,6 +38,8 @@ public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnn
   }
 
   public void initialize() {
+
+    requestContext = requestFactory.jobRequestContext();
 
     JobProxy jobProxy = requestContext.create(JobProxy.class);
 
