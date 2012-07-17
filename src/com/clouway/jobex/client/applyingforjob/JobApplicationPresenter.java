@@ -38,9 +38,10 @@ public class JobApplicationPresenter extends AbstractActivity implements ApplyFo
    * which the user wants to apply with.
    *
    * @param jobId
-   * @param cvId  the id of the Cv with witch the user wants to apply for a job
+   * @param cvId             the id of the Cv with witch the user wants to apply for a job
+   * @param employeeUsername : the username of person who applies for the JOB.
    */
-  public void applyForJob(Long jobId, Long cvId) {
+  public void applyForJob(Long jobId, Long cvId, String employeeUsername) {
 
     JobExRequestFactory.JobApplicationRequestContext requestContext = requestFactory.jobApplicationContext();
 
@@ -49,6 +50,8 @@ public class JobApplicationPresenter extends AbstractActivity implements ApplyFo
     applicationProxy.setCvId(cvId);
 
     applicationProxy.setJobId(jobId);
+
+    applicationProxy.setUser(employeeUsername);
 
     requestContext.applyForJob(applicationProxy).fire(new Receiver<List<String>>() {
       @Override

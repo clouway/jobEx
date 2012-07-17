@@ -26,7 +26,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
   @Override
   public List<String> applyForJob(JobApplication application) {
     ArrayList<String> errors = new ArrayList<String>();
-    if (jobApplicationRepository.getJobApplication(application.getCvId(), application.getJobId()) == null) {
+    if (jobApplicationRepository.getJobApplication(application.getCvId(), application.getJobId(), application.getUser()) == null) {
       jobApplicationRepository.saveJobApplication(application);
     } else {
       errors.add(errorMessages.jobApplicationIsPreviouslySubmitted());

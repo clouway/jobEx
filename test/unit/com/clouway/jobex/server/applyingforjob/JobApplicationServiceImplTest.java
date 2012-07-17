@@ -39,7 +39,7 @@ public class JobApplicationServiceImplTest {
 
     initMocks(this);
 
-    service = new JobApplicationServiceImpl(jobApplicationRepository,errorMessages);
+    service = new JobApplicationServiceImpl(jobApplicationRepository, errorMessages);
 
   }
 
@@ -66,17 +66,19 @@ public class JobApplicationServiceImplTest {
 
     Long jobId = 34l;
 
+    String username = "user";
+
     String error = "some error !! ";
 
-    JobApplication jobApplication = new JobApplication(cvId, jobId);
+    JobApplication jobApplication = new JobApplication(cvId, jobId,username);
 
     when(errorMessages.jobApplicationIsPreviouslySubmitted()).thenReturn(error);
 
-    when(jobApplicationRepository.getJobApplication(cvId, jobId)).thenReturn(jobApplication);
+    when(jobApplicationRepository.getJobApplication(cvId, jobId,username)).thenReturn(jobApplication);
 
     List<String> errors = service.applyForJob(jobApplication);
 
-    verify(jobApplicationRepository).getJobApplication(cvId, jobId);
+    verify(jobApplicationRepository).getJobApplication(cvId, jobId,username);
 
     verify(jobApplicationRepository, never()).saveJobApplication(jobApplication);
 
