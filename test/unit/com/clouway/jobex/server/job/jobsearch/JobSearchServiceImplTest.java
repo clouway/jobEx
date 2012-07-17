@@ -37,25 +37,11 @@ public class JobSearchServiceImplTest {
     job = new Job();
   }
 
-  @Test
-  public void searchForJobsOnlyByLocationWhenCategoryIsEmptyString(){
-    job.setLocation("loc1");
-    job.setCategory("");
-    context.checking(new Expectations(){{
-      one(jobRepository).getAllJobsByLocation(job.getLocation());
-      will(returnValue(returnedEntities));
-      oneOf(jobConverter).convertToDomainsFrom(returnedEntities);
-
-    }
-    });
-
-    jobSearchService.search(job);
-  }
 
   @Test
-  public void searchForJobsOnlyByCategoryWhenLocationIsEmptyString(){
+  public void searchForJobsByCategory(){
 
-    job.setLocation("");
+    job.setLocation("all locations");
     job.setCategory("cat1");
 
     context.checking(new Expectations(){{

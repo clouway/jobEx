@@ -56,14 +56,5 @@ public class JobSearchPresenterTest {
     presenter.search("loc1","cat1");
 
   }
-  
-  @Test
-  public void searchIsNotPerformedWithoutSearchConditions() {
-    
-    context.checking(new Expectations() {{
-      oneOf(jobSearchView).noSearchCriteriaMessage();
-    }});
 
-    presenter.search("", "");
-  }
 }
