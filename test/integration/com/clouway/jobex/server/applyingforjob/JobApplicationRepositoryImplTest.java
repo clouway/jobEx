@@ -33,27 +33,31 @@ public class JobApplicationRepositoryImplTest extends AppEngineTestCase {
 
     Long jobId = 32l;
 
-    JobApplication application = new JobApplication(cvId, jobId);
+    String username = "username";
+
+    JobApplication application = new JobApplication(cvId, jobId, username);
 
     repository.saveJobApplication(application);
 
-    JobApplication savedJobApplication = repository.getJobApplication(cvId, jobId);
+    JobApplication savedJobApplication = repository.getJobApplication(cvId, jobId, username);
 
     assertThat(savedJobApplication, is(notNullValue()));
 
     assertThat(savedJobApplication.getJobId(), is(equalTo(jobId)));
 
     assertThat(savedJobApplication.getCvId(), is(equalTo(cvId)));
+
+    assertThat(savedJobApplication.getUser(), is(equalTo(username)));
+
   }
 
 
   @Test
   public void returnsNullIfJobApplicationWithTheSpecifiedCvAndJobIdDoesNotExist() {
 
-    JobApplication application = repository.getJobApplication(12l, 123l);
+    JobApplication application = repository.getJobApplication(12l, 123l, "username");
 
     assertThat(application, is(nullValue()));
+
   }
-
-
 }

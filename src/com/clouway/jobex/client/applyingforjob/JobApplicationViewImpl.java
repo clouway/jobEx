@@ -52,8 +52,6 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
 
   public JobApplicationViewImpl() {
 
-//    CVCell cvCell = new CVCell();
-
     cVCellTable = new CellTable<CVProxy>();
 
     cVCellTable.addColumn(new TextColumn<CVProxy>() {
@@ -102,7 +100,7 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
     selectButton.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
       @Override
       public void update(int index, CVProxy cvProxy, String value) {
-        presenter.applyForJob(jobId,cvProxy.getId());
+        presenter.applyForJob(jobId, cvProxy.getId(), cvProxy.getEmail());
       }
     });
     cVCellTable.addColumn(selectButton);
@@ -117,7 +115,7 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
 
   @Override
   public void notifyUserOfSuccessfulAppliance() {
-      Window.alert("You have successfully applied for A Job. ");
+    Window.alert("You have successfully applied for A Job. ");
   }
 
 

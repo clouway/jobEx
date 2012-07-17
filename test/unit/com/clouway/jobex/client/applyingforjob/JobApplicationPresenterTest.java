@@ -1,6 +1,4 @@
 package com.clouway.jobex.client.applyingforjob;
-
-
 import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.server.applyingforjob.JobApplication;
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
@@ -13,9 +11,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
-
 import java.util.ArrayList;
-
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -78,7 +74,7 @@ public class JobApplicationPresenterTest {
 
     presenter.onApplyForJob(new ApplyForJobEvent(1l));
 
-    presenter.applyForJob(1l, 2l);
+    presenter.applyForJob(1l, 2l, "username");
 
     ArgumentCaptor<JobApplication> jobApplicationArgumentCaptor = ArgumentCaptor.forClass(JobApplication.class);
 
@@ -103,7 +99,7 @@ public class JobApplicationPresenterTest {
 
     presenter.onApplyForJob(new ApplyForJobEvent(1l));
 
-    presenter.applyForJob(1l, 2l);
+    presenter.applyForJob(1l, 2l, "username");
 
     ArgumentCaptor<JobApplication> jobApplicationArgumentCaptor = ArgumentCaptor.forClass(JobApplication.class);
 
@@ -174,9 +170,11 @@ public class JobApplicationPresenterTest {
 
     Long cvId = 1l;
 
+    String username = "username";
+
     final String error = "some Error";
 
-    JobApplication jobApplication = new JobApplication(jobId, cvId);
+    JobApplication jobApplication = new JobApplication(jobId, cvId,username);
 
     ArrayList<String> errors = new ArrayList<String>();
 
@@ -184,7 +182,7 @@ public class JobApplicationPresenterTest {
 
     when(jobApplicationService.applyForJob(isA(JobApplication.class))).thenReturn(errors);
 
-    presenter.applyForJob(jobId,cvId);
+    presenter.applyForJob(jobId, cvId, "username");
 
     verify(view, never()).notifyUserOfSuccessfulAppliance();
 

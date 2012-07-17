@@ -5,7 +5,6 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Query;
 
 /**
- *
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
 public class JobApplicationRepositoryImpl implements JobApplicationRepository {
@@ -15,6 +14,8 @@ public class JobApplicationRepositoryImpl implements JobApplicationRepository {
   private final String cvIdProperty = "cvId";
 
   private final String jobIdProperty = "jobId";
+
+  private final String username = "username";
 
   private final DatastoreService service;
 
@@ -31,28 +32,29 @@ public class JobApplicationRepositoryImpl implements JobApplicationRepository {
 
     entity.setProperty(cvIdProperty, jobApplication.getCvId());
 
+    entity.setProperty(username, jobApplication.getUser());
+
     service.put(entity);
 
   }
 
   @Override
-  public JobApplication getJobApplication(Long cvId, Long jobId) {
+  public JobApplication getJobApplication(Long cvId, Long jobId, String employeeUsername) {
 
     JobApplication jobApplication = null;
 
     Query query = new Query(jobApplicationKind);
 
     query.setFilter(Query.CompositeFilterOperator.and(new Query.FilterPredicate(cvIdProperty, Query.FilterOperator.EQUAL, cvId)
-            , new Query.FilterPredicate(jobIdProperty, Query.FilterOperator.EQUAL, jobId)));
+            , new Query.FilterPredicate(jobIdProperty, Query.FilterOperator.EQUAL, jobId),
+            new Query.FilterPredicate(employeeUsername, Query.FilterOperator.EQUAL, employeeUsername)));
 
     Entity entity = service.prepare(query).asSingleEntity();
 
     if (entity != null) {
-      jobApplication = new JobApplication((Long) entity.getProperty(cvIdProperty), (Long) entity.getProperty(jobIdProperty));
+      jobApplication = new JobApplication((Long) entity.getProperty(cvIdProperty), (Long) entity.getProperty(jobIdProperty), (String) entity.getProperty(username));
     }
-
     return jobApplication;
-
   }
 
 }

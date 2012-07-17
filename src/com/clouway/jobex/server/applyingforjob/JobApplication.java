@@ -3,10 +3,10 @@ package com.clouway.jobex.server.applyingforjob;
 /**
  * A Data Transfer Object contains the CVId with which a user applies for a job and the
  * job id to which the user applies
+ *
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
 public class JobApplication {
-
 
   private Long id;
 
@@ -16,14 +16,23 @@ public class JobApplication {
 
   private Long jobId;
 
-
+  private String user;
 
   public JobApplication(Long cvId, Long jobId) {
+
     this.cvId = cvId;
+
     this.jobId = jobId;
+
   }
 
   public JobApplication() {
+  }
+
+  public JobApplication(Long cvId, Long jobId, String username) {
+    this.jobId = jobId;
+    this.cvId = cvId;
+    this.user = username;
   }
 
   public Long getCvId() {
@@ -48,5 +57,13 @@ public class JobApplication {
 
   public Long getVersion() {
     return version;
+  }
+
+  public String getUser() {
+    return user;
+  }
+
+  public void setUser(String user) {
+    this.user = user;
   }
 }

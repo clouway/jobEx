@@ -9,7 +9,9 @@ import com.google.gwt.event.shared.GwtEvent;
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
 public class ApplyForJobEvent extends GwtEvent<ApplyForJobEventHandler> {
+
   public static Type<ApplyForJobEventHandler> TYPE = new Type<ApplyForJobEventHandler>();
+
   private final Long jobId;
 
   public ApplyForJobEvent(Long jobId) {
