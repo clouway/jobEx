@@ -46,6 +46,7 @@ public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnn
     editableJobProxy = requestContext.edit(jobProxy);
 
     requestContext.announceJob(companyNameProvider.getCompanyName(), editableJobProxy).to(new JobAnnounceReceiver(view));
+
   }
 
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
@@ -57,5 +58,6 @@ public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnn
     view.edit(requestContext, editableJobProxy);
 
     panel.setWidget((IsWidget) view);
+
   }
 }

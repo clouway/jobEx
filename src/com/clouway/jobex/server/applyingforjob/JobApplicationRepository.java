@@ -17,11 +17,12 @@ public interface JobApplicationRepository {
   /**
    * Returns A JobApplication that was applied for Job wih jobId and with Cv with cvId;
    *
-   * @param cvId: the Id of the Cv that is user for job application;
-   * @param jobId the Id of the Job to which the user applies.
+   * @param cvId:             the Id of the Cv that is user for job application;
+   * @param jobId             the Id of the Job to which the user applies.
+   * @param employeeUsername: the username of the  employee who applied for the job.
    * @return Job Application, null if the Job Does not exist.
    */
-  JobApplication getJobApplication(Long cvId, Long jobId);
+  JobApplication getJobApplication(Long cvId, Long jobId, String employeeUsername);
 
 
 }
