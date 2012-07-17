@@ -18,7 +18,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
@@ -40,9 +40,9 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
   @UiField
   CellTable<JobProxy> jobsCellTable;
   @UiField
-  TextBox locationValue;
+  ListBox locationValue;
   @UiField
-  TextBox positionValue;
+  ListBox categoryValue;
   @UiField
   Button searchButton;
 
@@ -54,6 +54,23 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
   @Inject
   public JobSearchViewImpl(final PlaceController placeController) {
     initWidget(ourUiBinder.createAndBindUi(this));
+
+
+    locationValue.addItem("all locations");
+    locationValue.addItem("Burgas");
+    locationValue.addItem("Plovdiv");
+    locationValue.addItem("Sofia");
+    locationValue.addItem("Varna");
+    locationValue.addItem("Veliko Tarnovo");
+
+    categoryValue.addItem("Banking");
+    categoryValue.addItem("Engineering");
+    categoryValue.addItem("IT");
+    categoryValue.addItem("Franchise");
+    categoryValue.addItem("Marketing");
+
+
+
     dataProvider = new ListDataProvider<JobProxy>();
 
     dataProvider.addDataDisplay(jobsCellTable);
@@ -64,6 +81,7 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
         return String.valueOf(object.getId());
       }
     };
+    jobsCellTable.setPageSize(2);
 
     Column<JobProxy, String> location = new Column<JobProxy, String>(new TextCell()) {
       @Override
@@ -111,6 +129,12 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
     jobsCellTable.addColumn(position, "Position");
     jobsCellTable.addColumn(apply, "Apply");
 
+    jobsCellTable.setColumnWidth(id, "150");
+    jobsCellTable.setColumnWidth(location, "200");
+    jobsCellTable.setColumnWidth(category, "200");
+    jobsCellTable.setColumnWidth(position, "200");
+    jobsCellTable.setColumnWidth(apply, "100");
+
 
   }
 
@@ -136,7 +160,7 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
    */
   @Override
   public String getCategoryValue() {
-    return positionValue.getText();
+    return categoryValue.getValue(categoryValue.getSelectedIndex());
   }
 
   /**
@@ -144,7 +168,7 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
    */
   @Override
   public String getLocationValue() {
-    return locationValue.getText();
+    return locationValue.getValue(locationValue.getSelectedIndex());
   }
 
   /**
@@ -161,11 +185,6 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
   @Override
   public void enableSearch() {
     searchButton.setEnabled(true);
-  }
-
-  @Override
-  public void noSearchCriteriaMessage() {
-    Window.alert("Please enter search criteria (location/category)");
   }
 
   @UiHandler("searchButton")

@@ -47,8 +47,4 @@ public interface JobSearchView {
    */
   void setPresenter(JobSearchPresenter presenter);
 
-  /**
-   * Alert use when trying to search without criteria (location/category)
-   */
-  void noSearchCriteriaMessage();
 }

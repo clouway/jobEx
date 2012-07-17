@@ -35,13 +35,10 @@ public class JobSearchServiceImpl implements JobSearchService {
 
     String category = job.getCategory();
 
-    if(("").equals(location) && !("").equals(category)){
-      jobList =jobRepository.getAllJobsByCategory(category);
-    }
-    if(!("").equals(location) && ("").equals(category)) {
-      jobList = jobRepository.getAllJobsByLocation(location);
-    }
-    if(!("").equals(location) && !("").equals(category)){
+
+    if(("all locations").equals(location)) {
+      jobList = jobRepository.getAllJobsByCategory(category);
+    } else {
       jobList = jobRepository.getAllJobsByLocationAndCategory(location, category);
     }
 
