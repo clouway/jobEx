@@ -57,7 +57,6 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
   @Inject
   public JobSearchViewImpl(final PlaceController placeController, NavigationMenu navigationMenu) {
     navigation = navigationMenu;
-
     initWidget(ourUiBinder.createAndBindUi(this));
 
 
