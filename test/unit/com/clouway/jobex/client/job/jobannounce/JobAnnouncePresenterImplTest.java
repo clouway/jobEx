@@ -47,7 +47,7 @@ public class JobAnnouncePresenterImplTest {
 
     service = RequestFactoryHelper.getService(JobAnnounceService.class);
 
-    presenter = new JobAnnouncePresenterImpl(requestContext, view, companyNameProvider);
+    presenter = new JobAnnouncePresenterImpl(requestFactory, view, companyNameProvider);
   }
 
   @Test
@@ -63,7 +63,7 @@ public class JobAnnouncePresenterImplTest {
     ArgumentCaptor<String> companyNameCaptor = ArgumentCaptor.forClass(String.class);
 
     verify(service).announceJob(companyNameCaptor.capture(), jobCaptor.capture());
-    verify(view).goToMainPlace();
+    verify(view).goToSearchPlace();
 
     Job job = jobCaptor.getValue();
 

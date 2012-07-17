@@ -16,9 +16,9 @@ public interface JobAnnounceView {
   void setPresenter(JobAnnouncePresenter presenter);
 
   /**
-   * Go to MainPlace
+   * Go to SearchPlace after announcing new job
    */
-  void goToMainPlace();
+  void goToSearchPlace();
 
 
   public void edit(JobExRequestFactory.JobRequestContext context, JobProxy proxy);
