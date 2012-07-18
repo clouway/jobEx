@@ -49,6 +49,7 @@ public class JobRepositoryImplTest {
   public void saveJobInRepository() {
 
     Job job = new Job("Company", "Position", "Category", new Date());
+
     repository.saveJob(job.getCompany(), job);
 
     Query query = new Query("Job");
@@ -66,4 +67,6 @@ public class JobRepositoryImplTest {
     assertThat((Date) savedJob.getProperty("expirationDate"), is(equalTo(job.getExpirationDate())));
 
   }
+
+
 }

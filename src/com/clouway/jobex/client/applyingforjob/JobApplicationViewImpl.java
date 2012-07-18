@@ -27,6 +27,7 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
 
 
   interface JobApplicationViewImplUiBinder extends UiBinder<HTMLPanel, JobApplicationViewImpl> {
+
   }
 
   private static JobApplicationViewImplUiBinder ourUiBinder = GWT.create(JobApplicationViewImplUiBinder.class);
@@ -90,20 +91,21 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
     }, "skills:");
 
 
-    Column<CVProxy, String> selectButton = new Column<CVProxy, String>(new ButtonCell()) {
+    Column<CVProxy, String> editButton = new Column<CVProxy, String>(new ButtonCell()) {
       @Override
-      public String getValue(final CVProxy object) {
-        return "select";
+      public String getValue(CVProxy object) {
+        return "edit";
       }
     };
 
-    selectButton.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
+    editButton.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
       @Override
-      public void update(int index, CVProxy cvProxy, String value) {
-        presenter.applyForJob(jobId, cvProxy.getId(), cvProxy.getEmail());
+      public void update(int index, CVProxy object, String value) {
+        controller.goTo(new EditCVPlace(object.getId()));
       }
     });
-    cVCellTable.addColumn(selectButton);
+
+    cVCellTable.addColumn(editButton);
 
     cVCellTable.setSelectionModel(selectionModel);
 
@@ -152,6 +154,33 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
 
   @Override
   public void setJobId(Long id) {
+
     jobId = id;
+
+    addSelectButton();
+
+  }
+
+  public void addSelectButton() {
+
+    Column<CVProxy, String> selectButton = new Column<CVProxy, String>(new ButtonCell()) {
+      @Override
+      public String getValue(final CVProxy object) {
+        return "select";
+      }
+    };
+
+    selectButton.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
+      @Override
+      public void update(int index, CVProxy cvProxy, String value) {
+        presenter.applyForJob(jobId, cvProxy.getId(), cvProxy.getEmail());
+      }
+    });
+
+    int index = cVCellTable.getColumnIndex(selectButton);
+    if (index == -1) {
+      cVCellTable.addColumn(selectButton);
+    }
+
   }
 }

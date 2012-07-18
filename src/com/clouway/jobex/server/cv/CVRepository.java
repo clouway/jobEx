@@ -11,4 +11,5 @@ public interface CVRepository {
 
   void save(String username, CV cv);
 
+  CV getCv(long cvId);
 }

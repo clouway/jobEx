@@ -13,6 +13,7 @@ import java.util.List;
 public class JobApplicationServiceImpl implements JobApplicationService {
 
   private final JobApplicationRepository jobApplicationRepository;
+
   private final ErrorMessages errorMessages;
 
   public JobApplicationServiceImpl(JobApplicationRepository jobApplicationRepository, ErrorMessages errorMessages) {
@@ -25,7 +26,9 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
   @Override
   public List<String> applyForJob(JobApplication application) {
+
     ArrayList<String> errors = new ArrayList<String>();
+
     if (jobApplicationRepository.getJobApplication(application.getCvId(), application.getJobId(), application.getUser()) == null) {
       jobApplicationRepository.saveJobApplication(application);
     } else {
@@ -33,6 +36,5 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
     return errors;
   }
-
 
 }

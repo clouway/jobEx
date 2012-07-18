@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.creatingnewcv;
+package com.clouway.jobex.client.cv;
 
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.shared.CVProxy;
