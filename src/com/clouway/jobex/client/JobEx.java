@@ -2,7 +2,7 @@ package com.clouway.jobex.client;
 
 
 import com.clouway.jobex.client.applyingforjob.ApplyForJobEvent;
-import com.clouway.jobex.client.applyingforjob.JobApplicationPresenter;
+import com.clouway.jobex.client.applyingforjob.UserCVsPresenter;
 import com.clouway.jobex.client.gin.JobExGinjector;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
 import com.clouway.jobex.client.navigation.JobExPlaceHistoryMapper;
@@ -36,7 +36,7 @@ public class JobEx implements EntryPoint {
 
     EventBus eventBus = injector.injectEventBus();
 
-    JobApplicationPresenter presenter = injector.jobApplicationPresenter();
+    UserCVsPresenter presenter = injector.jobApplicationPresenter();
 
     eventBus.addHandler(ApplyForJobEvent.TYPE, presenter);
 

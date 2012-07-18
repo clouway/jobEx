@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.cv;
 
-import com.clouway.jobex.client.applyingforjob.SelectCvPlace;
+import com.clouway.jobex.client.applyingforjob.PreviewCvPlace;
 import com.clouway.jobex.shared.CVProxy;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.core.client.GWT;
@@ -9,7 +9,6 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.inject.Inject;
@@ -40,7 +39,7 @@ public class EditCVWorkflowViewImpl extends Composite implements EditCVWorkflowV
   private static EditCVWorkflowViewImplUiBinder ourUiBinder = GWT.create(EditCVWorkflowViewImplUiBinder.class);
 
   @UiField
-  Button save;
+  com.github.gwtbootstrap.client.ui.Button save;
 
   @UiField
   CVEditor editor;
@@ -66,7 +65,7 @@ public class EditCVWorkflowViewImpl extends Composite implements EditCVWorkflowV
 
   @Override
   public void goToCvPreview() {
-    controller.goTo(new SelectCvPlace());
+    controller.goTo(new PreviewCvPlace());
   }
 
   @Override

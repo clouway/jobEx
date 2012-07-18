@@ -83,8 +83,6 @@ public class EditCvWorkflowTest {
 
     assertThat(editedCv.getName(), is(equalTo("name")));
 
-    assertThat(editedCv.getEmail(), is(equalTo(username)));
-
     assertThat(editedCv.getPhoneNumber(), is(equalTo("1234567")));
 
     assertThat(editedCv.getSkills(), is(equalTo("skill")));
@@ -99,7 +97,6 @@ public class EditCvWorkflowTest {
 
     proxy.setId(1l);
     proxy.setName("name");
-    proxy.setEmail("mail@mail.com");
     proxy.setPhoneNumber("1234567");
     proxy.setSkills("nothing ... !");
 

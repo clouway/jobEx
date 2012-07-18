@@ -2,8 +2,22 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:e='urn:import:com.clouway.jobex.client.cv'>
 
-  <g:HTMLPanel>
+  <ui:style>
+    .container {
+      margin: auto;
+      text-align: center;
+      padding: 10px;
+      background: rgba(167, 250, 255, 0.27);
+      border: 1px solid #1e90ff;
+      border-radius: 10px;
+      width: 50%;
+
+    }
+
+  </ui:style>
+
+  <g:HTMLPanel addStyleNames="{style.container}">
     <e:CVEditor ui:field="editor"/>
-     <g:Button ui:field="create" text="Create CV"/>
+    <g:Button ui:field="create" text="Create CV"/>
   </g:HTMLPanel>
 </ui:UiBinder>

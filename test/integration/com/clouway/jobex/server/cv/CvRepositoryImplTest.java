@@ -54,11 +54,13 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
 
     CV cv = new CV();
 
-    cv.setEmail("mail@mail.com");
+    String email = "mail@mail.com";
 
-    repository.save(username, cv);
+    cv.setEmail(email);
 
-    List<CV> cvs = repository.getCreatedCVs(username);
+    repository.save(email,cv);
+
+    List<CV> cvs = repository.getCreatedCVs(email);
 
     assertThat(cvs, is(notNullValue()));
 
@@ -71,11 +73,12 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
   @Test
   public void fetchCvByUsernameAndCvId() {
 
-    CV cv = new CV(1l, "name", "mail@mail.com", "12345678", "skills !");
 
-    String username = "username";
+    String email = "mail@mail.com";
 
-    repository.save(username, cv);
+    CV cv = new CV(1l, "name", email, "12345678", "skills !");
+
+    repository.save(email, cv);
 
     CV returnedCv = repository.getCv(1l);
 
@@ -97,29 +100,29 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
   @Test
   public void cvIsUpdatedWhenSavingCvWithPersistedId() {
 
-    String username = "user";
+    String mail = "mail@mail.com";
 
     CV cv = new CV(1l, "name", "mail@mail.com", "1234567", "skills_1");
 
-    repository.save(username, cv);
+    repository.save(mail, cv);
 
     CV returnedCv = repository.getCv(1l);
 
     returnedCv.setName("anotherName");
-    returnedCv.setEmail("anotheMail@mial.com");
     returnedCv.setPhoneNumber("7654321");
     returnedCv.setSkills("skill_2");
 
-    repository.save(username, returnedCv);
+    repository.save(mail, returnedCv);
 
     CV updatedCv = repository.getCv(1l);
 
     assertThat(updatedCv, is(notNullValue()));
-    assertThat(updatedCv.getName(), is(equalTo("anotherName")));
-    assertThat(updatedCv.getEmail(), is(equalTo("anotheMail@mial.com")));
-    assertThat(updatedCv.getPhoneNumber(), is(equalTo("7654321")));
-    assertThat(updatedCv.getSkills(), is(equalTo("skill_2")));
 
+    assertThat(updatedCv.getName(), is(equalTo("anotherName")));
+
+    assertThat(updatedCv.getPhoneNumber(), is(equalTo("7654321")));
+
+    assertThat(updatedCv.getSkills(), is(equalTo("skill_2")));
 
   }
 

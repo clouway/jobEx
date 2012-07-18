@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public interface JobApplicationView extends IsWidget {
+public interface UserCVsView extends IsWidget {
 
   /**
    * notifies user of Successful job appliance when the user applies for a job
@@ -35,7 +35,7 @@ public interface JobApplicationView extends IsWidget {
    *
    * @param presenter
    */
-  void setPresenter(JobApplicationPresenter presenter);
+  void setPresenter(UserCVsPresenter presenter);
 
   /**
    * Lists users created CVs to allow the user to select one to apply for a job .

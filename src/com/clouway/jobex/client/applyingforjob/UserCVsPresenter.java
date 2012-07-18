@@ -17,18 +17,18 @@ import java.util.List;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public class JobApplicationPresenter extends AbstractActivity implements ApplyForJobEventHandler {
+public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEventHandler {
 
   private JobExRequestFactory requestFactory;
 
-  private final JobApplicationView view;
+  private final UserCVsView view;
 
   private final UsernameProvider provider;
 
   private Long jobId;
 
   @Inject
-  public JobApplicationPresenter(JobExRequestFactory requestFactory, JobApplicationView view, UsernameProvider provider) {
+  public UserCVsPresenter(JobExRequestFactory requestFactory, UserCVsView view, UsernameProvider provider) {
     this.requestFactory = requestFactory;
     this.view = view;
     this.provider = provider;

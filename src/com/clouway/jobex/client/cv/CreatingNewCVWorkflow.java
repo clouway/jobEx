@@ -52,9 +52,10 @@ public class CreatingNewCVWorkflow extends AbstractActivity {
 
   }
 
-
   public void create() {
+
     view.flush();
+
     context.fire();
 
   }

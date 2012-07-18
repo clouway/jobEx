@@ -26,7 +26,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public class JobApplicationPresenterTest {
+public class UserCVsPresenterTest {
 
 
   private JobExRequestFactory factory;
@@ -35,14 +35,14 @@ public class JobApplicationPresenterTest {
 
   private CvsService cvsService;
 
-  private JobApplicationPresenter presenter;
+  private UserCVsPresenter presenter;
 
   private JobExRequestFactory.JobApplicationRequestContext context;
 
   private String username = "user";
 
   @Mock
-  JobApplicationView view;
+  UserCVsView view;
 
   @Mock
   UsernameProvider provider;
@@ -63,7 +63,7 @@ public class JobApplicationPresenterTest {
 
     context = factory.jobApplicationContext();
 
-    presenter = new JobApplicationPresenter(factory, view, provider);
+    presenter = new UserCVsPresenter(factory, view, provider);
 
 
   }

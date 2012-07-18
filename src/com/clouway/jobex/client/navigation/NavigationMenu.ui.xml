@@ -1,0 +1,29 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:b='urn:import:com.github.gwtbootstrap.client.ui'>
+
+  <ui:style>
+    .nav {
+
+      text-align: center;
+      margin: 10px 0px 10px 0px;
+    }
+
+
+  </ui:style>
+
+  <g:HTMLPanel addStyleNames="{style.nav}">
+
+    <b:Navbar>
+
+      <b:Brand text="JobEx"/>
+      <b:Nav>
+
+        <b:NavLink text="Home" ui:field="home"/>
+        <b:NavLink text="Create new CV" ui:field="newCV"/>
+        <b:NavLink text="Cv Preview" ui:field="cvList"/>
+      </b:Nav>
+    </b:Navbar>
+
+  </g:HTMLPanel>
+</ui:UiBinder>

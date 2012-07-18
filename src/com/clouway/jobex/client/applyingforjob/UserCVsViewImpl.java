@@ -1,14 +1,19 @@
 package com.clouway.jobex.client.applyingforjob;
 
 
+import com.clouway.jobex.client.navigation.NavigationMenu;
+import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.shared.CVProxy;
-import com.google.gwt.cell.client.ButtonCell;
+import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.ButtonCell;
+import com.github.gwtbootstrap.client.ui.CellTable;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
@@ -23,11 +28,10 @@ import java.util.List;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public class JobApplicationViewImpl extends Composite implements JobApplicationView {
+public class UserCVsViewImpl extends Composite implements UserCVsView {
 
 
-  interface JobApplicationViewImplUiBinder extends UiBinder<HTMLPanel, JobApplicationViewImpl> {
-
+  interface JobApplicationViewImplUiBinder extends UiBinder<HTMLPanel, UserCVsViewImpl> {
   }
 
   private static JobApplicationViewImplUiBinder ourUiBinder = GWT.create(JobApplicationViewImplUiBinder.class);
@@ -40,18 +44,35 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
 
   @UiField
   Label messages;
+  @UiField
+  Button createCv;
 
   @Inject
   PlaceController controller;
 
-  private JobApplicationPresenter presenter;
+  @UiField(provided = true)
+  NavigationMenu menu;
+
+  private UserCVsPresenter presenter;
 
   private Long jobId;
 
   private SingleSelectionModel<CVProxy> selectionModel = new SingleSelectionModel<CVProxy>();
 
 
-  public JobApplicationViewImpl() {
+  Column<CVProxy, String> selectButton = new Column<CVProxy, String>(new ButtonCell()) {
+    @Override
+    public String getValue(final CVProxy object) {
+      return "select";
+    }
+  };
+
+  @Inject
+  UsernameProvider provider;
+
+  @Inject
+  public UserCVsViewImpl(NavigationMenu menu) {
+    this.menu = menu;
 
     cVCellTable = new CellTable<CVProxy>();
 
@@ -72,13 +93,6 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
     cVCellTable.addColumn(new TextColumn<CVProxy>() {
       @Override
       public String getValue(CVProxy object) {
-        return object.getEmail();
-      }
-    }, "email");
-
-    cVCellTable.addColumn(new TextColumn<CVProxy>() {
-      @Override
-      public String getValue(CVProxy object) {
         return object.getPhoneNumber();
       }
     }, "phone number");
@@ -89,7 +103,6 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
         return object.getSkills();
       }
     }, "skills:");
-
 
     Column<CVProxy, String> editButton = new Column<CVProxy, String>(new ButtonCell()) {
       @Override
@@ -136,7 +149,7 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
   }
 
 
-  public void setPresenter(JobApplicationPresenter presenter) {
+  public void setPresenter(UserCVsPresenter presenter) {
     this.presenter = presenter;
   }
 
@@ -163,24 +176,24 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
 
   public void addSelectButton() {
 
-    Column<CVProxy, String> selectButton = new Column<CVProxy, String>(new ButtonCell()) {
-      @Override
-      public String getValue(final CVProxy object) {
-        return "select";
-      }
-    };
-
     selectButton.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
       @Override
       public void update(int index, CVProxy cvProxy, String value) {
-        presenter.applyForJob(jobId, cvProxy.getId(), cvProxy.getEmail());
+        presenter.applyForJob(jobId, cvProxy.getId(), provider.getUsername());
       }
     });
 
+
     int index = cVCellTable.getColumnIndex(selectButton);
+
     if (index == -1) {
       cVCellTable.addColumn(selectButton);
     }
 
+  }
+
+  @UiHandler("createCv")
+  public void onCreateNewCv(ClickEvent event) {
+    controller.goTo(new CreateCvPlace());
   }
 }

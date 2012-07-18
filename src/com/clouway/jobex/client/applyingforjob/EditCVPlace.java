@@ -8,7 +8,7 @@ import com.google.gwt.place.shared.PlaceTokenizer;
  */
 public class EditCVPlace extends Place {
 
-  private final Long id;
+  private Long id;
 
   public EditCVPlace(Long id) {
 
@@ -22,11 +22,11 @@ public class EditCVPlace extends Place {
   public static class Tokenizer implements PlaceTokenizer<EditCVPlace> {
 
     public EditCVPlace getPlace(String token) {
-      return new EditCVPlace(1l);
+      return new EditCVPlace(Long.valueOf(token));
     }
 
     public String getToken(EditCVPlace place) {
-      return "createCv";
+      return String.valueOf(place.getId());
     }
   }
 }

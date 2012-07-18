@@ -1,19 +1,31 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:e='urn:import:com.clouway.jobex.client.cv'>
+             xmlns:e='urn:import:com.clouway.jobex.client.cv'
+             xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
 
   <ui:style>.container {
+
     text-align: center;
+
     margin: auto;
+
     padding: 5px;
+
     border: 1px solid background;
+
+    width: 50%;
+
     background: rgba(110, 158, 255, 0.34);
+
+    border-radius: 10px;
+
   }
 
   </ui:style>
+
   <g:HTMLPanel addStyleNames="{style.container}">
     <g:Label text="Edit CV"/>
     <e:CVEditor ui:field="editor"/>
-    <g:Button ui:field="save" text="Save"/>
+    <b:Button ui:field="save" text="Save"/>
   </g:HTMLPanel>
 </ui:UiBinder>

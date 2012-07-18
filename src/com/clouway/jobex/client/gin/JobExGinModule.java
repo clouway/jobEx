@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.gin;
 
-import com.clouway.jobex.client.applyingforjob.JobApplicationView;
-import com.clouway.jobex.client.applyingforjob.JobApplicationViewImpl;
+import com.clouway.jobex.client.applyingforjob.UserCVsView;
+import com.clouway.jobex.client.applyingforjob.UserCVsViewImpl;
 import com.clouway.jobex.client.cv.CreatingNewCVWorkflowView;
 import com.clouway.jobex.client.cv.CreatingNewCVWorkflowViewImpl;
 import com.clouway.jobex.client.cv.EditCVWorkflowView;
@@ -48,7 +48,7 @@ public class JobExGinModule extends AbstractGinModule {
 
     bind(UsernameProvider.class).to(UsernameProviderImpl.class);
 
-    bind(JobApplicationView.class).to(JobApplicationViewImpl.class).in(Singleton.class);
+    bind(UserCVsView.class).to(UserCVsViewImpl.class).in(Singleton.class);
 
     bind(CreatingNewCVWorkflowView.class).to(CreatingNewCVWorkflowViewImpl.class).in(Singleton.class);
 

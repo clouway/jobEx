@@ -67,7 +67,7 @@ public class CvRepositoryImpl implements CVRepository {
     }
 
     entity.setProperty("name", cv.getName());
-    entity.setProperty("email", cv.getEmail());
+    entity.setProperty("email", username);
     entity.setProperty("phoneNumber", cv.getPhoneNumber());
     entity.setProperty("skills", cv.getSkills());
     entity.setProperty("username", username);
