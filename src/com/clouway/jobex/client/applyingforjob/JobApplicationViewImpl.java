@@ -91,8 +91,6 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
     }, "skills:");
 
 
-
-
     Column<CVProxy, String> editButton = new Column<CVProxy, String>(new ButtonCell()) {
       @Override
       public String getValue(CVProxy object) {
@@ -156,7 +154,14 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
 
   @Override
   public void setJobId(Long id) {
+
     jobId = id;
+
+    addSelectButton();
+
+  }
+
+  public void addSelectButton() {
 
     Column<CVProxy, String> selectButton = new Column<CVProxy, String>(new ButtonCell()) {
       @Override
@@ -172,6 +177,10 @@ public class JobApplicationViewImpl extends Composite implements JobApplicationV
       }
     });
 
-    cVCellTable.addColumn(selectButton);
+    int index = cVCellTable.getColumnIndex(selectButton);
+    if (index == -1) {
+      cVCellTable.addColumn(selectButton);
+    }
+
   }
 }
