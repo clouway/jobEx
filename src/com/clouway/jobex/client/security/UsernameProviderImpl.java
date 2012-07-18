@@ -12,7 +12,7 @@ public class UsernameProviderImpl implements UsernameProvider {
   @Override
   public String getUsername() {
 //    return Cookies.getCookie(usernameCookie);
-    return "Petar";
+    return usernameCookie;
   }
 
   @Override

@@ -47,7 +47,7 @@ public class JobApplicationRepositoryImpl implements JobApplicationRepository {
 
     query.setFilter(Query.CompositeFilterOperator.and(new Query.FilterPredicate(cvIdProperty, Query.FilterOperator.EQUAL, cvId)
             , new Query.FilterPredicate(jobIdProperty, Query.FilterOperator.EQUAL, jobId),
-            new Query.FilterPredicate(employeeUsername, Query.FilterOperator.EQUAL, employeeUsername)));
+            new Query.FilterPredicate(username, Query.FilterOperator.EQUAL, employeeUsername)));
 
     Entity entity = service.prepare(query).asSingleEntity();
 

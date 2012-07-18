@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.creatingnewcv;
+package com.clouway.jobex.client.cv;
 
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;

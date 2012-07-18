@@ -28,4 +28,17 @@ public class CvsServiceImpl implements CvsService {
   public void add(String username, CV cv) {
     repository.save(username, cv);
   }
+
+  @Override
+  public CV fetchCreatedCv(String username, Long cvId) {
+    List<CV> cvs = repository.getCreatedCVs(username);
+    for (CV cv : cvs) {
+      if (cv.getId().equals(cvId)) {
+        return cv;
+      }
+    }
+    return null;
+  }
+
+
 }

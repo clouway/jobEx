@@ -1,6 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:e='urn:import:com.clouway.jobex.client.creatingnewcv'>
+             xmlns:e='urn:import:com.clouway.jobex.client.cv'>
 
   <g:HTMLPanel>
     <e:CVEditor ui:field="editor"/>
