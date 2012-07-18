@@ -1,9 +1,0 @@
-<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-             xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:e='urn:import:com.clouway.jobex.client.creatingnewcv'>
-
-  <g:HTMLPanel>
-    <e:CVEditor ui:field="editor"/>
-     <g:Button ui:field="create" text="Create CV"/>
-  </g:HTMLPanel>
-</ui:UiBinder>

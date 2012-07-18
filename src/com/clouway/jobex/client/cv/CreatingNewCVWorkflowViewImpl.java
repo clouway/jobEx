@@ -1,6 +1,6 @@
-package com.clouway.jobex.client.creatingnewcv;
+package com.clouway.jobex.client.cv;
 
-import com.clouway.jobex.client.applyingforjob.SelectCvPlace;
+import com.clouway.jobex.client.applyingforjob.PreviewCvPlace;
 import com.clouway.jobex.shared.CVProxy;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.core.client.GWT;
@@ -9,7 +9,6 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -82,7 +81,7 @@ public class CreatingNewCVWorkflowViewImpl extends Composite implements Creating
 
   @Override
   public void goToSelectCv() {
-    controller.goTo(new SelectCvPlace());
+    controller.goTo(new PreviewCvPlace());
   }
 
   @UiHandler("create")

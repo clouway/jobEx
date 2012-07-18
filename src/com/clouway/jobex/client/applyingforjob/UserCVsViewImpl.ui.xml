@@ -1,0 +1,46 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:b="urn:import:com.github.gwtbootstrap.client.ui"
+             xmlns:n="urn:import:com.clouway.jobex.client.navigation">
+
+  <ui:style>
+    .container {
+      border-radius: 10px;
+      border-width: 2px;
+      border-style: solid;
+      /*background: #efeaf5;*/
+      text-align: center;
+      margin: auto;
+      padding: 5px;
+      width: 80%;
+
+    }
+
+    .tablePanel {
+      width: 100%;
+      /*background: rgba(110, 158, 255, 0.20);*/
+    }
+
+    .table {
+      width: 100%;
+      /*border: 1px solid;*/
+    }
+
+  </ui:style>
+
+  <g:HTMLPanel>
+    <n:NavigationMenu ui:field="menu"/>
+    <g:FlowPanel addStyleNames="{style.container}">
+      <g:Label ui:field="messages"/>
+      <g:VerticalPanel addStyleNames="{style.tablePanel}">
+
+        <b:CellTable ui:field="cVCellTable" addStyleNames="{style.table}"/>
+
+      </g:VerticalPanel>
+      <g:Label text="" ui:field="errors"/>
+      <b:Button text="Create CV" ui:field="createCv"/>
+    </g:FlowPanel>
+
+  </g:HTMLPanel>
+
+</ui:UiBinder>

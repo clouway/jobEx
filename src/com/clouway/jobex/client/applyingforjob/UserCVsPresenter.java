@@ -5,6 +5,7 @@ import com.clouway.jobex.shared.CVProxy;
 import com.clouway.jobex.shared.JobApplicationProxy;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.activity.shared.AbstractActivity;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
@@ -16,18 +17,18 @@ import java.util.List;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public class JobApplicationPresenter extends AbstractActivity implements ApplyForJobEventHandler {
+public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEventHandler {
 
   private JobExRequestFactory requestFactory;
 
-  private final JobApplicationView view;
+  private final UserCVsView view;
 
   private final UsernameProvider provider;
 
   private Long jobId;
 
   @Inject
-  public JobApplicationPresenter(JobExRequestFactory requestFactory, JobApplicationView view, UsernameProvider provider) {
+  public UserCVsPresenter(JobExRequestFactory requestFactory, UserCVsView view, UsernameProvider provider) {
     this.requestFactory = requestFactory;
     this.view = view;
     this.provider = provider;
@@ -56,8 +57,10 @@ public class JobApplicationPresenter extends AbstractActivity implements ApplyFo
     requestContext.applyForJob(applicationProxy).fire(new Receiver<List<String>>() {
       @Override
       public void onFailure(ServerFailure error) {
+        GWT.log(error.getExceptionType());
         view.notifyUserOfCommunicationError();
       }
+
 
       @Override
       public void onSuccess(List<String> response) {

@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.gin;
 
-import com.clouway.jobex.client.applyingforjob.JobApplicationPresenter;
-import com.clouway.jobex.client.applyingforjob.JobApplicationView;
+import com.clouway.jobex.client.applyingforjob.UserCVsPresenter;
+import com.clouway.jobex.client.applyingforjob.UserCVsView;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
@@ -20,7 +20,7 @@ public interface JobExGinjector extends Ginjector {
 
   ActivityMapper injectActivityMapper();
 
-  JobApplicationPresenter jobApplicationPresenter();
+  UserCVsPresenter jobApplicationPresenter();
 
-  JobApplicationView jobApplicationView();
+  UserCVsView jobApplicationView();
 }

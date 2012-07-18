@@ -2,6 +2,7 @@ package com.clouway.jobex.server.cv;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
@@ -21,6 +22,7 @@ public class CvRepositoryImpl implements CVRepository {
   public CvRepositoryImpl(DatastoreService service) {
 
     this.service = service;
+
   }
 
   @Override
@@ -28,33 +30,62 @@ public class CvRepositoryImpl implements CVRepository {
 
     Key key = KeyFactory.createKey("User", username);
 
-    Query query = new Query(cvKind, key);
+    Query query = new Query(cvKind);
+
+    query.setFilter(new Query.FilterPredicate("username", Query.FilterOperator.EQUAL, username));
 
     Iterable<Entity> entities = service.prepare(query).asIterable();
 
     List<CV> cvList = new ArrayList<CV>();
 
     for (Entity entity : entities) {
-
-      CV cv = new CV(entity.getKey().getId(),
-              (String) entity.getProperty("name"),
-              (String) entity.getProperty("email"),
-              (String) entity.getProperty("phoneNumber"),
-              (String) entity.getProperty("skills"));
-      cvList.add(cv);
+      cvList.add(createCv(entity));
     }
     return cvList;
   }
 
+  private CV createCv(Entity entity) {
+    return new CV(entity.getKey().getId(),
+            (String) entity.getProperty("name"),
+            (String) entity.getProperty("email"),
+            (String) entity.getProperty("phoneNumber"),
+            (String) entity.getProperty("skills"));
+  }
 
 
   public void save(String username, CV cv) {
-    Key key = KeyFactory.createKey("User", username);
-    Entity entity = new Entity(cvKind,key);
+    Entity entity = null;
+    if (cv.getId() != null) {
+      Key cvKey = KeyFactory.createKey(cvKind, cv.getId());
+      try {
+        entity = service.get(cvKey);
+      } catch (EntityNotFoundException e) {
+        entity = new Entity(cvKind);
+      }
+    } else {
+      entity = new Entity(cvKind);
+    }
+
     entity.setProperty("name", cv.getName());
-    entity.setProperty("email", cv.getEmail());
+    entity.setProperty("email", username);
     entity.setProperty("phoneNumber", cv.getPhoneNumber());
     entity.setProperty("skills", cv.getSkills());
+    entity.setProperty("username", username);
     service.put(entity);
+  }
+
+  @Override
+  public CV getCv(long cvId) {
+
+    Key cvKey = KeyFactory.createKey(cvKind, cvId);
+
+    try {
+      Entity entity = service.get(cvKey);
+      return createCv(entity);
+    } catch (EntityNotFoundException e) {
+      e.printStackTrace();
+      return null;
+    }
+
   }
 }

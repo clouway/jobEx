@@ -6,6 +6,7 @@ import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
 /**
  * Client side representation of CV Entity;
+ *
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
 @ProxyFor(value = com.clouway.jobex.server.cv.CV.class, locator = CVLocator.class)
@@ -21,19 +22,18 @@ public interface CVProxy extends EntityProxy {
 
   void setName(String name);
 
-  void setEmail(String email);
-
   void setPhoneNumber(String phoneNumber);
 
   void setSkills(String skills);
 
   String getName();
 
-  String getEmail();
-
   String getPhoneNumber();
 
   String getSkills();
 
+  String getEmail();
+
+  void setEmail(String email);
 
 }
