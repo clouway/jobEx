@@ -1,6 +1,7 @@
 package com.clouway.jobex.server.job;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
 
 import java.util.List;
 
@@ -48,4 +49,11 @@ public interface JobRepository {
    * @return - list of announced jobs
    */
   List<Entity> getAnnouncedJobsForCompany(String companyName);
+
+  Key[] getExpiredJobsKeys();
+
+  /**
+   * Remove all job ads that are no longer valid
+   */
+  void removeExpiredJobs();
 }

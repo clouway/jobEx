@@ -16,6 +16,16 @@
     <url-pattern>/gwtRequest</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>deleteExpiredJobs</servlet-name>
+    <servlet-class>com.clouway.jobex.server.job.ExpiredJobsRemover</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>deleteExpiredJobs</servlet-name>
+    <url-pattern>/deleteExpiredJobs</url-pattern>
+  </servlet-mapping>
+
   <!--<filter>-->
     <!--<filter-name>guiceFilter</filter-name>-->
     <!--<filter-class>com.google.inject.servlet.GuiceFilter</filter-class>-->

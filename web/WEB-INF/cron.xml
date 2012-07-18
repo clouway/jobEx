@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+    <url>/deleteExpiredJobs</url>
+    <description>Delete all expired job ads</description>
+    <schedule>every 2 minutes</schedule>
+    <timezone>Europe/Sofia</timezone>
+  </cron>
+</cronentries>
