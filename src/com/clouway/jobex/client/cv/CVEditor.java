@@ -1,13 +1,13 @@
-package com.clouway.jobex.client.creatingnewcv;
+package com.clouway.jobex.client.cv;
 
 import com.clouway.jobex.shared.CVProxy;
+import com.github.gwtbootstrap.client.ui.TextBox;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.TextBox;
 
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
@@ -19,17 +19,17 @@ public class CVEditor extends Composite implements Editor<CVProxy> {
 
   private static CVEditorUiBinder ourUiBinder = GWT.create(CVEditorUiBinder.class);
 
-  @UiField
-  TextBox name;
 
   @UiField
-  TextBox email;
+  TextBox name;
 
   @UiField
   TextBox phoneNumber;
 
   @UiField
   TextBox skills;
+
+  Long id;
 
   public CVEditor() {
     HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);

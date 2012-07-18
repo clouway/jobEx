@@ -1,7 +1,8 @@
 package com.clouway.jobex.client.job.jobsearch;
 
 import com.clouway.jobex.client.applyingforjob.ApplyForJobEvent;
-import com.clouway.jobex.client.applyingforjob.SelectCvPlace;
+import com.clouway.jobex.client.applyingforjob.PreviewCvPlace;
+import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -14,7 +15,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -46,13 +46,17 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
   @UiField
   Button searchButton;
 
+  @UiField(provided = true)
+  NavigationMenu navigation;
+
 
   @Inject
   EventBus eventBus;
 
 
   @Inject
-  public JobSearchViewImpl(final PlaceController placeController) {
+  public JobSearchViewImpl(final PlaceController placeController, NavigationMenu navigationMenu) {
+    navigation = navigationMenu;
     initWidget(ourUiBinder.createAndBindUi(this));
 
 
@@ -68,7 +72,6 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
     categoryValue.addItem("IT");
     categoryValue.addItem("Franchise");
     categoryValue.addItem("Marketing");
-
 
 
     dataProvider = new ListDataProvider<JobProxy>();
@@ -112,11 +115,10 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
     };
 
 
-
     apply.setFieldUpdater(new FieldUpdater<JobProxy, String>() {
       public void update(int index, JobProxy object, String value) {
 
-        placeController.goTo(new SelectCvPlace());
+        placeController.goTo(new PreviewCvPlace());
 
         eventBus.fireEvent(new ApplyForJobEvent(object.getId()));
 
