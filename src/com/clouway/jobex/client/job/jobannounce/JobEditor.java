@@ -51,39 +51,16 @@ public class JobEditor extends Composite implements Editor<JobProxy> {
     }
   };
 
-  LeafValueEditor<String> category = new LeafValueEditor<String>() {
-    public void setValue(String value) {
-      selectCategory.setValue(selectCategory.getSelectedIndex(), value);
-    }
+  LeafValueEditorImpl categoryEditor;
 
-    public String getValue() {
-      return selectCategory.getValue(selectCategory.getSelectedIndex());
-    }
-  };
-
-  LeafValueEditor<String> location = new LeafValueEditor<String>() {
-    public void setValue(String value) {
-      selectLocation.setValue(selectLocation.getSelectedIndex(), value);
-    }
-
-    public String getValue() {
-      return selectLocation.getValue(selectLocation.getSelectedIndex());
-    }
-  };
+  LeafValueEditor<String> locationEditor;
 
   public JobEditor() {
+
     initWidget(uiBinder.createAndBindUi(this));
 
-    selectCategory.addItem("Banking");
-    selectCategory.addItem("Engineering");
-    selectCategory.addItem("IT");
-    selectCategory.addItem("Franchise");
-    selectCategory.addItem("Marketing");
+    categoryEditor = new LeafValueEditorImpl(new ListBoxWrapperImpl(selectCategory));
 
-    selectLocation.addItem("Burgas");
-    selectLocation.addItem("Plovdiv");
-    selectLocation.addItem("Sofia");
-    selectLocation.addItem("Varna");
-    selectLocation.addItem("Veliko Tarnovo");
+    locationEditor = new LeafValueEditorImpl(new ListBoxWrapperImpl(selectLocation));
   }
 }
