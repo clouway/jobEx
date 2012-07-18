@@ -2,6 +2,7 @@ package com.clouway.jobex.client.navigation;
 
 import com.clouway.jobex.client.applyingforjob.CreateCvPlace;
 import com.clouway.jobex.client.applyingforjob.PreviewCvPlace;
+import com.clouway.jobex.client.job.jobannounce.JobAnnouncePlace;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
 import com.github.gwtbootstrap.client.ui.NavLink;
 import com.google.gwt.core.client.GWT;
@@ -35,6 +36,9 @@ public class NavigationMenu extends Composite {
   @UiField
   NavLink cvList;
 
+  @UiField
+  NavLink announceJob;
+
   public NavigationMenu() {
 
     HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
@@ -56,6 +60,12 @@ public class NavigationMenu extends Composite {
       @Override
       public void onClick(ClickEvent event) {
         placeController.goTo(new PreviewCvPlace());
+      }
+    });
+    announceJob.addClickHandler(new ClickHandler() {
+      @Override
+      public void onClick(ClickEvent event) {
+        placeController.goTo(new JobAnnouncePlace());
       }
     });
     initWidget(rootElement);
