@@ -52,6 +52,7 @@ public class JobApplicationRepositoryImplTest extends AppEngineTestCase {
   }
 
 
+
   @Test
   public void returnsNullIfJobApplicationWithTheSpecifiedCvAndJobIdDoesNotExist() {
 

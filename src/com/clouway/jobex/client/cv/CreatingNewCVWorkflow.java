@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.creatingnewcv;
+package com.clouway.jobex.client.cv;
 
 
 import com.clouway.jobex.client.security.UsernameProvider;
@@ -9,7 +9,6 @@ import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 
 /**
@@ -55,9 +54,7 @@ public class CreatingNewCVWorkflow extends AbstractActivity {
 
 
   public void create() {
-
     view.flush();
-
     context.fire();
 
   }

@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.creatingnewcv;
+package com.clouway.jobex.client.cv;
 
 import com.clouway.jobex.shared.CVProxy;
 import com.google.gwt.core.client.GWT;
@@ -19,6 +19,7 @@ public class CVEditor extends Composite implements Editor<CVProxy> {
 
   private static CVEditorUiBinder ourUiBinder = GWT.create(CVEditorUiBinder.class);
 
+
   @UiField
   TextBox name;
 
@@ -30,6 +31,24 @@ public class CVEditor extends Composite implements Editor<CVProxy> {
 
   @UiField
   TextBox skills;
+
+  Long id;
+
+
+//  private final Long cvId;
+//
+//  LeafValueEditor<Long> id = new LeafValueEditor<Long>() {
+//    @Override
+//    public void setValue(Long value) {
+//      id = value;
+//    }
+//
+//
+//    @Override
+//    public Long getValue() {
+//      return null;  //To change body of implemented methods use File | Settings | File Templates.
+//    }
+//  };
 
   public CVEditor() {
     HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);

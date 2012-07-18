@@ -2,11 +2,11 @@ package com.clouway.jobex.shared;
 
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
 import com.clouway.jobex.server.applyingforjob.JobApplicationServiceLocator;
-import com.clouway.jobex.server.cv.CvsServiceLocator;
 import com.clouway.jobex.server.cv.CvsService;
+import com.clouway.jobex.server.cv.CvsServiceLocator;
 import com.clouway.jobex.server.job.JobSearchLocator;
-import com.clouway.jobex.server.job.jobannounce.JobAnnounceService;
 import com.clouway.jobex.server.job.JobServiceLocator;
+import com.clouway.jobex.server.job.jobannounce.JobAnnounceService;
 import com.clouway.jobex.server.job.jobsearch.JobSearchServiceImpl;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
@@ -18,11 +18,11 @@ import java.util.List;
 /**
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
-public interface JobExRequestFactory extends RequestFactory{
+public interface JobExRequestFactory extends RequestFactory {
 
 
   @Service(value = JobSearchServiceImpl.class, locator = JobSearchLocator.class)
-  public interface JobRequest extends RequestContext{
+  public interface JobRequest extends RequestContext {
 
     Request<List<JobProxy>> search(JobProxy jobProxy);
 
@@ -40,6 +40,8 @@ public interface JobExRequestFactory extends RequestFactory{
 
     Request<Void> add(String username, CVProxy proxy);
 
+    Request<CVProxy> fetchCreatedCv(String username, Long cvId);
+
   }
 
   @Service(value = JobAnnounceService.class, locator = JobServiceLocator.class)
@@ -49,7 +51,7 @@ public interface JobExRequestFactory extends RequestFactory{
      * Announce a job with given companyName and JobProxy
      *
      * @param companyName a companyName
-     * @param jobProxy a jobProxy
+     * @param jobProxy    a jobProxy
      * @return
      */
     Request<Void> announceJob(String companyName, JobProxy jobProxy);

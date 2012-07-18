@@ -1,9 +1,11 @@
 package com.clouway.jobex.client.navigation;
 
 import com.clouway.jobex.client.applyingforjob.CreateCvPlace;
+import com.clouway.jobex.client.applyingforjob.EditCVPlace;
 import com.clouway.jobex.client.applyingforjob.JobApplicationPresenter;
 import com.clouway.jobex.client.applyingforjob.SelectCvPlace;
-import com.clouway.jobex.client.creatingnewcv.CreatingNewCVWorkflow;
+import com.clouway.jobex.client.cv.CreatingNewCVWorkflow;
+import com.clouway.jobex.client.cv.EditCvWorkflow;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePlace;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
@@ -27,9 +29,11 @@ public class JobExActivityMapper implements ActivityMapper {
   @Inject
   JobApplicationPresenter jobApplicationPresenter;
 
+  @Inject
+  EditCvWorkflow editCvWorkflow;
 
   @Inject
-  CreatingNewCVWorkflow workflow;
+  CreatingNewCVWorkflow creatingNewCVWorkflow;
 
   public Activity getActivity(Place place) {
 
@@ -45,7 +49,12 @@ public class JobExActivityMapper implements ActivityMapper {
       return jobApplicationPresenter;
     }
     if (place instanceof CreateCvPlace) {
-      return workflow;
+      return creatingNewCVWorkflow;
+    }
+
+    if (place instanceof EditCVPlace) {
+      editCvWorkflow.editCv(((EditCVPlace) place).getId());
+      return editCvWorkflow;
     }
 
     return null;

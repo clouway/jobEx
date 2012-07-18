@@ -59,5 +59,22 @@ public class JobEx implements EntryPoint {
     placeHistoryHandler.handleCurrentHistory();
 
     placeController.goTo(new JobSearchPlace());
+
+//    JobExRequestFactory factory = GWT.create(JobExRequestFactory.class);
+//
+//    EditCVWorkflowView editCVWorkflowView = new EditCVWorkflowViewImpl();
+//
+//    EditCvWorkflow workflow = new EditCvWorkflow(factory, editCVWorkflowView, new UsernameProvider() {
+//      @Override
+//      public String getUsername() {
+//        return "username";
+//      }
+//
+//
+//      @Override
+//      public void setUsername(String username) {
+//        //To change body of implemented methods use File | Settings | File Templates.
+//      }
+//    });
   }
 }

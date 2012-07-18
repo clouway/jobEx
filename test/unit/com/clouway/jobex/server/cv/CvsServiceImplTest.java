@@ -22,9 +22,10 @@ public class CvsServiceImplTest {
 
 
   @Mock
-  CVRepository repository;
+  CvRepositoryImpl repository;
 
   CvsServiceImpl service;
+
   private String username = "user";
 
   @Before
@@ -67,8 +68,8 @@ public class CvsServiceImplTest {
     service.add(username, cv);
 
     verify(repository).save(username, cv);
-
   }
+
 
 
 
