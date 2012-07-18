@@ -1,6 +1,5 @@
 package com.clouway.jobex.server.job;
 
-import com.clouway.jobex.server.job.Job;
 import com.google.appengine.api.datastore.Entity;
 
 import java.util.List;
@@ -34,5 +33,19 @@ public interface JobRepository {
    */
   List<Entity> getAllJobsByLocationAndCategory(String location, String category);
 
+  /**
+   * Save announced job for given company
+   *
+   * @param companyName - company announcing the job
+   * @param job - a job
+   */
   void saveJob(String companyName, Job job);
+
+  /**
+   * Get announced jobs for given company
+   *
+   * @param companyName - company name
+   * @return - list of announced jobs
+   */
+  List<Entity> getAnnouncedJobsForCompany(String companyName);
 }

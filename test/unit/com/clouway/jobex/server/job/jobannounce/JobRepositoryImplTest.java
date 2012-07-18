@@ -3,11 +3,7 @@ package com.clouway.jobex.server.job.jobannounce;
 import com.clouway.jobex.server.job.Job;
 import com.clouway.jobex.server.job.JobRepository;
 import com.clouway.jobex.server.job.JobRepositoryImpl;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.*;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import org.junit.After;
@@ -68,5 +64,18 @@ public class JobRepositoryImplTest {
 
   }
 
+
+
+
+  @Test
+  public void getAnnouncedJobsForCompany() {
+
+    String companyName = "clouway";
+
+    repository.saveJob(companyName, new Job(companyName, "position1", "category1", new Date()));
+    repository.saveJob(companyName, new Job(companyName, "position2", "category2", new Date()));
+
+    assertThat(repository.getAnnouncedJobsForCompany(companyName).size(), is(equalTo(2)));
+  }
 
 }

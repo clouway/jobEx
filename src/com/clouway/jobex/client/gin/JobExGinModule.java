@@ -10,6 +10,10 @@ import com.clouway.jobex.client.job.jobannounce.JobAnnounceView;
 import com.clouway.jobex.client.job.jobannounce.JobAnnounceViewImpl;
 import com.clouway.jobex.client.job.jobsearch.JobSearchView;
 import com.clouway.jobex.client.job.jobsearch.JobSearchViewImpl;
+import com.clouway.jobex.client.jobsreview.JobsReviewPresenter;
+import com.clouway.jobex.client.jobsreview.JobsReviewPresenterImpl;
+import com.clouway.jobex.client.jobsreview.JobsReviewView;
+import com.clouway.jobex.client.jobsreview.JobsReviewViewImpl;
 import com.clouway.jobex.client.navigation.JobExActivityMapper;
 import com.clouway.jobex.client.navigation.JobExPlaceHistoryMapper;
 import com.clouway.jobex.client.security.CompanyNameProvider;
@@ -53,6 +57,10 @@ public class JobExGinModule extends AbstractGinModule {
     bind(CreatingNewCVWorkflowView.class).to(CreatingNewCVWorkflowViewImpl.class).in(Singleton.class);
 
     bind(EditCVWorkflowView.class).to(EditCVWorkflowViewImpl.class).in(Singleton.class);
+
+    bind(JobsReviewPresenter.class).to(JobsReviewPresenterImpl.class);
+
+    bind(JobsReviewView.class).to(JobsReviewViewImpl.class).in(Singleton.class);
   }
 
   @Provides
