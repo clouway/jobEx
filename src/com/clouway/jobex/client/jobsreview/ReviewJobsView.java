@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public interface JobsReviewView {
+public interface ReviewJobsView {
 
   /**
    * Show announced jobs made be a company
@@ -19,12 +19,12 @@ public interface JobsReviewView {
   /**
    * Notifies that the company has not announced any jobs
    */
-  void noAnnouncedJobs();
+  void showNoAnnouncedJobsNotification();
 
   /**
    * Set presenter which will drive the view
    *
-   * @param jobsReviewPresenter - a jobsReviewPresenter
+   * @param reviewJobsPresenter - a reviewJobsPresenter
    */
-  void setPresenter(JobsReviewPresenter jobsReviewPresenter);
+  void setPresenter(ReviewJobsPresenter reviewJobsPresenter);
 }

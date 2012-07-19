@@ -20,19 +20,19 @@ import java.util.List;
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public class JobsReviewViewImpl extends Composite implements JobsReviewView {
+public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
 
-  interface JobsReviewViewImplUiBinder extends UiBinder<Widget, JobsReviewViewImpl> {
+  interface JobsReviewViewImplUiBinder extends UiBinder<Widget, ReviewJobsViewImpl> {
   }
 
   private static JobsReviewViewImplUiBinder uiBinder = GWT.create(JobsReviewViewImplUiBinder.class);
 
-  private JobsReviewPresenter jobsReviewPresenter;
+  private ReviewJobsPresenter reviewJobsPresenter;
 
   @UiField
   CellTable<JobProxy> announcedJobsTable;
 
-  public JobsReviewViewImpl() {
+  public ReviewJobsViewImpl() {
 
     initWidget(uiBinder.createAndBindUi(this));
 
@@ -102,16 +102,16 @@ public class JobsReviewViewImpl extends Composite implements JobsReviewView {
   /**
    * Notifies that the company has not announced any jobs
    */
-  public void noAnnouncedJobs() {
+  public void showNoAnnouncedJobsNotification() {
     Window.alert("You have not announced any job!");
   }
 
   /**
    * Set presenter which will drive the view
    *
-   * @param jobsReviewPresenter - a jobsReviewPresenter
+   * @param reviewJobsPresenter - a reviewJobsPresenter
    */
-  public void setPresenter(JobsReviewPresenter jobsReviewPresenter) {
-    this.jobsReviewPresenter = jobsReviewPresenter;
+  public void setPresenter(ReviewJobsPresenter reviewJobsPresenter) {
+    this.reviewJobsPresenter = reviewJobsPresenter;
   }
 }

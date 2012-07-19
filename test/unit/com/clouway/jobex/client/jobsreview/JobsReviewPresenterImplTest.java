@@ -28,13 +28,13 @@ import static org.mockito.MockitoAnnotations.initMocks;
  */
 public class JobsReviewPresenterImplTest {
 
-  private JobsReviewPresenter jobsReviewPresenter;
+  private ReviewJobsPresenter reviewJobsPresenter;
   private JobExRequestFactory.JobsReviewContext jobsReviewContext;
   private JobsReviewService jobsReviewService;
-  private JobsReviewReceiver jobsReviewReceiver;
+  private ReviewJobsReceiver reviewJobsReceiver;
 
   @Mock
-  private JobsReviewView jobsReviewView;
+  private ReviewJobsView reviewJobsView;
 
   @Mock
   private CompanyNameProvider companyNameProvider;
@@ -57,39 +57,39 @@ public class JobsReviewPresenterImplTest {
 
     jobsReviewContext = requestFactory.jobsReviewContext();
 
-    jobsReviewReceiver = new JobsReviewReceiver(jobsReviewView);
+    reviewJobsReceiver = new ReviewJobsReceiver(reviewJobsView);
 
     jobsReviewService = RequestFactoryHelper.getService(JobsReviewService.class);
 
-    jobsReviewPresenter = new JobsReviewPresenterImpl(requestFactory, jobsReviewView, companyNameProvider);
+    reviewJobsPresenter = new ReviewJobsPresenterImpl(requestFactory, reviewJobsView, companyNameProvider);
 
     announcedJobs = new ArrayList<Job>();
   }
 
   @Test
-  public void getAnnouncedJobsForGivenCompany() {
+  public void showAnnouncedJobsForGivenCompany() {
 
     announcedJobs.add(new Job());
 
     when(jobsReviewService.getAnnouncedJobsForCompany(companyNameCaptor.capture())).thenReturn(announcedJobs);
 
-    jobsReviewPresenter.getAnnouncedJobsForCompany(companyName);
+    reviewJobsPresenter.reviewAnnouncedJobs(companyName);
 
     verify(jobsReviewService).getAnnouncedJobsForCompany(companyNameCaptor.capture());
-    verify(jobsReviewView, never()).noAnnouncedJobs();
-    verify(jobsReviewView).showAnnouncedJobs(announcedJobsCaptor.capture());
+    verify(reviewJobsView, never()).showNoAnnouncedJobsNotification();
+    verify(reviewJobsView).showAnnouncedJobs(announcedJobsCaptor.capture());
 
     assertThat(companyName, is(equalTo(companyNameCaptor.getValue())));
   }
 
   @Test
-  public void noAnnouncedJobsAreMadeByTheCompany() {
+  public void showNotificationWhenCompanyHasNoAnnouncedJobs() {
 
     when(jobsReviewService.getAnnouncedJobsForCompany(companyNameCaptor.capture())).thenReturn(announcedJobs);
 
-    jobsReviewPresenter.getAnnouncedJobsForCompany(companyName);
+    reviewJobsPresenter.reviewAnnouncedJobs(companyName);
 
-    verify(jobsReviewView).noAnnouncedJobs();
-    verify(jobsReviewView, never()).showAnnouncedJobs(announcedJobsCaptor.capture());
+    verify(reviewJobsView).showNoAnnouncedJobsNotification();
+    verify(reviewJobsView, never()).showAnnouncedJobs(announcedJobsCaptor.capture());
   }
 }

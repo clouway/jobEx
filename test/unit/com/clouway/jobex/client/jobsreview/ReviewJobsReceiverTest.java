@@ -18,13 +18,13 @@ import java.util.List;
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
 @RunWith(JMock.class)
-public class JobsReviewReceiverTest {
+public class ReviewJobsReceiverTest {
 
   private Mockery context = new JUnit4Mockery();
 
-  private JobsReviewView jobsReviewView = context.mock(JobsReviewView.class);
+  private ReviewJobsView reviewJobsView = context.mock(ReviewJobsView.class);
 
-  private JobsReviewReceiver jobsReviewReceiver;
+  private ReviewJobsReceiver reviewJobsReceiver;
 
   private JobExRequestFactory requestFactory;
 
@@ -32,7 +32,7 @@ public class JobsReviewReceiverTest {
 
   @Before
   public void setUp() {
-    jobsReviewReceiver = new JobsReviewReceiver(jobsReviewView);
+    reviewJobsReceiver = new ReviewJobsReceiver(reviewJobsView);
 
     requestFactory = RequestFactoryHelper.create(JobExRequestFactory.class);
 
@@ -46,10 +46,10 @@ public class JobsReviewReceiverTest {
     listOfAnnouncedJobs.add(reviewContext.create(JobProxy.class));
 
     context.checking(new Expectations() {{
-      oneOf(jobsReviewView).showAnnouncedJobs(listOfAnnouncedJobs);
+      oneOf(reviewJobsView).showAnnouncedJobs(listOfAnnouncedJobs);
     }});
 
-    jobsReviewReceiver.onSuccess(listOfAnnouncedJobs);
+    reviewJobsReceiver.onSuccess(listOfAnnouncedJobs);
   }
 
   @Test
@@ -58,9 +58,9 @@ public class JobsReviewReceiverTest {
     final List<JobProxy> listOfAnnouncedJobs = new ArrayList<JobProxy>();
 
     context.checking(new Expectations() {{
-      oneOf(jobsReviewView).noAnnouncedJobs();
+      oneOf(reviewJobsView).showNoAnnouncedJobsNotification();
     }});
 
-    jobsReviewReceiver.onSuccess(listOfAnnouncedJobs);
+    reviewJobsReceiver.onSuccess(listOfAnnouncedJobs);
   }
 }

@@ -11,30 +11,30 @@ import com.google.inject.Inject;
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public class JobsReviewPresenterImpl extends AbstractActivity implements JobsReviewPresenter {
+public class ReviewJobsPresenterImpl extends AbstractActivity implements ReviewJobsPresenter {
 
   private JobExRequestFactory requestFactory;
-  private JobsReviewView jobsReviewView;
+  private ReviewJobsView reviewJobsView;
   private CompanyNameProvider companyNameProvider;
 
   @Inject
-  public JobsReviewPresenterImpl(JobExRequestFactory requestFactory, JobsReviewView jobsReviewView, CompanyNameProvider companyNameProvider) {
+  public ReviewJobsPresenterImpl(JobExRequestFactory requestFactory, ReviewJobsView reviewJobsView, CompanyNameProvider companyNameProvider) {
     this.requestFactory = requestFactory;
-    this.jobsReviewView = jobsReviewView;
+    this.reviewJobsView = reviewJobsView;
     this.companyNameProvider = companyNameProvider;
   }
 
-  public void getAnnouncedJobsForCompany(String companyName) {
+  public void reviewAnnouncedJobs(String companyName) {
 
-    requestFactory.jobsReviewContext().getAnnouncedJobsForCompany(companyName).to(new JobsReviewReceiver(jobsReviewView)).fire();
+    requestFactory.jobsReviewContext().getAnnouncedJobsForCompany(companyName).to(new ReviewJobsReceiver(reviewJobsView)).fire();
   }
 
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
 
-    jobsReviewView.setPresenter(this);
+    reviewJobsView.setPresenter(this);
 
-    panel.setWidget((IsWidget) jobsReviewView);
+    panel.setWidget((IsWidget) reviewJobsView);
 
-    getAnnouncedJobsForCompany(companyNameProvider.getCompanyName());
+    reviewAnnouncedJobs(companyNameProvider.getCompanyName());
   }
 }

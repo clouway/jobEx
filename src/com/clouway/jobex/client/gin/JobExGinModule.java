@@ -10,10 +10,10 @@ import com.clouway.jobex.client.job.jobannounce.JobAnnounceView;
 import com.clouway.jobex.client.job.jobannounce.JobAnnounceViewImpl;
 import com.clouway.jobex.client.job.jobsearch.JobSearchView;
 import com.clouway.jobex.client.job.jobsearch.JobSearchViewImpl;
-import com.clouway.jobex.client.jobsreview.JobsReviewPresenter;
-import com.clouway.jobex.client.jobsreview.JobsReviewPresenterImpl;
-import com.clouway.jobex.client.jobsreview.JobsReviewView;
-import com.clouway.jobex.client.jobsreview.JobsReviewViewImpl;
+import com.clouway.jobex.client.jobsreview.ReviewJobsPresenter;
+import com.clouway.jobex.client.jobsreview.ReviewJobsPresenterImpl;
+import com.clouway.jobex.client.jobsreview.ReviewJobsView;
+import com.clouway.jobex.client.jobsreview.ReviewJobsViewImpl;
 import com.clouway.jobex.client.navigation.JobExActivityMapper;
 import com.clouway.jobex.client.navigation.JobExPlaceHistoryMapper;
 import com.clouway.jobex.client.security.CompanyNameProvider;
@@ -58,9 +58,9 @@ public class JobExGinModule extends AbstractGinModule {
 
     bind(EditCVWorkflowView.class).to(EditCVWorkflowViewImpl.class).in(Singleton.class);
 
-    bind(JobsReviewPresenter.class).to(JobsReviewPresenterImpl.class);
+    bind(ReviewJobsPresenter.class).to(ReviewJobsPresenterImpl.class);
 
-    bind(JobsReviewView.class).to(JobsReviewViewImpl.class).in(Singleton.class);
+    bind(ReviewJobsView.class).to(ReviewJobsViewImpl.class).in(Singleton.class);
   }
 
   @Provides

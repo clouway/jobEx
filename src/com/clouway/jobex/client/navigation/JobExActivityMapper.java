@@ -10,8 +10,8 @@ import com.clouway.jobex.client.job.jobannounce.JobAnnouncePlace;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPresenter;
-import com.clouway.jobex.client.jobsreview.JobsReviewPlace;
-import com.clouway.jobex.client.jobsreview.JobsReviewPresenterImpl;
+import com.clouway.jobex.client.jobsreview.ReviewJobsPlace;
+import com.clouway.jobex.client.jobsreview.ReviewJobsPresenterImpl;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.place.shared.Place;
@@ -38,7 +38,7 @@ public class JobExActivityMapper implements ActivityMapper {
   CreatingNewCVWorkflow creatingNewCVWorkflow;
 
   @Inject
-  JobsReviewPresenterImpl jobsReviewPresenter;
+  ReviewJobsPresenterImpl jobsReviewPresenter;
 
   public Activity getActivity(Place place) {
 
@@ -62,7 +62,7 @@ public class JobExActivityMapper implements ActivityMapper {
       return editCvWorkflow;
     }
 
-    if (place instanceof JobsReviewPlace) {
+    if (place instanceof ReviewJobsPlace) {
       return jobsReviewPresenter;
     }
 

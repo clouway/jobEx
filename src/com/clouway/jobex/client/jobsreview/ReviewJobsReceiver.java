@@ -8,21 +8,21 @@ import java.util.List;
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public class JobsReviewReceiver extends Receiver<List<JobProxy>> {
+public class ReviewJobsReceiver extends Receiver<List<JobProxy>> {
 
-  private JobsReviewView jobsReviewView;
+  private ReviewJobsView reviewJobsView;
 
-  public JobsReviewReceiver(JobsReviewView jobsReviewView) {
-    this.jobsReviewView = jobsReviewView;
+  public ReviewJobsReceiver(ReviewJobsView reviewJobsView) {
+    this.reviewJobsView = reviewJobsView;
   }
 
   public void onSuccess(List<JobProxy> response) {
 
     if (response.size() == 0) {
-      jobsReviewView.noAnnouncedJobs();
+      reviewJobsView.showNoAnnouncedJobsNotification();
       return;
     }
 
-    jobsReviewView.showAnnouncedJobs(response);
+    reviewJobsView.showAnnouncedJobs(response);
   }
 }
