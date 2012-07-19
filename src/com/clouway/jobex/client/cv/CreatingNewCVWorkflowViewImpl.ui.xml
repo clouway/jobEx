@@ -1,23 +1,55 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:e='urn:import:com.clouway.jobex.client.cv'>
+             xmlns:e='urn:import:com.clouway.jobex.client.cv'
+             xmlns:n="urn:import:com.clouway.jobex.client.navigation"
+             xmlns:b="urn:import:com.github.gwtbootstrap.client.ui"
+        >
+
+  <ui:with field="res" type="com.clouway.jobex.client.icons.IconsResources"/>
 
   <ui:style>
+
     .container {
       margin: auto;
       text-align: center;
       padding: 10px;
-      background: rgba(167, 250, 255, 0.27);
-      border: 1px solid #1e90ff;
+      background: rgba(217, 200, 201, 0.25);
+      border: 1px solid black;
       border-radius: 10px;
       width: 50%;
+    }
+
+    .label {
+
+      font-size: 20px;
+
+      font-stretch: bold;
 
     }
 
+
   </ui:style>
 
-  <g:HTMLPanel addStyleNames="{style.container}">
-    <e:CVEditor ui:field="editor"/>
-    <g:Button ui:field="create" text="Create CV"/>
+  <g:HTMLPanel>
+
+    <g:HTMLPanel>
+
+      <g:Image resource="{res.addCv}"/>
+
+      <g:Label text="Add new CV" addStyleNames="{style.label}"/>
+
+    </g:HTMLPanel>
+
+    <n:NavigationMenu ui:field="navigation"/>
+
+    <g:HTMLPanel addStyleNames="{style.container}">
+
+      <e:CVEditor ui:field="editor"/>
+
+      <b:Button ui:field="create" text="Create CV" type="SUCCESS" />
+
+    </g:HTMLPanel>
+
   </g:HTMLPanel>
+
 </ui:UiBinder>

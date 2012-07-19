@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.applyingforjob;
+package com.clouway.jobex.client.cv;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;

@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.applyingforjob;
+package com.clouway.jobex.client.cv;
 
 
 import com.clouway.jobex.client.navigation.NavigationMenu;

@@ -1,4 +1,8 @@
 package com.clouway.jobex.client.applyingforjob;
+
+import com.clouway.jobex.client.cv.ApplyForJobEvent;
+import com.clouway.jobex.client.cv.UserCVsPresenter;
+import com.clouway.jobex.client.cv.UserCVsView;
 import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.server.applyingforjob.JobApplication;
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
@@ -11,7 +15,9 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
+
 import java.util.ArrayList;
+
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;

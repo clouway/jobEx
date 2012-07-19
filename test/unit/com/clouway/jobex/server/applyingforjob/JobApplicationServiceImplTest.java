@@ -1,6 +1,6 @@
 package com.clouway.jobex.server.applyingforjob;
 
-import com.clouway.jobex.client.applyingforjob.ErrorMessages;
+import com.clouway.jobex.client.cv.ErrorMessages;
 import com.clouway.jobex.server.cv.CVRepository;
 import org.junit.Before;
 import org.junit.Test;

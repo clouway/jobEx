@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.navigation;
 
-import com.clouway.jobex.client.applyingforjob.CreateCvPlace;
-import com.clouway.jobex.client.applyingforjob.PreviewCvPlace;
+import com.clouway.jobex.client.cv.CreateCvPlace;
+import com.clouway.jobex.client.cv.PreviewCvPlace;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePlace;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
 import com.github.gwtbootstrap.client.ui.NavLink;

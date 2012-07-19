@@ -1,6 +1,6 @@
 package com.clouway.jobex.server.applyingforjob;
 
-import com.clouway.jobex.client.applyingforjob.ErrorMessages;
+import com.clouway.jobex.client.cv.ErrorMessages;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.web.bindery.requestfactory.shared.ServiceLocator;
 

@@ -1,8 +1,8 @@
 package com.clouway.jobex.client;
 
 
-import com.clouway.jobex.client.applyingforjob.ApplyForJobEvent;
-import com.clouway.jobex.client.applyingforjob.UserCVsPresenter;
+import com.clouway.jobex.client.cv.ApplyForJobEvent;
+import com.clouway.jobex.client.cv.UserCVsPresenter;
 import com.clouway.jobex.client.gin.JobExGinjector;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
 import com.clouway.jobex.client.navigation.JobExPlaceHistoryMapper;

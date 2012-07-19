@@ -10,6 +10,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
@@ -76,7 +77,7 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
 
     String email = "mail@mail.com";
 
-    CV cv = new CV(1l, "name", email, "12345678", "skills !");
+    CV cv = new CV(1l, "name", email, "12345678", "skills !",new Date(),"male");
 
     repository.save(email, cv);
 
@@ -102,7 +103,7 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
 
     String mail = "mail@mail.com";
 
-    CV cv = new CV(1l, "name", "mail@mail.com", "1234567", "skills_1");
+    CV cv = new CV(1l, "name", "mail@mail.com", "1234567", "skills_1",new Date(),"female");
 
     repository.save(mail, cv);
 

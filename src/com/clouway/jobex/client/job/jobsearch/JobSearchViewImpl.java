@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.job.jobsearch;
 
-import com.clouway.jobex.client.applyingforjob.ApplyForJobEvent;
-import com.clouway.jobex.client.applyingforjob.PreviewCvPlace;
+import com.clouway.jobex.client.cv.ApplyForJobEvent;
+import com.clouway.jobex.client.cv.PreviewCvPlace;
 import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.cell.client.ButtonCell;
@@ -44,7 +44,7 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
   @UiField
   ListBox categoryValue;
   @UiField
-  Button searchButton;
+  com.github.gwtbootstrap.client.ui.Button searchButton;
 
   @UiField(provided = true)
   NavigationMenu navigation;
