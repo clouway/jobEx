@@ -25,13 +25,9 @@ public class JobSearchPresenterTest {
 
 
   private JobExRequestFactory factory;
-  private EventBus eventBus;
-  
-  private JobSearchServiceImpl service;
 
   private JobSearchPresenter presenter;
 
-  @Mock
   JobSearchView jobSearchView;
 
   Mockery context = new JUnit4Mockery();
