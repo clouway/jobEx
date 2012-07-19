@@ -17,12 +17,28 @@
 
       <tr>
         <td>Category: </td>
-        <td><g:ListBox ui:field="selectCategory" /></td>
+        <td>
+          <g:ListBox ui:field="selectCategory" selectedIndex="0">
+            <g:item>Banking</g:item>
+            <g:item>Engineering</g:item>
+            <g:item>IT</g:item>
+            <g:item>Franchise</g:item>
+            <g:item>Marketing</g:item>
+          </g:ListBox>
+        </td>
       </tr>
 
       <tr>
         <td>Location: </td>
-        <td><g:ListBox ui:field="selectLocation" /></td>
+        <td>
+          <g:ListBox ui:field="selectLocation" selectedIndex="0">
+            <g:item>Burgas</g:item>
+            <g:item>Plovdiv</g:item>
+            <g:item>Sofia</g:item>
+            <g:item>Varna</g:item>
+            <g:item>Veliko Tarnovo</g:item>
+          </g:ListBox>
+        </td>
       </tr>
 
       <tr>

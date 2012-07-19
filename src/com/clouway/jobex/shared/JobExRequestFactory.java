@@ -8,6 +8,8 @@ import com.clouway.jobex.server.job.JobSearchLocator;
 import com.clouway.jobex.server.job.JobServiceLocator;
 import com.clouway.jobex.server.job.jobannounce.JobAnnounceService;
 import com.clouway.jobex.server.job.jobsearch.JobSearchServiceImpl;
+import com.clouway.jobex.server.jobsreview.JobsReviewService;
+import com.clouway.jobex.server.jobsreview.JobsReviewServiceLocator;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.RequestFactory;
@@ -56,6 +58,13 @@ public interface JobExRequestFactory extends RequestFactory {
      */
     Request<Void> announceJob(String companyName, JobProxy jobProxy);
   }
+
+  @Service(value = JobsReviewService.class, locator = JobsReviewServiceLocator.class)
+  public interface JobsReviewContext extends RequestContext {
+    Request<List<JobProxy>> getAnnouncedJobsForCompany(String companyName);
+  }
+
+  JobsReviewContext jobsReviewContext();
 
   JobRequestContext jobRequestContext();
 
