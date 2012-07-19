@@ -7,9 +7,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.inject.Inject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,6 +65,12 @@ public class JobRepositoryImpl implements JobRepository{
     return preparedQuery.asList(FetchOptions.Builder.withDefaults());
   }
 
+  /**
+   * Save announced job for given company
+   *
+   * @param companyName - company announcing the job
+   * @param job - a job
+   */
   public void saveJob(String companyName, Job job) {
     Key companyKey = KeyFactory.createKey("Company", companyName);
 
@@ -78,5 +82,23 @@ public class JobRepositoryImpl implements JobRepository{
     entity.setProperty("location",job.getLocation());
 
     datastoreService.put(entity);
+  }
+
+  /**
+   * Get announced jobs for given company
+   *
+   * @param companyName - company name
+   * @return - list of announced jobs
+   */
+  public List<Entity> getAnnouncedJobsForCompany(String companyName) {
+
+    Key companyKey = KeyFactory.createKey("Company", companyName);
+
+    Query query = new Query("Job");
+    query.setAncestor(companyKey);
+    query.setFilter(new Query.FilterPredicate("company", Query.FilterOperator.EQUAL, "clouway"));
+
+    PreparedQuery preparedQuery = datastoreService.prepare(query);
+    return preparedQuery.asList(FetchOptions.Builder.withLimit(10));
   }
 }

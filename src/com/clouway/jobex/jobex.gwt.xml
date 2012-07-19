@@ -10,7 +10,6 @@
   <inherits name="com.google.gwt.editor.Editor"/>
   <inherits name="com.google.web.bindery.requestfactory.RequestFactory"/>
   <inherits name="com.google.gwt.inject.Inject"/>
-  <inherits name="com.google.gwt.user.theme.chrome.Chrome"/>
   <inherits name="com.github.gwtbootstrap.Bootstrap"/>
   <!-- Specify the app entry point class.                   -->
   <entry-point class='com.clouway.jobex.client.JobEx'/>
