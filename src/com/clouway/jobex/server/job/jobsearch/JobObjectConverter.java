@@ -4,6 +4,7 @@ import com.clouway.jobex.server.job.Job;
 import com.google.appengine.api.datastore.Entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +25,8 @@ public class JobObjectConverter implements DomainObjectConverter<Job> {
       job.setLocation((String) entity.getProperty("location"));
       job.setCategory((String) entity.getProperty("category"));
       job.setPosition((String) entity.getProperty("position"));
+      job.setCompany((String) entity.getProperty("company"));
+      job.setExpirationDate((Date) entity.getProperty("expirationDate"));
       listOfJobs.add(job);
     }
     return listOfJobs;
