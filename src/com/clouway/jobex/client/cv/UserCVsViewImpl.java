@@ -75,8 +75,6 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
 
     cVCellTable = new CellTable<CVProxy>();
 
-//    dataProvider.addDataDisplay(cVCellTable);
-
     cVCellTable.addColumn(new TextColumn<CVProxy>() {
       @Override
       public String getValue(CVProxy object) {
@@ -91,6 +89,30 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
       }
     }, "name");
 
+
+
+    cVCellTable.addColumn(new TextColumn<CVProxy>() {
+      @Override
+      public String getValue(CVProxy object) {
+        return object.getGender();
+      }
+    }, "gender");
+
+
+    cVCellTable.addColumn(new TextColumn<CVProxy>() {
+      @Override
+      public String getValue(CVProxy object) {
+        return String.valueOf(object.getDateOfBirth());
+      }
+    }, "Date of birth");
+
+    Column<CVProxy, String> editButton = new Column<CVProxy, String>(new ButtonCell()) {
+      @Override
+      public String getValue(CVProxy object) {
+        return "edit";
+      }
+    };
+
     cVCellTable.addColumn(new TextColumn<CVProxy>() {
       @Override
       public String getValue(CVProxy object) {
@@ -104,13 +126,6 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
         return object.getSkills();
       }
     }, "skills:");
-
-    Column<CVProxy, String> editButton = new Column<CVProxy, String>(new ButtonCell()) {
-      @Override
-      public String getValue(CVProxy object) {
-        return "edit";
-      }
-    };
 
     Column<CVProxy, String> delete = new Column<CVProxy, String>(new ButtonCell()) {
       @Override
