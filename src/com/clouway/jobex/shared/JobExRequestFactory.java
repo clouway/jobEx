@@ -44,6 +44,9 @@ public interface JobExRequestFactory extends RequestFactory {
 
     Request<CVProxy> fetchCreatedCv(String username, Long cvId);
 
+
+    Request<List<CVProxy>> delete(String username, long cvId);
+
   }
 
   @Service(value = JobAnnounceService.class, locator = JobServiceLocator.class)

@@ -23,6 +23,7 @@
         <b:NavLink text="Create new CV" ui:field="newCV"/>
         <b:NavLink text="Cv Preview" ui:field="cvList"/>
         <b:NavLink text="Announce Job" ui:field="announceJob"/>
+        <b:NavLink text="Jobs Review" ui:field="jobReview"/>
       </b:Nav>
     </b:Navbar>
 

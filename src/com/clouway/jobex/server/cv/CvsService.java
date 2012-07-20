@@ -9,6 +9,7 @@ public interface CvsService {
 
   /**
    * Fetches All created CV by the specified user;
+   *
    * @return A list of CV contains all created Cv by the user;
    */
   List<CV> fetchCreatedCVs(String username);
@@ -17,4 +18,7 @@ public interface CvsService {
 
 
   CV fetchCreatedCv(String username, Long cvId);
+
+  public List<CV> delete(String username, long cvId);
+
 }

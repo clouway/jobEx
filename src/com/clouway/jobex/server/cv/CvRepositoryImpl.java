@@ -8,6 +8,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,7 +23,6 @@ public class CvRepositoryImpl implements CVRepository {
   public CvRepositoryImpl(DatastoreService service) {
 
     this.service = service;
-
   }
 
   @Override
@@ -49,12 +49,16 @@ public class CvRepositoryImpl implements CVRepository {
             (String) entity.getProperty("name"),
             (String) entity.getProperty("email"),
             (String) entity.getProperty("phoneNumber"),
-            (String) entity.getProperty("skills"));
+            (String) entity.getProperty("skills"),
+            (Date) entity.getProperty("dateOfBirth"),
+            (String) entity.getProperty("gender"));
   }
 
 
   public void save(String username, CV cv) {
+
     Entity entity = null;
+
     if (cv.getId() != null) {
       Key cvKey = KeyFactory.createKey(cvKind, cv.getId());
       try {
@@ -71,6 +75,8 @@ public class CvRepositoryImpl implements CVRepository {
     entity.setProperty("phoneNumber", cv.getPhoneNumber());
     entity.setProperty("skills", cv.getSkills());
     entity.setProperty("username", username);
+    entity.setProperty("dateOfBirth", cv.getDateOfBirth());
+    entity.setProperty("gender", cv.getGender());
     service.put(entity);
   }
 
@@ -86,6 +92,11 @@ public class CvRepositoryImpl implements CVRepository {
       e.printStackTrace();
       return null;
     }
-
   }
+
+  public void delete(long cvId) {
+    Key key = KeyFactory.createKey(cvKind, cvId);
+    service.delete(key);
+  }
+
 }

@@ -1,4 +1,8 @@
 package com.clouway.jobex.client.applyingforjob;
+
+import com.clouway.jobex.client.cv.ApplyForJobEvent;
+import com.clouway.jobex.client.cv.UserCVsPresenter;
+import com.clouway.jobex.client.cv.UserCVsView;
 import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.server.applyingforjob.JobApplication;
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
@@ -11,7 +15,9 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
+
 import java.util.ArrayList;
+
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -135,7 +141,7 @@ public class UserCVsPresenterTest {
 
     verify(cvsService).fetchCreatedCVs(username);
 
-    verify(view).showCreatedCVs(returnedCVArgumentCaptures.capture());
+    verify(view).showCVs(returnedCVArgumentCaptures.capture());
 
     assertThat(returnedCVArgumentCaptures.getValue(), is(notNullValue()));
 
@@ -170,11 +176,7 @@ public class UserCVsPresenterTest {
 
     Long cvId = 1l;
 
-    String username = "username";
-
     final String error = "some Error";
-
-    JobApplication jobApplication = new JobApplication(jobId, cvId,username);
 
     ArrayList<String> errors = new ArrayList<String>();
 
@@ -189,5 +191,23 @@ public class UserCVsPresenterTest {
     verify(view).showErrors(errors);
 
   }
+
+
+  @Test
+  public void deletesUserCv() {
+
+    Long cvId = 1l;
+
+    int cvIndex = 1;
+
+    presenter.deleteCv(cvId);
+
+    verify(cvsService).delete("username", cvId);
+
+    verify(view).delete(cvIndex);
+
+  }
+
+
 
 }

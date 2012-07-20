@@ -39,20 +39,19 @@ public class JobApplicationRepositoryImpl implements JobApplicationRepository {
   }
 
   @Override
-  public JobApplication getJobApplication(Long cvId, Long jobId, String employeeUsername) {
+  public JobApplication getJobApplication(Long cvId, Long jobId) {
 
     JobApplication jobApplication = null;
 
     Query query = new Query(jobApplicationKind);
 
     query.setFilter(Query.CompositeFilterOperator.and(new Query.FilterPredicate(cvIdProperty, Query.FilterOperator.EQUAL, cvId)
-            , new Query.FilterPredicate(jobIdProperty, Query.FilterOperator.EQUAL, jobId),
-            new Query.FilterPredicate(username, Query.FilterOperator.EQUAL, employeeUsername)));
+            , new Query.FilterPredicate(jobIdProperty, Query.FilterOperator.EQUAL, jobId)));
 
     Entity entity = service.prepare(query).asSingleEntity();
 
     if (entity != null) {
-      jobApplication = new JobApplication((Long) entity.getProperty(cvIdProperty), (Long) entity.getProperty(jobIdProperty), (String) entity.getProperty(username));
+      jobApplication = new JobApplication((Long) entity.getProperty(cvIdProperty), (Long) entity.getProperty(jobIdProperty));
     }
     return jobApplication;
   }

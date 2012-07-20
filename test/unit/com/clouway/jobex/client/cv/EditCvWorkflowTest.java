@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 
+import java.util.Date;
+
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -61,7 +63,7 @@ public class EditCvWorkflowTest {
   @Test
   public void fetchCvProxyTobeEdited() {
 
-    CV cv = new CV(1l, "name", username, "1234567", "skill");
+    CV cv = new CV(1l, "name", username, "1234567", "skill", new Date(), "male");
 
     ArgumentCaptor<CVProxy> cvProxyArgumentCaptor = ArgumentCaptor.forClass(CVProxy.class);
 

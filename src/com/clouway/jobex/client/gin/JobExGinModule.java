@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.gin;
 
-import com.clouway.jobex.client.applyingforjob.UserCVsView;
-import com.clouway.jobex.client.applyingforjob.UserCVsViewImpl;
+import com.clouway.jobex.client.cv.UserCVsView;
+import com.clouway.jobex.client.cv.UserCVsViewImpl;
 import com.clouway.jobex.client.cv.CreatingNewCVWorkflowView;
 import com.clouway.jobex.client.cv.CreatingNewCVWorkflowViewImpl;
 import com.clouway.jobex.client.cv.EditCVWorkflowView;
