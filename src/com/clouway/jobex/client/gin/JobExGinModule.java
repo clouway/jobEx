@@ -20,6 +20,10 @@ import com.clouway.jobex.client.security.CompanyNameProvider;
 import com.clouway.jobex.client.security.CompanyNameProviderImpl;
 import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.client.security.UsernameProviderImpl;
+import com.clouway.jobex.client.useraccess.login.LoginView;
+import com.clouway.jobex.client.useraccess.login.LoginViewImpl;
+import com.clouway.jobex.client.useraccess.register.RegistrationView;
+import com.clouway.jobex.client.useraccess.register.RegistrationViewImpl;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.GWT;
@@ -61,6 +65,10 @@ public class JobExGinModule extends AbstractGinModule {
     bind(ReviewJobsPresenter.class).to(ReviewJobsPresenterImpl.class);
 
     bind(ReviewJobsView.class).to(ReviewJobsViewImpl.class).in(Singleton.class);
+
+    bind(RegistrationView.class).to(RegistrationViewImpl.class).in(Singleton.class);
+
+    bind(LoginView.class).to(LoginViewImpl.class).in(Singleton.class);
   }
 
   @Provides

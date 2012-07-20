@@ -8,12 +8,13 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
+import java.util.Date;
 import java.util.List;
 
 /**
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
-public class JobRepositoryImpl implements JobRepository{
+public class JobRepositoryImpl implements JobRepository {
 
   private DatastoreService datastoreService;
 
@@ -23,6 +24,7 @@ public class JobRepositoryImpl implements JobRepository{
 
   /**
    * Get list of job objects by location from the datastore
+   *
    * @param location a job location
    * @return list with all jobs that have the current location parameter
    */
@@ -35,22 +37,23 @@ public class JobRepositoryImpl implements JobRepository{
   }
 
 
-
   /**
    * Get list of job objects by category from the datastore
+   *
    * @param category a job category
    * @return list with all jobs that have the current category parameter
    */
   public List<Entity> getAllJobsByCategory(String category) {
     Query query = new Query("Job");
     query.setFilter(new Query.FilterPredicate("category", Query.FilterOperator.EQUAL, category));
-    
+
     PreparedQuery preparedQuery = datastoreService.prepare(query);
     return preparedQuery.asList(FetchOptions.Builder.withDefaults());
   }
 
   /**
    * Get list of job objects by location and category from the datastore
+   *
    * @param location a job location
    * @param category a job category
    * @return list with all jobs that have the current location and category parameters
@@ -69,7 +72,7 @@ public class JobRepositoryImpl implements JobRepository{
    * Save announced job for given company
    *
    * @param companyName - company announcing the job
-   * @param job - a job
+   * @param job         - a job
    */
   public void saveJob(String companyName, Job job) {
     Key companyKey = KeyFactory.createKey("Company", companyName);
@@ -79,7 +82,7 @@ public class JobRepositoryImpl implements JobRepository{
     entity.setProperty("position", job.getPosition());
     entity.setProperty("category", job.getCategory());
     entity.setProperty("expirationDate", job.getExpirationDate());
-    entity.setProperty("location",job.getLocation());
+    entity.setProperty("location", job.getLocation());
 
     datastoreService.put(entity);
   }
@@ -100,5 +103,28 @@ public class JobRepositoryImpl implements JobRepository{
 
     PreparedQuery preparedQuery = datastoreService.prepare(query);
     return preparedQuery.asList(FetchOptions.Builder.withLimit(10));
+  }
+
+  public Key[] getExpiredJobsKeys() {
+    Key[] expiredJobsKeysArray;
+    Query query = new Query("Job");
+    query.setKeysOnly();
+    query.setFilter(new Query.FilterPredicate("expirationDate", Query.FilterOperator.LESS_THAN, new Date()));
+
+    PreparedQuery preparedQuery = datastoreService.prepare(query);
+    List<Entity> expiredJobsKeys = preparedQuery.asList(FetchOptions.Builder.withDefaults());
+    expiredJobsKeysArray = new Key[expiredJobsKeys.size()];
+    for (int i = 0; i < expiredJobsKeys.size(); i++) {
+      expiredJobsKeysArray[i] = expiredJobsKeys.get(i).getKey();
+    }
+
+    return expiredJobsKeysArray;
+  }
+
+  /**
+   * Remove all job ads that are no longer valid
+   */
+  public void removeExpiredJobs() {
+    datastoreService.delete(getExpiredJobsKeys());
   }
 }
