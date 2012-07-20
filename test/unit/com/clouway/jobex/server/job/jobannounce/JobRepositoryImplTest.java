@@ -44,7 +44,7 @@ public class JobRepositoryImplTest {
   @Test
   public void saveJobInRepository() {
 
-    Job job = new Job("Company", "Position", "Category", new Date());
+    Job job = new Job("Company", "Position", "Category", "Location", new Date());
 
     repository.saveJob(job.getCompany(), job);
 
@@ -72,10 +72,34 @@ public class JobRepositoryImplTest {
 
     String companyName = "clouway";
 
-    repository.saveJob(companyName, new Job(companyName, "position1", "category1", new Date()));
-    repository.saveJob(companyName, new Job(companyName, "position2", "category2", new Date()));
+    repository.saveJob(companyName, new Job(companyName, "position1", "category1", "location1", new Date()));
+    repository.saveJob(companyName, new Job(companyName, "position2", "category2", "location2", new Date()));
 
     assertThat(repository.getAnnouncedJobsForCompany(companyName).size(), is(equalTo(2)));
+  }
+
+  @Test
+  public void getJobByGivenJobId() {
+
+    String companyName = "clouway";
+    String location = "Veliko Tarnovo";
+    String category = "IT";
+    String position = "Developer";
+    Date expirationDate = new Date();
+
+    Entity entity = new Entity("Job", 1l);
+    entity.setProperty("company", companyName);
+    entity.setProperty("location", location);
+    entity.setProperty("category", category);
+    entity.setProperty("position", position);
+    entity.setProperty("expirationDate", expirationDate);
+
+    datastore.put(entity);
+
+    Job savedJob = repository.getJob(1l);
+
+    assertThat("clouway", is(equalTo(savedJob.getCompany())));
+    assertThat("Veliko Tarnovo", is(equalTo(savedJob.getLocation())));
   }
 
 }

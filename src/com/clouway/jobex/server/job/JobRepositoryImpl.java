@@ -1,12 +1,6 @@
 package com.clouway.jobex.server.job;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.*;
 
 import java.util.Date;
 import java.util.List;
@@ -75,9 +69,8 @@ public class JobRepositoryImpl implements JobRepository {
    * @param job         - a job
    */
   public void saveJob(String companyName, Job job) {
-    Key companyKey = KeyFactory.createKey("Company", companyName);
 
-    Entity entity = new Entity("Job", companyKey);
+    Entity entity = new Entity("Job");
     entity.setProperty("company", job.getCompany());
     entity.setProperty("position", job.getPosition());
     entity.setProperty("category", job.getCategory());
@@ -95,15 +88,13 @@ public class JobRepositoryImpl implements JobRepository {
    */
   public List<Entity> getAnnouncedJobsForCompany(String companyName) {
 
-    Key companyKey = KeyFactory.createKey("Company", companyName);
-
     Query query = new Query("Job");
-    query.setAncestor(companyKey);
     query.setFilter(new Query.FilterPredicate("company", Query.FilterOperator.EQUAL, "clouway"));
 
     PreparedQuery preparedQuery = datastoreService.prepare(query);
     return preparedQuery.asList(FetchOptions.Builder.withLimit(10));
   }
+
 
   public Key[] getExpiredJobsKeys() {
     Key[] expiredJobsKeysArray;
@@ -126,5 +117,27 @@ public class JobRepositoryImpl implements JobRepository {
    */
   public void removeExpiredJobs() {
     datastoreService.delete(getExpiredJobsKeys());
+  }
+
+  public Job getJob(Long jobId) {
+
+    Key ancestor = KeyFactory.createKey("Job", jobId);
+
+    Entity entity = null;
+
+    try {
+      entity = datastoreService.get(ancestor);
+    } catch (EntityNotFoundException e) {
+      e.printStackTrace();
+    }
+
+    return new Job(
+            entity.getProperty("company").toString(),
+            entity.getProperty("position").toString(),
+            entity.getProperty("category").toString(),
+            entity.getProperty("location").toString(),
+            (Date) entity.getProperty("expirationDate")
+    );
+
   }
 }

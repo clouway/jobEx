@@ -20,10 +20,11 @@ public class Job {
   public Job() {
   }
 
-  public Job(String company, String position, String category, Date expirationDate) {
+  public Job(String company, String position, String category, String location, Date expirationDate) {
     this.company = company;
     this.position = position;
     this.category = category;
+    this.location = location;
     this.expirationDate = expirationDate;
   }
 

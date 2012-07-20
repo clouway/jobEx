@@ -5,6 +5,8 @@ import com.clouway.jobex.server.applyingforjob.JobApplicationService;
 import com.clouway.jobex.server.applyingforjob.JobApplicationServiceLocator;
 import com.clouway.jobex.server.cv.CvsService;
 import com.clouway.jobex.server.cv.CvsServiceLocator;
+import com.clouway.jobex.server.emailservice.EmailService;
+import com.clouway.jobex.server.emailservice.EmailServiceLocator;
 import com.clouway.jobex.server.job.JobSearchLocator;
 import com.clouway.jobex.server.job.JobServiceLocator;
 import com.clouway.jobex.server.job.jobannounce.JobAnnounceService;
@@ -50,6 +52,8 @@ public interface JobExRequestFactory extends RequestFactory {
 
     Request<List<CVProxy>> delete(String username, long cvId);
 
+    Request<List<CVProxy>> getSubmittedCVs(Long jobId);
+
   }
 
   @Service(value = JobAnnounceService.class, locator = JobServiceLocator.class)
@@ -60,7 +64,7 @@ public interface JobExRequestFactory extends RequestFactory {
      *
      * @param companyName a companyName
      * @param jobProxy    a jobProxy
-     * @return
+     * @return - null
      */
     Request<Void> announceJob(String companyName, JobProxy jobProxy);
   }
@@ -70,6 +74,7 @@ public interface JobExRequestFactory extends RequestFactory {
     Request<List<JobProxy>> getAnnouncedJobsForCompany(String companyName);
   }
 
+
   @Service(value = AuthorizationService.class, locator = AuthorizationServiceLocator.class)
   public interface AuthorizationContext extends RequestContext {
     Request<Void> register(String registrationType, String email, String password);
@@ -77,6 +82,13 @@ public interface JobExRequestFactory extends RequestFactory {
     Request<Boolean> verifyLogin(String loginType, String email, String password);
   }
 
+
+
+  @Service(value = EmailService.class, locator = EmailServiceLocator.class)
+  public interface EmailServiceContext extends RequestContext {
+
+    Request<Void> sendEmailApproval(Long jobId, String email);
+  }
 
 
   JobsReviewContext jobsReviewContext();
@@ -89,5 +101,9 @@ public interface JobExRequestFactory extends RequestFactory {
 
   JobApplicationRequestContext jobApplicationContext();
 
+
   AuthorizationContext authorizationContext();
+
+  EmailServiceContext emailServiceContext();
+
 }
