@@ -20,7 +20,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 
@@ -60,8 +59,6 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
 
   private SingleSelectionModel<CVProxy> selectionModel = new SingleSelectionModel<CVProxy>();
 
-  ListDataProvider<CVProxy> dataProvider = new ListDataProvider<CVProxy>();
-
   Column<CVProxy, String> selectButton = new Column<CVProxy, String>(new ButtonCell()) {
     @Override
     public String getValue(final CVProxy object) {
@@ -78,7 +75,7 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
 
     cVCellTable = new CellTable<CVProxy>();
 
-    dataProvider.addDataDisplay(cVCellTable);
+//    dataProvider.addDataDisplay(cVCellTable);
 
     cVCellTable.addColumn(new TextColumn<CVProxy>() {
       @Override
@@ -176,9 +173,11 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
 
   @Override
   public void showCVs(List<CVProxy> cvs) {
-    dataProvider.setList(cvs);
+
     cVCellTable.setVisibleRange(0, cvs.size());
-//    cVCellTable.setRowData(cvs);
+
+    cVCellTable.setRowData(cvs);
+
   }
 
 
@@ -189,11 +188,8 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
 
   @Override
   public void setJobId(Long id) {
-
     jobId = id;
-
     addSelectButton();
-
   }
 
   @Override
