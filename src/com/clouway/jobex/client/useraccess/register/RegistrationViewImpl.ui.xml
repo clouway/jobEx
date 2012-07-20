@@ -14,7 +14,7 @@
     width: 20%;
     height: 50%;
 
-    /*background-image:url(http://24.media.tumblr.com/tumblr_le288tZcjH1qdvkvwo1_400.jpg);*/
+    background-image:url(http://24.media.tumblr.com/tumblr_le288tZcjH1qdvkvwo1_400.jpg);
     border-radius: 10px;
 
   }
