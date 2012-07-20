@@ -2,7 +2,8 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:e='urn:import:com.clouway.jobex.client.cv'
              xmlns:b="urn:import:com.github.gwtbootstrap.client.ui"
-             xmlns:n="urn:import:com.clouway.jobex.client.navigation">
+             xmlns:n="urn:import:com.clouway.jobex.client.navigation"
+        >
 
   <ui:style>
     .container {
