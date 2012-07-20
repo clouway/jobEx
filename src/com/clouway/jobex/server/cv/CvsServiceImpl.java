@@ -40,5 +40,10 @@ public class CvsServiceImpl implements CvsService {
     return null;
   }
 
+  @Override
+  public List<CV> delete(String username, long cvId) {
+    repository.delete(cvId);
+    return repository.getCreatedCVs(username);
+  }
 
 }

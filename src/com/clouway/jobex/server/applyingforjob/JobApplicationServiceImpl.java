@@ -1,6 +1,6 @@
 package com.clouway.jobex.server.applyingforjob;
 
-import com.clouway.jobex.client.applyingforjob.ErrorMessages;
+import com.clouway.jobex.client.cv.ErrorMessages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
     ArrayList<String> errors = new ArrayList<String>();
 
-    if (jobApplicationRepository.getJobApplication(application.getCvId(), application.getJobId(), application.getUser()) == null) {
+    if (jobApplicationRepository.getJobApplication(application.getCvId(), application.getJobId()) == null) {
       jobApplicationRepository.saveJobApplication(application);
     } else {
       errors.add(errorMessages.jobApplicationIsPreviouslySubmitted());

@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.cv;
 
-import com.clouway.jobex.client.applyingforjob.PreviewCvPlace;
+import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.shared.CVProxy;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.core.client.GWT;
@@ -44,9 +44,13 @@ public class EditCVWorkflowViewImpl extends Composite implements EditCVWorkflowV
   @UiField
   CVEditor editor;
 
+  @UiField(provided = true)
+  NavigationMenu navigation;
+
   @Inject
-  public EditCVWorkflowViewImpl(JobExRequestFactory factory, PlaceController controller) {
+  public EditCVWorkflowViewImpl(JobExRequestFactory factory, PlaceController controller,NavigationMenu navigation) {
     this.controller = controller;
+    this.navigation = navigation;
     HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
     initWidget(rootElement);
     driver.initialize(factory, editor);

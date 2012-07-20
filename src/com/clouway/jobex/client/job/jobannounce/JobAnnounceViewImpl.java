@@ -1,6 +1,7 @@
 package com.clouway.jobex.client.job.jobannounce;
 
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
+import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.core.client.GWT;
@@ -10,7 +11,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -21,10 +21,13 @@ import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriv
  */
 public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
 
-  interface JobAnnounceViewImplUiBinder extends UiBinder<Widget, JobAnnounceViewImpl> {}
+  interface JobAnnounceViewImplUiBinder extends UiBinder<Widget, JobAnnounceViewImpl> {
+  }
+
   private static JobAnnounceViewImplUiBinder uiBinder = GWT.create(JobAnnounceViewImplUiBinder.class);
 
-  interface Driver extends RequestFactoryEditorDriver<JobProxy, JobEditor> {}
+  interface Driver extends RequestFactoryEditorDriver<JobProxy, JobEditor> {
+  }
 
   private final Driver driver = GWT.create(Driver.class);
 
@@ -34,17 +37,22 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
   JobEditor jobEditor;
 
   @UiField
-  Button cancel;
+  com.github.gwtbootstrap.client.ui.Button cancel;
 
   @UiField
-  Button announce;
+  com.github.gwtbootstrap.client.ui.Button announce;
+
+  @UiField(provided = true)
+  NavigationMenu navigation;
 
   private PlaceController placeController;
 
   @Inject
-  public JobAnnounceViewImpl(PlaceController placeController) {
+  public JobAnnounceViewImpl(PlaceController placeController,NavigationMenu navigation) {
 
     this.placeController = placeController;
+
+    this.navigation = navigation;
 
     initWidget(uiBinder.createAndBindUi(this));
 

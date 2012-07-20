@@ -1,5 +1,6 @@
 package com.clouway.jobex.client.jobsreview;
 
+import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.DateCell;
@@ -13,6 +14,7 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 
 import java.util.Date;
 import java.util.List;
@@ -32,7 +34,13 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
   @UiField
   CellTable<JobProxy> announcedJobsTable;
 
-  public ReviewJobsViewImpl() {
+  @UiField(provided = true)
+    NavigationMenu menu;
+
+  @Inject
+  public ReviewJobsViewImpl(NavigationMenu menu) {
+
+    this.menu = menu;
 
     initWidget(uiBinder.createAndBindUi(this));
 

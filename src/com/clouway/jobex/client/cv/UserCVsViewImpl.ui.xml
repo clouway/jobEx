@@ -3,6 +3,8 @@
              xmlns:b="urn:import:com.github.gwtbootstrap.client.ui"
              xmlns:n="urn:import:com.clouway.jobex.client.navigation">
 
+  <ui:with field="res" type="com.clouway.jobex.client.icons.IconsResources"/>
+
   <ui:style>
     .container {
       border-radius: 10px;
@@ -18,7 +20,6 @@
 
     .tablePanel {
       width: 100%;
-      /*background: rgba(110, 158, 255, 0.20);*/
     }
 
     .table {
@@ -26,10 +27,21 @@
       /*border: 1px solid;*/
     }
 
+    .lable {
+      font-size: 20px;
+      font-stretch: bold;
+    }
+
   </ui:style>
 
   <g:HTMLPanel>
+    <g:HTMLPanel>
+      <g:Image resource="{res.employeeIcon}"/>
+      <g:Label text="Employee CV" addStyleNames="{style.lable}"/>
+    </g:HTMLPanel>
     <n:NavigationMenu ui:field="menu"/>
+
+
     <g:FlowPanel addStyleNames="{style.container}">
       <g:Label ui:field="messages"/>
       <g:VerticalPanel addStyleNames="{style.tablePanel}">

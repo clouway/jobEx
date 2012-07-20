@@ -1,6 +1,7 @@
 package com.clouway.jobex.server.cv;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * A Data transfer object that contains CV information created by the user that wants to apply for a job
@@ -21,6 +22,29 @@ public class CV implements Serializable {
   private String phoneNumber;
 
   private String skills;
+
+  private Date dateOfBirth;
+
+  private String gender;
+
+
+
+  public String getGender() {
+    return gender;
+  }
+
+  public void setGender(String gender) {
+    this.gender = gender;
+  }
+
+
+  public Date getDateOfBirth() {
+    return dateOfBirth;
+  }
+
+  public void setDateOfBirth(Date dateOfBirth) {
+    this.dateOfBirth = dateOfBirth;
+  }
 
   public void setName(String name) {
     this.name = name;
@@ -61,12 +85,14 @@ public class CV implements Serializable {
     this.id = id;
   }
 
-  public CV(Long id,String name, String email, String phoneNumber, String skills) {
+  public CV(Long id, String name, String email, String phoneNumber, String skills,Date dateOfBirth,String gender) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.phoneNumber = phoneNumber;
     this.skills = skills;
+    this.dateOfBirth = dateOfBirth;
+    this.gender = gender;
   }
 
   public Long getId() {

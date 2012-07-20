@@ -4,6 +4,8 @@ import com.clouway.jobex.server.cv.CVLocator;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
+import java.util.Date;
+
 /**
  * Client side representation of CV Entity;
  *
@@ -36,4 +38,11 @@ public interface CVProxy extends EntityProxy {
 
   void setEmail(String email);
 
+  public String getGender();
+
+  public void setGender(String gender);
+
+  public Date getDateOfBirth();
+
+  public void setDateOfBirth(Date dateOfBirth);
 }

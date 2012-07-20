@@ -1,6 +1,6 @@
 package com.clouway.jobex.server.applyingforjob;
 
-import com.clouway.jobex.client.applyingforjob.ErrorMessages;
+import com.clouway.jobex.client.cv.ErrorMessages;
 import com.clouway.jobex.server.cv.CVRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,19 +66,17 @@ public class JobApplicationServiceImplTest {
 
     Long jobId = 34l;
 
-    String username = "user";
-
     String error = "some error !! ";
 
-    JobApplication jobApplication = new JobApplication(cvId, jobId,username);
+    JobApplication jobApplication = new JobApplication(cvId, jobId);
 
     when(errorMessages.jobApplicationIsPreviouslySubmitted()).thenReturn(error);
 
-    when(jobApplicationRepository.getJobApplication(cvId, jobId,username)).thenReturn(jobApplication);
+    when(jobApplicationRepository.getJobApplication(cvId, jobId)).thenReturn(jobApplication);
 
     List<String> errors = service.applyForJob(jobApplication);
 
-    verify(jobApplicationRepository).getJobApplication(cvId, jobId,username);
+    verify(jobApplicationRepository).getJobApplication(cvId, jobId);
 
     verify(jobApplicationRepository, never()).saveJobApplication(jobApplication);
 
