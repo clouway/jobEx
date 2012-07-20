@@ -7,15 +7,14 @@ import com.google.gwt.user.client.Cookies;
  */
 public class UsernameProviderImpl implements UsernameProvider {
 
-  private final String usernameCookie = "mail@mail.com";
 
   @Override
   public String getUsername() {
-    return usernameCookie;
+    return Cookies.getCookie("username");
   }
 
   @Override
   public void setUsername(String username) {
-    Cookies.setCookie(usernameCookie, username);
+    Cookies.setCookie("username", username);
   }
 }

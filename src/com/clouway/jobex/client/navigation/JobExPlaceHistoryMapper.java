@@ -6,6 +6,8 @@ import com.clouway.jobex.client.cv.PreviewCvPlace;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePlace;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
 import com.clouway.jobex.client.jobsreview.ReviewJobsPlace;
+import com.clouway.jobex.client.useraccess.login.LoginPlace;
+import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.gwt.place.shared.WithTokenizers;
 
@@ -14,6 +16,6 @@ import com.google.gwt.place.shared.WithTokenizers;
  */
 @WithTokenizers({JobSearchPlace.Tokenizer.class, JobAnnouncePlace.Tokenizer.class,
         PreviewCvPlace.Tokenizer.class, CreateCvPlace.Tokenizer.class, EditCVPlace.Tokenizer.class,
-        ReviewJobsPlace.Tokenizer.class})
+        ReviewJobsPlace.Tokenizer.class, RegistrationPlace.Tokenizer.class, LoginPlace.Tokenizer.class})
 public interface JobExPlaceHistoryMapper extends PlaceHistoryMapper {
 }

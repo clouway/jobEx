@@ -70,5 +70,4 @@ public class JobSearchServiceImplTest {
     jobSearchService.search(job);
   }
 
-
 }

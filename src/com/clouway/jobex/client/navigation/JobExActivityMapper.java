@@ -12,6 +12,10 @@ import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPresenter;
 import com.clouway.jobex.client.jobsreview.ReviewJobsPlace;
 import com.clouway.jobex.client.jobsreview.ReviewJobsPresenterImpl;
+import com.clouway.jobex.client.useraccess.login.LoginPlace;
+import com.clouway.jobex.client.useraccess.login.LoginPresenter;
+import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
+import com.clouway.jobex.client.useraccess.register.RegistrationPresenter;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.place.shared.Place;
@@ -40,6 +44,12 @@ public class JobExActivityMapper implements ActivityMapper {
   @Inject
   ReviewJobsPresenterImpl jobsReviewPresenter;
 
+  @Inject
+  RegistrationPresenter registrationPresenter;
+
+  @Inject
+  LoginPresenter loginPresenter;
+
   public Activity getActivity(Place place) {
 
     if (place instanceof JobSearchPlace) {
@@ -64,6 +74,14 @@ public class JobExActivityMapper implements ActivityMapper {
 
     if (place instanceof ReviewJobsPlace) {
       return jobsReviewPresenter;
+    }
+
+    if (place instanceof RegistrationPlace) {
+      return registrationPresenter;
+    }
+
+    if (place instanceof LoginPlace) {
+      return loginPresenter;
     }
 
     return null;
