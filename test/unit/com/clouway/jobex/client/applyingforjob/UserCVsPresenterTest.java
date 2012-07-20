@@ -17,6 +17,7 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -55,6 +56,9 @@ public class UserCVsPresenterTest {
 
   @Captor
   ArgumentCaptor<ArrayList<CVProxy>> returnedCVArgumentCaptures;
+
+  @Captor
+  ArgumentCaptor<List<CVProxy>> captor;
 
   @Before
   public void setUp() throws Exception {
@@ -198,16 +202,27 @@ public class UserCVsPresenterTest {
 
     Long cvId = 1l;
 
-    int cvIndex = 1;
+    when(provider.getUsername()).thenReturn("username");
+
+    List<CV> cvList = new ArrayList<CV>();
+
+    cvList.add(new CV());
+
+    when(cvsService.delete("username", cvId)).thenReturn(cvList);
 
     presenter.deleteCv(cvId);
 
     verify(cvsService).delete("username", cvId);
 
-    verify(view).delete(cvIndex);
+    verify(view).showCVs(captor.capture());
+
+    List<CVProxy> cvProxies = captor.getValue();
+
+    assertThat(cvProxies, is(notNullValue()));
+
+    assertThat(cvProxies.size(), is(equalTo(1)));
 
   }
-
 
 
 }
