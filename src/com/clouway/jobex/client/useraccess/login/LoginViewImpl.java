@@ -36,7 +36,7 @@ public class LoginViewImpl extends Composite implements LoginView {
   private static LoginViewImplUiBinder ourUiBinder = GWT.create(LoginViewImplUiBinder.class);
 
   @UiField
-  Button loginButton;
+  com.github.gwtbootstrap.client.ui.Button loginButton;
   @UiField
   ListBox loginType;
   @UiField
