@@ -20,6 +20,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 
@@ -59,6 +60,7 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
 
   private SingleSelectionModel<CVProxy> selectionModel = new SingleSelectionModel<CVProxy>();
 
+  ListDataProvider<CVProxy> dataProvider = new ListDataProvider<CVProxy>();
 
   Column<CVProxy, String> selectButton = new Column<CVProxy, String>(new ButtonCell()) {
     @Override
@@ -75,6 +77,8 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
     this.menu = menu;
 
     cVCellTable = new CellTable<CVProxy>();
+
+    dataProvider.addDataDisplay(cVCellTable);
 
     cVCellTable.addColumn(new TextColumn<CVProxy>() {
       @Override
@@ -111,14 +115,31 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
       }
     };
 
+    Column<CVProxy, String> delete = new Column<CVProxy, String>(new ButtonCell()) {
+      @Override
+      public String getValue(CVProxy object) {
+        return "X";
+      }
+    };
+
+    delete.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
+      @Override
+      public void update(int index, CVProxy object, String value) {
+        presenter.deleteCv(object.getId());
+      }
+    });
+
     editButton.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
       @Override
       public void update(int index, CVProxy object, String value) {
+
         controller.goTo(new EditCVPlace(object.getId()));
       }
     });
 
     cVCellTable.addColumn(editButton);
+
+    cVCellTable.addColumn(delete);
 
     cVCellTable.setSelectionModel(selectionModel);
 
@@ -154,9 +175,10 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
   }
 
   @Override
-  public void showCreatedCVs(List<CVProxy> cvs) {
+  public void showCVs(List<CVProxy> cvs) {
+    dataProvider.setList(cvs);
     cVCellTable.setVisibleRange(0, cvs.size());
-    cVCellTable.setRowData(cvs);
+//    cVCellTable.setRowData(cvs);
   }
 
 
@@ -173,6 +195,11 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
     addSelectButton();
 
   }
+
+  @Override
+  public void delete(int cvIndex) {
+  }
+
 
   public void addSelectButton() {
 

@@ -19,8 +19,7 @@ public interface IconsResources extends ClientBundle {
   @Source("search.png")
   ImageResource searchIcon();
 
-
-  @Source("user-admin.png")
+   @Source("user-admin.png")
   ImageResource employerIcon();
 
   @Source("user-african.png")
@@ -31,6 +30,9 @@ public interface IconsResources extends ClientBundle {
 
   @Source("chat.png")
   ImageResource announce();
+
+  @Source("circle-delete.png")
+  ImageResource delete();
 
 
 }

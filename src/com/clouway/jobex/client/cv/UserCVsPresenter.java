@@ -90,7 +90,7 @@ public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEve
         if (response.size() == 0) {
           view.goToCreateNewCVForm();
         } else {
-          view.showCreatedCVs(response);
+          view.showCVs(response);
         }
       }
 
@@ -102,5 +102,16 @@ public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEve
     view.setPresenter(this);
     fetchCreatedCVs();
     panel.setWidget(view);
+  }
+
+  public void deleteCv(long cvId) {
+    JobExRequestFactory.CVsRequestContext context = requestFactory.cvsRequestContext();
+
+    context.delete(provider.getUsername(), cvId).fire(new Receiver<List<CVProxy>>() {
+      @Override
+      public void onSuccess(List<CVProxy> response) {
+        view.showCVs(response);
+      }
+    });
   }
 }

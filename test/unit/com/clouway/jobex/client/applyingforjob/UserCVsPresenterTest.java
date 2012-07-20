@@ -141,7 +141,7 @@ public class UserCVsPresenterTest {
 
     verify(cvsService).fetchCreatedCVs(username);
 
-    verify(view).showCreatedCVs(returnedCVArgumentCaptures.capture());
+    verify(view).showCVs(returnedCVArgumentCaptures.capture());
 
     assertThat(returnedCVArgumentCaptures.getValue(), is(notNullValue()));
 
@@ -176,11 +176,7 @@ public class UserCVsPresenterTest {
 
     Long cvId = 1l;
 
-    String username = "username";
-
     final String error = "some Error";
-
-    JobApplication jobApplication = new JobApplication(jobId, cvId,username);
 
     ArrayList<String> errors = new ArrayList<String>();
 
@@ -195,5 +191,23 @@ public class UserCVsPresenterTest {
     verify(view).showErrors(errors);
 
   }
+
+
+  @Test
+  public void deletesUserCv() {
+
+    Long cvId = 1l;
+
+    int cvIndex = 1;
+
+    presenter.deleteCv(cvId);
+
+    verify(cvsService).delete("username", cvId);
+
+    verify(view).delete(cvIndex);
+
+  }
+
+
 
 }

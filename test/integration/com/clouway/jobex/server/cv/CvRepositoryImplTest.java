@@ -3,10 +3,6 @@ package com.clouway.jobex.server.cv;
 import com.clouway.jobex.server.AppEngineTestCase;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import org.junit.Test;
 
@@ -59,7 +55,7 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
 
     cv.setEmail(email);
 
-    repository.save(email,cv);
+    repository.save(email, cv);
 
     List<CV> cvs = repository.getCreatedCVs(email);
 
@@ -77,7 +73,7 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
 
     String email = "mail@mail.com";
 
-    CV cv = new CV(1l, "name", email, "12345678", "skills !",new Date(),"male");
+    CV cv = new CV(1l, "name", email, "12345678", "skills !", new Date(), "male");
 
     repository.save(email, cv);
 
@@ -103,7 +99,7 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
 
     String mail = "mail@mail.com";
 
-    CV cv = new CV(1l, "name", "mail@mail.com", "1234567", "skills_1",new Date(),"female");
+    CV cv = new CV(1l, "name", "mail@mail.com", "1234567", "skills_1", new Date(), "female");
 
     repository.save(mail, cv);
 
@@ -129,22 +125,19 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
 
 
   @Test
-  public void test() {
+  public void deletesCVFromRepository() {
 
-    Entity entity = new Entity("CV");
+    repository.save("username", new CV());
 
-    entity.setProperty("name", "adelin");
+    List<CV> cvs = repository.getCreatedCVs("username");
 
-    service.put(entity);
+    repository.delete(cvs.get(0).getId());
 
-    Key key = KeyFactory.createKey("CV", entity.getKey().getId());
+    List<CV> returnedCv = repository.getCreatedCVs("username");
 
-    try {
-      Entity returnedEntity = service.get(key);
-    } catch (EntityNotFoundException e) {
-      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-    }
+    assertThat(returnedCv, is(notNullValue()));
 
+    assertThat(returnedCv.size(), is(equalTo(0)));
 
   }
 

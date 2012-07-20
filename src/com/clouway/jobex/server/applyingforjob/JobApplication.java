@@ -23,16 +23,9 @@ public class JobApplication {
     this.cvId = cvId;
 
     this.jobId = jobId;
-
   }
 
   public JobApplication() {
-  }
-
-  public JobApplication(Long cvId, Long jobId, String username) {
-    this.jobId = jobId;
-    this.cvId = cvId;
-    this.user = username;
   }
 
   public Long getCvId() {

@@ -53,6 +53,7 @@ public class CvsServiceImplTest {
     assertThat(returnedList, is(notNullValue()));
 
     assertThat(returnedList.size(), is(2));
+
   }
 
 
@@ -68,9 +69,22 @@ public class CvsServiceImplTest {
     service.add(username, cv);
 
     verify(repository).save(username, cv);
+
   }
 
+  @Test
+  public void deletesCvFromRepository() {
 
+    when(repository.getCreatedCVs("username")).thenReturn(new ArrayList<CV>() {{
 
+    }});
 
+    List<CV> remainedCv = service.delete("username", 1l);
+
+    verify(repository).delete(1l);
+
+    verify(repository).getCreatedCVs("username");
+
+    assertThat(remainedCv, is(notNullValue()));
+  }
 }

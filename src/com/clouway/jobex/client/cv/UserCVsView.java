@@ -42,7 +42,7 @@ public interface UserCVsView extends IsWidget {
    *
    * @param cvs a list of CV to be
    */
-  void showCreatedCVs(List<CVProxy> cvs);
+  void showCVs(List<CVProxy> cvs);
 
   /**
    * Redirects the view to Creating new CV Form;
@@ -52,6 +52,7 @@ public interface UserCVsView extends IsWidget {
 
   void setJobId(Long id);
 
+  void delete(int cvIndex);
 
   void addSelectButton();
 

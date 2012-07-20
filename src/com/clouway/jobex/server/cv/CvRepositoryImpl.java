@@ -50,8 +50,8 @@ public class CvRepositoryImpl implements CVRepository {
             (String) entity.getProperty("email"),
             (String) entity.getProperty("phoneNumber"),
             (String) entity.getProperty("skills"),
-            (Date)entity.getProperty("dateOfBirth"),
-            (String)entity.getProperty("gender"));
+            (Date) entity.getProperty("dateOfBirth"),
+            (String) entity.getProperty("gender"));
   }
 
 
@@ -92,6 +92,11 @@ public class CvRepositoryImpl implements CVRepository {
       e.printStackTrace();
       return null;
     }
-
   }
+
+  public void delete(long cvId) {
+    Key key = KeyFactory.createKey(cvKind, cvId);
+    service.delete(key);
+  }
+
 }
