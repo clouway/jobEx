@@ -1,0 +1,35 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+  <ui:style>.container {
+
+    text-align: center;
+
+    margin: auto;
+
+    padding: 5px;
+
+    border: 1px solid background;
+
+    width: 20%;
+    height: 50%;
+
+    /*background-image:url(http://24.media.tumblr.com/tumblr_le288tZcjH1qdvkvwo1_400.jpg);*/
+    border-radius: 10px;
+
+  }
+
+  </ui:style>
+
+  <g:HTMLPanel styleName="{style.container}">
+    Email:
+    <g:TextBox ui:field="email"/>
+    <br/>
+    Password:
+    <g:PasswordTextBox ui:field="password"/>
+    <br/>
+    Register as: <g:ListBox ui:field="registrationType" width="150"/>
+    <br />
+    <g:Button ui:field="registerButton">Register</g:Button>
+  </g:HTMLPanel>
+</ui:UiBinder>

@@ -42,6 +42,6 @@
   <!--</listener>-->
 
   <!--<welcome-file-list>-->
-    <!--<welcome-file>jobex.html</welcome-file>-->
+    <!--<welcome-file>http://jobex123.appspot.com/jobex.html#JobSearchPlace:jobSearch</welcome-file>-->
   <!--</welcome-file-list>-->
 </web-app>
