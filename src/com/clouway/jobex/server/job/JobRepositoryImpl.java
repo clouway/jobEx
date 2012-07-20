@@ -132,6 +132,7 @@ public class JobRepositoryImpl implements JobRepository {
     }
 
     return new Job(
+            entity.getKey().getId(),
             entity.getProperty("company").toString(),
             entity.getProperty("position").toString(),
             entity.getProperty("category").toString(),
@@ -139,5 +140,15 @@ public class JobRepositoryImpl implements JobRepository {
             (Date) entity.getProperty("expirationDate")
     );
 
+  }
+
+
+  /**
+   * Delete job with given jobId
+   *
+   * @param jobId - jobId
+   */
+  public void deleteJob(Long jobId) {
+    datastoreService.delete(KeyFactory.createKey("Job", jobId));
   }
 }

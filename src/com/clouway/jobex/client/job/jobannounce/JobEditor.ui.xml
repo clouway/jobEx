@@ -1,6 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
-             xmlns:d='urn:import:com.google.gwt.user.datepicker.client'>
+             xmlns:b="urn:import:com.github.gwtbootstrap.datepicker.client.ui">
 
   <g:HTMLPanel>
 
@@ -43,7 +43,7 @@
 
       <tr>
         <td>Expiration Date: </td>
-        <td><d:DateBox ui:field="date" /></td>
+        <td><b:DateBox ui:field="date" /></td>
       </tr>
     </table>
 

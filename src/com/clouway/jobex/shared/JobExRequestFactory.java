@@ -71,7 +71,16 @@ public interface JobExRequestFactory extends RequestFactory {
 
   @Service(value = JobsReviewService.class, locator = JobsReviewServiceLocator.class)
   public interface JobsReviewContext extends RequestContext {
+
+    /**
+     * Get list of all announced jobs for given company
+     *
+     * @param companyName - company name
+     * @return - list of announced jobs
+     */
     Request<List<JobProxy>> getAnnouncedJobsForCompany(String companyName);
+
+    Request<List<JobProxy>> deleteAnnouncedJob(Long jobId, String companyName);
   }
 
 

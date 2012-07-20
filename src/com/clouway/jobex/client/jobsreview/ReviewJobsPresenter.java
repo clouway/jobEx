@@ -11,4 +11,11 @@ public interface ReviewJobsPresenter {
    * @param companyName - the name of the company
    */
   void reviewAnnouncedJobs(String companyName);
+
+  /**
+   * Delete announced job with given jobId
+   *
+   * @param jobId - jobId
+   */
+  void deleteAnnouncedJob(Long jobId, String companyName);
 }

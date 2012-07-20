@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.List;
 
 import static com.google.appengine.api.datastore.FetchOptions.Builder.*;
 import static org.hamcrest.core.Is.is;
@@ -44,7 +45,7 @@ public class JobRepositoryImplTest {
   @Test
   public void saveJobInRepository() {
 
-    Job job = new Job("Company", "Position", "Category", "Location", new Date());
+    Job job = new Job(1l, "Company", "Position", "Category", "Location", new Date());
 
     repository.saveJob(job.getCompany(), job);
 
@@ -72,8 +73,8 @@ public class JobRepositoryImplTest {
 
     String companyName = "clouway";
 
-    repository.saveJob(companyName, new Job(companyName, "position1", "category1", "location1", new Date()));
-    repository.saveJob(companyName, new Job(companyName, "position2", "category2", "location2", new Date()));
+    repository.saveJob(companyName, new Job(1l, companyName, "position1", "category1", "location1", new Date()));
+    repository.saveJob(companyName, new Job(2l, companyName, "position2", "category2", "location2", new Date()));
 
     assertThat(repository.getAnnouncedJobsForCompany(companyName).size(), is(equalTo(2)));
   }
@@ -102,4 +103,23 @@ public class JobRepositoryImplTest {
     assertThat("Veliko Tarnovo", is(equalTo(savedJob.getLocation())));
   }
 
+  @Test
+  public void deleteJobWithGivenJobId() {
+
+    Long jobId = 1l;
+    String company = "clouway";
+    String location = "Veliko Tarnovo";
+
+    Entity entity = new Entity("Job", jobId);
+    entity.setProperty("company", company);
+    entity.setProperty("location", location);
+    datastore.put(entity);
+
+    List<Entity> announcedJobs = repository.getAnnouncedJobsForCompany(company);
+    assertThat(announcedJobs.size(), is(equalTo(1)));
+
+    repository.deleteJob(jobId);
+    List<Entity> returnedJobs = repository.getAnnouncedJobsForCompany(company);
+    assertThat(returnedJobs.size(), is(equalTo(0)));
+  }
 }

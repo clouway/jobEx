@@ -66,4 +66,12 @@ public interface JobRepository {
    */
   Job getJob(Long jobId);
 
+
+  /**
+   * Delete job with given jobId
+   *
+   * @param jobId - jobId
+   */
+  void deleteJob(Long jobId);
+
 }

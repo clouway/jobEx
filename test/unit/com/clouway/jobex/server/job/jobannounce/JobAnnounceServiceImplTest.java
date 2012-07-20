@@ -16,7 +16,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
  */
 public class JobAnnounceServiceImplTest {
 
-  private Job job = new Job("Company", "Position", "Category", "Location", new Date());
+  private Job job = new Job(1l, "Company", "Position", "Category", "Location", new Date());
 
   private JobAnnounceService service;
 

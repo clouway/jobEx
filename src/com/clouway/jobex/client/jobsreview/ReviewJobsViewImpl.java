@@ -2,6 +2,7 @@ package com.clouway.jobex.client.jobsreview;
 
 import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.client.cvsreview.ReviewCVPlace;
+import com.clouway.jobex.client.security.CompanyNameProvider;
 import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.DateCell;
@@ -41,6 +42,7 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
 
   @UiField(provided = true)
     NavigationMenu menu;
+  private CompanyNameProvider companyNameProvider;
 
   @Inject
   private EventBus eventBus;
@@ -48,9 +50,11 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
   private PlaceController placeController;
 
   @Inject
-  public ReviewJobsViewImpl(NavigationMenu menu, final PlaceController placeController) {
+  public ReviewJobsViewImpl(NavigationMenu menu, final PlaceController placeController, final CompanyNameProvider companyNameProvider) {
 
     this.menu = menu;
+
+    this.companyNameProvider = companyNameProvider;
 
     initWidget(uiBinder.createAndBindUi(this));
 
@@ -119,6 +123,12 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
         placeController.goTo(new ReviewCVPlace(jobProxy.getId()));
       }
     });
+
+    deleteAnnouncedJob.setFieldUpdater(new FieldUpdater<JobProxy, String>() {
+      public void update(int index, JobProxy jobProxy, String value) {
+        reviewJobsPresenter.deleteAnnouncedJob(jobProxy.getId(), companyNameProvider.getCompanyName());
+      }
+    });
   }
 
   /**
@@ -127,8 +137,16 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
    * @param announcedJobs - returned list of announced jobs
    */
   public void showAnnouncedJobs(List<JobProxy> announcedJobs) {
+
     announcedJobsTable.setVisibleRange(0, announcedJobs.size());
     announcedJobsTable.setRowData(0, announcedJobs);
+  }
+
+
+  public void updateAnnounceJobs(List<JobProxy> jobProxyList) {
+
+    announcedJobsTable.setVisibleRange(0, jobProxyList.size());
+    announcedJobsTable.setRowData(0, jobProxyList);
   }
 
   /**
