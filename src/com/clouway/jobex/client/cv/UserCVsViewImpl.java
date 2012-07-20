@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.applyingforjob;
+package com.clouway.jobex.client.cv;
 
 
 import com.clouway.jobex.client.navigation.NavigationMenu;
@@ -59,7 +59,6 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
 
   private SingleSelectionModel<CVProxy> selectionModel = new SingleSelectionModel<CVProxy>();
 
-
   Column<CVProxy, String> selectButton = new Column<CVProxy, String>(new ButtonCell()) {
     @Override
     public String getValue(final CVProxy object) {
@@ -75,6 +74,8 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
     this.menu = menu;
 
     cVCellTable = new CellTable<CVProxy>();
+
+//    dataProvider.addDataDisplay(cVCellTable);
 
     cVCellTable.addColumn(new TextColumn<CVProxy>() {
       @Override
@@ -111,14 +112,31 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
       }
     };
 
+    Column<CVProxy, String> delete = new Column<CVProxy, String>(new ButtonCell()) {
+      @Override
+      public String getValue(CVProxy object) {
+        return "X";
+      }
+    };
+
+    delete.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
+      @Override
+      public void update(int index, CVProxy object, String value) {
+        presenter.deleteCv(object.getId());
+      }
+    });
+
     editButton.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
       @Override
       public void update(int index, CVProxy object, String value) {
+
         controller.goTo(new EditCVPlace(object.getId()));
       }
     });
 
     cVCellTable.addColumn(editButton);
+
+    cVCellTable.addColumn(delete);
 
     cVCellTable.setSelectionModel(selectionModel);
 
@@ -154,9 +172,12 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
   }
 
   @Override
-  public void showCreatedCVs(List<CVProxy> cvs) {
+  public void showCVs(List<CVProxy> cvs) {
+
     cVCellTable.setVisibleRange(0, cvs.size());
+
     cVCellTable.setRowData(cvs);
+
   }
 
 
@@ -167,12 +188,14 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
 
   @Override
   public void setJobId(Long id) {
-
     jobId = id;
-
     addSelectButton();
-
   }
+
+  @Override
+  public void delete(int cvIndex) {
+  }
+
 
   public void addSelectButton() {
 

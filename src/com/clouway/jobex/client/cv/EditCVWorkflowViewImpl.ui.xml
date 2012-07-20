@@ -1,31 +1,61 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:e='urn:import:com.clouway.jobex.client.cv'
-             xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+             xmlns:b="urn:import:com.github.gwtbootstrap.client.ui"
+             xmlns:n="urn:import:com.clouway.jobex.client.navigation">
 
-  <ui:style>.container {
+  <ui:style>
+    .container {
+      background: #e8e8e8;
+      text-align: center;
 
-    text-align: center;
+      margin: auto;
 
-    margin: auto;
+      padding: 10px;
 
-    padding: 5px;
+      border: 1px solid black;
 
-    border: 1px solid background;
+      width: 50%;
 
-    width: 50%;
+      border-radius: 10px;
 
-    background: rgba(110, 158, 255, 0.34);
+    }
 
-    border-radius: 10px;
+    .mainContainer {
 
-  }
+    }
+
+    .label {
+      font-size: 20px;
+      font-stretch: bold;
+    }
 
   </ui:style>
 
-  <g:HTMLPanel addStyleNames="{style.container}">
-    <g:Label text="Edit CV"/>
-    <e:CVEditor ui:field="editor"/>
-    <b:Button ui:field="save" text="Save"/>
+  <ui:with field="res" type="com.clouway.jobex.client.icons.IconsResources"/>
+
+  <g:HTMLPanel addStyleNames="{style.mainContainer}">
+
+    <g:HTMLPanel>
+
+      <g:Image resource="{res.editIcon}"/>
+
+      <g:Label text="Edit CV" addStyleNames="{style.label}"/>
+
+    </g:HTMLPanel>
+
+    <n:NavigationMenu ui:field="navigation"/>
+
+    <g:HTMLPanel addStyleNames="{style.container}">
+
+      <g:Label text="Edit CV"/>
+
+      <e:CVEditor ui:field="editor"/>
+
+      <b:Button ui:field="save" text="Save"/>
+
+    </g:HTMLPanel>
+
   </g:HTMLPanel>
+
 </ui:UiBinder>

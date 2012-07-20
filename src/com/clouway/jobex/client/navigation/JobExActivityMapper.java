@@ -1,9 +1,9 @@
 package com.clouway.jobex.client.navigation;
 
-import com.clouway.jobex.client.applyingforjob.CreateCvPlace;
-import com.clouway.jobex.client.applyingforjob.EditCVPlace;
-import com.clouway.jobex.client.applyingforjob.UserCVsPresenter;
-import com.clouway.jobex.client.applyingforjob.PreviewCvPlace;
+import com.clouway.jobex.client.cv.CreateCvPlace;
+import com.clouway.jobex.client.cv.EditCVPlace;
+import com.clouway.jobex.client.cv.UserCVsPresenter;
+import com.clouway.jobex.client.cv.PreviewCvPlace;
 import com.clouway.jobex.client.cv.CreatingNewCVWorkflow;
 import com.clouway.jobex.client.cv.EditCvWorkflow;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePlace;

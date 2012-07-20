@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.cv;
 
-import com.clouway.jobex.client.applyingforjob.PreviewCvPlace;
+import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.shared.CVProxy;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.core.client.GWT;
@@ -9,7 +9,6 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.inject.Inject;
@@ -33,7 +32,10 @@ public class CreatingNewCVWorkflowViewImpl extends Composite implements Creating
   CVEditor editor;
 
   @UiField
-  Button create;
+  com.github.gwtbootstrap.client.ui.Button create;
+
+  @UiField(provided = true)
+  NavigationMenu navigation;
 
   @Inject
   PlaceController controller;
@@ -43,7 +45,9 @@ public class CreatingNewCVWorkflowViewImpl extends Composite implements Creating
 
   private Driver driver = GWT.create(Driver.class);
 
-  public CreatingNewCVWorkflowViewImpl() {
+  @Inject
+  public CreatingNewCVWorkflowViewImpl(NavigationMenu navigation) {
+    this.navigation = navigation;
     HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
     initWidget(rootElement);
   }

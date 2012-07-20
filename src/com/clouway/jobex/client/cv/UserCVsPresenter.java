@@ -1,11 +1,10 @@
-package com.clouway.jobex.client.applyingforjob;
+package com.clouway.jobex.client.cv;
 
 import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.shared.CVProxy;
 import com.clouway.jobex.shared.JobApplicationProxy;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.activity.shared.AbstractActivity;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
@@ -57,7 +56,6 @@ public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEve
     requestContext.applyForJob(applicationProxy).fire(new Receiver<List<String>>() {
       @Override
       public void onFailure(ServerFailure error) {
-        GWT.log(error.getExceptionType());
         view.notifyUserOfCommunicationError();
       }
 
@@ -92,7 +90,7 @@ public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEve
         if (response.size() == 0) {
           view.goToCreateNewCVForm();
         } else {
-          view.showCreatedCVs(response);
+          view.showCVs(response);
         }
       }
 
@@ -104,5 +102,16 @@ public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEve
     view.setPresenter(this);
     fetchCreatedCVs();
     panel.setWidget(view);
+  }
+
+  public void deleteCv(long cvId) {
+    JobExRequestFactory.CVsRequestContext context = requestFactory.cvsRequestContext();
+
+    context.delete(provider.getUsername(), cvId).fire(new Receiver<List<CVProxy>>() {
+      @Override
+      public void onSuccess(List<CVProxy> response) {
+        view.showCVs(response);
+      }
+    });
   }
 }

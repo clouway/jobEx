@@ -11,6 +11,7 @@
   <inherits name="com.google.web.bindery.requestfactory.RequestFactory"/>
   <inherits name="com.google.gwt.inject.Inject"/>
   <inherits name="com.github.gwtbootstrap.Bootstrap"/>
+  <inherits name="com.github.gwtbootstrap.datepicker.Datepicker"/>
   <!-- Specify the app entry point class.                   -->
   <entry-point class='com.clouway.jobex.client.JobEx'/>
 
