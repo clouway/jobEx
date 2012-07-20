@@ -27,7 +27,7 @@ public class RegistrationViewImpl extends Composite implements RegistrationView{
   private static RegistrationViewImplUiBinder ourUiBinder = GWT.create(RegistrationViewImplUiBinder.class);
 
   @UiField
-  Button registerButton;
+  com.github.gwtbootstrap.client.ui.Button registerButton;
   @UiField
   TextBox email;
   @UiField
