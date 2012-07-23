@@ -72,7 +72,7 @@ public class LoginPresenterTest {
     presenter.verifyLogin("User", email, password);
 
     verify(usernameProvider).setUsername(email);
-//    verify(loginView).goToSearchPlace();
+    verify(loginView).goToSearchPlace();
     verify(loginView).enableLoginButton();
   }
 
@@ -84,7 +84,7 @@ public class LoginPresenterTest {
     presenter.verifyLogin("Company", email, password);
 
     verify(companyNameProvider).setCompanyName(email);
-//    verify(loginView).goToSearchPlace();
+    verify(loginView).goToSearchPlace();
     verify(loginView).enableLoginButton();
   }
 }
