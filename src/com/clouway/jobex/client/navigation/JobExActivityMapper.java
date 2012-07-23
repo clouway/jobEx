@@ -69,6 +69,7 @@ public class JobExActivityMapper implements ActivityMapper {
     if (place instanceof PreviewCvPlace) {
       return userCVsPresenter;
     }
+
     if (place instanceof CreateCvPlace) {
       return creatingNewCVWorkflow;
     }
