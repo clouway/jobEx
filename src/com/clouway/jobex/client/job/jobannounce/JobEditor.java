@@ -23,8 +23,7 @@ public class JobEditor extends Composite implements Editor<JobProxy> {
 
   private static JobAnnounceEditorUiBinder uiBinder = GWT.create(JobAnnounceEditorUiBinder.class);
 
-  @UiField
-  TextBox company;
+
 
   @UiField
   TextBox position;

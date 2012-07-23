@@ -35,7 +35,7 @@ public class ReviewJobsPresenterImpl extends AbstractActivity implements ReviewJ
    */
   public void reviewAnnouncedJobs(String companyName) {
 
-    requestFactory.jobsReviewContext().getAnnouncedJobsForCompany(companyName).to(new ReviewJobsReceiver(reviewJobsView)).fire();
+    requestFactory.jobsReviewContext().getAnnouncedJobsForCompany(companyNameProvider.getCompanyName()).to(new ReviewJobsReceiver(reviewJobsView)).fire();
   }
 
   /**

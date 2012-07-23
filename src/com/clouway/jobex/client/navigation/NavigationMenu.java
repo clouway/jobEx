@@ -81,6 +81,8 @@ public class NavigationMenu extends Composite {
         placeController.goTo(new ReviewJobsPlace());
       }
     });
+
+
     initWidget(rootElement);
 
   }

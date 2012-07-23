@@ -71,13 +71,19 @@ public class JobsReviewPresenterImplTest {
 
     announcedJobs.add(new Job());
 
+    when(companyNameProvider.getCompanyName()).thenReturn("clouway");
+
     when(jobsReviewService.getAnnouncedJobsForCompany(companyNameCaptor.capture())).thenReturn(announcedJobs);
 
     reviewJobsPresenter.reviewAnnouncedJobs(companyName);
 
     verify(jobsReviewService).getAnnouncedJobsForCompany(companyNameCaptor.capture());
+
     verify(reviewJobsView, never()).showNoAnnouncedJobsNotification();
+
     verify(reviewJobsView).showAnnouncedJobs(announcedJobsCaptor.capture());
+
+    verify(jobsReviewService).getAnnouncedJobsForCompany("clouway");
 
     assertThat(companyName, is(equalTo(companyNameCaptor.getValue())));
   }

@@ -71,7 +71,7 @@ public class JobRepositoryImpl implements JobRepository {
   public void saveJob(String companyName, Job job) {
 
     Entity entity = new Entity("Job");
-    entity.setProperty("company", job.getCompany());
+    entity.setProperty("company", companyName);
     entity.setProperty("position", job.getPosition());
     entity.setProperty("category", job.getCategory());
     entity.setProperty("expirationDate", job.getExpirationDate());
@@ -89,7 +89,7 @@ public class JobRepositoryImpl implements JobRepository {
   public List<Entity> getAnnouncedJobsForCompany(String companyName) {
 
     Query query = new Query("Job");
-    query.setFilter(new Query.FilterPredicate("company", Query.FilterOperator.EQUAL, "clouway"));
+    query.setFilter(new Query.FilterPredicate("company", Query.FilterOperator.EQUAL, companyName));
 
     PreparedQuery preparedQuery = datastoreService.prepare(query);
     return preparedQuery.asList(FetchOptions.Builder.withLimit(10));
