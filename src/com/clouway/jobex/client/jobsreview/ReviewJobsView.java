@@ -27,4 +27,11 @@ public interface ReviewJobsView {
    * @param reviewJobsPresenter - a reviewJobsPresenter
    */
   void setPresenter(ReviewJobsPresenter reviewJobsPresenter);
+
+  /**
+   * Refresh announced jobs list after deleting a job
+   *
+   * @param jobProxyList - jobProxy list
+   */
+  void updateAnnounceJobs(List<JobProxy> jobProxyList);
 }

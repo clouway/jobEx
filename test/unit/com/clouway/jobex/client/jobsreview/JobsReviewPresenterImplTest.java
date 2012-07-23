@@ -71,13 +71,19 @@ public class JobsReviewPresenterImplTest {
 
     announcedJobs.add(new Job());
 
+    when(companyNameProvider.getCompanyName()).thenReturn("clouway");
+
     when(jobsReviewService.getAnnouncedJobsForCompany(companyNameCaptor.capture())).thenReturn(announcedJobs);
 
     reviewJobsPresenter.reviewAnnouncedJobs(companyName);
 
     verify(jobsReviewService).getAnnouncedJobsForCompany(companyNameCaptor.capture());
+
     verify(reviewJobsView, never()).showNoAnnouncedJobsNotification();
+
     verify(reviewJobsView).showAnnouncedJobs(announcedJobsCaptor.capture());
+
+    verify(jobsReviewService).getAnnouncedJobsForCompany("clouway");
 
     assertThat(companyName, is(equalTo(companyNameCaptor.getValue())));
   }
@@ -91,5 +97,26 @@ public class JobsReviewPresenterImplTest {
 
     verify(reviewJobsView).showNoAnnouncedJobsNotification();
     verify(reviewJobsView, never()).showAnnouncedJobs(announcedJobsCaptor.capture());
+  }
+
+  @Test
+  public void deleteAnnouncedJobByGivenId() {
+
+    Long jobId = 1l;
+    String companyName = "clouway";
+    List<Job> announcedJobs = new ArrayList<Job>();
+
+    when(jobsReviewService.deleteAnnouncedJob(jobId, companyName)).thenReturn(announcedJobs);
+
+    reviewJobsPresenter.deleteAnnouncedJob(jobId, companyName);
+
+    ArgumentCaptor<Long> jobIdCaptor = ArgumentCaptor.forClass(Long.class);
+    ArgumentCaptor<String> companyNameCaptor = ArgumentCaptor.forClass(String.class);
+
+    verify(jobsReviewService).deleteAnnouncedJob(jobIdCaptor.capture(), companyNameCaptor.capture());
+    verify(reviewJobsView).updateAnnounceJobs(announcedJobsCaptor.capture());
+
+    assertThat(jobId, is(equalTo(jobIdCaptor.getValue())));
+    assertThat(companyName, is(equalTo(companyNameCaptor.getValue())));
   }
 }

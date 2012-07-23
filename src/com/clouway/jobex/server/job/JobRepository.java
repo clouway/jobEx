@@ -50,10 +50,28 @@ public interface JobRepository {
    */
   List<Entity> getAnnouncedJobsForCompany(String companyName);
 
+
   Key[] getExpiredJobsKeys();
 
   /**
    * Remove all job ads that are no longer valid
    */
   void removeExpiredJobs();
+
+  /**
+   * Get Job by given jobId
+   *
+   * @param jobId - jobId
+   * @return - a Job
+   */
+  Job getJob(Long jobId);
+
+
+  /**
+   * Delete job with given jobId
+   *
+   * @param jobId - jobId
+   */
+  void deleteJob(Long jobId);
+
 }

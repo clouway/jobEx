@@ -1,10 +1,14 @@
 package com.clouway.jobex.client.jobsreview;
 
 import com.clouway.jobex.client.navigation.NavigationMenu;
+import com.clouway.jobex.client.cvsreview.ReviewCVPlace;
+import com.clouway.jobex.client.security.CompanyNameProvider;
 import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.DateCell;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.CellTable;
@@ -15,6 +19,8 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+
+import com.google.web.bindery.event.shared.EventBus;
 
 import java.util.Date;
 import java.util.List;
@@ -36,15 +42,30 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
 
   @UiField(provided = true)
     NavigationMenu menu;
+  private CompanyNameProvider companyNameProvider;
 
   @Inject
-  public ReviewJobsViewImpl(NavigationMenu menu) {
+  private EventBus eventBus;
+
+  private PlaceController placeController;
+
+  @Inject
+  public ReviewJobsViewImpl(NavigationMenu menu, final PlaceController placeController, final CompanyNameProvider companyNameProvider) {
 
     this.menu = menu;
+
+    this.companyNameProvider = companyNameProvider;
 
     initWidget(uiBinder.createAndBindUi(this));
 
     announcedJobsTable.setKeyboardSelectionPolicy(HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.ENABLED);
+
+    TextColumn<JobProxy> jobIdColumn = new TextColumn<JobProxy>() {
+      public String getValue(JobProxy jobProxy) {
+        return jobProxy.getId().toString();
+      }
+    };
+    announcedJobsTable.addColumn(jobIdColumn, "ID.");
 
     TextColumn<JobProxy> companyColumn = new TextColumn<JobProxy>() {
       public String getValue(JobProxy jobProxy) {
@@ -84,7 +105,7 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
 
     Column<JobProxy, String> deleteAnnouncedJob = new Column<JobProxy, String>(new ButtonCell()) {
       public String getValue(JobProxy object) {
-        return "X";
+        return "Delete";
       }
     };
     announcedJobsTable.addColumn(deleteAnnouncedJob);
@@ -95,6 +116,19 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
       }
     };
     announcedJobsTable.addColumn(previewCVs);
+
+    previewCVs.setFieldUpdater(new FieldUpdater<JobProxy, String>(){
+      public void update(int index, JobProxy jobProxy, String value) {
+
+        placeController.goTo(new ReviewCVPlace(jobProxy.getId()));
+      }
+    });
+
+    deleteAnnouncedJob.setFieldUpdater(new FieldUpdater<JobProxy, String>() {
+      public void update(int index, JobProxy jobProxy, String value) {
+        reviewJobsPresenter.deleteAnnouncedJob(jobProxy.getId(), companyNameProvider.getCompanyName());
+      }
+    });
   }
 
   /**
@@ -103,8 +137,16 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
    * @param announcedJobs - returned list of announced jobs
    */
   public void showAnnouncedJobs(List<JobProxy> announcedJobs) {
+
     announcedJobsTable.setVisibleRange(0, announcedJobs.size());
     announcedJobsTable.setRowData(0, announcedJobs);
+  }
+
+
+  public void updateAnnounceJobs(List<JobProxy> jobProxyList) {
+
+    announcedJobsTable.setVisibleRange(0, jobProxyList.size());
+    announcedJobsTable.setRowData(0, jobProxyList);
   }
 
   /**

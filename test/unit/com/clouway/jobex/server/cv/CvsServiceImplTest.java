@@ -1,6 +1,7 @@
 package com.clouway.jobex.server.cv;
 
 
+import com.clouway.jobex.server.applyingforjob.JobApplication;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -86,5 +87,19 @@ public class CvsServiceImplTest {
     verify(repository).getCreatedCVs("username");
 
     assertThat(remainedCv, is(notNullValue()));
+  }
+
+  @Test
+  public void getSubmittedCVsForGivenJob() {
+
+    Long jobId = 1l;
+    List<JobApplication> jobApplications = new ArrayList<JobApplication>();
+
+    when(repository.getJobApplications(jobId)).thenReturn(jobApplications);
+
+    service.getSubmittedCVs(jobId);
+
+    verify(repository).getJobApplications(jobId);
+    verify(repository).getSubmittedCVs(jobId, jobApplications);
   }
 }

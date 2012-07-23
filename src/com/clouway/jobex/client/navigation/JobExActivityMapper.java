@@ -6,6 +6,8 @@ import com.clouway.jobex.client.cv.UserCVsPresenter;
 import com.clouway.jobex.client.cv.PreviewCvPlace;
 import com.clouway.jobex.client.cv.CreatingNewCVWorkflow;
 import com.clouway.jobex.client.cv.EditCvWorkflow;
+import com.clouway.jobex.client.cvsreview.ReviewCVPlace;
+import com.clouway.jobex.client.cvsreview.ReviewCVPresenterImpl;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePlace;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
@@ -50,6 +52,10 @@ public class JobExActivityMapper implements ActivityMapper {
   @Inject
   LoginPresenter loginPresenter;
 
+  @Inject
+  ReviewCVPresenterImpl reviewCVPresenter;
+
+
   public Activity getActivity(Place place) {
 
     if (place instanceof JobSearchPlace) {
@@ -82,6 +88,11 @@ public class JobExActivityMapper implements ActivityMapper {
 
     if (place instanceof LoginPlace) {
       return loginPresenter;
+    }
+
+    if (place instanceof ReviewCVPlace) {
+      reviewCVPresenter.reviewSubmittedCVs(((ReviewCVPlace) place).getJobId());
+      return reviewCVPresenter;
     }
 
     return null;

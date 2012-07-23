@@ -1,0 +1,22 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:d='urn:import:com.github.gwtbootstrap.client.ui'
+             xmlns:n="urn:import:com.clouway.jobex.client.navigation">
+
+  <ui:style>
+    .cvTable {
+      width: 80%;
+      margin-top: 100px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 10px;
+    }
+  </ui:style>
+
+  <g:HTMLPanel>
+
+    <n:NavigationMenu ui:field="menu"/>
+
+    <d:CellTable ui:field="cvTable" addStyleNames="{style.cvTable}"/>
+  </g:HTMLPanel>
+</ui:UiBinder>

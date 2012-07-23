@@ -1,5 +1,7 @@
 package com.clouway.jobex.server.cv;
 
+import com.clouway.jobex.server.applyingforjob.JobApplication;
+
 import java.util.List;
 
 /**
@@ -46,4 +48,16 @@ public class CvsServiceImpl implements CvsService {
     return repository.getCreatedCVs(username);
   }
 
+  /**
+   * Get list of submitted CVs for given job
+   *
+   * @param jobId - a jobId
+   * @return - list of submitted CVs
+   */
+  public List<CV> getSubmittedCVs(Long jobId) {
+
+    List<JobApplication> jobApplications = repository.getJobApplications(jobId);
+
+    return repository.getSubmittedCVs(jobId, jobApplications);
+  }
 }
