@@ -84,6 +84,5 @@ public class NavigationMenu extends Composite {
 
 
     initWidget(rootElement);
-
   }
 }
