@@ -39,6 +39,10 @@ public class ReviewCVPresenterImpl extends AbstractActivity implements ReviewCVP
    */
   public void sendEmailApproval(Long jobId, String email) {
 
+    if(!view.isConfirmed()) {
+      return;
+    }
+
     requestFactory.emailServiceContext().sendEmailApproval(jobId, email).to(new EmailNotificator(view)).fire();
   }
 

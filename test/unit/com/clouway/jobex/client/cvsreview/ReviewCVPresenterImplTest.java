@@ -103,12 +103,29 @@ public class ReviewCVPresenterImplTest {
     Long jobId = 1l;
     String email = "ivan@mail.com";
 
+    when(view.isConfirmed()).thenReturn(true);
+
     presenter.sendEmailApproval(jobId, email);
 
+    verify(view).isConfirmed();
     verify(emailService).sendEmailApproval(jobIdCaptor.capture(), emailCaptor.capture());
     verify(view).showSentEmailNotification();
 
     assertThat(jobId, is(equalTo(jobIdCaptor.getValue())));
     assertThat(email, is(equalTo(emailCaptor.getValue())));
+  }
+
+  @Test
+  public void cannotSendEmailWithoutConfirmation() {
+
+    Long jobId = 1l;
+    String email = "ivan@mail.com";
+
+    when(view.isConfirmed()).thenReturn(false);
+
+    presenter.sendEmailApproval(jobId, email);
+
+    verify(view).isConfirmed();
+    verify(emailService, never()).sendEmailApproval(jobIdCaptor.capture(), emailCaptor.capture());
   }
 }

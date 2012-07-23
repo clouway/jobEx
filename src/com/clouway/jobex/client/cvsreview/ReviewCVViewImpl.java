@@ -126,4 +126,7 @@ public class ReviewCVViewImpl extends Composite implements ReviewCVView {
     this.jobId = jobId;
   }
 
+  public boolean isConfirmed() {
+    return Window.confirm("Approve selected CV?");
+  }
 }
