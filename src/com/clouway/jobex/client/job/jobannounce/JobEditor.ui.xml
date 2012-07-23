@@ -39,7 +39,7 @@
 
       <tr>
         <td>Expiration Date: </td>
-        <td><b:DateBox ui:field="date" autoClose="true" height="28"/></td>
+        <td><b:DateBox ui:field="date" autoClose="true" height="28" startDate=""/></td>
       </tr>
     </table>
 

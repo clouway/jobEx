@@ -202,6 +202,8 @@ public class UserCVsPresenterTest {
 
     Long cvId = 1l;
 
+    when(view.isConfirmed()).thenReturn(true);
+
     when(provider.getUsername()).thenReturn("username");
 
     List<CV> cvList = new ArrayList<CV>();
@@ -211,6 +213,8 @@ public class UserCVsPresenterTest {
     when(cvsService.delete("username", cvId)).thenReturn(cvList);
 
     presenter.deleteCv(cvId);
+
+    verify(view).isConfirmed();
 
     verify(cvsService).delete("username", cvId);
 
@@ -224,5 +228,23 @@ public class UserCVsPresenterTest {
 
   }
 
+  @Test
+  public void cannotDeleteUserCVWithoutConfirmation() {
 
+    Long cvId = 1l;
+
+    when(view.isConfirmed()).thenReturn(false);
+
+    when(provider.getUsername()).thenReturn("username");
+
+    List<CV> cvList = new ArrayList<CV>();
+
+    cvList.add(new CV());
+
+    when(cvsService.delete("username", cvId)).thenReturn(cvList);
+
+    presenter.deleteCv(cvId);
+
+    verify(cvsService, never()).delete("username", cvId);
+  }
 }

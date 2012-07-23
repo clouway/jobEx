@@ -5,17 +5,16 @@ import com.clouway.jobex.client.security.CompanyNameProvider;
 import com.clouway.jobex.server.job.Job;
 import com.clouway.jobex.server.job.jobannounce.JobAnnounceService;
 import com.clouway.jobex.shared.JobExRequestFactory;
-import com.clouway.jobex.shared.JobProxy;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
@@ -24,7 +23,6 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class JobAnnouncePresenterImplTest {
 
   private JobAnnouncePresenterImpl presenter;
-  private JobExRequestFactory.JobRequestContext requestContext;
   private JobAnnounceService service;
   private Receiver<Void> receiver;
 
@@ -34,14 +32,18 @@ public class JobAnnouncePresenterImplTest {
   @Mock
   private CompanyNameProvider companyNameProvider;
 
+  @Captor
+  ArgumentCaptor<Job> jobCaptor;
+
+  @Captor
+  ArgumentCaptor<String> companyCaptor;
+
   @Before
   public void setUp() {
 
     initMocks(this);
 
     JobExRequestFactory requestFactory = RequestFactoryHelper.create(JobExRequestFactory.class);
-
-    requestContext = requestFactory.jobRequestContext();
 
     receiver = new JobAnnounceReceiver(view);
 
@@ -51,24 +53,32 @@ public class JobAnnouncePresenterImplTest {
   }
 
   @Test
-  public void announceJob() {
+  public void announceJobOnConfirmation() {
 
-    JobProxy jobProxy = requestContext.create(JobProxy.class);
+    String company = "Qwerty";
+
+    when(view.isConfirmed()).thenReturn(true);
+    when(companyNameProvider.getCompanyName()).thenReturn(company);
 
     presenter.initialize();
-
     presenter.announceJob();
 
-    ArgumentCaptor<Job> jobCaptor = ArgumentCaptor.forClass(Job.class);
-    ArgumentCaptor<String> companyNameCaptor = ArgumentCaptor.forClass(String.class);
-
-    verify(service).announceJob(companyNameCaptor.capture(), jobCaptor.capture());
+    verify(view).isConfirmed();
+    verify(companyNameProvider).getCompanyName();
+    verify(service).announceJob(companyCaptor.capture(), jobCaptor.capture());
     verify(view).goToSearchPlace();
+  }
 
-    Job job = jobCaptor.getValue();
+  @Test
+  public void jobCannotBeAnnounceWithoutConfirmation() {
 
-    assertThat(jobProxy.getCompany(), is(equalTo(job.getCompany())));
-    assertThat(jobProxy.getPosition(), is(equalTo(job.getPosition())));
-    assertThat(jobProxy.getCategory(), is(equalTo(job.getCategory())));
+    when(view.isConfirmed()).thenReturn(false);
+    when(companyNameProvider.getCompanyName()).thenReturn("Qwerty");
+
+    presenter.initialize();
+    presenter.announceJob();
+
+    verify(view).isConfirmed();
+    verify(service, never()).announceJob(companyCaptor.capture(), jobCaptor.capture());
   }
 }

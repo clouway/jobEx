@@ -105,6 +105,11 @@ public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEve
   }
 
   public void deleteCv(long cvId) {
+
+    if (!view.isConfirmed()) {
+      return;
+    }
+
     JobExRequestFactory.CVsRequestContext context = requestFactory.cvsRequestContext();
 
     context.delete(provider.getUsername(), cvId).fire(new Receiver<List<CVProxy>>() {

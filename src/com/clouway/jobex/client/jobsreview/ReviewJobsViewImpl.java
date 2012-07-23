@@ -164,4 +164,8 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
   public void setPresenter(ReviewJobsPresenter reviewJobsPresenter) {
     this.reviewJobsPresenter = reviewJobsPresenter;
   }
+
+  public boolean isConfirmed() {
+    return Window.confirm("Delete announced job");
+  }
 }

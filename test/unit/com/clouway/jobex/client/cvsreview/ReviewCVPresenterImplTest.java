@@ -77,7 +77,7 @@ public class ReviewCVPresenterImplTest {
 
     presenter.reviewSubmittedCVs(jobId);
 
-    verify(service).getSubmittedCVs(jobId);
+    verify(service).getSubmittedCVs(jobIdCaptor.capture());
     verify(view).showSubmittedCVs(submittedCVsCaptor.capture());
     verify(view, never()).showNoSubmittedCVsNotification();
 
