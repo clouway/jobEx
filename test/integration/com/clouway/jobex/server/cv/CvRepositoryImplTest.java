@@ -3,6 +3,9 @@ package com.clouway.jobex.server.cv;
 import com.clouway.jobex.server.AppEngineTestCase;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.clouway.jobex.server.applyingforjob.JobApplication;
+import com.clouway.jobex.server.applyingforjob.JobApplicationRepository;
+import com.clouway.jobex.server.applyingforjob.JobApplicationRepositoryImpl;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import org.junit.Test;
 
@@ -29,6 +32,8 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
   private String username = "adio";
 
   private CvRepositoryImpl repository = new CvRepositoryImpl(service);
+
+  private JobApplicationRepository applicationRepository = new JobApplicationRepositoryImpl(service);
 
   @Test
   public void returnsAllSavedCVs() {
@@ -142,4 +147,42 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
   }
 
 
+  @Test
+  public void getAllJobApplicationsByJobId() {
+
+    Long jobId = 1l;
+    Long cvId = 1l;
+
+    JobApplication firstJobApplication = new JobApplication(cvId, jobId);
+
+    applicationRepository.saveJobApplication(firstJobApplication);
+
+    List<JobApplication> jobApplicationList = repository.getJobApplications(jobId);
+
+    assertThat(jobApplicationList, is(notNullValue()));
+    assertThat(jobApplicationList.size(), is(equalTo(1)));
+    assertThat(jobApplicationList.get(0).getJobId(), is(equalTo(firstJobApplication.getJobId())));
+  }
+
+  @Test
+  public void getSubmittedCVsForGivenJob() {
+
+    Long jobId = 1l;
+
+    // Save new CV
+    CV cv = new CV(1l, "Ivan", "ivan@mail.com", "123456", "skills", new Date(), "gender");
+    repository.save(cv.getEmail(), cv);
+
+    // Create new JobApplication
+    JobApplication jobApplication = new JobApplication(cv.getId(), jobId);
+    applicationRepository.saveJobApplication(jobApplication);
+
+    // Get all JobApplications
+    List<JobApplication> jobApplications = repository.getJobApplications(jobId);
+
+    List<CV> submittedCVs = repository.getSubmittedCVs(jobId, jobApplications);
+    assertThat(submittedCVs.size(), is(equalTo(1)));
+
+    assertThat(submittedCVs.get(0).getId(), is(equalTo(cv.getId())));
+  }
 }

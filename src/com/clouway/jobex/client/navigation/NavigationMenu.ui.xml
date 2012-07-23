@@ -20,9 +20,9 @@
       <b:Nav>
 
         <b:NavLink text="Home" ui:field="home"/>
-        <b:NavLink text="Create new CV" ui:field="newCV"/>
-        <b:NavLink text="Cv Preview" ui:field="cvList"/>
-        <b:NavLink text="Announce Job" ui:field="announceJob"/>
+        <b:NavLink text="Create New CV" ui:field="newCV"/>
+        <b:NavLink text="Preview My CVs" ui:field="cvList"/>
+        <b:NavLink text="Announce A Job" ui:field="announceJob"/>
         <b:NavLink text="Jobs Review" ui:field="jobReview"/>
       </b:Nav>
     </b:Navbar>

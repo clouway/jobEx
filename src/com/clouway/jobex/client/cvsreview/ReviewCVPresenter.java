@@ -1,0 +1,22 @@
+package com.clouway.jobex.client.cvsreview;
+
+/**
+ * @author Ivan Lazov <darkpain1989@gmail.com>
+ */
+public interface ReviewCVPresenter {
+
+  /**
+   * Review submitted CVs for a job
+   *
+   * @param jobId - jobId
+   */
+  void reviewSubmittedCVs(Long jobId);
+
+  /**
+   * Send email approval to given user's email
+   *
+   * @param jobId - jobId
+   * @param email - user's email
+   */
+  void sendEmailApproval(Long jobId, String email);
+}

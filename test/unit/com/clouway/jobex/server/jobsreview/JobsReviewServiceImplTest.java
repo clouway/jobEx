@@ -1,5 +1,6 @@
 package com.clouway.jobex.server.jobsreview;
 
+import com.clouway.jobex.server.job.Job;
 import com.clouway.jobex.server.job.JobRepository;
 import com.clouway.jobex.server.job.jobsearch.DomainObjectConverter;
 import com.google.appengine.api.datastore.Entity;
@@ -13,6 +14,10 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
@@ -49,5 +54,25 @@ public class JobsReviewServiceImplTest {
     }});
 
     service.getAnnouncedJobsForCompany(companyName);
+  }
+
+  @Test
+  public void deleteAnnouncedJobWithGivenId() {
+
+    final Long jobId = 1l;
+    final String companyName = "clouway";
+    final List<Job> jobList = new ArrayList<Job>();
+
+    context.checking(new Expectations(){{
+
+      oneOf(repository).deleteJob(jobId);
+
+      oneOf(repository).getAnnouncedJobsForCompany(companyName);
+      will(returnValue(jobList));
+
+    }});
+
+    List<Job> returnedJobList = service.deleteAnnouncedJob(jobId, companyName);
+    assertThat(returnedJobList, is(notNullValue()));
   }
 }

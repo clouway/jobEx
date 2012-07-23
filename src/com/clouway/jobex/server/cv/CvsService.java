@@ -21,4 +21,11 @@ public interface CvsService {
 
   public List<CV> delete(String username, long cvId);
 
+  /**
+   * Get list of submitted CVs for given job
+   *
+   * @param jobId - a jobId
+   * @return - list of submitted CVs
+   */
+  List<CV> getSubmittedCVs(Long jobId);
 }
