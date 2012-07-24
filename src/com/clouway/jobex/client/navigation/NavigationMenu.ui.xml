@@ -13,17 +13,14 @@
   </ui:style>
 
   <g:HTMLPanel addStyleNames="{style.nav}">
-
     <b:Navbar>
-
       <b:Brand text="JobEx"/>
       <b:Nav>
-
         <b:NavLink text="Home" ui:field="home"/>
-        <b:NavLink text="Create New CV" ui:field="newCV"/>
-        <b:NavLink text="Preview My CVs" ui:field="cvList"/>
+        <b:NavLink text="Create new cv" ui:field="newCV"/>
+        <b:NavLink text="Preview my cvs" ui:field="cvList"/>
+        <b:NavLink text="Create new account" ui:field="newAccount"/>
       </b:Nav>
     </b:Navbar>
-
   </g:HTMLPanel>
 </ui:UiBinder>

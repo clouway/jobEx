@@ -8,6 +8,7 @@ import com.clouway.jobex.client.cvsreview.SubmittedCVsPresenterImpl;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPresenter;
 import com.clouway.jobex.client.jobsreview.ReviewJobsPresenterImpl;
+import com.clouway.jobex.client.security.SecurityProvider;
 import com.clouway.jobex.client.useraccess.login.LoginPresenter;
 import com.clouway.jobex.client.useraccess.register.RegistrationPresenter;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -63,4 +64,5 @@ public interface JobExGinjector extends Ginjector {
 
   SubmittedCVsPresenterImpl submittedCvsPresenter();
 
+  SecurityProvider securityProvider();
 }

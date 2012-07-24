@@ -194,4 +194,5 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
   public void onSearchButtonClicked(ClickEvent event) {
     presenter.onSearchButtonClicked();
   }
+
 }

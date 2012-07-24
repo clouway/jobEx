@@ -1,12 +1,12 @@
 package com.clouway.jobex.client.useraccess.register;
 
+import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.ListBox;
@@ -27,19 +27,25 @@ public class RegistrationViewImpl extends Composite implements RegistrationView{
   private static RegistrationViewImplUiBinder ourUiBinder = GWT.create(RegistrationViewImplUiBinder.class);
 
   @UiField
-  com.github.gwtbootstrap.client.ui.Button registerButton;
+  Button registerButton;
+
   @UiField
   TextBox email;
+
   @UiField
   PasswordTextBox password;
+
   @UiField
   ListBox registrationType;
 
   public RegistrationViewImpl() {
+
     initWidget(ourUiBinder.createAndBindUi(this));
 
     registrationType.addItem("JobHunter","User");
+
     registrationType.addItem("Company", "Company");
+
   }
 
   public void setPresenter(RegistrationPresenter presenter) {

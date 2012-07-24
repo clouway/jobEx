@@ -1,8 +1,7 @@
 package com.clouway.jobex.client.useraccess.login;
 
 import com.clouway.jobex.client.security.AuthorizationActivity;
-import com.clouway.jobex.client.security.CompanyNameProvider;
-import com.clouway.jobex.client.security.UsernameProvider;
+import com.clouway.jobex.client.security.SecurityProvider;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -15,19 +14,16 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 public class LoginPresenter extends AuthorizationActivity {
 
   private LoginView loginView;
+  private final SecurityProvider securityProvider;
 
-  private UsernameProvider usernameProvider;
-
-  private CompanyNameProvider companyNameProvider;
 
   private JobExRequestFactory factory;
 
   @Inject
-  public LoginPresenter(JobExRequestFactory factory, LoginView loginView, UsernameProvider usernameProvider, CompanyNameProvider companyNameProvider) {
+  public LoginPresenter(JobExRequestFactory factory, LoginView loginView, SecurityProvider securityProvider) {
     this.factory = factory;
     this.loginView = loginView;
-    this.usernameProvider = usernameProvider;
-    this.companyNameProvider = companyNameProvider;
+    this.securityProvider = securityProvider;
   }
 
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
@@ -37,10 +33,10 @@ public class LoginPresenter extends AuthorizationActivity {
 
   public void onLoginButtonClicked() {
     loginView.disableLoginButton();
-    verifyLogin(loginView.getLoginType(), loginView.getEmail(), loginView.getPassword());
+    login(loginView.getLoginType(), loginView.getEmail(), loginView.getPassword());
   }
 
-  public void verifyLogin(final String loginType, final String email, String password) {
+  public void login(final String loginType, final String email, String password) {
     JobExRequestFactory.AuthorizationContext authorizationContext = factory.authorizationContext();
 
     authorizationContext.login(loginType, email, password).fire(new Receiver<String>() {
@@ -49,9 +45,8 @@ public class LoginPresenter extends AuthorizationActivity {
         if ("".equals(response)) {
           loginView.unsuccessfulLoginMessage();
         } else {
-          //provider.setName(email);
-          //provider.setLoginType(loginType);
-          //provider.setId(response);
+
+          securityProvider.setCredentials(response, email,loginType);
 
           loginView.goToSearchPlace();
         }

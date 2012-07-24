@@ -86,7 +86,7 @@ public class JobExGinModule extends AbstractGinModule {
 
     bind(SubmittedCVsPresenter.class).to(SubmittedCVsPresenterImpl.class);
 
-    bind(SecurityProvider.class).to(SecurityProviderImpl.class);
+    bind(SecurityProvider.class).to(SecurityProviderImpl.class).in(Singleton.class);
 
     bind(new TypeLiteral<Map<Class<? extends Place>, ActivityPlaceMetadata>>() {
     }).annotatedWith(Names.named("PlaceActivityMap")).toProvider(PlaceActivityMapProvider.class);

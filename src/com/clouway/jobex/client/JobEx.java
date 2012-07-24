@@ -21,7 +21,6 @@ import com.clouway.jobex.client.navigation.ActivityPlaceMetadata;
 import com.clouway.jobex.client.navigation.JobExPlaceHistoryMapper;
 import com.clouway.jobex.client.navigation.SecuredActivityMapper;
 import com.clouway.jobex.client.security.AuthorizationPlace;
-import com.clouway.jobex.client.security.SecurityProvider;
 import com.clouway.jobex.client.useraccess.login.LoginPresenter;
 import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
 import com.clouway.jobex.client.useraccess.register.RegistrationPresenter;
@@ -73,12 +72,7 @@ public class JobEx implements EntryPoint {
 
     setCommonPlaces(injector, map);
 
-    SecuredActivityMapper mapper = new SecuredActivityMapper(map, new SecurityProvider() {
-      @Override
-      public boolean isAuthorized() {
-        return true;
-      }
-    });
+    SecuredActivityMapper mapper = new SecuredActivityMapper(map,injector.securityProvider());
 
     ActivityManager activityManager = new ActivityManager(mapper, eventBus);
 

@@ -3,6 +3,7 @@ package com.clouway.jobex.client.navigation;
 import com.clouway.jobex.client.cv.CreateCvPlace;
 import com.clouway.jobex.client.cv.PreviewCvPlace;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
+import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
 import com.github.gwtbootstrap.client.ui.NavLink;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -35,6 +36,9 @@ public class NavigationMenu extends Composite {
   @UiField
   NavLink cvList;
 
+  @UiField
+  NavLink newAccount;
+
 
   @Inject
   public NavigationMenu(final PlaceController placeController) {
@@ -62,6 +66,12 @@ public class NavigationMenu extends Composite {
       }
     });
 
+    newAccount.addClickHandler(new ClickHandler() {
+      @Override
+      public void onClick(ClickEvent event) {
+        placeController.goTo(new RegistrationPlace());
+      }
+    });
 
 
     initWidget(rootElement);

@@ -5,4 +5,7 @@ package com.clouway.jobex.client.security;
  */
 public interface SecurityProvider {
   boolean isAuthorized();
+
+  void setCredentials(String id, String email, String loginType);
+
 }
