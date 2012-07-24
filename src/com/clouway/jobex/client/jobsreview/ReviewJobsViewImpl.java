@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.jobsreview;
 
 import com.clouway.jobex.client.cvsreview.SubmittedCVsPlace;
-import com.clouway.jobex.client.navigation.NavigationMenu;
+import com.clouway.jobex.client.navigation.CompanyNavigationMenu;
 import com.clouway.jobex.client.security.CompanyNameProvider;
 import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.cell.client.ButtonCell;
@@ -19,7 +19,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-
 import com.google.web.bindery.event.shared.EventBus;
 
 import java.util.Date;
@@ -41,7 +40,8 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
   CellTable<JobProxy> announcedJobsTable;
 
   @UiField(provided = true)
-    NavigationMenu menu;
+  CompanyNavigationMenu menu;
+
   private CompanyNameProvider companyNameProvider;
 
   @Inject
@@ -50,7 +50,7 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
   private PlaceController placeController;
 
   @Inject
-  public ReviewJobsViewImpl(NavigationMenu menu, final PlaceController placeController, final CompanyNameProvider companyNameProvider) {
+  public ReviewJobsViewImpl(CompanyNavigationMenu menu, final PlaceController placeController, final CompanyNameProvider companyNameProvider) {
 
     this.menu = menu;
 

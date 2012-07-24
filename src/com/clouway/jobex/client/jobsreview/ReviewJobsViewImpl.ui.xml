@@ -7,7 +7,6 @@
 
   <ui:style>
 
-
     .tableContainer {
       text-align: center;
       border-radius: 10px;
@@ -18,7 +17,6 @@
       margin: auto;
       padding: 5px;
       width: 80%;
-
     }
 
     .tablePanel {
@@ -47,7 +45,7 @@
       <g:Image resource="{res.employerIcon}"/>
       <g:Label text="Employer Jobs" addStyleNames="{style.lable}"/>
     </g:HTMLPanel>
-    <n:NavigationMenu ui:field="menu"/>
+    <n:CompanyNavigationMenu ui:field="menu"/>
 
     <g:HTMLPanel addStyleNames="{style.tableContainer}">
 

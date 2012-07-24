@@ -15,7 +15,7 @@
 
   <g:HTMLPanel>
 
-    <n:NavigationMenu ui:field="menu"/>
+    <n:CompanyNavigationMenu ui:field="menu"/>
 
     <d:CellTable ui:field="cvTable" addStyleNames="{style.cvTable}"/>
   </g:HTMLPanel>

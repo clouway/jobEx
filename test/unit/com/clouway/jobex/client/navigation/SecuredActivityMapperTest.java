@@ -25,7 +25,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public class ApplicationActivityMapperTest {
+public class SecuredActivityMapperTest {
 
 
   private class TestPlace extends Place {
