@@ -28,6 +28,7 @@ public class SecuredActivityMapper implements ActivityMapper {
   public Activity getActivity(Place place) {
 
     ActivityPlaceMetadata activity = null;
+
     if (place instanceof SecuredPlace) {
       if (provider.isAuthorized()) {
         activity = activityPlaceMap.get(place.getClass());
