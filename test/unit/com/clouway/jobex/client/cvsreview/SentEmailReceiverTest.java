@@ -12,17 +12,17 @@ import org.junit.runner.RunWith;
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
 @RunWith(JMock.class)
-public class EmailNotificatorTest {
+public class SentEmailReceiverTest {
 
   private Mockery context = new JUnit4Mockery();
 
-  private ReviewCVView view = context.mock(ReviewCVView.class);
+  private SubmittedCVsView view = context.mock(SubmittedCVsView.class);
 
-  private EmailNotificator emailNotificator;
+  private SentEmailReceiver sentEmailReceiver;
 
   @Before
   public void setUp() {
-    emailNotificator = new EmailNotificator(view);
+    sentEmailReceiver = new SentEmailReceiver(view);
   }
 
   @Test
@@ -32,6 +32,6 @@ public class EmailNotificatorTest {
       oneOf(view).showSentEmailNotification();
     }});
 
-    emailNotificator.onSuccess(null);
+    sentEmailReceiver.onSuccess(null);
   }
 }

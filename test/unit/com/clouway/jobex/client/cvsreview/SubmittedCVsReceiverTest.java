@@ -17,19 +17,19 @@ import java.util.List;
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
 @RunWith(JMock.class)
-public class ReviewCVReceiverTest {
+public class SubmittedCVsReceiverTest {
 
   private Receiver<List<CVProxy>> receiver;
 
   private Mockery context = new JUnit4Mockery();
 
-  private ReviewCVView view = context.mock(ReviewCVView.class);
+  private SubmittedCVsView view = context.mock(SubmittedCVsView.class);
 
   private CVProxy cvProxy = context.mock(CVProxy.class);
 
   @Before
   public void setUp() {
-    receiver = new ReviewCVReceiver(view);
+    receiver = new SubmittedCVsReceiver(view);
   }
 
   @Test

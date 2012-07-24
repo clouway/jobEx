@@ -234,4 +234,9 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
   public void onCreateNewCv(ClickEvent event) {
     controller.goTo(new CreateCvPlace());
   }
+
+  @Override
+  public boolean isConfirmed() {
+    return Window.confirm("Delete selected CV?");
+  }
 }

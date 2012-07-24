@@ -45,11 +45,13 @@ public class ReviewJobsPresenterImpl extends AbstractActivity implements ReviewJ
    */
   public void deleteAnnouncedJob(final Long jobId, final String companyName) {
 
-    requestFactory.jobsReviewContext().deleteAnnouncedJob(jobId, companyName).to(new Receiver<List<JobProxy>>() {
-      public void onSuccess(List<JobProxy> response) {
-        reviewJobsView.updateAnnounceJobs(response);
-      }
-    }).fire();
+    if (reviewJobsView.isConfirmed()) {
+      requestFactory.jobsReviewContext().deleteAnnouncedJob(jobId, companyName).to(new Receiver<List<JobProxy>>() {
+        public void onSuccess(List<JobProxy> response) {
+          reviewJobsView.updateAnnounceJobs(response);
+        }
+      }).fire();
+    }
   }
 
   public void start(AcceptsOneWidget panel, EventBus eventBus) {

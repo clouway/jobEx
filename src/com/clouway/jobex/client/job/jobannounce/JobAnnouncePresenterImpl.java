@@ -34,6 +34,11 @@ public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnn
    * Announce a job, i.e. fires the request
    */
   public void announceJob() {
+
+    if(!view.isConfirmed()) {
+      return;
+    }
+
     requestContext.fire();
   }
 
