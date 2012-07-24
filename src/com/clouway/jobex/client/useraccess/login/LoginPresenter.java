@@ -40,18 +40,16 @@ public class LoginPresenter extends AbstractActivity {
   public void verifyLogin(final String loginType, final String email, String password) {
     JobExRequestFactory.AuthorizationContext authorizationContext = factory.authorizationContext();
 
-    authorizationContext.verifyLogin(loginType, email, password).fire(new Receiver<Boolean>() {
+    authorizationContext.login(loginType, email, password).fire(new Receiver<String>() {
       @Override
-      public void onSuccess(Boolean response) {
-        if (!response) {
+      public void onSuccess(String response) {
+        if ("".equals(response)) {
           loginView.unsuccessfulLoginMessage();
         } else {
-          if (loginType.equals("User")) {
-            usernameProvider.setUsername(email);
-          }
-          if (loginType.equals("Company")) {
-            companyNameProvider.setCompanyName(email);
-          }
+          //provider.setName(email);
+          //provider.setLoginType(loginType);
+          //provider.setId(response);
+
           loginView.goToSearchPlace();
         }
         loginView.enableLoginButton();

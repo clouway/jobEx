@@ -13,9 +13,9 @@ import com.google.web.bindery.requestfactory.shared.ServiceLocator;
 public class AuthorizationServiceLocator implements ServiceLocator {
   public Object getInstance(Class<?> clazz) {
     DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
-
+    Generator idGenerator = new IdGenerator();
     AuthorizationRepository authorizationRepository = new AuthorizationRepositoryImpl(datastoreService);
 
-    return new AuthorizationServiceImpl(authorizationRepository);
+    return new AuthorizationServiceImpl(authorizationRepository, idGenerator);
   }
 }

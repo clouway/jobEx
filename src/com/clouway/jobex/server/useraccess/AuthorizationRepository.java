@@ -11,4 +11,8 @@ public interface AuthorizationRepository {
   void register(String kind, String email, String password);
 
   boolean verifyUserPassword(String kind, String email, String password);
+
+  void saveAsLogged(String email, String loginType, String id);
+
+  boolean isUserAuthorized(String email, String id);
 }
