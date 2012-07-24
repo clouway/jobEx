@@ -39,6 +39,7 @@
       <g:Image resource="{res.employeeIcon}"/>
       <g:Label text="Employee CV" addStyleNames="{style.lable}"/>
     </g:HTMLPanel>
+
     <n:NavigationMenu ui:field="menu"/>
 
 

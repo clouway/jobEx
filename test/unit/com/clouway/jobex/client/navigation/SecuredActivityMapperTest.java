@@ -25,7 +25,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public class ApplicationActivityMapperTest {
+public class SecuredActivityMapperTest {
 
 
   private class TestPlace extends Place {
@@ -40,7 +40,7 @@ public class ApplicationActivityMapperTest {
   Map<Class<? extends Place>, ActivityPlaceMetadata> activityPlaceMap;
 
 
-  private ApplicationActivityMapper mapper;
+  private SecuredActivityMapper mapper;
 
   @Before
   public void setUp() throws Exception {
@@ -72,7 +72,7 @@ public class ApplicationActivityMapperTest {
       }
     });
 
-    mapper = new ApplicationActivityMapper(activityPlaceMap, provider);
+    mapper = new SecuredActivityMapper(activityPlaceMap, provider);
   }
 
   @Test

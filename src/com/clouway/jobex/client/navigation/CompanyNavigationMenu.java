@@ -1,8 +1,8 @@
 package com.clouway.jobex.client.navigation;
 
-import com.clouway.jobex.client.cv.CreateCvPlace;
-import com.clouway.jobex.client.cv.PreviewCvPlace;
+import com.clouway.jobex.client.job.jobannounce.JobAnnouncePlace;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
+import com.clouway.jobex.client.jobsreview.ReviewJobsPlace;
 import com.github.gwtbootstrap.client.ui.NavLink;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -17,26 +17,34 @@ import com.google.inject.Inject;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public class NavigationMenu extends Composite {
-  interface NavigationMenuUiBinder extends UiBinder<HTMLPanel, NavigationMenu> {
+public class CompanyNavigationMenu extends Composite {
+
+  interface CompanyNavigationMenuUiBinder extends UiBinder<HTMLPanel, CompanyNavigationMenu> {
   }
 
-  private static NavigationMenuUiBinder ourUiBinder = GWT.create(NavigationMenuUiBinder.class);
+  private static CompanyNavigationMenuUiBinder ourUiBinder = GWT.create(CompanyNavigationMenuUiBinder.class);
 
+  @Inject
+  PlaceController placeController;
 
   @UiField
   NavLink home;
 
   @UiField
-  NavLink newCV;
+  NavLink announceJob;
 
   @UiField
-  NavLink cvList;
+  NavLink jobReview;
+
 
   @Inject
-  public NavigationMenu(final PlaceController placeController) {
+  public CompanyNavigationMenu(final PlaceController placeController) {
 
     HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
+
+    this.placeController = placeController;
+
+
 
     home.addClickHandler(new ClickHandler() {
       @Override
@@ -44,19 +52,24 @@ public class NavigationMenu extends Composite {
         placeController.goTo(new JobSearchPlace());
       }
     });
-    newCV.addClickHandler(new ClickHandler() {
+
+    announceJob.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent event) {
-        placeController.goTo(new CreateCvPlace());
+        placeController.goTo(new JobAnnouncePlace());
       }
     });
 
-    cvList.addClickHandler(new ClickHandler() {
+    jobReview.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent event) {
-        placeController.goTo(new PreviewCvPlace());
+        placeController.goTo(new ReviewJobsPlace());
       }
     });
+
     initWidget(rootElement);
   }
+
+
+
 }

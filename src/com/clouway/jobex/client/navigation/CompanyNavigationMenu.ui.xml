@@ -1,7 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:b='urn:import:com.github.gwtbootstrap.client.ui'>
-
   <ui:style>
     .nav {
 
@@ -17,13 +16,12 @@
     <b:Navbar>
 
       <b:Brand text="JobEx"/>
-
       <b:Nav>
-        <b:NavLink text="Home" ui:field="home"/>
-        <b:NavLink text="Create New CV" ui:field="newCV"/>
-        <b:NavLink text="Preview My CVs" ui:field="cvList"/>
-      </b:Nav>
 
+        <b:NavLink text="Home" ui:field="home"/>
+        <b:NavLink text="Announce A Job" ui:field="announceJob"/>
+        <b:NavLink text="Jobs Review" ui:field="jobReview"/>
+      </b:Nav>
     </b:Navbar>
 
   </g:HTMLPanel>

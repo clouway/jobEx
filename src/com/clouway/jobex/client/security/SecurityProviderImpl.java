@@ -8,6 +8,6 @@ public class SecurityProviderImpl implements SecurityProvider {
 
   @Override
   public boolean isAuthorized() {
-    return false;
+    return true;
   }
 }

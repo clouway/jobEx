@@ -23,12 +23,10 @@
 
     .tablePanel {
       width: 100%;
-      /*background: rgba(110, 158, 255, 0.20);*/
     }
 
     .table {
       width: 100%;
-      /*border: 1px solid;*/
     }
 
     .title {
@@ -47,7 +45,7 @@
       <g:Label text="Announce for a job" addStyleNames="{style.title}"/>
 
     </g:HTMLPanel>
-    <n:NavigationMenu ui:field="navigation"/>
+      <n:CompanyNavigationMenu ui:field="navigation"/>
 
     <g:HTMLPanel addStyleNames="{style.container}">
 

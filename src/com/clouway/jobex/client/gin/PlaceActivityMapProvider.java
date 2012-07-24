@@ -61,12 +61,14 @@ public class PlaceActivityMapProvider implements Provider<Map<Class<? extends Pl
   public Map<Class<? extends Place>, ActivityPlaceMetadata> get() {
 
     Map<Class<? extends Place>, ActivityPlaceMetadata> map = new HashMap<Class<? extends Place>, ActivityPlaceMetadata>();
+
     map.put(JobSearchPlace.class, new ActivityPlaceMetadata<JobSearchPlace, JobSearchPresenter>() {
       @Override
       public JobSearchPresenter getActivity(JobSearchPlace jobSearchPlace) {
         return jobSearchPresenter;
       }
     });
+
     map.put(JobAnnouncePlace.class, new ActivityPlaceMetadata<JobAnnouncePlace, JobAnnouncePresenterImpl>() {
       @Override
       public JobAnnouncePresenterImpl getActivity(JobAnnouncePlace jobAnnouncePlace) {
@@ -123,11 +125,6 @@ public class PlaceActivityMapProvider implements Provider<Map<Class<? extends Pl
         return reviewCVPresenter;
       }
     });
-
-
-
-
     return map;
-
   }
 }

@@ -5,7 +5,6 @@ import com.clouway.jobex.client.security.SecurityProvider;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.place.shared.Place;
-import com.google.inject.name.Named;
 
 import javax.inject.Inject;
 import java.util.Map;
@@ -13,14 +12,14 @@ import java.util.Map;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public class ApplicationActivityMapper implements ActivityMapper {
+public class SecuredActivityMapper implements ActivityMapper {
 
   private Map<Class<? extends Place>, ActivityPlaceMetadata> activityPlaceMap;
 
   private final SecurityProvider provider;
 
   @Inject
-  ApplicationActivityMapper(@Named("PlaceActivityMap") Map<Class<? extends Place>, ActivityPlaceMetadata> activityPlaceMap, SecurityProvider provider) {
+  public SecuredActivityMapper(Map<Class<? extends Place>, ActivityPlaceMetadata> activityPlaceMap, SecurityProvider provider) {
     this.activityPlaceMap = activityPlaceMap;
     this.provider = provider;
   }

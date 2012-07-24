@@ -19,8 +19,8 @@ import com.clouway.jobex.client.jobsreview.ReviewJobsPresenterImpl;
 import com.clouway.jobex.client.jobsreview.ReviewJobsView;
 import com.clouway.jobex.client.jobsreview.ReviewJobsViewImpl;
 import com.clouway.jobex.client.navigation.ActivityPlaceMetadata;
-import com.clouway.jobex.client.navigation.ApplicationActivityMapper;
 import com.clouway.jobex.client.navigation.JobExPlaceHistoryMapper;
+import com.clouway.jobex.client.navigation.SecuredActivityMapper;
 import com.clouway.jobex.client.security.CompanyNameProvider;
 import com.clouway.jobex.client.security.CompanyNameProviderImpl;
 import com.clouway.jobex.client.security.SecurityProvider;
@@ -41,7 +41,6 @@ import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
-import com.google.inject.name.Names;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 
@@ -62,7 +61,7 @@ public class JobExGinModule extends AbstractGinModule {
 
     bind(PlaceHistoryMapper.class).to(JobExPlaceHistoryMapper.class).in(Singleton.class);
 
-    bind(ActivityMapper.class).to(ApplicationActivityMapper.class).in(Singleton.class);
+    bind(ActivityMapper.class).to(SecuredActivityMapper.class).in(Singleton.class);
 
     bind(CompanyNameProvider.class).to(CompanyNameProviderImpl.class);
 
@@ -89,7 +88,7 @@ public class JobExGinModule extends AbstractGinModule {
     bind(SecurityProvider.class).to(SecurityProviderImpl.class);
 
     bind(new TypeLiteral<Map<Class<? extends Place>, ActivityPlaceMetadata>>() {
-    }).annotatedWith(Names.named("PlaceActivityMap")).toProvider(PlaceActivityMapProvider.class);
+    }).toProvider(PlaceActivityMapProvider.class);
   }
 
   @Provides
