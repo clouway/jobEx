@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.jobsreview;
 
-import com.clouway.jobex.client.cvsreview.SubmittedCVsPlace;
 import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
+import com.clouway.jobex.client.submittedcvs.SubmittedCVsPlace;
 import com.clouway.jobex.shared.JobProxy;
 import com.github.gwtbootstrap.client.ui.ButtonCell;
 import com.google.gwt.cell.client.DateCell;

@@ -1,9 +1,13 @@
 package com.clouway.jobex.client.jobsreview;
 
 import com.clouway.jobex.RequestFactoryHelper;
+import com.clouway.jobex.client.reviewjobs.ReviewJobsPresenter;
+import com.clouway.jobex.client.reviewjobs.ReviewJobsPresenterImpl;
+import com.clouway.jobex.client.reviewjobs.ReviewJobsReceiver;
+import com.clouway.jobex.client.reviewjobs.ReviewJobsView;
 import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.server.job.Job;
-import com.clouway.jobex.server.jobsreview.JobsReviewService;
+import com.clouway.jobex.server.reviewjobs.JobsReviewService;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.shared.JobProxy;
 import org.junit.Before;
@@ -74,7 +78,7 @@ public class JobsReviewPresenterImplTest {
     when(companyNameProvider.getUsername()).thenReturn(companyName);
     when(service.getAnnouncedJobsForCompany(companyNameCaptor.capture())).thenReturn(listOfAnnouncedJobs);
 
-    presenter.reviewAnnouncedJobs(companyName);
+    presenter.reviewAnnouncedJobs();
 
     verify(service).getAnnouncedJobsForCompany(companyNameCaptor.capture());
     verify(view, never()).showNoAnnouncedJobsNotification();
@@ -89,7 +93,7 @@ public class JobsReviewPresenterImplTest {
 
     when(service.getAnnouncedJobsForCompany(companyNameCaptor.capture())).thenReturn(listOfAnnouncedJobs);
 
-    presenter.reviewAnnouncedJobs(companyName);
+    presenter.reviewAnnouncedJobs();
 
     verify(view).showNoAnnouncedJobsNotification();
     verify(view, never()).showAnnouncedJobs(announcedJobsCaptor.capture());
