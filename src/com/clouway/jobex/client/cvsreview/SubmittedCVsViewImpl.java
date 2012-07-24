@@ -23,14 +23,14 @@ import java.util.List;
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public class ReviewCVViewImpl extends Composite implements ReviewCVView {
+public class SubmittedCVsViewImpl extends Composite implements SubmittedCVsView {
 
   private Long jobId;
 
-  interface ReviewCVViewImplUiBinder extends UiBinder<Widget, ReviewCVViewImpl> {}
+  interface ReviewCVViewImplUiBinder extends UiBinder<Widget, SubmittedCVsViewImpl> {}
   private static ReviewCVViewImplUiBinder uiBinder = GWT.create(ReviewCVViewImplUiBinder.class);
 
-  private ReviewCVPresenterImpl reviewCVPresenter;
+  private SubmittedCVsPresenterImpl reviewCVPresenter;
 
   @UiField
   CellTable cvTable;
@@ -41,7 +41,7 @@ public class ReviewCVViewImpl extends Composite implements ReviewCVView {
   private PlaceController placeController;
 
   @Inject
-  public ReviewCVViewImpl(PlaceController placeController, NavigationMenu menu) {
+  public SubmittedCVsViewImpl(PlaceController placeController, NavigationMenu menu) {
 
     this.menu = menu;
 
@@ -118,7 +118,7 @@ public class ReviewCVViewImpl extends Composite implements ReviewCVView {
     Window.alert("Email was sent!");
   }
 
-  public void setPresenter(ReviewCVPresenterImpl reviewCVPresenter) {
+  public void setPresenter(SubmittedCVsPresenterImpl reviewCVPresenter) {
     this.reviewCVPresenter = reviewCVPresenter;
   }
 
@@ -126,4 +126,7 @@ public class ReviewCVViewImpl extends Composite implements ReviewCVView {
     this.jobId = jobId;
   }
 
+  public boolean isConfirmed() {
+    return Window.confirm("Approve selected CV?");
+  }
 }

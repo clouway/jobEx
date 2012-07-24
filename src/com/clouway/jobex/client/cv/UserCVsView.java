@@ -1,6 +1,7 @@
 package com.clouway.jobex.client.cv;
 
 
+import com.clouway.jobex.client.confirmation.Confirmation;
 import com.clouway.jobex.shared.CVProxy;
 import com.google.gwt.user.client.ui.IsWidget;
 
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public interface UserCVsView extends IsWidget {
+public interface UserCVsView extends IsWidget, Confirmation {
 
   /**
    * notifies user of Successful job appliance when the user applies for a job

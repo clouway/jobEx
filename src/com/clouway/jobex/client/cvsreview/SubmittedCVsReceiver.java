@@ -8,11 +8,11 @@ import java.util.List;
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public class ReviewCVReceiver extends Receiver<List<CVProxy>> {
+public class SubmittedCVsReceiver extends Receiver<List<CVProxy>> {
 
-  private ReviewCVView view;
+  private SubmittedCVsView view;
 
-  public ReviewCVReceiver(ReviewCVView view) {
+  public SubmittedCVsReceiver(SubmittedCVsView view) {
     this.view = view;
   }
 

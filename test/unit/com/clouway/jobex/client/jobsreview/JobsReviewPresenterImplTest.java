@@ -28,13 +28,12 @@ import static org.mockito.MockitoAnnotations.initMocks;
  */
 public class JobsReviewPresenterImplTest {
 
-  private ReviewJobsPresenter reviewJobsPresenter;
-  private JobExRequestFactory.JobsReviewContext jobsReviewContext;
-  private JobsReviewService jobsReviewService;
-  private ReviewJobsReceiver reviewJobsReceiver;
+  private ReviewJobsPresenter presenter;
+  private JobsReviewService service;
+  private ReviewJobsReceiver receiver;
 
   @Mock
-  private ReviewJobsView reviewJobsView;
+  private ReviewJobsView view;
 
   @Mock
   private CompanyNameProvider companyNameProvider;
@@ -45,7 +44,10 @@ public class JobsReviewPresenterImplTest {
   @Captor
   private ArgumentCaptor<List<JobProxy>> announcedJobsCaptor;
 
-  private List<Job> announcedJobs;
+  @Captor
+  private ArgumentCaptor<Long> jobIdCaptor;
+
+  private List<Job> listOfAnnouncedJobs;
 
   private final String companyName = "clouway";
 
@@ -55,35 +57,29 @@ public class JobsReviewPresenterImplTest {
 
     JobExRequestFactory requestFactory = RequestFactoryHelper.create(JobExRequestFactory.class);
 
-    jobsReviewContext = requestFactory.jobsReviewContext();
+    receiver = new ReviewJobsReceiver(view);
 
-    reviewJobsReceiver = new ReviewJobsReceiver(reviewJobsView);
+    service = RequestFactoryHelper.getService(JobsReviewService.class);
 
-    jobsReviewService = RequestFactoryHelper.getService(JobsReviewService.class);
+    presenter = new ReviewJobsPresenterImpl(requestFactory, view, companyNameProvider);
 
-    reviewJobsPresenter = new ReviewJobsPresenterImpl(requestFactory, reviewJobsView, companyNameProvider);
-
-    announcedJobs = new ArrayList<Job>();
+    listOfAnnouncedJobs = new ArrayList<Job>();
   }
 
   @Test
   public void showAnnouncedJobsForGivenCompany() {
 
-    announcedJobs.add(new Job());
+    listOfAnnouncedJobs.add(new Job());
 
-    when(companyNameProvider.getCompanyName()).thenReturn("clouway");
+    when(companyNameProvider.getCompanyName()).thenReturn(companyName);
+    when(service.getAnnouncedJobsForCompany(companyNameCaptor.capture())).thenReturn(listOfAnnouncedJobs);
 
-    when(jobsReviewService.getAnnouncedJobsForCompany(companyNameCaptor.capture())).thenReturn(announcedJobs);
+    presenter.reviewAnnouncedJobs(companyName);
 
-    reviewJobsPresenter.reviewAnnouncedJobs(companyName);
-
-    verify(jobsReviewService).getAnnouncedJobsForCompany(companyNameCaptor.capture());
-
-    verify(reviewJobsView, never()).showNoAnnouncedJobsNotification();
-
-    verify(reviewJobsView).showAnnouncedJobs(announcedJobsCaptor.capture());
-
-    verify(jobsReviewService).getAnnouncedJobsForCompany("clouway");
+    verify(service).getAnnouncedJobsForCompany(companyNameCaptor.capture());
+    verify(view, never()).showNoAnnouncedJobsNotification();
+    verify(service).getAnnouncedJobsForCompany(companyName);
+    verify(view).showAnnouncedJobs(announcedJobsCaptor.capture());
 
     assertThat(companyName, is(equalTo(companyNameCaptor.getValue())));
   }
@@ -91,32 +87,41 @@ public class JobsReviewPresenterImplTest {
   @Test
   public void showNotificationWhenCompanyHasNoAnnouncedJobs() {
 
-    when(jobsReviewService.getAnnouncedJobsForCompany(companyNameCaptor.capture())).thenReturn(announcedJobs);
+    when(service.getAnnouncedJobsForCompany(companyNameCaptor.capture())).thenReturn(listOfAnnouncedJobs);
 
-    reviewJobsPresenter.reviewAnnouncedJobs(companyName);
+    presenter.reviewAnnouncedJobs(companyName);
 
-    verify(reviewJobsView).showNoAnnouncedJobsNotification();
-    verify(reviewJobsView, never()).showAnnouncedJobs(announcedJobsCaptor.capture());
+    verify(view).showNoAnnouncedJobsNotification();
+    verify(view, never()).showAnnouncedJobs(announcedJobsCaptor.capture());
   }
 
   @Test
   public void deleteAnnouncedJobByGivenId() {
 
     Long jobId = 1l;
-    String companyName = "clouway";
-    List<Job> announcedJobs = new ArrayList<Job>();
 
-    when(jobsReviewService.deleteAnnouncedJob(jobId, companyName)).thenReturn(announcedJobs);
+    when(view.isConfirmed()).thenReturn(true);
+    when(service.deleteAnnouncedJob(jobIdCaptor.capture(), companyNameCaptor.capture())).thenReturn(listOfAnnouncedJobs);
 
-    reviewJobsPresenter.deleteAnnouncedJob(jobId, companyName);
+    presenter.deleteAnnouncedJob(jobId, companyName);
 
-    ArgumentCaptor<Long> jobIdCaptor = ArgumentCaptor.forClass(Long.class);
-    ArgumentCaptor<String> companyNameCaptor = ArgumentCaptor.forClass(String.class);
-
-    verify(jobsReviewService).deleteAnnouncedJob(jobIdCaptor.capture(), companyNameCaptor.capture());
-    verify(reviewJobsView).updateAnnounceJobs(announcedJobsCaptor.capture());
+    verify(view).isConfirmed();
+    verify(service).deleteAnnouncedJob(jobIdCaptor.capture(), companyNameCaptor.capture());
+    verify(view).updateAnnounceJobs(announcedJobsCaptor.capture());
 
     assertThat(jobId, is(equalTo(jobIdCaptor.getValue())));
     assertThat(companyName, is(equalTo(companyNameCaptor.getValue())));
+  }
+
+  @Test
+  public void cannotDeleteAnnouncedJobWithoutConfirmation() {
+
+    Long jobId = 1l;
+
+    when(view.isConfirmed()).thenReturn(false);
+
+    presenter.deleteAnnouncedJob(jobId, companyName);
+
+    verify(service, never()).deleteAnnouncedJob(jobId, companyName);
   }
 }

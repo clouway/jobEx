@@ -6,11 +6,11 @@ import com.google.gwt.place.shared.PlaceTokenizer;
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public class ReviewCVPlace extends Place {
+public class SubmittedCVsPlace extends Place {
 
   private final Long jobId;
 
-  public ReviewCVPlace(Long jobId) {
+  public SubmittedCVsPlace(Long jobId) {
 
     this.jobId = jobId;
   }
@@ -19,13 +19,13 @@ public class ReviewCVPlace extends Place {
     return jobId;
   }
 
-  public static class Tokenizer implements PlaceTokenizer<ReviewCVPlace> {
+  public static class Tokenizer implements PlaceTokenizer<SubmittedCVsPlace> {
 
-    public ReviewCVPlace getPlace(String token) {
-      return new ReviewCVPlace(Long.valueOf(token));
+    public SubmittedCVsPlace getPlace(String token) {
+      return new SubmittedCVsPlace(Long.valueOf(token));
     }
 
-    public String getToken(ReviewCVPlace place) {
+    public String getToken(SubmittedCVsPlace place) {
       return "reviewCV";
     }
   }

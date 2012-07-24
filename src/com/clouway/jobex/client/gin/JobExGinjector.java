@@ -2,7 +2,7 @@ package com.clouway.jobex.client.gin;
 
 import com.clouway.jobex.client.cv.UserCVsPresenter;
 import com.clouway.jobex.client.cv.UserCVsView;
-import com.clouway.jobex.client.cvsreview.ReviewCVPresenterImpl;
+import com.clouway.jobex.client.cvsreview.SubmittedCVsPresenterImpl;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
@@ -25,5 +25,5 @@ public interface JobExGinjector extends Ginjector {
 
   UserCVsView jobApplicationView();
 
-  ReviewCVPresenterImpl reviewCVPresenter();
+  SubmittedCVsPresenterImpl reviewCVPresenter();
 }

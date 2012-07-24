@@ -61,5 +61,7 @@ public class JobEditor extends Composite implements Editor<JobProxy> {
     categoryEditor = new LeafValueEditorImpl(new ListBoxWrapperImpl(selectCategory));
 
     locationEditor = new LeafValueEditorImpl(new ListBoxWrapperImpl(selectLocation));
+
+    date.setStartDate(String.valueOf(new Date()));
   }
 }

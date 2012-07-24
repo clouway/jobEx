@@ -3,7 +3,7 @@ package com.clouway.jobex.client.cvsreview;
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public interface ReviewCVPresenter {
+public interface SubmittedCVsPresenter {
 
   /**
    * Review submitted CVs for a job

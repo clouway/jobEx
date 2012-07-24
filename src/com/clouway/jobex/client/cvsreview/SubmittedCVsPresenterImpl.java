@@ -10,16 +10,16 @@ import com.google.inject.Inject;
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public class ReviewCVPresenterImpl extends AbstractActivity implements ReviewCVPresenter {
+public class SubmittedCVsPresenterImpl extends AbstractActivity implements SubmittedCVsPresenter {
 
   private JobExRequestFactory requestFactory;
 
-  private ReviewCVView view;
+  private SubmittedCVsView view;
 
   private Long jobId;
 
   @Inject
-  public ReviewCVPresenterImpl(JobExRequestFactory requestFactory, ReviewCVView view) {
+  public SubmittedCVsPresenterImpl(JobExRequestFactory requestFactory, SubmittedCVsView view) {
     this.requestFactory = requestFactory;
     this.view = view;
   }
@@ -28,7 +28,7 @@ public class ReviewCVPresenterImpl extends AbstractActivity implements ReviewCVP
 
     this.jobId = jobId;
 
-    requestFactory.cvsRequestContext().getSubmittedCVs(jobId).to(new ReviewCVReceiver(view)).fire();
+    requestFactory.cvsRequestContext().getSubmittedCVs(jobId).to(new SubmittedCVsReceiver(view)).fire();
   }
 
   /**
@@ -39,7 +39,11 @@ public class ReviewCVPresenterImpl extends AbstractActivity implements ReviewCVP
    */
   public void sendEmailApproval(Long jobId, String email) {
 
-    requestFactory.emailServiceContext().sendEmailApproval(jobId, email).to(new EmailNotificator(view)).fire();
+    if(!view.isConfirmed()) {
+      return;
+    }
+
+    requestFactory.emailServiceContext().sendEmailApproval(jobId, email).to(new SentEmailReceiver(view)).fire();
   }
 
   public void start(AcceptsOneWidget panel, EventBus eventBus) {

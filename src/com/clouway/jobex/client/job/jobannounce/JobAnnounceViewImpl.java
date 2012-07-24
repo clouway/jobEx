@@ -91,4 +91,8 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
     driver.edit(proxy, context);
 
   }
+
+  public boolean isConfirmed() {
+    return Window.confirm("Do you want to announce the job?");
+  }
 }
