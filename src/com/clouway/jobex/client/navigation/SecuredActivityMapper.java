@@ -42,7 +42,6 @@ public class SecuredActivityMapper implements ActivityMapper {
     if (activity == null) {
       return new PageNotFoundActivity();
     }
-
     return activity.getActivity(place);
   }
 
