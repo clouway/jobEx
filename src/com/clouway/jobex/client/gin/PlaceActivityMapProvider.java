@@ -6,8 +6,6 @@ import com.clouway.jobex.client.cv.EditCVPlace;
 import com.clouway.jobex.client.cv.EditCvWorkflow;
 import com.clouway.jobex.client.cv.PreviewCvPlace;
 import com.clouway.jobex.client.cv.UserCVsPresenter;
-import com.clouway.jobex.client.cvsreview.ReviewCVPlace;
-import com.clouway.jobex.client.cvsreview.ReviewCVPresenterImpl;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePlace;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
@@ -54,8 +52,6 @@ public class PlaceActivityMapProvider implements Provider<Map<Class<? extends Pl
   @Inject
   LoginPresenter loginPresenter;
 
-  @Inject
-  ReviewCVPresenterImpl reviewCVPresenter;
 
   @Override
   public Map<Class<? extends Place>, ActivityPlaceMetadata> get() {
@@ -116,13 +112,13 @@ public class PlaceActivityMapProvider implements Provider<Map<Class<? extends Pl
       }
     });
 
-    map.put(ReviewCVPlace.class, new ActivityPlaceMetadata<ReviewCVPlace, ReviewCVPresenterImpl>() {
-      @Override
-      public ReviewCVPresenterImpl getActivity(ReviewCVPlace reviewCVPlace) {
-        reviewCVPresenter.reviewSubmittedCVs(reviewCVPlace.getJobId());
-        return reviewCVPresenter;
-      }
-    });
+//    map.put(ReviewCVPlace.class, new ActivityPlaceMetadata<ReviewCVPlace, ReviewCVPresenterImpl>() {
+//      @Override
+//      public ReviewCVPresenterImpl getActivity(ReviewCVPlace reviewCVPlace) {
+//        reviewCVPresenter.reviewSubmittedCVs(reviewCVPlace.getJobId());
+//        return reviewCVPresenter;
+//      }
+//    });
 
 
 

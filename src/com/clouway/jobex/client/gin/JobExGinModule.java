@@ -4,19 +4,12 @@ import com.clouway.jobex.client.cv.CreatingNewCVWorkflowView;
 import com.clouway.jobex.client.cv.CreatingNewCVWorkflowViewImpl;
 import com.clouway.jobex.client.cv.EditCVWorkflowView;
 import com.clouway.jobex.client.cv.EditCVWorkflowViewImpl;
-<<<<<<< HEAD
 import com.clouway.jobex.client.cvsreview.SubmittedCVsPresenter;
 import com.clouway.jobex.client.cvsreview.SubmittedCVsPresenterImpl;
 import com.clouway.jobex.client.cvsreview.SubmittedCVsView;
 import com.clouway.jobex.client.cvsreview.SubmittedCVsViewImpl;
-=======
 import com.clouway.jobex.client.cv.UserCVsView;
 import com.clouway.jobex.client.cv.UserCVsViewImpl;
-import com.clouway.jobex.client.cvsreview.ReviewCVPresenter;
-import com.clouway.jobex.client.cvsreview.ReviewCVPresenterImpl;
-import com.clouway.jobex.client.cvsreview.ReviewCVView;
-import com.clouway.jobex.client.cvsreview.ReviewCVViewImpl;
->>>>>>> A user can not access secured place without beeing authorized
 import com.clouway.jobex.client.job.jobannounce.JobAnnounceView;
 import com.clouway.jobex.client.job.jobannounce.JobAnnounceViewImpl;
 import com.clouway.jobex.client.job.jobsearch.JobSearchView;
