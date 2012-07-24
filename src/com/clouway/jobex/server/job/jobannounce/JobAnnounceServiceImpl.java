@@ -5,6 +5,8 @@ import com.clouway.jobex.server.job.Job;
 import com.clouway.jobex.server.job.JobRepository;
 import com.google.inject.Inject;
 
+import javax.validation.Validator;
+
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
@@ -12,9 +14,12 @@ public class JobAnnounceServiceImpl implements JobAnnounceService {
 
   private final JobRepository repository;
 
+  private final Validator validator;
+
   @Inject
-  public JobAnnounceServiceImpl(JobRepository repository) {
+  public JobAnnounceServiceImpl(JobRepository repository, Validator validator) {
     this.repository = repository;
+    this.validator = validator;
   }
 
   /**
