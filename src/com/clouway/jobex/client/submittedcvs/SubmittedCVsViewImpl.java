@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.submittedcvs;
 
-import com.clouway.jobex.client.jobsreview.ReviewJobsPlace;
+import com.clouway.jobex.client.reviewjobs.ReviewJobsPlace;
 import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.shared.CVProxy;
 import com.github.gwtbootstrap.client.ui.CellTable;

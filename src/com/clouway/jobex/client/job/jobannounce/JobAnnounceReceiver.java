@@ -2,6 +2,9 @@ package com.clouway.jobex.client.job.jobannounce;
 
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
+import javax.validation.ConstraintViolation;
+import java.util.Set;
+
 /**
  * JobAnnounceReceiver implements Receiver<Void>
  *
@@ -23,5 +26,10 @@ public class JobAnnounceReceiver extends Receiver<Void> {
    */
   public void onSuccess(Void response) {
     view.goToSearchPlace();
+  }
+
+
+  public void onConstraintViolation(Set<ConstraintViolation<?>> violations) {
+
   }
 }

@@ -1,4 +1,4 @@
-package com.clouway.jobex.server.jobsreview;
+package com.clouway.jobex.server.reviewjobs;
 
 import com.clouway.jobex.server.job.JobRepositoryImpl;
 import com.clouway.jobex.server.job.jobsearch.JobObjectConverter;

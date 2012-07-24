@@ -9,7 +9,7 @@ import com.clouway.jobex.client.cv.PreviewCvPlace;
 import com.clouway.jobex.client.submittedcvs.SubmittedCVsPlace;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePlace;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
-import com.clouway.jobex.client.jobsreview.ReviewJobsPlace;
+import com.clouway.jobex.client.reviewjobs.ReviewJobsPlace;
 import com.clouway.jobex.client.useraccess.login.LoginPlace;
 import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
