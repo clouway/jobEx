@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public interface ReviewCVView extends Confirmation {
+public interface SubmittedCVsView extends Confirmation {
 
   /**
    * Show submitted CVs for a job
@@ -27,7 +27,7 @@ public interface ReviewCVView extends Confirmation {
    *
    * @param reviewCVPresenter - a reviewCVPresenter
    */
-  void setPresenter(ReviewCVPresenterImpl reviewCVPresenter);
+  void setPresenter(SubmittedCVsPresenterImpl reviewCVPresenter);
 
   void goToReviewJobPlace();
 

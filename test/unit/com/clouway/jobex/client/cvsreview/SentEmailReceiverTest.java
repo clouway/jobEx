@@ -16,7 +16,7 @@ public class SentEmailReceiverTest {
 
   private Mockery context = new JUnit4Mockery();
 
-  private ReviewCVView view = context.mock(ReviewCVView.class);
+  private SubmittedCVsView view = context.mock(SubmittedCVsView.class);
 
   private SentEmailReceiver sentEmailReceiver;
 

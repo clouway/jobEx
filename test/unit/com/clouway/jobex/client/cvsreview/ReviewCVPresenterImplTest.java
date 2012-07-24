@@ -29,7 +29,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class ReviewCVPresenterImplTest {
 
   @Mock
-  private ReviewCVView view;
+  private SubmittedCVsView view;
 
   @Mock
   private CvsService service;
@@ -46,7 +46,7 @@ public class ReviewCVPresenterImplTest {
   @Captor
   private ArgumentCaptor<String> emailCaptor;
 
-  private ReviewCVPresenter presenter;
+  private SubmittedCVsPresenter presenter;
 
   private final Long jobId = 1l;
 
@@ -63,7 +63,7 @@ public class ReviewCVPresenterImplTest {
 
     emailService = RequestFactoryHelper.getService(EmailService.class);
 
-    presenter = new ReviewCVPresenterImpl(requestFactory, view);
+    presenter = new SubmittedCVsPresenterImpl(requestFactory, view);
 
     submittedCVs = new ArrayList<CV>();
   }

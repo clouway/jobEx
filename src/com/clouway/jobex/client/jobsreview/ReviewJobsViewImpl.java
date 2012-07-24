@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.jobsreview;
 
+import com.clouway.jobex.client.cvsreview.SubmittedCVsPlace;
 import com.clouway.jobex.client.navigation.NavigationMenu;
-import com.clouway.jobex.client.cvsreview.ReviewCVPlace;
 import com.clouway.jobex.client.security.CompanyNameProvider;
 import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.cell.client.ButtonCell;
@@ -120,7 +120,7 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
     previewCVs.setFieldUpdater(new FieldUpdater<JobProxy, String>(){
       public void update(int index, JobProxy jobProxy, String value) {
 
-        placeController.goTo(new ReviewCVPlace(jobProxy.getId()));
+        placeController.goTo(new SubmittedCVsPlace(jobProxy.getId()));
       }
     });
 

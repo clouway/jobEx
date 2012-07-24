@@ -7,13 +7,13 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
  */
 public class SentEmailReceiver extends Receiver<Void> {
 
-  private ReviewCVView reviewCVView;
+  private SubmittedCVsView submittedCVsView;
 
-  public SentEmailReceiver(ReviewCVView reviewCVView) {
-    this.reviewCVView = reviewCVView;
+  public SentEmailReceiver(SubmittedCVsView submittedCVsView) {
+    this.submittedCVsView = submittedCVsView;
   }
 
   public void onSuccess(Void response) {
-    reviewCVView.showSentEmailNotification();
+    submittedCVsView.showSentEmailNotification();
   }
 }
