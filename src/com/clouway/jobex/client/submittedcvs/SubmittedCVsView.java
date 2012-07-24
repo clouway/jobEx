@@ -1,4 +1,4 @@
-package com.clouway.jobex.client.cvsreview;
+package com.clouway.jobex.client.submittedcvs;
 
 
 import com.clouway.jobex.shared.CVProxy;

@@ -6,7 +6,7 @@ import com.clouway.jobex.client.cv.EditCVPlace;
 import com.clouway.jobex.client.cv.PreviewCvPlace;
 
 
-import com.clouway.jobex.client.cvsreview.SubmittedCVsPlace;
+import com.clouway.jobex.client.submittedcvs.SubmittedCVsPlace;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePlace;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
 import com.clouway.jobex.client.jobsreview.ReviewJobsPlace;
