@@ -1,8 +1,10 @@
 package com.clouway.jobex.client.job.jobannounce;
 
+import com.google.gwt.user.client.Window;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
 import javax.validation.ConstraintViolation;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -28,8 +30,16 @@ public class JobAnnounceReceiver extends Receiver<Void> {
     view.goToSearchPlace();
   }
 
-
   public void onConstraintViolation(Set<ConstraintViolation<?>> violations) {
 
+    Iterator<ConstraintViolation<?>> iterator = violations.iterator();
+
+    StringBuilder stringBuilder = new StringBuilder();
+
+    while (iterator.hasNext()) {
+      stringBuilder.append(iterator.next().getMessage()).append("\n");
+    }
+
+    Window.alert(stringBuilder.toString());
   }
 }

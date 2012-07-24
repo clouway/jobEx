@@ -6,6 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.Date;
 
 import static org.mockito.Mockito.verify;
@@ -23,11 +26,20 @@ public class JobAnnounceServiceImplTest {
   @Mock
   private JobRepository repository;
 
+  private ValidatorFactory validatorFactory;
+
+  private Validator validator;
+
   @Before
   public void setUp() {
+
     initMocks(this);
 
-    service = new JobAnnounceServiceImpl(repository);
+    validatorFactory = Validation.buildDefaultValidatorFactory();
+
+    validator = validatorFactory.getValidator();
+
+    service = new JobAnnounceServiceImpl(repository, validator);
   }
 
   @Test
@@ -38,5 +50,10 @@ public class JobAnnounceServiceImplTest {
     service.announceJob(companyName, job);
 
     verify(repository).saveJob(companyName, job);
+  }
+
+  @Test
+  public void jobWithoutPositionCannotBeAnnounced() {
+
   }
 }

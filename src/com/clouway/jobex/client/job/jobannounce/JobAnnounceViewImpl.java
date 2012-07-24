@@ -4,6 +4,7 @@ import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
 import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.shared.JobProxy;
+import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.place.shared.PlaceController;
@@ -37,10 +38,10 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
   JobEditor jobEditor;
 
   @UiField
-  com.github.gwtbootstrap.client.ui.Button cancel;
+  Button cancel;
 
   @UiField
-  com.github.gwtbootstrap.client.ui.Button announce;
+  Button announce;
 
   private PlaceController placeController;
 
