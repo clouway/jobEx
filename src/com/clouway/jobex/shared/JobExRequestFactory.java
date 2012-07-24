@@ -88,7 +88,7 @@ public interface JobExRequestFactory extends RequestFactory {
   public interface AuthorizationContext extends RequestContext {
     Request<Void> register(String registrationType, String email, String password);
     
-    Request<Boolean> verifyLogin(String loginType, String email, String password);
+    Request<String> login(String loginType, String email, String password);
   }
 
 

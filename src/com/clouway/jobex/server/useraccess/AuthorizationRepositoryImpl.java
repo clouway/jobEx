@@ -49,4 +49,24 @@ public class AuthorizationRepositoryImpl implements AuthorizationRepository {
     return password.equals(String.valueOf(loginEntity.getProperty("password")));
 
   }
+
+  @Override
+  public void saveAsLogged(String email, String loginType, String id) {
+    Entity loggedUser = new Entity("Logged", email);
+    loggedUser.setProperty("loginType", loginType);
+    loggedUser.setProperty("id", id);
+
+    datastoreService.put(loggedUser);
+  }
+
+  @Override
+  public boolean isUserAuthorized(String email, String id) {
+    Entity loggedUser;
+    try {
+      loggedUser = datastoreService.get(KeyFactory.createKey("Logged",email));
+    } catch (EntityNotFoundException e) {
+      return false;
+    }
+    return id.equals(String.valueOf(loggedUser.getProperty("id")));
+  }
 }
