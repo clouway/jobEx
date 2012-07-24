@@ -5,11 +5,11 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public class EmailNotificator extends Receiver<Void> {
+public class SentEmailReceiver extends Receiver<Void> {
 
   private ReviewCVView reviewCVView;
 
-  public EmailNotificator(ReviewCVView reviewCVView) {
+  public SentEmailReceiver(ReviewCVView reviewCVView) {
     this.reviewCVView = reviewCVView;
   }
 

@@ -43,7 +43,7 @@ public class ReviewCVPresenterImpl extends AbstractActivity implements ReviewCVP
       return;
     }
 
-    requestFactory.emailServiceContext().sendEmailApproval(jobId, email).to(new EmailNotificator(view)).fire();
+    requestFactory.emailServiceContext().sendEmailApproval(jobId, email).to(new SentEmailReceiver(view)).fire();
   }
 
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
