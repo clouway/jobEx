@@ -47,7 +47,7 @@ public class JobAnnounceServiceImplTest {
 
     String companyName = "company";
 
-    service.announceJob(companyName, job);
+    //service.announceJob(companyName, job);
 
     verify(repository).saveJob(companyName, job);
   }

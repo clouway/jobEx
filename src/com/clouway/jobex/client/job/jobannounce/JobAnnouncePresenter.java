@@ -1,5 +1,7 @@
 package com.clouway.jobex.client.job.jobannounce;
 
+import com.clouway.jobex.shared.JobProxy;
+
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
@@ -11,8 +13,7 @@ public interface JobAnnouncePresenter {
    */
   void initialize();
 
-  /**
-   * Announce new Job, i.e. fires RequestContext
-   */
-  void announceJob();
+  void announceJob(JobProxy jobProxy);
+
+  JobProxy createProxy();
 }

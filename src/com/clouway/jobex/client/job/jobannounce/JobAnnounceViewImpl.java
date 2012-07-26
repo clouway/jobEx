@@ -2,8 +2,10 @@ package com.clouway.jobex.client.job.jobannounce;
 
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
 import com.clouway.jobex.client.navigation.NavigationMenu;
+import com.clouway.jobex.client.reviewjobs.ReviewJobsPlace;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.shared.JobProxy;
+import com.github.gwtbootstrap.client.ui.AlertBlock;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -17,22 +19,22 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 
+import java.util.List;
+
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
 public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
 
-  interface JobAnnounceViewImplUiBinder extends UiBinder<Widget, JobAnnounceViewImpl> {
-  }
-
+  interface JobAnnounceViewImplUiBinder extends UiBinder<Widget, JobAnnounceViewImpl> {}
   private static JobAnnounceViewImplUiBinder uiBinder = GWT.create(JobAnnounceViewImplUiBinder.class);
 
-  interface Driver extends RequestFactoryEditorDriver<JobProxy, JobEditor> {
-  }
-
+  interface Driver extends RequestFactoryEditorDriver<JobProxy, JobEditor> {}
   private final Driver driver = GWT.create(Driver.class);
 
   private JobAnnouncePresenter presenter;
+
+  private JobProxy proxy;
 
   @UiField
   JobEditor jobEditor;
@@ -43,6 +45,8 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
   @UiField
   Button announce;
 
+  @UiField
+  AlertBlock alert;
   private PlaceController placeController;
 
   @Inject
@@ -65,7 +69,7 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
 
     if (presenter != null) {
       driver.flush();
-      presenter.announceJob();
+      presenter.announceJob(proxy);
     }
   }
 
@@ -77,15 +81,26 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
   /**
    * Go to SearchPlace after announcing new job
    */
-  public void goToSearchPlace() {
+  public void goToReviewJobsPlace() {
     Window.alert("Job was announced!");
-    placeController.goTo(new JobSearchPlace());
+    placeController.goTo(new ReviewJobsPlace());
   }
 
-  @Override
   public void edit(JobExRequestFactory.JobRequestContext context, JobProxy proxy) {
+    this.proxy = proxy;
     driver.edit(proxy, context);
+  }
 
+  public void showOccurredErrors(List<String> listOfErrors) {
+
+    StringBuilder builder = new StringBuilder();
+
+    for (String listOfError : listOfErrors) {
+      builder.append(listOfError).append(" ");
+    }
+
+    alert.setText(builder.toString());
+    alert.setVisible(true);
   }
 
   public boolean isConfirmed() {

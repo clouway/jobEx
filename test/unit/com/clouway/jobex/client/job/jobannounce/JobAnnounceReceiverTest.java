@@ -4,6 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -20,15 +24,26 @@ public class JobAnnounceReceiverTest {
   @Before
   public void setUp() {
     initMocks(this);
-
     receiver = new JobAnnounceReceiver(view);
   }
 
   @Test
-  public void onSuccessGoToMainPlace() {
+  public void loadSpecificPageIfThereAreNoErrors() {
 
-    receiver.onSuccess(null);
+    receiver.onSuccess(new ArrayList<String>());
 
-    verify(view).goToSearchPlace();
+    verify(view).goToReviewJobsPlace();
+  }
+
+  @Test
+  public void showOccurredErrors() {
+
+    List<String> listOfErrors = new ArrayList<String>();
+    listOfErrors.add("Position can't be empty");
+
+    receiver.onSuccess(listOfErrors);
+
+    verify(view).showOccurredErrors(listOfErrors);
+    verify(view, never()).goToReviewJobsPlace();
   }
 }
