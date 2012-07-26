@@ -21,7 +21,6 @@ public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnn
   private final UserCredentialsLocalStorage companyNameProvider;
 
   private JobExRequestFactory.JobRequestContext requestContext;
-  private JobProxy editableJobProxy;
 
   @Inject
   public JobAnnouncePresenterImpl(JobExRequestFactory requestFactory, JobAnnounceView view, UserCredentialsLocalStorage companyNameProvider) {
@@ -33,20 +32,19 @@ public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnn
   /**
    * Announce a job, i.e. fires the request
    */
-  public void announceJob() {
-    requestContext.fire();
+  public void announceJob(JobProxy jobProxy) {
+
+    //requestContext.announceJob(companyNameProvider.getCompanyName(), jobProxy).fire(new JobAnnounceReceiver(view));
   }
 
   public void initialize() {
+    //requestContext = requestFactory.jobRequestContext();
 
-    requestContext = requestFactory.jobRequestContext();
+    //JobProxy jobProxy = requestContext.create(JobProxy.class);
 
-    JobProxy jobProxy = requestContext.create(JobProxy.class);
+    //JobProxy editableJobProxy = requestContext.edit(jobProxy);
 
-    editableJobProxy = requestContext.edit(jobProxy);
-
-    requestContext.announceJob(companyNameProvider.getUsername(), editableJobProxy).to(new JobAnnounceReceiver(view));
-
+    //requestContext.announceJob(companyNameProvider.getUsername(), editableJobProxy).to(new JobAnnounceReceiver(view));
   }
 
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
@@ -54,10 +52,13 @@ public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnn
     this.initialize();
 
     view.setPresenter(this);
-
-    view.edit(requestContext, editableJobProxy);
+    view.edit(requestContext, createProxy());
 
     panel.setWidget((IsWidget) view);
+  }
 
+  public JobProxy createProxy() {
+    JobProxy jobProxy = requestContext.create(JobProxy.class);
+    return requestContext.edit(jobProxy);
   }
 }

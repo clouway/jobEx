@@ -12,6 +12,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -21,12 +24,6 @@ import static org.mockito.MockitoAnnotations.initMocks;
  */
 public class JobAnnouncePresenterImplTest {
 
-  private JobAnnouncePresenterImpl presenter;
-
-  private JobAnnounceService service;
-
-  private Receiver<Void> receiver;
-
   @Mock
   private JobAnnounceView view;
 
@@ -34,38 +31,49 @@ public class JobAnnouncePresenterImplTest {
   private UserCredentialsLocalStorage companyNameProvider;
 
   @Captor
-  ArgumentCaptor<Job> jobCaptor;
+  private ArgumentCaptor<String> companyNameCaptor;
 
   @Captor
-  ArgumentCaptor<String> companyCaptor;
+  private ArgumentCaptor<Job> jobCaptor;
+
+  private JobAnnounceService service;
+  private JobExRequestFactory requestFactory;
+  private JobAnnouncePresenter presenter;
+  private Receiver<Void> receiver;
+
+  private final String companyName = "company";
 
   @Before
   public void setUp() {
 
     initMocks(this);
 
-    JobExRequestFactory requestFactory = RequestFactoryHelper.create(JobExRequestFactory.class);
-
-    receiver = new JobAnnounceReceiver(view);
-
+    requestFactory = RequestFactoryHelper.create(JobExRequestFactory.class);
     service = RequestFactoryHelper.getService(JobAnnounceService.class);
-
     presenter = new JobAnnouncePresenterImpl(requestFactory, view, companyNameProvider);
+    receiver = new JobAnnounceReceiver(view);
   }
 
   @Test
-  public void announceJobOnConfirmation() {
+  public void jobIsAnnouncedAfterConfirmation() {
 
-    String company = "Qwerty";
+    when(companyNameProvider.getUsername()).thenReturn(companyName);
 
-    when(companyNameProvider.getUsername()).thenReturn(company);
 
-    presenter.initialize();
+    when(companyNameProvider.getUsername()).thenReturn(companyName);
+
+    presenter.prepareJob();
+
     presenter.announceJob();
 
     verify(companyNameProvider).getUsername();
-    verify(service).announceJob(companyCaptor.capture(), jobCaptor.capture());
-    verify(view).goToSearchPlace();
+    verify(service).announceJob(companyNameCaptor.capture(), jobCaptor.capture());
+    verify(view).goToReviewJobsPlace();
+
+    verify(service).announceJob(companyNameCaptor.capture(), jobCaptor.capture());
+    verify(view).goToReviewJobsPlace();
+
+    assertThat(companyName, is(equalTo(companyNameCaptor.getValue())));
   }
 
 }

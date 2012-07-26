@@ -60,13 +60,13 @@ public interface JobExRequestFactory extends RequestFactory {
   public interface JobRequestContext extends RequestContext {
 
     /**
-     * Announce a job with given companyName and JobProxy
+     * Announce new job for given company
      *
-     * @param companyName a companyName
-     * @param jobProxy    a jobProxy
-     * @return - null
+     * @param companyName - name of the company
+     * @param job - announced job
+     * @return - list of any occurred errors
      */
-    Request<Void> announceJob(String companyName, JobProxy jobProxy);
+    Request<List<String>> announceJob(String companyName, JobProxy job);
   }
 
   @Service(value = JobsReviewService.class, locator = JobsReviewServiceLocator.class)

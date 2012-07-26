@@ -1,18 +1,15 @@
 package com.clouway.jobex.client.job.jobannounce;
 
-import com.google.gwt.user.client.Window;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
-import javax.validation.ConstraintViolation;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
 
 /**
  * JobAnnounceReceiver implements Receiver<Void>
  *
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public class JobAnnounceReceiver extends Receiver<Void> {
+public class JobAnnounceReceiver extends Receiver<List<String>> {
 
   private JobAnnounceView view;
 
@@ -21,25 +18,17 @@ public class JobAnnounceReceiver extends Receiver<Void> {
   }
 
   /**
-   * When onSuccess method is invoked,
-   * the view loads (goTo) MainPlace.
+   * Go to given page if there are no errors, otherwise show them.
    *
-   * @param response a returned response
+   * @param response - list of occurred errors
    */
-  public void onSuccess(Void response) {
-    view.goToSearchPlace();
-  }
+  public void onSuccess(List<String> response) {
 
-  public void onConstraintViolation(Set<ConstraintViolation<?>> violations) {
-
-    Iterator<ConstraintViolation<?>> iterator = violations.iterator();
-
-    StringBuilder stringBuilder = new StringBuilder();
-
-    while (iterator.hasNext()) {
-      stringBuilder.append(iterator.next().getMessage()).append("\n");
+    if (response.size() > 0) {
+      view.showOccurredErrors(response);
+      return;
     }
 
-    Window.alert(stringBuilder.toString());
+    view.goToReviewJobsPlace();
   }
 }

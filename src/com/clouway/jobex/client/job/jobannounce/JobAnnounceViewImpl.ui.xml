@@ -60,6 +60,8 @@
 
       </g:HorizontalPanel>
 
+      <b:AlertBlock animation="true" visible="false" ui:field="alert">AlertBlock</b:AlertBlock>
+
     </g:HTMLPanel>
 
 
