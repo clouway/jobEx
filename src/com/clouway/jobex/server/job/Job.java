@@ -13,17 +13,20 @@ public class Job {
   
   private Long version;
 
+  @NotNull
   private String company;
 
   @NotNull(message = "Position cannot be empty!")
-  @Size(min = 1, max = 20, message = "Position length 1-20 characters!")
+  @Size(min = 5, max = 20, message = "Position length must be 5-20 characters!")
   private String position;
 
+  @Size(min = 1, message = "Category is not selected!")
   private String category;
 
-  @NotNull(message = "Date cannot be empty!")
+  @NotNull(message = "Expiration date is not selected!")
   private Date expirationDate;
 
+  @Size(min = 1, message = "Location is not selected!")
   private String location;
 
   public Job() {
@@ -91,8 +94,6 @@ public class Job {
   }
 
   public void setLocation(String location) {
-
     this.location = location;
-
   }
 }

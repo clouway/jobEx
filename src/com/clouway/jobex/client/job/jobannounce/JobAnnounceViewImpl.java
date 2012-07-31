@@ -13,7 +13,6 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -33,8 +32,6 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
   private final Driver driver = GWT.create(Driver.class);
 
   private JobAnnouncePresenter presenter;
-
-  private JobProxy proxy;
 
   @UiField
   JobEditor jobEditor;
@@ -59,6 +56,11 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
     driver.initialize(jobEditor);
   }
 
+  /**
+   * Set presenter that will drive the view
+   *
+   * @param presenter a presenter
+   */
   public void setPresenter(JobAnnouncePresenter presenter) {
 
     this.presenter = presenter;
@@ -69,7 +71,7 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
 
     if (presenter != null) {
       driver.flush();
-      presenter.announceJob(proxy);
+      presenter.announceJob();
     }
   }
 
@@ -79,23 +81,32 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
   }
 
   /**
-   * Go to SearchPlace after announcing new job
+   * Go to JobsReviewPlace
    */
   public void goToReviewJobsPlace() {
-    Window.alert("Job was announced!");
     placeController.goTo(new ReviewJobsPlace());
   }
 
+  /**
+   * Edit (load the view's Driver) with given RequestContext and JobProxy
+   *
+   * @param context - RequestContext through which the proxy object will be sent to the server
+   * @param proxy - the proxy that will be sent
+   */
   public void edit(JobExRequestFactory.JobRequestContext context, JobProxy proxy) {
-    this.proxy = proxy;
     driver.edit(proxy, context);
   }
 
-  public void showOccurredErrors(List<String> listOfErrors) {
+  /**
+   * Show occurred constraint violations when announcing new Job
+   *
+   * @param listOfConstraintViolations - list of constraint violations
+   */
+  public void showConstraintViolations(List<String> listOfConstraintViolations) {
 
     StringBuilder builder = new StringBuilder();
 
-    for (String listOfError : listOfErrors) {
+    for (String listOfError : listOfConstraintViolations) {
       builder.append(listOfError).append(" ");
     }
 
@@ -103,7 +114,14 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
     alert.setVisible(true);
   }
 
-  public boolean isConfirmed() {
-    return Window.confirm("Do you want to announce the job?");
+  /**
+   * Reset the view's widgets
+   */
+  public void reset() {
+
+    alert.setVisible(false);
+
+    jobEditor.selectCategory.setSelectedIndex(0);
+    jobEditor.selectLocation.setSelectedIndex(0);
   }
 }

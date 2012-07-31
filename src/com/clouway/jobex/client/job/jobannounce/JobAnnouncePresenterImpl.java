@@ -8,6 +8,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 
 /**
  * JobAnnouncePresenterImpl class is used to announce new jobs
@@ -30,35 +31,36 @@ public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnn
   }
 
   /**
-   * Announce a job, i.e. fires the request
+   * Announce the prepared Job.
    */
-  public void announceJob(JobProxy jobProxy) {
-
-    //requestContext.announceJob(companyNameProvider.getCompanyName(), jobProxy).fire(new JobAnnounceReceiver(view));
+  public void announceJob() {
+    requestContext.fire();
   }
 
-  public void initialize() {
-    //requestContext = requestFactory.jobRequestContext();
 
-    //JobProxy jobProxy = requestContext.create(JobProxy.class);
+  public void prepareJob() {
 
-    //JobProxy editableJobProxy = requestContext.edit(jobProxy);
+    requestFactory.jobRequestContext().prepareNewJob().fire(new Receiver<JobProxy>() {
 
-    //requestContext.announceJob(companyNameProvider.getUsername(), editableJobProxy).to(new JobAnnounceReceiver(view));
+      public void onSuccess(JobProxy response) {
+
+        requestContext = requestFactory.jobRequestContext();
+        JobProxy editableProxy = requestContext.edit(response);
+
+        view.edit(requestContext, editableProxy);
+
+        requestContext.announceJob(companyNameProvider.getUsername(), editableProxy).to(new JobAnnounceReceiver(view));
+      }
+    });
   }
 
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
 
-    this.initialize();
+    prepareJob();
 
     view.setPresenter(this);
-    view.edit(requestContext, createProxy());
+    view.reset();
 
     panel.setWidget((IsWidget) view);
-  }
-
-  public JobProxy createProxy() {
-    JobProxy jobProxy = requestContext.create(JobProxy.class);
-    return requestContext.edit(jobProxy);
   }
 }

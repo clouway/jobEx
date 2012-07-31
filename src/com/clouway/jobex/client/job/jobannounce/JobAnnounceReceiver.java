@@ -2,14 +2,17 @@ package com.clouway.jobex.client.job.jobannounce;
 
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
+import javax.validation.ConstraintViolation;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * JobAnnounceReceiver implements Receiver<Void>
  *
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public class JobAnnounceReceiver extends Receiver<List<String>> {
+public class JobAnnounceReceiver extends Receiver<Void> {
 
   private JobAnnounceView view;
 
@@ -17,18 +20,25 @@ public class JobAnnounceReceiver extends Receiver<List<String>> {
     this.view = view;
   }
 
-  /**
-   * Go to given page if there are no errors, otherwise show them.
-   *
-   * @param response - list of occurred errors
-   */
-  public void onSuccess(List<String> response) {
+  public void onSuccess(Void response) {
 
-    if (response.size() > 0) {
-      view.showOccurredErrors(response);
-      return;
+    view.reset();
+    view.goToReviewJobsPlace();
+  }
+
+  /**
+   * Show constraint violations in the view
+   *
+   * @param violations - set of constraint violations
+   */
+  public void onConstraintViolation(Set<ConstraintViolation<?>> violations) {
+
+    List<String> listOfConstraintViolations = new ArrayList<String>();
+
+    for (ConstraintViolation<?> violation : violations) {
+      listOfConstraintViolations.add(violation.getMessage());
     }
 
-    view.goToReviewJobsPlace();
+    view.showConstraintViolations(listOfConstraintViolations);
   }
 }

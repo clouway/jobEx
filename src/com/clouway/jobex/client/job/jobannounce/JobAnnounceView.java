@@ -11,24 +11,34 @@ import java.util.List;
 public interface JobAnnounceView {
 
   /**
-   * Set presenter, used to drive the view
+   * Set presenter that will drive the view
    *
    * @param presenter a presenter
    */
   void setPresenter(JobAnnouncePresenter presenter);
 
   /**
-   * Go to JobsReviewPlace after announcing new job
+   * Go to JobsReviewPlace
    */
   void goToReviewJobsPlace();
 
-
+  /**
+   * Edit (load the view's Driver) with given RequestContext and JobProxy
+   *
+   * @param context - RequestContext through which the proxy object will be sent to the server
+   * @param proxy - the proxy that will be sent
+   */
   public void edit(JobExRequestFactory.JobRequestContext context, JobProxy proxy);
 
   /**
-   * Show occurred errors when announcing new job
+   * Show occurred constraint violations when announcing new Job
    *
-   * @param listOfErrors - list of occurred errors
+   * @param listOfConstraintViolations - list of constraint violations
    */
-  void showOccurredErrors(List<String> listOfErrors);
+  void showConstraintViolations(List<String> listOfConstraintViolations);
+
+  /**
+   * Reset the view's widgets
+   */
+  void reset();
 }

@@ -2,19 +2,23 @@ package com.clouway.jobex.server.job.jobannounce;
 
 import com.clouway.jobex.server.job.Job;
 
-import java.util.List;
-
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
 public interface JobAnnounceService {
 
   /**
-   * Announce new job for given company
+   * Prepare a new Job with empty properties and auto-generated id
    *
-   * @param companyName - name of company
-   * @param job - announced job
-   * @return - list of any occurred errors
+   * @return - a Job
    */
-  List<String> announceJob(String companyName, Job job);
+  Job prepareNewJob();
+
+  /**
+   * Announce new job
+   *
+   * @param companyName - the name of the company that announced the job
+   * @param job - the job that will be announced
+   */
+  void announceJob(String companyName, Job job);
 }
