@@ -1,12 +1,18 @@
 package com.clouway.jobex.server;
 
 import com.clouway.jobex.server.job.Job;
+import com.clouway.jobex.server.job.JobRepository;
+import com.clouway.jobex.server.job.JobRepositoryImpl;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.web.bindery.requestfactory.shared.Locator;
 
 /**
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
 public class JobLocator extends Locator<Job, Long> {
+
+  private JobRepository repository = new JobRepositoryImpl(DatastoreServiceFactory.getDatastoreService());
+
   @Override
   public Job create(Class<? extends Job> clazz) {
     try {
@@ -21,7 +27,7 @@ public class JobLocator extends Locator<Job, Long> {
 
   @Override
   public Job find(Class<? extends Job> clazz, Long id) {
-    return null;
+    return repository.getJob(id);
   }
 
   @Override
@@ -41,6 +47,6 @@ public class JobLocator extends Locator<Job, Long> {
 
   @Override
   public Object getVersion(Job domainObject) {
-    return domainObject.getVersion();
+    return 1;
   }
 }

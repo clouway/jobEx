@@ -14,7 +14,8 @@
       <tr>
         <td>Category: </td>
         <td>
-          <g:ListBox ui:field="selectCategory" selectedIndex="0" width="210">
+          <g:ListBox ui:field="selectCategory" width="210">
+            <g:item />
             <g:item>Banking</g:item>
             <g:item>Engineering</g:item>
             <g:item>IT</g:item>
@@ -27,7 +28,8 @@
       <tr>
         <td>Location: </td>
         <td>
-          <g:ListBox ui:field="selectLocation" selectedIndex="0" width="210">
+          <g:ListBox ui:field="selectLocation" width="210">
+            <g:item />
             <g:item>Burgas</g:item>
             <g:item>Plovdiv</g:item>
             <g:item>Sofia</g:item>
@@ -39,7 +41,7 @@
 
       <tr>
         <td>Expiration Date: </td>
-        <td><b:DateBox ui:field="date" autoClose="true" height="28" startDate=""/></td>
+        <td><b:DateBox ui:field="date" autoClose="true" height="28" /></td>
       </tr>
     </table>
 

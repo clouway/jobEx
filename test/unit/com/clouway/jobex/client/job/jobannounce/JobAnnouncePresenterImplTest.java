@@ -3,18 +3,18 @@ package com.clouway.jobex.client.job.jobannounce;
 import com.clouway.jobex.RequestFactoryHelper;
 import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.server.job.Job;
+import com.clouway.jobex.server.job.JobRepository;
 import com.clouway.jobex.server.job.jobannounce.JobAnnounceService;
 import com.clouway.jobex.shared.JobExRequestFactory;
-import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.clouway.jobex.shared.JobProxy;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import java.util.Date;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -24,56 +24,73 @@ import static org.mockito.MockitoAnnotations.initMocks;
  */
 public class JobAnnouncePresenterImplTest {
 
+  private JobAnnouncePresenter presenter;
+
   @Mock
   private JobAnnounceView view;
 
   @Mock
   private UserCredentialsLocalStorage companyNameProvider;
 
-  @Captor
-  private ArgumentCaptor<String> companyNameCaptor;
-
-  @Captor
-  private ArgumentCaptor<Job> jobCaptor;
+  @Mock
+  private JobRepository repository;
 
   private JobAnnounceService service;
-  private JobExRequestFactory requestFactory;
-  private JobAnnouncePresenter presenter;
-  private Receiver<Void> receiver;
 
-  private final String companyName = "company";
+  @Captor
+  ArgumentCaptor<JobExRequestFactory.JobRequestContext> requestContextCaptor;
+
+  @Captor
+  ArgumentCaptor<JobProxy> jobProxyCaptor;
+
+  @Captor
+  ArgumentCaptor<String> companyNameCaptor;
+
+  @Captor
+  ArgumentCaptor<Job> jobCaptor;
 
   @Before
   public void setUp() {
 
     initMocks(this);
 
-    requestFactory = RequestFactoryHelper.create(JobExRequestFactory.class);
+    JobExRequestFactory factory = RequestFactoryHelper.create(JobExRequestFactory.class);
+
     service = RequestFactoryHelper.getService(JobAnnounceService.class);
-    presenter = new JobAnnouncePresenterImpl(requestFactory, view, companyNameProvider);
-    receiver = new JobAnnounceReceiver(view);
+
+    presenter = new JobAnnouncePresenterImpl(factory, view, companyNameProvider);
   }
 
   @Test
-  public void jobIsAnnouncedAfterConfirmation() {
+  public void prepareNewJob() {
 
-    when(companyNameProvider.getUsername()).thenReturn(companyName);
-
-
-    when(companyNameProvider.getUsername()).thenReturn(companyName);
+    when(service.prepareNewJob()).thenReturn(new Job());
 
     presenter.prepareJob();
 
-    presenter.announceJob();
-
+    verify(service).prepareNewJob();
+    verify(view).edit(requestContextCaptor.capture(), jobProxyCaptor.capture());
     verify(companyNameProvider).getUsername();
-    verify(service).announceJob(companyNameCaptor.capture(), jobCaptor.capture());
-    verify(view).goToReviewJobsPlace();
-
-    verify(service).announceJob(companyNameCaptor.capture(), jobCaptor.capture());
-    verify(view).goToReviewJobsPlace();
-
-    assertThat(companyName, is(equalTo(companyNameCaptor.getValue())));
   }
 
+  @Test
+  public void announceJob() {
+
+    Job job = new Job();
+
+    when(service.prepareNewJob()).thenReturn(job);
+
+    job.setCategory("category");
+    job.setCompany("company");
+    job.setLocation("location");
+    job.setPosition("position");
+    job.setExpirationDate(new Date());
+
+    presenter.prepareJob();
+    presenter.announceJob();
+
+    verify(service).announceJob(companyNameCaptor.capture(), jobCaptor.capture());
+    verify(view).reset();
+    verify(view).goToReviewJobsPlace();
+  }
 }

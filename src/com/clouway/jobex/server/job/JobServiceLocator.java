@@ -5,10 +5,6 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.web.bindery.requestfactory.shared.ServiceLocator;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
@@ -18,12 +14,9 @@ public class JobServiceLocator implements ServiceLocator {
 
     DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
 
-    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    Validator validator = factory.getValidator();
-
     JobRepository jobRepository = new JobRepositoryImpl(datastoreService);
 
-    return new JobAnnounceServiceImpl(jobRepository, validator);
+    return new JobAnnounceServiceImpl(jobRepository);
 
   }
 }

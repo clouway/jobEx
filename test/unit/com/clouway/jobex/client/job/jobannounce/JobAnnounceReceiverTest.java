@@ -2,12 +2,14 @@ package com.clouway.jobex.client.job.jobannounce;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 
-import java.util.ArrayList;
+import javax.validation.ConstraintViolation;
+import java.util.HashSet;
 import java.util.List;
 
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -21,6 +23,9 @@ public class JobAnnounceReceiverTest {
   @Mock
   private JobAnnounceView view;
 
+  @Captor
+  ArgumentCaptor<List<String>> listWithViolations;
+
   @Before
   public void setUp() {
     initMocks(this);
@@ -28,22 +33,19 @@ public class JobAnnounceReceiverTest {
   }
 
   @Test
-  public void loadSpecificPageIfThereAreNoErrors() {
+  public void showReviewJobsPlaceOnSuccess() {
 
-    receiver.onSuccess(new ArrayList<String>());
+    receiver.onSuccess(null);
 
+    verify(view).reset();
     verify(view).goToReviewJobsPlace();
   }
 
   @Test
-  public void showOccurredErrors() {
+  public void showConstraintViolations() {
 
-    List<String> listOfErrors = new ArrayList<String>();
-    listOfErrors.add("Position can't be empty");
+    receiver.onConstraintViolation(new HashSet<ConstraintViolation<?>>());
 
-    receiver.onSuccess(listOfErrors);
-
-    verify(view).showOccurredErrors(listOfErrors);
-    verify(view, never()).goToReviewJobsPlace();
+    verify(view).showConstraintViolations(listWithViolations.capture());
   }
 }

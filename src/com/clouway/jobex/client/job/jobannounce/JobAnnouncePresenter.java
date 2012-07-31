@@ -1,6 +1,5 @@
 package com.clouway.jobex.client.job.jobannounce;
 
-import com.clouway.jobex.shared.JobProxy;
 
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
@@ -8,12 +7,13 @@ import com.clouway.jobex.shared.JobProxy;
 public interface JobAnnouncePresenter {
 
   /**
-   * The method is used to add JobProxy object and after that sets the RequestContext
-   * which will be fired with given Receiver<Void>
+   * Prepare a new Job with empty properties and auto-generated id.
    */
-  void initialize();
+  void prepareJob();
 
-  void announceJob(JobProxy jobProxy);
+  /**
+   * Announce the prepared Job.
+   */
+  void announceJob();
 
-  JobProxy createProxy();
 }

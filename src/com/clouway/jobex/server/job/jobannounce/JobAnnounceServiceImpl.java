@@ -4,10 +4,6 @@ import com.clouway.jobex.server.job.Job;
 import com.clouway.jobex.server.job.JobRepository;
 import com.google.inject.Inject;
 
-import javax.validation.Validator;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
@@ -15,25 +11,28 @@ public class JobAnnounceServiceImpl implements JobAnnounceService {
 
   private final JobRepository repository;
 
-  private final Validator validator;
-
   @Inject
-  public JobAnnounceServiceImpl(JobRepository repository, Validator validator) {
+  public JobAnnounceServiceImpl(JobRepository repository) {
     this.repository = repository;
-    this.validator = validator;
   }
 
   /**
-   * Announce new job for given company
+   * Prepare a new Job with empty properties and auto-generated id
    *
-   * @param companyName - name of company
-   * @param job - announced job
-   * @return - list of eventually occurred errors
+   * @return - a Job
    */
-  public List<String> announceJob(String companyName, Job job) {
+  public Job prepareNewJob() {
 
-    List<String> listOfErrors = new ArrayList<String>();
-    listOfErrors.add("Error while saving");
-    return listOfErrors;
+    return repository.prepareNewJob();
+  }
+
+  /**
+   * Announce new job
+   *
+   * @param companyName - the name of the company that announced the job
+   * @param job - the job that will be announced
+   */
+  public void announceJob(String companyName, Job job) {
+    repository.saveJob(companyName, job);
   }
 }
