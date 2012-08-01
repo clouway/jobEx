@@ -2,6 +2,7 @@ package com.clouway.jobex.client.cv;
 
 import com.clouway.jobex.shared.CVProxy;
 import com.clouway.jobex.shared.JobExRequestFactory;
+import com.github.gwtbootstrap.client.ui.AlertBlock;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.place.shared.PlaceController;
@@ -12,6 +13,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
+
+import java.util.List;
 
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
@@ -42,6 +45,9 @@ public class EditCVWorkflowViewImpl extends Composite implements EditCVWorkflowV
 
   @UiField
   CVEditor editor;
+
+  @UiField
+  AlertBlock alert;
 
   @Inject
   public EditCVWorkflowViewImpl(JobExRequestFactory factory, PlaceController controller) {
@@ -79,7 +85,26 @@ public class EditCVWorkflowViewImpl extends Composite implements EditCVWorkflowV
 
   @UiHandler("save")
   public void onSave(ClickEvent event) {
+
     driver.flush();
-    workflow.update(proxy, requestContext);
+    workflow.saveEditedCV();
+  }
+
+  public void showConstraintViolations(List<String> constraintViolations) {
+
+    StringBuilder builder = new StringBuilder();
+
+    for (String listOfError : constraintViolations) {
+      builder.append(listOfError).append(" ");
+    }
+
+    alert.setText(builder.toString());
+    alert.setVisible(true);
+  }
+
+  public void reset() {
+
+    alert.setVisible(false);
+    editor.genderSelectBox.setSelectedIndex(0);
   }
 }

@@ -12,7 +12,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -57,7 +56,8 @@ public class CreatingNewCVWorkflowTest {
   @Captor
   ArgumentCaptor<CV> cvCaptor;
 
-  List<String> violations = new ArrayList<String>();
+  @Captor
+  ArgumentCaptor<List<String>> violations;
 
   @Before
   public void setUp() throws Exception {
@@ -103,7 +103,7 @@ public class CreatingNewCVWorkflowTest {
     verify(provider).getUsername();
     verify(view).flush();
     verify(service).add(usernameCaptor.capture(), cvCaptor.capture());
-    verify(view, never()).showConstraintViolations(violations);
+    verify(view, never()).showConstraintViolations(violations.capture());
     verify(view).reset();
     verify(view).goToSelectCv();
 

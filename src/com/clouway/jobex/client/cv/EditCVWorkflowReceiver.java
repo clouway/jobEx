@@ -8,16 +8,25 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author Adelin Ghanayem adelin.ghanaem@clouway.com
+ * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public class CreatingNewCvReceiver extends Receiver<Void> {
+public class EditCVWorkflowReceiver extends Receiver<Void> {
 
+  private EditCVWorkflowView view;
 
-  private final CreatingNewCVWorkflowView view;
-
-  public CreatingNewCvReceiver(CreatingNewCVWorkflowView view) {
-
+  public EditCVWorkflowReceiver(EditCVWorkflowView view) {
     this.view = view;
+  }
+
+  /**
+   * Go to PreviewCVPlace after successful editing of existing CV
+   *
+   * @param response - void
+   */
+  public void onSuccess(Void response) {
+
+    view.reset();
+    view.goToCvPreview();
   }
 
   /**
@@ -35,16 +44,4 @@ public class CreatingNewCvReceiver extends Receiver<Void> {
 
     view.showConstraintViolations(constraintViolations);
   }
-
-  /**
-   * Go to SelectCVPlace after successful creation of a CV
-   *
-   * @param response - void
-   */
-  public void onSuccess(Void response) {
-
-    view.reset();
-    view.goToSelectCv();
-  }
-
 }
