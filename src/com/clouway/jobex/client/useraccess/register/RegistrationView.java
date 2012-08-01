@@ -10,10 +10,16 @@ public interface RegistrationView {
 
   void successfulRegistrationMessage();
 
-  void userExistsMessage();
+  void registrationErrorMessage();
 
   void disableRegisterButton();
 
   void enableRegisterButton();
+
+  String getEmail();
+
+  String getPassword();
+  
+  String getRegistrationType();
 
 }

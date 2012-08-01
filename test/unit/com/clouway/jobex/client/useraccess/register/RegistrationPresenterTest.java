@@ -29,7 +29,7 @@ public class RegistrationPresenterTest {
 
   private String password = "password";
 
-  private String registrationType = "typeIsNotImportentInThisTest";
+  private String registrationType = "typeIsNotImportantInThisTest";
 
   @Before
   public void setUp() {
@@ -43,8 +43,9 @@ public class RegistrationPresenterTest {
     presenter = new RegistrationPresenter(factory, registrationView);
 
   }
+
   @Test
-  public void willRegisterUserOnSuccess(){
+  public void willRegisterUserOnSuccess() {
 
     presenter.register(registrationType, email, password);
 
@@ -54,14 +55,12 @@ public class RegistrationPresenterTest {
   }
 
   @Test
-  public void willNotRegisterUserIfEmailIsAlreadyInTheRepository(){
+  public void willNotRegisterUserIfExceptionOccurs() {
 
-    doThrow(new RuntimeException()).when(authorizationService).register(registrationType, email,password);
+    doThrow(new RuntimeException()).when(authorizationService).register(registrationType, email, password);
 
-    presenter.register(registrationType, email,password);
-
-    verify(registrationView).userExistsMessage();
-
+    presenter.register(registrationType, email, password);
+    verify(registrationView).registrationErrorMessage();
     verify(registrationView).enableRegisterButton();
   }
 

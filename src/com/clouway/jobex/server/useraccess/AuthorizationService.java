@@ -12,4 +12,6 @@ public interface AuthorizationService {
   public UserCredentials login(String loginType, String email, String password);
 
   Boolean isValid(String sid);
+
+  public void logout(String email);
 }

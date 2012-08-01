@@ -59,8 +59,8 @@ public class RegistrationViewImpl extends Composite implements RegistrationView 
   }
 
   @Override
-  public void userExistsMessage() {
-    Window.alert("Registration failed! Email already exists in the database.");
+  public void registrationErrorMessage() {
+    Window.alert("Registration failed! Invalid or already taken email.");
   }
 
   @Override

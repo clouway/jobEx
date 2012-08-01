@@ -14,6 +14,7 @@ import com.clouway.jobex.client.security.UserAuthorizedEventHandler;
 import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.client.useraccess.login.LoginPresenter;
 import com.clouway.jobex.client.useraccess.register.RegistrationPresenter;
+import com.clouway.jobex.client.useraccess.logout.LogoutEventHandler;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
@@ -62,4 +63,8 @@ public interface JobExGinjector extends Ginjector {
   MenuItemMapper menuItemMapper();
 
   PageNotFoundActivity pageNotFoundPlace();
+
+  SubmittedCVsPresenterImpl reviewCVPresenter();
+
+  LogoutEventHandler injectLogoutEventHandler();
 }

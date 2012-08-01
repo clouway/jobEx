@@ -109,7 +109,6 @@ public class JobRepositoryImplTest {
 
     System.out.println(Calendar.DAY_OF_MONTH);
     Key[] keys =jobRepository.getExpiredJobsKeys();
-    System.out.println(keys.length);
     assertThat(keys.length, is(equalTo(2)));
     assertThat(keys[0], is(equalTo(KeyFactory.createKey("Job", 1l))));
     assertThat(keys[1], is(equalTo(KeyFactory.createKey("Job", 2l))));

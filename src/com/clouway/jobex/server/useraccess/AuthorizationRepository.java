@@ -16,4 +16,6 @@ public interface AuthorizationRepository {
   boolean isUserAuthorized(String email, String id);
 
   boolean isSIDRegistered(String sid);
+
+  void deleteLoggedData(String email);
 }
