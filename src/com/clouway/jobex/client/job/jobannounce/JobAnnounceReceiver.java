@@ -35,7 +35,7 @@ public class JobAnnounceReceiver extends Receiver<Void> {
 
     List<String> listOfConstraintViolations = new ArrayList<String>();
 
-    for (ConstraintViolation<?> violation : violations) {
+    for (ConstraintViolation violation : violations) {
       listOfConstraintViolations.add(violation.getMessage());
     }
 

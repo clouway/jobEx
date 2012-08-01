@@ -20,6 +20,8 @@ public class EditCvWorkflow extends AbstractActivity {
 
   private final UserCredentialsLocalStorage provider;
 
+  private JobExRequestFactory.CVsRequestContext requestContext;
+
   @Inject
   public EditCvWorkflow(JobExRequestFactory factory, EditCVWorkflowView view, UserCredentialsLocalStorage provider) {
     this.factory = factory;
@@ -27,29 +29,39 @@ public class EditCvWorkflow extends AbstractActivity {
     this.provider = provider;
   }
 
+  /**
+   * Edit CV with given cvId
+   *
+   * @param cvId - cvId
+   */
   public void editCv(long cvId) {
-    final JobExRequestFactory.CVsRequestContext context = factory.cvsRequestContext();
-    context.fetchCreatedCv(provider.getUsername(), cvId).fire(new Receiver<CVProxy>() {
-      @Override
+
+    final String username = provider.getUsername();
+
+    factory.cvsRequestContext().fetchCreatedCv(username, cvId).fire(new Receiver<CVProxy>() {
+
       public void onSuccess(CVProxy response) {
-        JobExRequestFactory.CVsRequestContext requestContext = factory.cvsRequestContext();
-        view.edit(response, requestContext);
-      }
-    });
 
-  }
+        requestContext = factory.cvsRequestContext();
+        CVProxy editableProxy = requestContext.edit(response);
 
-  public void update(CVProxy proxy, JobExRequestFactory.CVsRequestContext context) {
-    context.add(provider.getUsername(), proxy).fire(new Receiver<Void>() {
-      @Override
-      public void onSuccess(Void response) {
-        view.goToCvPreview();
+        view.edit(editableProxy, requestContext);
+
+        requestContext.add(username, editableProxy).to(new EditCVWorkflowReceiver(view));
       }
     });
   }
 
-  @Override
+  /**
+   * Save the edited CV
+   */
+  public void saveEditedCV() {
+
+    requestContext.fire();
+  }
+
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
+
     view.setPresenter(this);
     panel.setWidget(view);
   }
