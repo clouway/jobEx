@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.useraccess.register;
 
-import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
+import com.clouway.jobex.shared.AccountType;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -43,9 +43,9 @@ public class RegistrationViewImpl extends Composite implements RegistrationView 
 
     initWidget(ourUiBinder.createAndBindUi(this));
 
-    typesList.addItem("JobHunter", UserCredentialsLocalStorage.USER);
+    typesList.addItem("JobHunter", AccountType.USER);
 
-    typesList.addItem("Company", UserCredentialsLocalStorage.COMPANY);
+    typesList.addItem("Company", AccountType.COMPANY);
 
   }
 

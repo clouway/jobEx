@@ -5,8 +5,10 @@ import com.google.gwt.event.shared.GwtEvent;
 import java.util.List;
 
 /**
+ * Fired when user is authorized after an authorization request from server.
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
+
 public class UserAuthorizedEvent extends GwtEvent<UserAuthorizedEventHandler> {
 
   public static Type<UserAuthorizedEventHandler> TYPE = new Type<UserAuthorizedEventHandler>();
@@ -33,7 +35,6 @@ public class UserAuthorizedEvent extends GwtEvent<UserAuthorizedEventHandler> {
     handler.onUserAuthorized(this);
   }
 
-
   public String getEmail() {
     return email;
   }
@@ -45,4 +46,5 @@ public class UserAuthorizedEvent extends GwtEvent<UserAuthorizedEventHandler> {
   public List<String> getPermittedActions() {
     return permittedPlaces;
   }
+
 }

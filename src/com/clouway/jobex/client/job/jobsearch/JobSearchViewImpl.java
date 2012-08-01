@@ -2,7 +2,6 @@ package com.clouway.jobex.client.job.jobsearch;
 
 import com.clouway.jobex.client.cv.PreviewCvPlace;
 import com.clouway.jobex.client.jobsreview.ButtonCellFactory;
-import com.clouway.jobex.client.security.ConditionalActionDispatcherImpl;
 import com.clouway.jobex.shared.JobProxy;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.cell.client.FieldUpdater;
@@ -15,7 +14,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.ListBox;
@@ -31,7 +29,6 @@ import java.util.List;
 public class JobSearchViewImpl extends Composite implements JobSearchView {
   private JobSearchPresenter presenter;
   private final PlaceController placeController;
-  private final ConditionalActionDispatcherImpl dispatcherImpl;
   private final ButtonCellFactory factory;
 
   interface JobSearchViewImplUiBinder extends UiBinder<HTMLPanel, JobSearchViewImpl> {
@@ -61,10 +58,8 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
 
 
   @Inject
-  public JobSearchViewImpl(final PlaceController placeController, final ConditionalActionDispatcherImpl dispatcherImpl, ButtonCellFactory factory) {
+  public JobSearchViewImpl(final PlaceController placeController, ButtonCellFactory factory) {
     this.placeController = placeController;
-
-    this.dispatcherImpl = dispatcherImpl;
 
     this.factory = factory;
 

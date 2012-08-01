@@ -4,7 +4,6 @@ import com.clouway.jobex.RequestFactoryHelper;
 import com.clouway.jobex.client.cv.ApplyForJobEvent;
 import com.clouway.jobex.client.cv.UserCVsPresenter;
 import com.clouway.jobex.client.cv.UserCVsView;
-import com.clouway.jobex.client.security.ConditionalActionDispatcher;
 import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.server.applyingforjob.JobApplication;
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
@@ -62,9 +61,6 @@ public class UserCVsPresenterTest {
   @Captor
   ArgumentCaptor<List<CVProxy>> captor;
 
-  @Mock
-  ConditionalActionDispatcher dispatcher;
-
 
   @Before
   public void setUp() throws Exception {
@@ -79,7 +75,7 @@ public class UserCVsPresenterTest {
 
     context = factory.jobApplicationContext();
 
-    presenter = new UserCVsPresenter(factory, view, provider, dispatcher);
+    presenter = new UserCVsPresenter(factory, view, provider);
 
   }
 
@@ -206,7 +202,6 @@ public class UserCVsPresenterTest {
 
     Long cvId = 1l;
 
-    when(view.isConfirmed()).thenReturn(true);
 
     when(provider.getUsername()).thenReturn("username");
 
@@ -217,8 +212,6 @@ public class UserCVsPresenterTest {
     when(cvsService.delete("username", cvId)).thenReturn(cvList);
 
     presenter.deleteCv(cvId);
-
-    verify(view).isConfirmed();
 
     verify(cvsService).delete("username", cvId);
 
@@ -236,8 +229,6 @@ public class UserCVsPresenterTest {
   public void cannotDeleteUserCVWithoutConfirmation() {
 
     Long cvId = 1l;
-
-    when(view.isConfirmed()).thenReturn(false);
 
     when(provider.isAuthorized()).thenReturn(true);
 

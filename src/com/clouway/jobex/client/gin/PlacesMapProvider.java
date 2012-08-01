@@ -27,7 +27,9 @@ import java.util.Map;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public class PlaceActivityMapProvider implements Provider<Map<Class<? extends Place>, ActivityPlaceMetadata>> {
+public class PlacesMapProvider implements Provider<Map<Class<? extends Place>, ActivityPlaceMetadata>> {
+
+
   @Inject
   JobSearchPresenter jobSearchPresenter;
 
@@ -111,14 +113,6 @@ public class PlaceActivityMapProvider implements Provider<Map<Class<? extends Pl
         return loginPresenter;
       }
     });
-
-//    map.put(ReviewCVPlace.class, new ActivityPlaceMetadata<ReviewCVPlace, ReviewCVPresenterImpl>() {
-//      @Override
-//      public ReviewCVPresenterImpl getActivity(ReviewCVPlace reviewCVPlace) {
-//        reviewCVPresenter.reviewSubmittedCVs(reviewCVPlace.getJobId());
-//        return reviewCVPresenter;
-//      }
-//    });
 
 
 

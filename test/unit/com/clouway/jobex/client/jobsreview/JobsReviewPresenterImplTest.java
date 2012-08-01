@@ -100,12 +100,10 @@ public class JobsReviewPresenterImplTest {
 
     Long jobId = 1l;
 
-    when(view.isConfirmed()).thenReturn(true);
     when(service.deleteAnnouncedJob(jobIdCaptor.capture(), companyNameCaptor.capture())).thenReturn(listOfAnnouncedJobs);
 
     presenter.deleteAnnouncedJob(jobId, companyName);
 
-    verify(view).isConfirmed();
     verify(service).deleteAnnouncedJob(jobIdCaptor.capture(), companyNameCaptor.capture());
     verify(view).updateAnnounceJobs(announcedJobsCaptor.capture());
 
@@ -118,7 +116,6 @@ public class JobsReviewPresenterImplTest {
 
     Long jobId = 1l;
 
-    when(view.isConfirmed()).thenReturn(false);
 
     presenter.deleteAnnouncedJob(jobId, companyName);
 

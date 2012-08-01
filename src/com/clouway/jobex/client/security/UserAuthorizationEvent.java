@@ -3,6 +3,7 @@ package com.clouway.jobex.client.security;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
+ * Fired when unauthorized user attempts to do some secured action.
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
 public class UserAuthorizationEvent extends GwtEvent<UserAuthorizationEventHandler> {

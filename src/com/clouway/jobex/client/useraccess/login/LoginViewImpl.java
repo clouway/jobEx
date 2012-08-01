@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.useraccess.login;
 
-import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
+import com.clouway.jobex.shared.AccountType;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -51,9 +51,9 @@ public class LoginViewImpl extends Composite implements LoginView {
 
     initWidget(ourUiBinder.createAndBindUi(this));
 
-    loginType.addItem("JobHunter", UserCredentialsLocalStorage.USER);
+    loginType.addItem("JobHunter", AccountType.USER);
 
-    loginType.addItem("Company", UserCredentialsLocalStorage.COMPANY);
+    loginType.addItem("Company", AccountType.COMPANY);
 
   }
 

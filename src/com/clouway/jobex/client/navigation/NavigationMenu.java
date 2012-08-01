@@ -83,7 +83,7 @@ public class NavigationMenu extends Composite implements IsWidget, NavigationMen
 
   @Override
   public void setUsernameLabel(String username) {
-    usernameLabel.setText("User: " + username);
+    usernameLabel.setText("user: "+username);
   }
 
   @Override

@@ -1,8 +1,7 @@
 package com.clouway.jobex.server.useraccess;
 
-import com.clouway.jobex.client.security.UserPermissions;
 import com.clouway.jobex.shared.SecuredActionsNamesProvider;
-import com.clouway.jobex.shared.Token;
+import com.clouway.jobex.shared.UserCredentials;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -42,9 +41,6 @@ public class AuthorizationServiceImplTest {
   Generator idGenerator;
 
   @Mock
-  private UserPermissions permissions;
-
-  @Mock
   private SecuredActionsNamesProvider namesProvider;
 
   @Before
@@ -63,7 +59,7 @@ public class AuthorizationServiceImplTest {
 
     when(idGenerator.generateId()).thenReturn("123");
 
-    Token token = service.login(loinType, email, password);
+    UserCredentials userCredentials = service.login(loinType, email, password);
 
     fail("you need to provide the login type by an interface .... !");
 
@@ -73,9 +69,9 @@ public class AuthorizationServiceImplTest {
 
     verify(namesProvider).getUserActions();
 
-    assertThat(token, is(notNullValue()));
+    assertThat(userCredentials, is(notNullValue()));
 
-    assertThat(token.getSid(), is(equalTo("123")));
+    assertThat(userCredentials.getSid(), is(equalTo("123")));
     
 
   }
@@ -98,9 +94,9 @@ public class AuthorizationServiceImplTest {
 
     when(authorizationRepository.isAuthorized(loinType, email, password)).thenReturn(false);
 
-    Token token = service.login(loinType, email, password);
+    UserCredentials userCredentials = service.login(loinType, email, password);
 
-    assertThat(token, is(nullValue()));
+    assertThat(userCredentials, is(nullValue()));
   }
 
 

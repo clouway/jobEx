@@ -59,13 +59,11 @@ public class JobAnnouncePresenterImplTest {
 
     String company = "Qwerty";
 
-    when(view.isConfirmed()).thenReturn(true);
     when(companyNameProvider.getUsername()).thenReturn(company);
 
     presenter.initialize();
     presenter.announceJob();
 
-    verify(view).isConfirmed();
     verify(companyNameProvider).getUsername();
     verify(service).announceJob(companyCaptor.capture(), jobCaptor.capture());
     verify(view).goToSearchPlace();
@@ -74,13 +72,10 @@ public class JobAnnouncePresenterImplTest {
   @Test
   public void jobCannotBeAnnounceWithoutConfirmation() {
 
-    when(view.isConfirmed()).thenReturn(false);
     when(companyNameProvider.getUsername()).thenReturn("Qwerty");
 
     presenter.initialize();
     presenter.announceJob();
-
-    verify(view).isConfirmed();
     verify(service, never()).announceJob(companyCaptor.capture(), jobCaptor.capture());
   }
 }

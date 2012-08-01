@@ -23,12 +23,9 @@ import com.clouway.jobex.client.navigation.MenuItemMapper;
 import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.client.navigation.SecuredActivityMapper;
 import com.clouway.jobex.client.security.AuthorizationPlace;
-import com.clouway.jobex.client.security.ConditionalActionDispatcher;
 import com.clouway.jobex.client.security.UserAuthorizationEvent;
 import com.clouway.jobex.client.security.UserAuthorizationEventHandler;
 import com.clouway.jobex.client.security.UserAuthorizedEvent;
-import com.clouway.jobex.client.security.actions.ApplyForJobAction;
-import com.clouway.jobex.client.security.conditions.IsPermittedCondition;
 import com.clouway.jobex.client.useraccess.login.LoginPlace;
 import com.clouway.jobex.client.useraccess.login.LoginPresenter;
 import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
@@ -75,8 +72,6 @@ public class JobEx implements EntryPoint {
 
     final PlaceController placeController = injector.injectPlaceController();
 
-    final ConditionalActionDispatcher dispatcher = injector.dispatcher();
-
     eventBus.addHandler(UserAuthorizationEvent.TYPE, new UserAuthorizationEventHandler() {
       @Override
       public void onUserAuthorization(UserAuthorizationEvent event) {
@@ -112,21 +107,18 @@ public class JobEx implements EntryPoint {
 
     NavigationMenu navigationMenu = new NavigationMenu(placeController, menuItemMapper);
 
-    List<String> unsignedUserPermissions = new ArrayList<String>();
+    List<String> userPermissions = new ArrayList<String>();
 
-    unsignedUserPermissions.add(Permissions.HOME);
-    unsignedUserPermissions.add(Permissions.NEW_REGISTRATION);
-    unsignedUserPermissions.add(Permissions.LOG_IN);
+    userPermissions.add(Permissions.HOME);
+    userPermissions.add(Permissions.NEW_REGISTRATION);
+    userPermissions.add(Permissions.LOG_IN);
 
-    navigationMenu.setPermittedPlaces(unsignedUserPermissions);
-   navigationMenu.setUsernameLabel("user");
+    navigationMenu.setPermittedPlaces(userPermissions);
     navigationMenu.refresh();
 
     placeHistoryHandler.handleCurrentHistory();
 
     placeController.goTo(new JobSearchPlace());
-
-    dispatcher.addConditions(ApplyForJobAction.class, new IsPermittedCondition(ApplyForJobAction.class, injector.userPermittedAction()));
 
   }
 

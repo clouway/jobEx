@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.useraccess.login;
 
 import com.clouway.jobex.client.security.AuthorizationActivity;
-import com.clouway.jobex.client.security.TokenProxy;
+import com.clouway.jobex.client.security.UserCredentialsProxy;
 import com.clouway.jobex.client.security.UserAuthorizedEvent;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -45,9 +45,9 @@ public class LoginPresenter extends AuthorizationActivity {
     JobExRequestFactory.AuthorizationRequestContext authorizationRequestContext = factory.authorizationContext();
 
 
-    authorizationRequestContext.login(loginType, email, password).fire(new Receiver<TokenProxy>() {
+    authorizationRequestContext.login(loginType, email, password).fire(new Receiver<UserCredentialsProxy>() {
       @Override
-      public void onSuccess(TokenProxy response) {
+      public void onSuccess(UserCredentialsProxy response) {
         if (response != null) {
           eventBus.fireEvent(new UserAuthorizedEvent(response.getSid(), response.getEmail(), response.getPermittedActions()));
           view.goToWhereCameFrom();

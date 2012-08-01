@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.security;
 
-import com.clouway.jobex.server.useraccess.TokenLocator;
-import com.clouway.jobex.shared.Token;
+import com.clouway.jobex.server.useraccess.UserCredentialsLocator;
+import com.clouway.jobex.shared.UserCredentials;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-@ProxyFor(value = Token.class, locator = TokenLocator.class)
-public interface TokenProxy extends EntityProxy {
+@ProxyFor(value = UserCredentials.class, locator = UserCredentialsLocator.class)
+public interface UserCredentialsProxy extends EntityProxy {
 
   public String getEmail();
 

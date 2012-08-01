@@ -1,7 +1,6 @@
 package com.clouway.jobex.shared;
 
-import com.clouway.jobex.client.security.SecuredAction;
-import com.clouway.jobex.client.security.TokenProxy;
+import com.clouway.jobex.client.security.UserCredentialsProxy;
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
 import com.clouway.jobex.server.applyingforjob.JobApplicationServiceLocator;
 import com.clouway.jobex.server.cv.CvsService;
@@ -90,7 +89,7 @@ public interface JobExRequestFactory extends RequestFactory {
 
     Request<Void> register(String registrationType, String email, String password);
 
-    Request<TokenProxy> login(String loginType, String email, String password);
+    Request<UserCredentialsProxy> login(String loginType, String email, String password);
 
     Request<Boolean> isValid(String sid);
 

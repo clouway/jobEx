@@ -3,9 +3,10 @@ package com.clouway.jobex.shared;
 import java.util.List;
 
 /**
+ * An DTO used to transfer the user credentials used on client side
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public class Token {
+public class UserCredentials {
 
   private String sid;
 
@@ -15,11 +16,11 @@ public class Token {
   private List<String> permittedActions;
 
 
-  public Token() {
+  public UserCredentials() {
 
   }
 
-  public Token(String id, String email, List<String> permittedPlaces) {
+  public UserCredentials(String id, String email, List<String> permittedPlaces) {
 
     this.sid = id;
 

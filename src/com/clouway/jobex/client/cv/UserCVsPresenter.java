@@ -1,7 +1,5 @@
 package com.clouway.jobex.client.cv;
 
-import com.clouway.jobex.client.security.actions.ApplyForJobAction;
-import com.clouway.jobex.client.security.ConditionalActionDispatcher;
 import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.shared.CVProxy;
 import com.clouway.jobex.shared.JobApplicationProxy;
@@ -25,16 +23,13 @@ public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEve
 
   private final UserCredentialsLocalStorage provider;
 
-  private final ConditionalActionDispatcher dispatcher;
-
   private Long jobId;
 
   @Inject
-  public UserCVsPresenter(JobExRequestFactory requestFactory, UserCVsView view, UserCredentialsLocalStorage provider,ConditionalActionDispatcher dispatcher) {
+  public UserCVsPresenter(JobExRequestFactory requestFactory, UserCVsView view, UserCredentialsLocalStorage provider) {
     this.requestFactory = requestFactory;
     this.view = view;
     this.provider = provider;
-    this.dispatcher = dispatcher;
   }
 
   /**
@@ -55,9 +50,6 @@ public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEve
     applicationProxy.setJobId(jobId);
 
     applicationProxy.setUser(employeeUsername);
-
-    dispatcher.dispatch(new ApplyForJobAction(view, requestContext, applicationProxy));
-
   }
 
   /**
@@ -94,10 +86,6 @@ public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEve
   }
 
   public void deleteCv(long cvId) {
-
-    if (!view.isConfirmed()) {
-      return;
-    }
 
     JobExRequestFactory.CVsRequestContext context = requestFactory.cvsRequestContext();
 

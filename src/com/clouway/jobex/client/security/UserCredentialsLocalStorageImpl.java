@@ -37,11 +37,4 @@ public class UserCredentialsLocalStorageImpl implements UserCredentialsLocalStor
 
   }
 
-  @Override
-  public void setCompanyCredentials(String email, String sessionID) {
-    Cookies.setCookie(sid, sessionID);
-    Cookies.setCookie(companyName, email);
-  }
-
-
 }

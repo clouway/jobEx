@@ -11,11 +11,11 @@ public class SecuredActionsNameProviderImpl implements SecuredActionsNamesProvid
   @Override
   public List<String> getUserActions() {
     ArrayList<String> actionsNames = new ArrayList<String>();
+    setCommonLinks(actionsNames);
     actionsNames.add(Permissions.PREVIEW_CV);
     actionsNames.add(Permissions.CREATE_CV);
     actionsNames.add(Permissions.EDIT_CV);
     actionsNames.add(Permissions.APPLY_FOR_JOB);
-    setCommonLinks(actionsNames);
     return actionsNames;
   }
 
@@ -24,15 +24,14 @@ public class SecuredActionsNameProviderImpl implements SecuredActionsNamesProvid
     actionsNames.add(Permissions.HOME);
   }
 
-
   @Override
   public List<String> getCompanyActions() {
     ArrayList<String> actionsNames = new ArrayList<String>();
+    setCommonLinks(actionsNames);
     actionsNames.add(Permissions.ANNOUNCE_JOB);
     actionsNames.add(Permissions.APPROVE_CV);
     actionsNames.add(Permissions.PREVIEW_APPLIED_CVS);
     actionsNames.add(Permissions.PREVIEW_JOBS);
-    setCommonLinks(actionsNames);
     return actionsNames;
   }
 

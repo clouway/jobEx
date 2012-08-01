@@ -5,7 +5,7 @@ import com.clouway.jobex.client.security.UserAuthorizedEvent;
 import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.server.useraccess.AuthorizationService;
 import com.clouway.jobex.shared.JobExRequestFactory;
-import com.clouway.jobex.shared.Token;
+import com.clouway.jobex.shared.UserCredentials;
 import com.google.web.bindery.event.shared.EventBus;
 import org.junit.Before;
 import org.junit.Test;
@@ -74,9 +74,9 @@ public class LoginPresenterTest {
 
     List<String> permittedActions = new ArrayList<String>();
 
-    Token token = new Token(sid,email, permittedActions);
+    UserCredentials userCredentials = new UserCredentials(sid,email, permittedActions);
 
-    when(authorizationService.login(loginType, email, password)).thenReturn(token);
+    when(authorizationService.login(loginType, email, password)).thenReturn(userCredentials);
 
     presenter.login(loginType, email, password);
 

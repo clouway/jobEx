@@ -9,12 +9,8 @@ import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPresenter;
 import com.clouway.jobex.client.jobsreview.ReviewJobsPresenterImpl;
 import com.clouway.jobex.client.navigation.MenuItemMapper;
-import com.clouway.jobex.client.security.CompanyRegisteredEventHandler;
-import com.clouway.jobex.client.security.ConditionalActionDispatcher;
 import com.clouway.jobex.client.security.UserAuthorizedEventHandler;
 import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
-import com.clouway.jobex.client.security.UserIsAuthorizedCondition;
-import com.clouway.jobex.client.security.UserPermittedActions;
 import com.clouway.jobex.client.useraccess.login.LoginPresenter;
 import com.clouway.jobex.client.useraccess.register.RegistrationPresenter;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -60,16 +56,7 @@ public interface JobExGinjector extends Ginjector {
 
   UserAuthorizedEventHandler userAuthorizedEventhandler();
 
-  CompanyRegisteredEventHandler companyRegisteredEventHandler();
-
-  UserIsAuthorizedCondition userIsAuthorizedCondition();
-
-  ConditionalActionDispatcher dispatcher();
-
   UserCredentialsLocalStorage credentialsStorage();
-
-  UserPermittedActions userPermittedAction();
-
 
   MenuItemMapper menuItemMapper();
 }
