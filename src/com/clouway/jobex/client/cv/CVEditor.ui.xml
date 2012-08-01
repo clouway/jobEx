@@ -4,13 +4,6 @@
              xmlns:b2="urn:import:com.github.gwtbootstrap.datepicker.client.ui"
         >
 
-  <ui:style>
-    .datePicker {
-    width: 100px;
-  }
-
-  </ui:style>
-
   <g:HTMLPanel>
 
 
@@ -23,8 +16,11 @@
 
 
     <g:Label text="Gender"/>
-    <b:ListBox ui:field="genderSelectBox">
-    </b:ListBox>
+    <g:ListBox ui:field="genderSelectBox" width="210">
+      <g:item />
+      <g:item>Male</g:item>
+      <g:item>Female</g:item>
+    </g:ListBox>
 
 
     <g:Label text="phoneNumber"/>

@@ -45,6 +45,8 @@
 
       <b:Button ui:field="create" text="Create CV" type="SUCCESS" />
 
+      <b:AlertBlock animation="true" visible="false" ui:field="alert" close="false">AlertBlock</b:AlertBlock>
+
     </g:HTMLPanel>
 
   </g:HTMLPanel>

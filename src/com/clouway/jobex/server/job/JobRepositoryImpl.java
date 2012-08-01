@@ -158,17 +158,7 @@ public class JobRepositoryImpl implements JobRepository {
     entity.setProperty("expirationDate", new Date());
     datastoreService.put(entity);
 
-    Key key = entity.getKey();
-
-    Entity returnedEntity = null;
-
-    try {
-      returnedEntity = datastoreService.get(key);
-    } catch (EntityNotFoundException e) {
-      e.printStackTrace();
-    }
-
-    return createJob(returnedEntity);
+    return getJob(entity.getKey().getId());
   }
 
   private Job createJob(Entity entity) {

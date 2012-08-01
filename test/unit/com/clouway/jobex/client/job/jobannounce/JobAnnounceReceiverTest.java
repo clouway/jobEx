@@ -33,7 +33,7 @@ public class JobAnnounceReceiverTest {
   }
 
   @Test
-  public void showReviewJobsPlaceOnSuccess() {
+  public void goToReviewJobsPlaceOnSuccess() {
 
     receiver.onSuccess(null);
 

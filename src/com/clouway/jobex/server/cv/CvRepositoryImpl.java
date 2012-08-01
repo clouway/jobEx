@@ -168,4 +168,24 @@ public class CvRepositoryImpl implements CVRepository {
     return jobApplication;
   }
 
+  /**
+   * Prepare new CV with empty properties and auto-generated id.
+   *
+   * @return - a CV
+   */
+  public CV prepareNewCV() {
+
+    Entity entity = new Entity("CV");
+
+    entity.setProperty("name", "");
+    entity.setProperty("email", "");
+    entity.setProperty("phoneNumber", "");
+    entity.setProperty("skills", "");
+    entity.setProperty("dateOfBirth", new Date());
+    entity.setProperty("gender", "");
+
+    service.put(entity);
+
+    return getCv(entity.getKey().getId());
+  }
 }
