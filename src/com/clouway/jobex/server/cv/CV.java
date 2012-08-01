@@ -1,5 +1,8 @@
 package com.clouway.jobex.server.cv;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,16 +18,25 @@ public class CV implements Serializable {
 
   private Long version;
 
+  @NotNull(message = "Enter name!")
+  @Size(min = 3, max = 20, message = "Name length must be from 3 to 20 characters!")
   private String name;
 
   private String email;
 
+  @NotNull(message = "Enter phone number!")
+  @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must contain only digits! Length 10 digits!")
   private String phoneNumber;
 
+  @NotNull(message = "Enter skills!")
+  @Size(min = 5, max = 50)
   private String skills;
 
+  @NotNull(message = "Select date of birth!")
   private Date dateOfBirth;
 
+  @NotNull(message = "Gender not selected!")
+  @Size(min = 1, message = "Select gender!")
   private String gender;
 
 

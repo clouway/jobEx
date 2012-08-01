@@ -28,4 +28,11 @@ public interface CvsService {
    * @return - list of submitted CVs
    */
   List<CV> getSubmittedCVs(Long jobId);
+
+  /**
+   * Prepare new CV with empty properties and auto-generated id
+   *
+   * @return - a CV
+   */
+  CV prepareNewCV();
 }

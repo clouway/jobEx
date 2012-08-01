@@ -54,6 +54,7 @@ public interface JobExRequestFactory extends RequestFactory {
 
     Request<List<CVProxy>> getSubmittedCVs(Long jobId);
 
+    Request<CVProxy> prepareNewCV();
   }
 
   @Service(value = JobAnnounceService.class, locator = JobServiceLocator.class)
