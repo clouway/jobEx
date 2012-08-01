@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.job.jobannounce;
 
-import com.clouway.jobex.client.security.CompanyNameProvider;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.activity.shared.AbstractActivity;
@@ -18,13 +18,13 @@ public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnn
 
   private final JobExRequestFactory requestFactory;
   private final JobAnnounceView view;
-  private final CompanyNameProvider companyNameProvider;
+  private final UserCredentialsLocalStorage companyNameProvider;
 
   private JobExRequestFactory.JobRequestContext requestContext;
   private JobProxy editableJobProxy;
 
   @Inject
-  public JobAnnouncePresenterImpl(JobExRequestFactory requestFactory, JobAnnounceView view, CompanyNameProvider companyNameProvider) {
+  public JobAnnouncePresenterImpl(JobExRequestFactory requestFactory, JobAnnounceView view, UserCredentialsLocalStorage companyNameProvider) {
     this.requestFactory = requestFactory;
     this.view = view;
     this.companyNameProvider = companyNameProvider;
@@ -50,7 +50,7 @@ public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnn
 
     editableJobProxy = requestContext.edit(jobProxy);
 
-    requestContext.announceJob(companyNameProvider.getCompanyName(), editableJobProxy).to(new JobAnnounceReceiver(view));
+    requestContext.announceJob(companyNameProvider.getUsername(), editableJobProxy).to(new JobAnnounceReceiver(view));
 
   }
 

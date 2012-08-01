@@ -8,10 +8,19 @@ import com.google.gwt.place.shared.PlaceTokenizer;
  */
 public class PreviewCvPlace extends SecuredPlace {
 
+  public PreviewCvPlace(String linkText) {
+    super(linkText);
+  }
+
+  public PreviewCvPlace() {
+
+  }
+
+
   public static class Tokenizer implements PlaceTokenizer<PreviewCvPlace> {
 
     public PreviewCvPlace getPlace(String token) {
-      return new PreviewCvPlace();
+      return new PreviewCvPlace("select CV");
     }
 
     public String getToken(PreviewCvPlace place) {

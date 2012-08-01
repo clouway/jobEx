@@ -11,7 +11,6 @@ public class SubmittedCVsPlace extends SecuredPlace {
   private final Long jobId;
 
   public SubmittedCVsPlace(Long jobId) {
-
     this.jobId = jobId;
   }
 

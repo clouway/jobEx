@@ -2,7 +2,7 @@ package com.clouway.jobex.client.navigation;
 
 import com.clouway.jobex.client.security.AuthorizationActivity;
 import com.clouway.jobex.client.security.AuthorizationPlace;
-import com.clouway.jobex.client.security.SecurityProvider;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
@@ -34,13 +34,13 @@ public class SecuredActivityMapperTest {
 
 
   @Mock
-  public SecurityProvider provider;
+  public UserCredentialsLocalStorage provider;
 
   @Mock
   Map<Class<? extends Place>, ActivityPlaceMetadata> activityPlaceMap;
 
 
-  private ApplicationActivityMapper mapper;
+  private SecuredActivityMapper mapper;
 
   @Before
   public void setUp() throws Exception {
@@ -72,7 +72,7 @@ public class SecuredActivityMapperTest {
       }
     });
 
-    mapper = new ApplicationActivityMapper(activityPlaceMap, provider);
+    mapper = new SecuredActivityMapper(activityPlaceMap, provider);
   }
 
   @Test

@@ -16,7 +16,6 @@ public class JobLocator extends Locator<Job, Long> {
     } catch (IllegalAccessException e) {
       e.printStackTrace();
     }
-
     return null;
   }
 

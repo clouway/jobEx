@@ -1,11 +1,11 @@
 package com.clouway.jobex.client.cv;
 
-import com.clouway.jobex.client.applyingforjob.RequestFactoryHelper;
+import com.clouway.jobex.RequestFactoryHelper;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.server.cv.CV;
-import com.clouway.jobex.shared.JobExRequestFactory;
-import com.clouway.jobex.client.security.UsernameProvider;
 import com.clouway.jobex.server.cv.CvsService;
 import com.clouway.jobex.shared.CVProxy;
+import com.clouway.jobex.shared.JobExRequestFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -35,10 +35,11 @@ public class CreatingNewCVWorkflowTest {
   private CreatingNewCVWorkflow workflow;
 
   @Mock
-  private UsernameProvider provider;
+  private UserCredentialsLocalStorage provider;
 
   @Mock
   private CreatingNewCVWorkflowView view;
+
 
   private String username = "user";
 

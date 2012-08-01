@@ -19,11 +19,21 @@ import com.clouway.jobex.client.jobsreview.ReviewJobsPlace;
 import com.clouway.jobex.client.jobsreview.ReviewJobsPresenterImpl;
 import com.clouway.jobex.client.navigation.ActivityPlaceMetadata;
 import com.clouway.jobex.client.navigation.JobExPlaceHistoryMapper;
+import com.clouway.jobex.client.navigation.MenuItemMapper;
+import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.client.navigation.SecuredActivityMapper;
 import com.clouway.jobex.client.security.AuthorizationPlace;
+import com.clouway.jobex.client.security.ConditionalActionDispatcher;
+import com.clouway.jobex.client.security.UserAuthorizationEvent;
+import com.clouway.jobex.client.security.UserAuthorizationEventHandler;
+import com.clouway.jobex.client.security.UserAuthorizedEvent;
+import com.clouway.jobex.client.security.actions.ApplyForJobAction;
+import com.clouway.jobex.client.security.conditions.IsPermittedCondition;
+import com.clouway.jobex.client.useraccess.login.LoginPlace;
 import com.clouway.jobex.client.useraccess.login.LoginPresenter;
 import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
 import com.clouway.jobex.client.useraccess.register.RegistrationPresenter;
+import com.clouway.jobex.shared.Permissions;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -34,7 +44,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.web.bindery.event.shared.EventBus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,8 +55,7 @@ import java.util.Map;
 public class JobEx implements EntryPoint {
 
   /**
-   * This is the entry point metho
-   * d.
+   * This is the entry point method.
    */
   public void onModuleLoad() {
 
@@ -60,11 +71,21 @@ public class JobEx implements EntryPoint {
 
     eventBus.addHandler(ApplyForJobEvent.TYPE, presenter);
 
-    PlaceController placeController = injector.injectPlaceController();
+    eventBus.addHandler(UserAuthorizedEvent.TYPE, injector.userAuthorizedEventhandler());
+
+    final PlaceController placeController = injector.injectPlaceController();
+
+    final ConditionalActionDispatcher dispatcher = injector.dispatcher();
+
+    eventBus.addHandler(UserAuthorizationEvent.TYPE, new UserAuthorizationEventHandler() {
+      @Override
+      public void onUserAuthorization(UserAuthorizationEvent event) {
+        placeController.goTo(new AuthorizationPlace());
+      }
+    });
+
 
     Map<Class<? extends Place>, ActivityPlaceMetadata> map = new HashMap<Class<? extends Place>, ActivityPlaceMetadata>();
-
-    //Security Check .... !
 
     setCompanyPlaces(injector, map);
 
@@ -72,7 +93,7 @@ public class JobEx implements EntryPoint {
 
     setCommonPlaces(injector, map);
 
-    SecuredActivityMapper mapper = new SecuredActivityMapper(map,injector.securityProvider());
+    SecuredActivityMapper mapper = new SecuredActivityMapper(map, injector.credentialsStorage());
 
     ActivityManager activityManager = new ActivityManager(mapper, eventBus);
 
@@ -84,11 +105,29 @@ public class JobEx implements EntryPoint {
 
     placeHistoryHandler.register(placeController, eventBus, place);
 
-    RootPanel.get().add(display);
+
+    RootPanel.get("container").add(display);
+
+    MenuItemMapper menuItemMapper = injector.menuItemMapper();
+
+    NavigationMenu navigationMenu = new NavigationMenu(placeController, menuItemMapper);
+
+    List<String> unsignedUserPermissions = new ArrayList<String>();
+
+    unsignedUserPermissions.add(Permissions.HOME);
+    unsignedUserPermissions.add(Permissions.NEW_REGISTRATION);
+    unsignedUserPermissions.add(Permissions.LOG_IN);
+
+    navigationMenu.setPermittedPlaces(unsignedUserPermissions);
+   navigationMenu.setUsernameLabel("user");
+    navigationMenu.refresh();
 
     placeHistoryHandler.handleCurrentHistory();
 
     placeController.goTo(new JobSearchPlace());
+
+    dispatcher.addConditions(ApplyForJobAction.class, new IsPermittedCondition(ApplyForJobAction.class, injector.userPermittedAction()));
+
   }
 
   private void setCommonPlaces(final JobExGinjector injector, Map<Class<? extends Place>, ActivityPlaceMetadata> map) {
@@ -140,7 +179,6 @@ public class JobEx implements EntryPoint {
     });
   }
 
-
   private void setCompanyPlaces(final JobExGinjector injector, Map<Class<? extends Place>, ActivityPlaceMetadata> map) {
     map.put(JobAnnouncePlace.class, new ActivityPlaceMetadata<JobAnnouncePlace, JobAnnouncePresenterImpl>() {
       @Override
@@ -163,6 +201,11 @@ public class JobEx implements EntryPoint {
       }
     });
 
-
+    map.put(LoginPlace.class, new ActivityPlaceMetadata<LoginPlace, LoginPresenter>() {
+      @Override
+      public LoginPresenter getActivity(LoginPlace loginPlace) {
+        return injector.loginPresenter();
+      }
+    });
   }
 }

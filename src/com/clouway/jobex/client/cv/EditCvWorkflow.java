@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.cv;
 
-import com.clouway.jobex.client.security.UsernameProvider;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.shared.CVProxy;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.activity.shared.AbstractActivity;
@@ -18,10 +18,10 @@ public class EditCvWorkflow extends AbstractActivity {
 
   private final EditCVWorkflowView view;
 
-  private final UsernameProvider provider;
+  private final UserCredentialsLocalStorage provider;
 
   @Inject
-  public EditCvWorkflow(JobExRequestFactory factory, EditCVWorkflowView view, UsernameProvider provider) {
+  public EditCvWorkflow(JobExRequestFactory factory, EditCVWorkflowView view, UserCredentialsLocalStorage provider) {
     this.factory = factory;
     this.view = view;
     this.provider = provider;

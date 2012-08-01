@@ -2,7 +2,7 @@ package com.clouway.jobex.client.cv;
 
 
 import com.clouway.jobex.client.navigation.NavigationMenu;
-import com.clouway.jobex.client.security.UsernameProvider;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.shared.CVProxy;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.ButtonCell;
@@ -51,9 +51,6 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
   @Inject
   PlaceController controller;
 
-  @UiField(provided = true)
-  NavigationMenu menu;
-
   private UserCVsPresenter presenter;
 
   private Long jobId;
@@ -68,11 +65,10 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
   };
 
   @Inject
-  UsernameProvider provider;
+  UserCredentialsLocalStorage provider;
 
   @Inject
   public UserCVsViewImpl(NavigationMenu menu) {
-    this.menu = menu;
 
     cVCellTable = new CellTable<CVProxy>();
 

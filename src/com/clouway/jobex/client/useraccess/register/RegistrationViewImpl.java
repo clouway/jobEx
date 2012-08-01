@@ -1,5 +1,6 @@
 package com.clouway.jobex.client.useraccess.register;
 
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -16,7 +17,7 @@ import com.google.gwt.user.client.ui.TextBox;
 /**
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
-public class RegistrationViewImpl extends Composite implements RegistrationView{
+public class RegistrationViewImpl extends Composite implements RegistrationView {
 
 
   private RegistrationPresenter presenter;
@@ -36,15 +37,15 @@ public class RegistrationViewImpl extends Composite implements RegistrationView{
   PasswordTextBox password;
 
   @UiField
-  ListBox registrationType;
+  ListBox typesList;
 
   public RegistrationViewImpl() {
 
     initWidget(ourUiBinder.createAndBindUi(this));
 
-    registrationType.addItem("JobHunter","User");
+    typesList.addItem("JobHunter", UserCredentialsLocalStorage.USER);
 
-    registrationType.addItem("Company", "Company");
+    typesList.addItem("Company", UserCredentialsLocalStorage.COMPANY);
 
   }
 
@@ -72,25 +73,8 @@ public class RegistrationViewImpl extends Composite implements RegistrationView{
     registerButton.setEnabled(true);
   }
 
-  @Override
-  public String getEmail() {
-    return email.getText();
-  }
-
-  @Override
-  public String getPassword() {
-    return password.getText();
-  }
-
-  @Override
-  public String getRegistrationType() {
-    return registrationType.getValue(registrationType.getSelectedIndex());
-  }
-
   @UiHandler("registerButton")
-  public void onRegisterButtonClicked(ClickEvent event){
-    if(presenter!=null){
-      presenter.onRegisterButtonClicked();
-    }
+  public void onRegisterButtonClicked(ClickEvent event) {
+    presenter.register(typesList.getValue(typesList.getSelectedIndex()), email.getText(), password.getText());
   }
 }

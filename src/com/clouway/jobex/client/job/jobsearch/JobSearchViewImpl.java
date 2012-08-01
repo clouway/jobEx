@@ -1,11 +1,10 @@
 package com.clouway.jobex.client.job.jobsearch;
 
-import com.clouway.jobex.client.cv.ApplyForJobEvent;
 import com.clouway.jobex.client.cv.PreviewCvPlace;
-import com.clouway.jobex.client.navigation.NavigationMenu;
+import com.clouway.jobex.client.jobsreview.ButtonCellFactory;
+import com.clouway.jobex.client.security.ConditionalActionDispatcherImpl;
 import com.clouway.jobex.shared.JobProxy;
 import com.github.gwtbootstrap.client.ui.Button;
-import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
@@ -16,6 +15,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.ListBox;
@@ -30,6 +30,9 @@ import java.util.List;
  */
 public class JobSearchViewImpl extends Composite implements JobSearchView {
   private JobSearchPresenter presenter;
+  private final PlaceController placeController;
+  private final ConditionalActionDispatcherImpl dispatcherImpl;
+  private final ButtonCellFactory factory;
 
   interface JobSearchViewImplUiBinder extends UiBinder<HTMLPanel, JobSearchViewImpl> {
   }
@@ -37,43 +40,58 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
   private static JobSearchViewImplUiBinder ourUiBinder = GWT.create(JobSearchViewImplUiBinder.class);
 
   private ListDataProvider<JobProxy> dataProvider;
+
   @UiField
   CellTable<JobProxy> jobsCellTable;
+
   @UiField
   ListBox locationValue;
+
   @UiField
   ListBox categoryValue;
 
   @UiField
   Button searchButton;
 
-  @UiField(provided = true)
-  NavigationMenu navigation;
-
 
   @Inject
   EventBus eventBus;
 
+  boolean alreadyConstructed = false;
+
 
   @Inject
-  public JobSearchViewImpl(final PlaceController placeController, NavigationMenu navigationMenu) {
-    navigation = navigationMenu;
+  public JobSearchViewImpl(final PlaceController placeController, final ConditionalActionDispatcherImpl dispatcherImpl, ButtonCellFactory factory) {
+    this.placeController = placeController;
+
+    this.dispatcherImpl = dispatcherImpl;
+
+    this.factory = factory;
+
     initWidget(ourUiBinder.createAndBindUi(this));
 
 
     locationValue.addItem("all locations");
+
     locationValue.addItem("Burgas");
+
     locationValue.addItem("Plovdiv");
+
     locationValue.addItem("Sofia");
+
     locationValue.addItem("Varna");
+
     locationValue.addItem("Veliko Tarnovo");
 
     categoryValue.addItem("Banking");
-    categoryValue.addItem("Engineering");
-    categoryValue.addItem("IT");
-    categoryValue.addItem("Franchise");
-    categoryValue.addItem("Marketing");
 
+    categoryValue.addItem("Engineering");
+
+    categoryValue.addItem("IT");
+
+    categoryValue.addItem("Franchise");
+
+    categoryValue.addItem("Marketing");
 
     dataProvider = new ListDataProvider<JobProxy>();
 
@@ -85,6 +103,7 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
         return String.valueOf(object.getId());
       }
     };
+
     jobsCellTable.setPageSize(2);
 
     Column<JobProxy, String> location = new Column<JobProxy, String>(new TextCell()) {
@@ -101,12 +120,6 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
       }
     };
 
-    Column<JobProxy, String> apply = new Column<JobProxy, String>(new ButtonCell()) {
-      @Override
-      public String getValue(JobProxy object) {
-        return "APPLY";
-      }
-    };
 
     Column<JobProxy, String> position = new Column<JobProxy, String>(new TextCell()) {
       @Override
@@ -116,34 +129,48 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
     };
 
 
-    apply.setFieldUpdater(new FieldUpdater<JobProxy, String>() {
-      public void update(int index, JobProxy object, String value) {
-
-        placeController.goTo(new PreviewCvPlace());
-
-        eventBus.fireEvent(new ApplyForJobEvent(object.getId()));
-
-      }
-    });
-
     jobsCellTable.addColumn(id, "JobId");
     jobsCellTable.addColumn(location, "Location");
     jobsCellTable.addColumn(category, "Category");
     jobsCellTable.addColumn(position, "Position");
-    jobsCellTable.addColumn(apply, "Apply");
+
 
     jobsCellTable.setColumnWidth(id, "150");
     jobsCellTable.setColumnWidth(location, "200");
     jobsCellTable.setColumnWidth(category, "200");
     jobsCellTable.setColumnWidth(position, "200");
-    jobsCellTable.setColumnWidth(apply, "100");
-
 
   }
 
   @Override
   public void setPresenter(JobSearchPresenter presenter) {
     this.presenter = presenter;
+  }
+
+  @Override
+  public void constructApplyButton() {
+
+    if (!alreadyConstructed) {
+      ButtonCellFactory.MyButtonCell myButtonCell = factory.createButtonCell();
+
+      Column<JobProxy, String> apply = new Column<JobProxy, String>(myButtonCell) {
+        @Override
+        public String getValue(JobProxy object) {
+          return "APPLY";
+        }
+      };
+
+      apply.setFieldUpdater(new FieldUpdater<JobProxy, String>() {
+        public void update(int index, final JobProxy object, String value) {
+          placeController.goTo(new PreviewCvPlace());
+        }
+      });
+      jobsCellTable.addColumn(apply, "Apply");
+      jobsCellTable.setColumnWidth(apply, "100");
+
+    }
+    jobsCellTable.redraw();
+
   }
 
 

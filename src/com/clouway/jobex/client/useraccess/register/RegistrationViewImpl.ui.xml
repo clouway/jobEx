@@ -42,7 +42,7 @@
       <g:PasswordTextBox ui:field="password"/>
 
       <g:Label text="Register as:"/>
-      <g:ListBox ui:field="registrationType" width="150"/>
+      <g:ListBox ui:field="typesList" width="150"/>
 
       <b:Button ui:field="registerButton" text="Register"/>
     </g:VerticalPanel>

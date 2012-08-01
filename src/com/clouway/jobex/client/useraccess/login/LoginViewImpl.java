@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.useraccess.login;
 
-import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -20,6 +20,7 @@ import com.google.inject.Inject;
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
 public class LoginViewImpl extends Composite implements LoginView {
+
   private LoginPresenter presenter;
 
   private PlaceController placeController;
@@ -47,10 +48,13 @@ public class LoginViewImpl extends Composite implements LoginView {
   @Inject
   public LoginViewImpl(PlaceController placeController) {
     this.placeController = placeController;
+
     initWidget(ourUiBinder.createAndBindUi(this));
 
-    loginType.addItem("JobHunter", "User");
-    loginType.addItem("Company", "Company");
+    loginType.addItem("JobHunter", UserCredentialsLocalStorage.USER);
+
+    loginType.addItem("Company", UserCredentialsLocalStorage.COMPANY);
+
   }
 
   @Override
@@ -64,7 +68,7 @@ public class LoginViewImpl extends Composite implements LoginView {
   }
 
   @Override
-  public void unsuccessfulLoginMessage() {
+  public void notifyIncorrectUsernameOrPassword() {
     Window.alert("Incorrect email or password.");
   }
 
@@ -84,8 +88,10 @@ public class LoginViewImpl extends Composite implements LoginView {
   }
 
   @Override
-  public void goToSearchPlace() {
-    placeController.goTo(new JobSearchPlace());
+  public void goToWhereCameFrom() {
+//    Place place = placeController.getWhere();
+//
+//    placeController.goTo(place);
   }
 
 

@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.jobsreview;
 
 import com.clouway.jobex.RequestFactoryHelper;
-import com.clouway.jobex.client.security.CompanyNameProvider;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.server.job.Job;
 import com.clouway.jobex.server.jobsreview.JobsReviewService;
 import com.clouway.jobex.shared.JobExRequestFactory;
@@ -36,7 +36,7 @@ public class JobsReviewPresenterImplTest {
   private ReviewJobsView view;
 
   @Mock
-  private CompanyNameProvider companyNameProvider;
+  private UserCredentialsLocalStorage companyNameProvider;
 
   @Captor
   private ArgumentCaptor<String> companyNameCaptor;
@@ -71,7 +71,7 @@ public class JobsReviewPresenterImplTest {
 
     listOfAnnouncedJobs.add(new Job());
 
-    when(companyNameProvider.getCompanyName()).thenReturn(companyName);
+    when(companyNameProvider.getUsername()).thenReturn(companyName);
     when(service.getAnnouncedJobsForCompany(companyNameCaptor.capture())).thenReturn(listOfAnnouncedJobs);
 
     presenter.reviewAnnouncedJobs(companyName);

@@ -1,11 +1,11 @@
 package com.clouway.jobex.server.cv;
 
 import com.clouway.jobex.server.AppEngineTestCase;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.clouway.jobex.server.applyingforjob.JobApplication;
 import com.clouway.jobex.server.applyingforjob.JobApplicationRepository;
 import com.clouway.jobex.server.applyingforjob.JobApplicationRepositoryImpl;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import org.junit.Test;
 
@@ -181,6 +181,7 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
     List<JobApplication> jobApplications = repository.getJobApplications(jobId);
 
     List<CV> submittedCVs = repository.getSubmittedCVs(jobId, jobApplications);
+
     assertThat(submittedCVs.size(), is(equalTo(1)));
 
     assertThat(submittedCVs.get(0).getId(), is(equalTo(cv.getId())));

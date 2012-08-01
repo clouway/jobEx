@@ -12,7 +12,5 @@ public class AuthorizationActivity extends AbstractActivity {
 
   @Override
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
-
   }
-
 }

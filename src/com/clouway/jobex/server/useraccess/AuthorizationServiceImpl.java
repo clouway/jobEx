@@ -1,8 +1,13 @@
 package com.clouway.jobex.server.useraccess;
 
-import com.clouway.jobex.shared.exceptions.EmailAlreadyExistsException;import com.clouway.jobex.shared.exceptions.EmailIsNotRegisteredException;import com.clouway.jobex.shared.exceptions.WrongPasswordException;
+import com.clouway.jobex.client.security.SecuredAction;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
+import com.clouway.jobex.shared.SecuredActionsNamesProvider;
+import com.clouway.jobex.shared.Token;
+import com.clouway.jobex.shared.exceptions.EmailAlreadyExistsException;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
@@ -10,40 +15,59 @@ import java.util.UUID;
 public class AuthorizationServiceImpl implements AuthorizationService {
 
   private AuthorizationRepository authorizationRepository;
+
   private Generator idGenerator;
 
-  public AuthorizationServiceImpl(AuthorizationRepository authorizationRepository, Generator idGenerator){
+  private final SecuredActionsNamesProvider namesProvider;
 
+  public AuthorizationServiceImpl(AuthorizationRepository authorizationRepository,
+                                  Generator idGenerator,
+                                  SecuredActionsNamesProvider namesProvider) {
     this.authorizationRepository = authorizationRepository;
     this.idGenerator = idGenerator;
+    this.namesProvider = namesProvider;
   }
-  
-  public void register(String registrationType, String email, String password){
 
-    if(!authorizationRepository.isNotRegister(registrationType,email)){
+  public void register(String registrationType, String email, String password) {
+
+    if (!authorizationRepository.isNotRegister(registrationType, email)) {
       throw new EmailAlreadyExistsException();
     }
-    authorizationRepository.register(registrationType,email,password);
+    authorizationRepository.register(registrationType, email, password);
   }
 
-  public String login(String loginType, String email, String password) {
-    
-    if(authorizationRepository.isNotRegister(loginType, email)){
-      return "";
+
+
+  public Token login(String loginType, String email, String password) {
+
+    if (authorizationRepository.isAuthorized(loginType, email, password)) {
+      String id = idGenerator.generateId();
+      authorizationRepository.saveAsLogged(email, loginType, id);
+
+      if (UserCredentialsLocalStorage.USER.equals(loginType)) {
+
+        return new Token(id, email, namesProvider.getUserActions());
+
+      }
+
+      if (UserCredentialsLocalStorage.COMPANY.equals(loginType)) {
+
+        return new Token(id, email, namesProvider.getCompanyActions());
+
+      }
     }
-    if( !authorizationRepository.verifyUserPassword(loginType,email, password)){
-      return "";
-    }
-    String id = idGenerator.generateId();
-    saveAsLogged(email, loginType, id);
-    return id;
+    return null;
   }
 
-  private void saveAsLogged(String email, String loginType, String id){
-    authorizationRepository.saveAsLogged(email, loginType, id);
+
+  public List<Class<? extends SecuredAction>> testAction() {
+    return new ArrayList<Class<? extends SecuredAction>>() {{
+      add(SecuredAction.class);
+    }};
   }
 
-  public boolean isUserAuthorized(String email, String id){
-    return authorizationRepository.isUserAuthorized(email, id);
+  @Override
+  public Boolean isValid(String sid) {
+    return authorizationRepository.isSIDRegistered(sid);
   }
 }

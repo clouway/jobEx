@@ -1,7 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:c='urn:import:com.google.gwt.user.cellview.client'
-             xmlns:n='urn:import:com.clouway.jobex.client.navigation'
              xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
 
   <ui:with field="res" type="com.clouway.jobex.client.icons.IconsResources"/>
@@ -41,8 +40,6 @@
       <g:Label text="Looking for job ?" addStyleNames="{style.label}"/>
 
     </g:HTMLPanel>
-    <n:NavigationMenu ui:field="navigation"/>
-
     <g:HTMLPanel styleName="{style.mainStyle}">
       Location:
       <g:ListBox ui:field="locationValue"/>

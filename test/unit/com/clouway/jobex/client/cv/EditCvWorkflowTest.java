@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.cv;
 
-import com.clouway.jobex.client.applyingforjob.RequestFactoryHelper;
-import com.clouway.jobex.client.security.UsernameProvider;
+import com.clouway.jobex.RequestFactoryHelper;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.server.cv.CV;
 import com.clouway.jobex.server.cv.CvsService;
 import com.clouway.jobex.shared.CVProxy;
@@ -38,7 +38,7 @@ public class EditCvWorkflowTest {
   private EditCvWorkflow workflow;
 
   @Mock
-  private UsernameProvider provider;
+  private UserCredentialsLocalStorage provider;
 
   @Mock
   private EditCVWorkflowView view;

@@ -1,14 +1,25 @@
 package com.clouway.jobex.client.useraccess.login;
 
-import com.clouway.jobex.client.job.jobsearch.RequestFactoryHelper;
-import com.clouway.jobex.client.security.SecurityProvider;
+import com.clouway.jobex.RequestFactoryHelper;
+import com.clouway.jobex.client.security.UserAuthorizedEvent;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.server.useraccess.AuthorizationService;
 import com.clouway.jobex.shared.JobExRequestFactory;
+import com.clouway.jobex.shared.Token;
+import com.google.web.bindery.event.shared.EventBus;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 
-import static org.mockito.Mockito.never;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -26,63 +37,78 @@ public class LoginPresenterTest {
   private LoginView loginView;
 
   @Mock
-  private SecurityProvider securityProvider;
+  private UserCredentialsLocalStorage securityProvider;
+
+  @Mock
+  private EventBus bus;
 
   private AuthorizationService authorizationService;
+
   private String email = "test@email.com";
+
   private String password = "password";
+
   private String loginType = "User";
+
+  @Captor
+  ArgumentCaptor<UserAuthorizedEvent> authorizedEventCaptor;
 
   @Before
   public void setUp() {
+
     initMocks(this);
 
     factory = RequestFactoryHelper.create(JobExRequestFactory.class);
 
     authorizationService = RequestFactoryHelper.getService(AuthorizationService.class);
 
-    presenter = new LoginPresenter(factory, loginView, securityProvider);
-  }
-
-  
-  @Test
-  public void loginButtonIsDisabledOnClick() {
-
-    presenter.onLoginButtonClicked();
-
-    verify(loginView).disableLoginButton();
+    presenter = new LoginPresenter(factory, loginView, bus);
 
   }
 
+
   @Test
-  public void authorisesUserWhenCredentialsIsValid() {
+  public void returnsSecurityTokenUserWhenCredentialsAreValid() {
 
-    String id = "generatedId";
+    String sid = "sid";
 
-    when(authorizationService.login(loginType, email, password)).thenReturn(id);
+    List<String> permittedActions = new ArrayList<String>();
+
+    Token token = new Token(sid,email, permittedActions);
+
+    when(authorizationService.login(loginType, email, password)).thenReturn(token);
 
     presenter.login(loginType, email, password);
 
-    verify(securityProvider).setCredentials(id, email, loginType);
+    verify(authorizationService).login(loginType, email, password);
 
-    verify(loginView).goToSearchPlace();
+    verify(bus).fireEvent(authorizedEventCaptor.capture());
+
+    UserAuthorizedEvent event = authorizedEventCaptor.getValue();
+
+    assertThat(event, is(notNullValue()));
+
+    assertThat(event.getSID(), is(equalTo(sid)));
+
+    assertThat(event.getEmail(), is(equalTo(email)));
+
+    verify(loginView).goToWhereCameFrom();
 
     verify(loginView).enableLoginButton();
+
 
   }
 
   @Test
-  public void notifiesUserWhenAuthorizationCredentialsAreInValid() {
+  public void notifiesUserWhenAuthorizationCredentialsAreInvalid() {
 
-    when(authorizationService.login(loginType, email, password)).thenReturn("");
+    when(authorizationService.login(loginType, email, password)).thenReturn(null);
 
     presenter.login(loginType, email, password);
 
-    verify(loginView).unsuccessfulLoginMessage();
+    verify(loginView).notifyIncorrectUsernameOrPassword();
 
     verify(loginView).enableLoginButton();
-
-    verify(securityProvider,never()).setCredentials("", email, loginType);
 
   }
 

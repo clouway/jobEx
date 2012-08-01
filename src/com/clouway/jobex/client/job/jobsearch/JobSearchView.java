@@ -17,13 +17,11 @@ public interface JobSearchView {
   void showJobAds(List<JobProxy> listOfJobObjects);
 
   /**
-   *
    * @return the value of a job category
    */
   String getCategoryValue();
 
   /**
-   *
    * @return the value of a job location
    */
   String getLocationValue();
@@ -46,5 +44,8 @@ public interface JobSearchView {
    * @param presenter a presenter which will drive the view
    */
   void setPresenter(JobSearchPresenter presenter);
+
+
+  void constructApplyButton();
 
 }

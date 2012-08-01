@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.cvsreview;
 
-import com.clouway.jobex.client.job.jobsearch.RequestFactoryHelper;
+import com.clouway.jobex.RequestFactoryHelper;
 import com.clouway.jobex.server.cv.CV;
 import com.clouway.jobex.server.cv.CvsService;
 import com.clouway.jobex.server.emailservice.EmailService;
