@@ -11,7 +11,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.ListBox;
 
 import java.util.Date;
 
@@ -36,9 +35,6 @@ public class CVEditor extends Composite implements Editor<CVProxy> {
   TextBox skills;
 
   @UiField
-  ListBox genderSelectBox;
-
-  @UiField
   @Ignore
   DateBox datePicker;
 
@@ -55,19 +51,6 @@ public class CVEditor extends Composite implements Editor<CVProxy> {
     @Override
     public Date getValue() {
       return datePicker.getValue();
-    }
-  };
-
-  LeafValueEditor<String> gender = new LeafValueEditor<String>() {
-    @Override
-    public void setValue(String value) {
-      genderSelectBox.setValue(genderSelectBox.getSelectedIndex(), value);
-
-    }
-
-    @Override
-    public String getValue() {
-      return genderSelectBox.getValue(genderSelectBox.getSelectedIndex());
     }
   };
 

@@ -94,8 +94,7 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
     };
     announcedJobsTable.addColumn(locationColumn, "Location");
 
-    DateCell dateCell = new DateCell();
-    Column<JobProxy, Date> expirationDateColumn = new Column<JobProxy, Date>(dateCell) {
+    Column<JobProxy, Date> expirationDateColumn = new Column<JobProxy, Date>(new DateCell()) {
       public Date getValue(JobProxy jobProxy) {
         return jobProxy.getExpirationDate();
       }
@@ -162,9 +161,5 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
    */
   public void setPresenter(ReviewJobsPresenter reviewJobsPresenter) {
     this.reviewJobsPresenter = reviewJobsPresenter;
-  }
-
-  public boolean isConfirmed() {
-    return Window.confirm("Delete announced job");
   }
 }

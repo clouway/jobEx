@@ -3,12 +3,14 @@ package com.clouway.jobex.client.cv;
 import com.clouway.jobex.shared.CVProxy;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.github.gwtbootstrap.client.ui.AlertBlock;
+import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.inject.Inject;
@@ -41,7 +43,7 @@ public class EditCVWorkflowViewImpl extends Composite implements EditCVWorkflowV
   private static EditCVWorkflowViewImplUiBinder ourUiBinder = GWT.create(EditCVWorkflowViewImplUiBinder.class);
 
   @UiField
-  com.github.gwtbootstrap.client.ui.Button save;
+  Button save;
 
   @UiField
   CVEditor editor;
@@ -86,8 +88,10 @@ public class EditCVWorkflowViewImpl extends Composite implements EditCVWorkflowV
   @UiHandler("save")
   public void onSave(ClickEvent event) {
 
-    driver.flush();
-    workflow.saveEditedCV();
+    if (Window.confirm("Apply changes to the CV?")) {
+      driver.flush();
+      workflow.saveEditedCV();
+    }
   }
 
   public void showConstraintViolations(List<String> constraintViolations) {
@@ -105,6 +109,5 @@ public class EditCVWorkflowViewImpl extends Composite implements EditCVWorkflowV
   public void reset() {
 
     alert.setVisible(false);
-    editor.genderSelectBox.setSelectedIndex(0);
   }
 }

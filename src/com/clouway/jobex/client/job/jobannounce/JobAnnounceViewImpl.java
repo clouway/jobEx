@@ -13,6 +13,7 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -69,7 +70,7 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
   @UiHandler("announce")
   public void onButtonAnnounceClick(ClickEvent event) {
 
-    if (presenter != null) {
+    if (Window.confirm("Announce this job?")) {
       driver.flush();
       presenter.announceJob();
     }

@@ -6,6 +6,7 @@ import com.clouway.jobex.shared.CVProxy;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.ButtonCell;
 import com.github.gwtbootstrap.client.ui.CellTable;
+import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -23,6 +24,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.inject.Inject;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -77,35 +79,42 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
       public String getValue(CVProxy object) {
         return String.valueOf(object.getId());
       }
-    }, "Id");
+    }, "ID");
 
     cVCellTable.addColumn(new TextColumn<CVProxy>() {
       @Override
       public String getValue(CVProxy object) {
         return object.getName();
       }
-    }, "name");
+    }, "Name");
 
+    /*cVCellTable.addColumn(new Column<CVProxy, Date>(new DateCell()) {
 
     cVCellTable.addColumn(new TextColumn<CVProxy>() {
       @Override
       public String getValue(CVProxy object) {
         return object.getGender();
       }
-    }, "gender");
+    }, "gender")};*/
 
 
+/*
     cVCellTable.addColumn(new TextColumn<CVProxy>() {
       @Override
       public String getValue(CVProxy object) {
         return String.valueOf(DateTimeFormat.getFormat("yyyy/MM/dd").format(object.getDateOfBirth()));
+
+      @Override
+      public Date getValue(CVProxy object) {
+        return object.getDateOfBirth();
       }
-    }, "Date of birth");
+    }, "Date of Birth");
+*/
 
     Column<CVProxy, String> editButton = new Column<CVProxy, String>(new ButtonCell()) {
       @Override
       public String getValue(CVProxy object) {
-        return "edit";
+        return "Edit";
       }
     };
 
@@ -114,14 +123,14 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
       public String getValue(CVProxy object) {
         return object.getPhoneNumber();
       }
-    }, "phone number");
+    }, "Phone Number");
 
     cVCellTable.addColumn(new TextColumn<CVProxy>() {
       @Override
       public String getValue(CVProxy object) {
         return object.getSkills();
       }
-    }, "skills:");
+    }, "Skills");
 
     Column<CVProxy, String> delete = new Column<CVProxy, String>(new ButtonCell()) {
       @Override
@@ -133,7 +142,10 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
     delete.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
       @Override
       public void update(int index, CVProxy object, String value) {
-        presenter.deleteCv(object.getId());
+
+        if (Window.confirm("Do you want to delete the selected CV?")) {
+          presenter.deleteCv(object.getId());
+        }
       }
     });
 
@@ -236,6 +248,11 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
   public void deleteId() {
     jobId = null;
     removeSelectButton();
+  }
+
+  @Override
+  public boolean isConfirmed() {
+    return false;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
   @UiHandler("createCv")

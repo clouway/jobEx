@@ -7,26 +7,18 @@
   <g:HTMLPanel>
 
 
-    <g:Label text="name"/>
+    <g:Label text="Name"/>
     <b:TextBox ui:field="name"/>
 
 
-    <g:Label text="Date of birth"/>
+    <g:Label text="Date of Birth"/>
     <b2:DateBox ui:field="datePicker" format="dd/mm/yyyy" autoClose="true"/>
 
 
-    <g:Label text="Gender"/>
-    <g:ListBox ui:field="genderSelectBox" width="210">
-      <g:item />
-      <g:item>Male</g:item>
-      <g:item>Female</g:item>
-    </g:ListBox>
-
-
-    <g:Label text="phoneNumber"/>
+    <g:Label text="Phone Number"/>
     <b:TextBox ui:field="phoneNumber"/>
 
-    <g:Label text="skills"/>
+    <g:Label text="Skills"/>
     <b:TextBox ui:field="skills"/>
 
 

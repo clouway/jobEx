@@ -96,7 +96,6 @@ public class EditCvWorkflowTest {
     setCVForEditing();
 
     cv.setDateOfBirth(new Date());
-    cv.setGender("male");
     cv.setName("name");
     cv.setPhoneNumber("0884669080");
     cv.setSkills("skills");

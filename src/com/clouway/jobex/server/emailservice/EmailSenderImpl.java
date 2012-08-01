@@ -28,7 +28,7 @@ public class EmailSenderImpl implements EmailSender {
     Properties properties = new Properties();
     Session session = Session.getInstance(properties);
 
-    String messageBody = "You are approved for '" + job.getPosition() + "', at company '" + job.getCompany() + "'.";
+    String messageBody = "You are approved for '" + job.getPosition() + "' at company '" + job.getCompany() + "'.";
 
     try {
       Message message = new MimeMessage(session);

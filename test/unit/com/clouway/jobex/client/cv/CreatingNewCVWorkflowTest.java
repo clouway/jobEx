@@ -93,7 +93,6 @@ public class CreatingNewCVWorkflowTest {
 
     cv.setName("myName");
     cv.setDateOfBirth(new Date());
-    cv.setGender("male");
     cv.setPhoneNumber("0888123456");
     cv.setSkills("skills");
 
