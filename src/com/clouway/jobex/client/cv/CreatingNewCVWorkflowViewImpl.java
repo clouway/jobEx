@@ -10,6 +10,7 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.inject.Inject;
@@ -84,8 +85,10 @@ public class CreatingNewCVWorkflowViewImpl extends Composite implements Creating
 
   @UiHandler("create")
   public void onCvCreate(ClickEvent event) {
-    presenter.createCV();
 
+    if (Window.confirm("Create this CV?")) {
+      presenter.createCV();
+    }
   }
 
   public void showConstraintViolations(List<String> constraintViolations) {
@@ -102,6 +105,5 @@ public class CreatingNewCVWorkflowViewImpl extends Composite implements Creating
 
   public void reset() {
     alert.setVisible(false);
-    editor.genderSelectBox.setSelectedIndex(0);
   }
 }

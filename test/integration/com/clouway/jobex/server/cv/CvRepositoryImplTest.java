@@ -79,7 +79,7 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
 
     String email = "mail@mail.com";
 
-    CV cv = new CV(1l, "name", email, "12345678", "skills !", new Date(), "male");
+    CV cv = new CV(1l, "name", email, "12345678", "skills !", new Date());
 
     repository.save(email, cv);
 
@@ -105,7 +105,7 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
 
     String mail = "mail@mail.com";
 
-    CV cv = new CV(1l, "name", "mail@mail.com", "1234567", "skills_1", new Date(), "female");
+    CV cv = new CV(1l, "name", "mail@mail.com", "1234567", "skills_1", new Date());
 
     repository.save(mail, cv);
 
@@ -171,7 +171,7 @@ public class CvRepositoryImplTest extends AppEngineTestCase {
     Long jobId = 1l;
 
     // Save new CV
-    CV cv = new CV(1l, "Ivan", "ivan@mail.com", "123456", "skills", new Date(), "gender");
+    CV cv = new CV(1l, "Ivan", "ivan@mail.com", "123456", "skills", new Date());
     repository.save(cv.getEmail(), cv);
 
     // Create new JobApplication

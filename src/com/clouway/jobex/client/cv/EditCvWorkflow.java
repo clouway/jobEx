@@ -63,6 +63,8 @@ public class EditCvWorkflow extends AbstractActivity {
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
 
     view.setPresenter(this);
+    view.reset();
+
     panel.setWidget(view);
   }
 }
