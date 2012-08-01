@@ -5,7 +5,6 @@ import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
@@ -36,6 +35,7 @@ public class JobSearchPresenter extends AbstractActivity {
 
   /**
    * Search for jobs and show the results in a cell table
+   *
    * @param location criteria for searching
    * @param category criteria for searching
    */
@@ -64,10 +64,12 @@ public class JobSearchPresenter extends AbstractActivity {
     });
 
   }
-  
+
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
-    
+
     jobSearchView.setPresenter(this);
-    panel.setWidget((JobSearchViewImpl)jobSearchView);
+
+    panel.setWidget((JobSearchViewImpl) jobSearchView);
+
   }
 }

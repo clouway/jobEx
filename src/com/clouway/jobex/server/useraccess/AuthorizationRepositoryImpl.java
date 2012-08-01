@@ -4,7 +4,6 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
 /**
@@ -13,16 +12,16 @@ import com.google.appengine.api.datastore.Query;
 public class AuthorizationRepositoryImpl implements AuthorizationRepository {
 
 
-  private DatastoreService datastoreService;
+  private DatastoreService service;
 
-  public AuthorizationRepositoryImpl(DatastoreService datastoreService) {
-    this.datastoreService = datastoreService;
+  public AuthorizationRepositoryImpl(DatastoreService service) {
+    this.service = service;
   }
 
   @Override
   public boolean isNotRegister(String kind, String email) {
     try {
-      datastoreService.get(KeyFactory.createKey(kind, email));
+      service.get(KeyFactory.createKey(kind, email));
     } catch (EntityNotFoundException e) {
       return true;
     }
@@ -33,15 +32,15 @@ public class AuthorizationRepositoryImpl implements AuthorizationRepository {
   public void register(String kind, String email, String password) {
     Entity user = new Entity(kind, email);
     user.setProperty("password", password);
-    datastoreService.put(user);
+    service.put(user);
   }
 
   @Override
-  public boolean verifyUserPassword(String kind, String email, String password) {
+  public boolean isAuthorized(String kind, String email, String password) {
 
-     Entity loginEntity;
+    Entity loginEntity;
     try {
-      loginEntity = datastoreService.get(KeyFactory.createKey(kind, email));
+      loginEntity = service.get(KeyFactory.createKey(kind, email));
     } catch (EntityNotFoundException e) {
       return false;
     }
@@ -56,17 +55,25 @@ public class AuthorizationRepositoryImpl implements AuthorizationRepository {
     loggedUser.setProperty("loginType", loginType);
     loggedUser.setProperty("id", id);
 
-    datastoreService.put(loggedUser);
+    service.put(loggedUser);
   }
 
   @Override
   public boolean isUserAuthorized(String email, String id) {
     Entity loggedUser;
     try {
-      loggedUser = datastoreService.get(KeyFactory.createKey("Logged",email));
+      loggedUser = service.get(KeyFactory.createKey("Logged", email));
     } catch (EntityNotFoundException e) {
       return false;
     }
     return id.equals(String.valueOf(loggedUser.getProperty("id")));
+  }
+
+  @Override
+  public boolean isSIDRegistered(String sid) {
+    Query query = new Query("Logged");
+    query.setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, sid));
+    Entity entity = service.prepare(query).asSingleEntity();
+    return entity != null;
   }
 }

@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.cvsreview;
 
-import com.clouway.jobex.client.confirmation.Confirmation;
+
 import com.clouway.jobex.shared.CVProxy;
 
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public interface SubmittedCVsView extends Confirmation {
+public interface SubmittedCVsView  {
 
   /**
    * Show submitted CVs for a job

@@ -1,8 +1,7 @@
 package com.clouway.jobex.client.jobsreview;
 
 import com.clouway.jobex.client.cvsreview.SubmittedCVsPlace;
-import com.clouway.jobex.client.navigation.NavigationMenu;
-import com.clouway.jobex.client.security.CompanyNameProvider;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.DateCell;
@@ -19,7 +18,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-
 import com.google.web.bindery.event.shared.EventBus;
 
 import java.util.Date;
@@ -40,9 +38,8 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
   @UiField
   CellTable<JobProxy> announcedJobsTable;
 
-  @UiField(provided = true)
-    NavigationMenu menu;
-  private CompanyNameProvider companyNameProvider;
+
+  private UserCredentialsLocalStorage companyNameProvider;
 
   @Inject
   private EventBus eventBus;
@@ -50,9 +47,8 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
   private PlaceController placeController;
 
   @Inject
-  public ReviewJobsViewImpl(NavigationMenu menu, final PlaceController placeController, final CompanyNameProvider companyNameProvider) {
+  public ReviewJobsViewImpl(final PlaceController placeController, final UserCredentialsLocalStorage companyNameProvider) {
 
-    this.menu = menu;
 
     this.companyNameProvider = companyNameProvider;
 
@@ -110,14 +106,18 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
     };
     announcedJobsTable.addColumn(deleteAnnouncedJob);
 
+    
+
+
     Column<JobProxy, String> previewCVs = new Column<JobProxy, String>(new ButtonCell()) {
       public String getValue(JobProxy object) {
         return "Preview CVs";
       }
     };
+
     announcedJobsTable.addColumn(previewCVs);
 
-    previewCVs.setFieldUpdater(new FieldUpdater<JobProxy, String>(){
+    previewCVs.setFieldUpdater(new FieldUpdater<JobProxy, String>() {
       public void update(int index, JobProxy jobProxy, String value) {
 
         placeController.goTo(new SubmittedCVsPlace(jobProxy.getId()));
@@ -126,7 +126,7 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
 
     deleteAnnouncedJob.setFieldUpdater(new FieldUpdater<JobProxy, String>() {
       public void update(int index, JobProxy jobProxy, String value) {
-        reviewJobsPresenter.deleteAnnouncedJob(jobProxy.getId(), companyNameProvider.getCompanyName());
+        reviewJobsPresenter.deleteAnnouncedJob(jobProxy.getId(), companyNameProvider.getUsername());
       }
     });
   }

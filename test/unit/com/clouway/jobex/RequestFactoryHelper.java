@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -63,7 +64,9 @@ public class RequestFactoryHelper {
    * Returns the same instance as used by the RequestFactory
    */
   public static <T> T getService(Class<T> serviceClass) {
-    return (T) serviceLocator.getInstance(serviceClass);
+    T t = (T) serviceLocator.getInstance(serviceClass);
+    reset(t);
+    return t;
   }
 
   /**

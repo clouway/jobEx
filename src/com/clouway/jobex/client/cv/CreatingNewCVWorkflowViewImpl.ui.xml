@@ -1,7 +1,6 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:e='urn:import:com.clouway.jobex.client.cv'
-             xmlns:n="urn:import:com.clouway.jobex.client.navigation"
              xmlns:b="urn:import:com.github.gwtbootstrap.client.ui"
         >
 
@@ -39,8 +38,6 @@
       <g:Label text="Add new CV" addStyleNames="{style.label}"/>
 
     </g:HTMLPanel>
-
-    <n:NavigationMenu ui:field="navigation"/>
 
     <g:HTMLPanel addStyleNames="{style.container}">
 

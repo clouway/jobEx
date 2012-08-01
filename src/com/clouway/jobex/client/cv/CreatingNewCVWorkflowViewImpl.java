@@ -1,6 +1,5 @@
 package com.clouway.jobex.client.cv;
 
-import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.shared.CVProxy;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.core.client.GWT;
@@ -34,20 +33,19 @@ public class CreatingNewCVWorkflowViewImpl extends Composite implements Creating
   @UiField
   com.github.gwtbootstrap.client.ui.Button create;
 
-  @UiField(provided = true)
-  NavigationMenu navigation;
+
 
   @Inject
   PlaceController controller;
 
   interface Driver extends RequestFactoryEditorDriver<CVProxy, CVEditor> {
+
   }
 
   private Driver driver = GWT.create(Driver.class);
 
   @Inject
-  public CreatingNewCVWorkflowViewImpl(NavigationMenu navigation) {
-    this.navigation = navigation;
+  public CreatingNewCVWorkflowViewImpl() {
     HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
     initWidget(rootElement);
   }

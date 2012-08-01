@@ -3,6 +3,7 @@
              xmlns:b="urn:import:com.github.gwtbootstrap.client.ui"
         >
 
+  <ui:with field="res" type="com.clouway.jobex.client.icons.IconsResources"/>
   <ui:style>
 
     .container {
@@ -22,12 +23,22 @@
     }
 
     .element {
-            margin: 10px;
+      margin: 10px;
+    }
+
+    .label {
+      font-size: 20px;
+      font-stretch: bold;
     }
 
   </ui:style>
 
   <g:HTMLPanel styleName="{style.container}">
+
+    <g:HTMLPanel>
+      <g:Image resource="{res.lock}"/>
+      <g:Label text="Authorization" addStyleNames="{style.label}"/>
+    </g:HTMLPanel>
     <g:VerticalPanel>
 
       <g:Label text="Email:"/>

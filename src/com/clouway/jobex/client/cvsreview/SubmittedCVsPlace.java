@@ -1,17 +1,16 @@
 package com.clouway.jobex.client.cvsreview;
 
-import com.google.gwt.place.shared.Place;
+import com.clouway.jobex.client.navigation.SecuredPlace;
 import com.google.gwt.place.shared.PlaceTokenizer;
 
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public class SubmittedCVsPlace extends Place {
+public class SubmittedCVsPlace extends SecuredPlace {
 
   private final Long jobId;
 
   public SubmittedCVsPlace(Long jobId) {
-
     this.jobId = jobId;
   }
 

@@ -1,14 +1,13 @@
 package com.clouway.jobex.client.job.jobannounce;
 
 
-import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
-import com.google.gwt.place.shared.Place;
+import com.clouway.jobex.client.navigation.SecuredPlace;
 import com.google.gwt.place.shared.PlaceTokenizer;
 
 /**
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
-public class JobAnnouncePlace extends Place {
+public class JobAnnouncePlace extends SecuredPlace {
 
   public static class Tokenizer implements PlaceTokenizer<JobAnnouncePlace> {
 

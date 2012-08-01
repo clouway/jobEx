@@ -38,11 +38,6 @@ public class SubmittedCVsPresenterImpl extends AbstractActivity implements Submi
    * @param email - user's email
    */
   public void sendEmailApproval(Long jobId, String email) {
-
-    if(!view.isConfirmed()) {
-      return;
-    }
-
     requestFactory.emailServiceContext().sendEmailApproval(jobId, email).to(new SentEmailReceiver(view)).fire();
   }
 

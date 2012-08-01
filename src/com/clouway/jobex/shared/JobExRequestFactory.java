@@ -1,6 +1,6 @@
 package com.clouway.jobex.shared;
 
-import com.clouway.jobex.client.useraccess.login.LoginPlace;
+import com.clouway.jobex.client.security.UserCredentialsProxy;
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
 import com.clouway.jobex.server.applyingforjob.JobApplicationServiceLocator;
 import com.clouway.jobex.server.cv.CvsService;
@@ -85,17 +85,20 @@ public interface JobExRequestFactory extends RequestFactory {
 
 
   @Service(value = AuthorizationService.class, locator = AuthorizationServiceLocator.class)
-  public interface AuthorizationContext extends RequestContext {
-    Request<Void> register(String registrationType, String email, String password);
-    
-    Request<String> login(String loginType, String email, String password);
-  }
+  public interface AuthorizationRequestContext extends RequestContext {
 
+    Request<Void> register(String registrationType, String email, String password);
+
+    Request<UserCredentialsProxy> login(String loginType, String email, String password);
+
+    Request<Boolean> isValid(String sid);
+
+
+  }
 
 
   @Service(value = EmailService.class, locator = EmailServiceLocator.class)
   public interface EmailServiceContext extends RequestContext {
-
     Request<Void> sendEmailApproval(Long jobId, String email);
   }
 
@@ -110,8 +113,7 @@ public interface JobExRequestFactory extends RequestFactory {
 
   JobApplicationRequestContext jobApplicationContext();
 
-
-  AuthorizationContext authorizationContext();
+  AuthorizationRequestContext authorizationContext();
 
   EmailServiceContext emailServiceContext();
 

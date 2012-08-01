@@ -2,30 +2,36 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:b='urn:import:com.github.gwtbootstrap.client.ui'>
 
+
+  <ui:with field="res" type="com.clouway.jobex.client.icons.IconsResources"/>
+
   <ui:style>
+
     .nav {
 
       text-align: center;
       margin: 10px 0px 10px 0px;
     }
 
+    .brand {
+      font-size: 14px;
+      color: white;
+
+    }
+
 
   </ui:style>
 
-  <g:HTMLPanel addStyleNames="{style.nav}">
+  <g:HTMLPanel addStyleNames="{style.nav}" ui:field="container">
 
-    <b:Navbar>
+    <b:Navbar ui:field="navBar">
 
-      <b:Brand text="JobEx"/>
-      <b:Nav>
+      <b:Brand ui:field="usernameLabel" addStyleNames="{style.brand}"/>
+      <b:Nav ui:field="nav">
 
-        <b:NavLink text="Home" ui:field="home"/>
-        <b:NavLink text="Create New CV" ui:field="newCV"/>
-        <b:NavLink text="Preview My CVs" ui:field="cvList"/>
-        <b:NavLink text="Announce A Job" ui:field="announceJob"/>
-        <b:NavLink text="Jobs Review" ui:field="jobReview"/>
       </b:Nav>
     </b:Navbar>
 
   </g:HTMLPanel>
+
 </ui:UiBinder>
