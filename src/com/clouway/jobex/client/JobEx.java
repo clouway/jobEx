@@ -21,6 +21,8 @@ import com.clouway.jobex.client.navigation.ActivityPlaceMetadata;
 import com.clouway.jobex.client.navigation.JobExPlaceHistoryMapper;
 import com.clouway.jobex.client.navigation.MenuItemMapper;
 import com.clouway.jobex.client.navigation.NavigationMenu;
+import com.clouway.jobex.client.navigation.PageNotFoundActivity;
+import com.clouway.jobex.client.navigation.PageNotFoundPlace;
 import com.clouway.jobex.client.navigation.SecuredActivityMapper;
 import com.clouway.jobex.client.security.AuthorizationPlace;
 import com.clouway.jobex.client.security.UserAuthorizationEvent;
@@ -144,6 +146,13 @@ public class JobEx implements EntryPoint {
         return injector.jobSearchPresenter();
       }
     });
+
+    map.put(PageNotFoundPlace.class, new ActivityPlaceMetadata<PageNotFoundPlace, PageNotFoundActivity>() {
+      @Override
+      public PageNotFoundActivity getActivity(PageNotFoundPlace pageNotFoundPlace) {
+        return injector.pageNotFoundPlace();
+      }
+    });
   }
 
   private void setUserPlaces(final JobExGinjector injector, Map<Class<? extends Place>, ActivityPlaceMetadata> map) {
@@ -199,5 +208,7 @@ public class JobEx implements EntryPoint {
         return injector.loginPresenter();
       }
     });
+
+
   }
 }

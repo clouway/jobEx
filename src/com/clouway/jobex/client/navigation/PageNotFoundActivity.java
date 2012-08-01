@@ -5,14 +5,15 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 /**
-* @author Adelin Ghanayem adelin.ghanaem@clouway.com
-*/
+ * @author Adelin Ghanayem adelin.ghanaem@clouway.com
+ */
 public class PageNotFoundActivity extends AbstractActivity {
 
 
   @Override
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
-
+    PageNotFoundPanel pageNotFoundPanel = new PageNotFoundPanel();
+    panel.setWidget(pageNotFoundPanel);
   }
 
 }
