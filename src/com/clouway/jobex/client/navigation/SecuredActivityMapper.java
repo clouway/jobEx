@@ -28,7 +28,7 @@ public class SecuredActivityMapper implements ActivityMapper {
   @Override
   public Activity getActivity(Place place) {
 
-    ActivityPlaceMetadata activity = null;
+    ActivityPlaceMetadata activity;
 
     if (place instanceof SecuredPlace) {
       if (provider.isAuthorized()) {
