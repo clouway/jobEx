@@ -12,7 +12,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -69,13 +68,4 @@ public class JobAnnouncePresenterImplTest {
     verify(view).goToSearchPlace();
   }
 
-  @Test
-  public void jobCannotBeAnnounceWithoutConfirmation() {
-
-    when(companyNameProvider.getUsername()).thenReturn("Qwerty");
-
-    presenter.initialize();
-    presenter.announceJob();
-    verify(service, never()).announceJob(companyCaptor.capture(), jobCaptor.capture());
-  }
 }

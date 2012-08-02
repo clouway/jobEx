@@ -1,5 +1,6 @@
 package com.clouway.jobex.server.useraccess;
 
+import com.clouway.jobex.shared.AccountType;
 import com.clouway.jobex.shared.SecuredActionsNamesProvider;
 import com.clouway.jobex.shared.UserCredentials;
 import org.junit.Before;
@@ -11,7 +12,6 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -52,27 +52,48 @@ public class AuthorizationServiceImplTest {
 
   }
 
-  @Test
-  public void returnsTokenWhenCredentialsAreValid() {
 
-    when(authorizationRepository.isAuthorized(loinType, email, password)).thenReturn(true);
+
+
+
+  @Test
+  public void returnsTokenWithUserConstraintWhenUserCredentialsAreValid() {
+
+    when(authorizationRepository.isAuthorized(AccountType.USER, email, password)).thenReturn(true);
 
     when(idGenerator.generateId()).thenReturn("123");
 
-    UserCredentials userCredentials = service.login(loinType, email, password);
-
-    fail("you need to provide the login type by an interface .... !");
+    UserCredentials userCredentials = service.login(AccountType.USER, email, password);
 
     verify(idGenerator).generateId();
 
-    verify(authorizationRepository).isAuthorized(loinType, email, password);
+    verify(authorizationRepository).isAuthorized(AccountType.USER, email, password);
 
     verify(namesProvider).getUserActions();
 
     assertThat(userCredentials, is(notNullValue()));
 
     assertThat(userCredentials.getSid(), is(equalTo("123")));
-    
+
+  }
+
+  public void returnsTokenWithCompanyConstraintWhenCompanyCredentialsAreValid() {
+
+    when(authorizationRepository.isAuthorized(AccountType.COMPANY, email, password)).thenReturn(true);
+
+    when(idGenerator.generateId()).thenReturn("123");
+
+    UserCredentials userCredentials = service.login(AccountType.COMPANY, email, password);
+
+    verify(idGenerator).generateId();
+
+    verify(authorizationRepository).isAuthorized(AccountType.COMPANY, email, password);
+
+    verify(namesProvider).getUserActions();
+
+    assertThat(userCredentials, is(notNullValue()));
+
+    assertThat(userCredentials.getSid(), is(equalTo("123")));
 
   }
 

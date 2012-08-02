@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -42,34 +43,27 @@ public class RegistrationPresenterTest {
     presenter = new RegistrationPresenter(factory, registrationView);
 
   }
-
-
-  @Test
-  public void registrationButtonIsDisabledOnClick(){
-
-    verify(registrationView).disableRegisterButton();
-
-  }
-
   @Test
   public void willRegisterUserOnSuccess(){
 
-//    presenter.register(registrationType, email, password);
-//
-//    verify(registrationView).successfulRegistrationMessage();
-//
-//    verify(registrationView).enableRegisterButton();
+    presenter.register(registrationType, email, password);
+
+    verify(registrationView).successfulRegistrationMessage();
+
+    verify(registrationView).enableRegisterButton();
   }
 
   @Test
   public void willNotRegisterUserIfEmailIsAlreadyInTheRepository(){
 
-//    doThrow(new RuntimeException()).when(authorizationService).register(registrationType, email,password);
-//
-//    presenter.register(registrationType, email,password);
-//
-//    verify(registrationView).userExistsMessage();
-//
-//    verify(registrationView).enableRegisterButton();
+    doThrow(new RuntimeException()).when(authorizationService).register(registrationType, email,password);
+
+    presenter.register(registrationType, email,password);
+
+    verify(registrationView).userExistsMessage();
+
+    verify(registrationView).enableRegisterButton();
   }
+
+
 }

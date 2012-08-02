@@ -111,14 +111,5 @@ public class JobsReviewPresenterImplTest {
     assertThat(companyName, is(equalTo(companyNameCaptor.getValue())));
   }
 
-  @Test
-  public void cannotDeleteAnnouncedJobWithoutConfirmation() {
 
-    Long jobId = 1l;
-
-
-    presenter.deleteAnnouncedJob(jobId, companyName);
-
-    verify(service, never()).deleteAnnouncedJob(jobId, companyName);
-  }
 }

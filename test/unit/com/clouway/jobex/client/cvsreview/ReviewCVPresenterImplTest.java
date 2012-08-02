@@ -113,16 +113,5 @@ public class ReviewCVPresenterImplTest {
     assertThat(email, is(equalTo(emailCaptor.getValue())));
   }
 
-  @Test
-  public void cannotSendEmailWithoutConfirmation() {
 
-    Long jobId = 1l;
-
-    String email = "ivan@mail.com";
-
-
-    presenter.sendEmailApproval(jobId, email);
-
-    verify(emailService, never()).sendEmailApproval(jobIdCaptor.capture(), emailCaptor.capture());
-  }
 }

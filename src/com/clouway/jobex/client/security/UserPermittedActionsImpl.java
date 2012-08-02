@@ -24,5 +24,7 @@ public class UserPermittedActionsImpl implements UserPermittedActions {
       }
     }
     return false;
+
   }
+
 }

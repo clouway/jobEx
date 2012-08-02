@@ -37,14 +37,23 @@ public class AuthorizationServiceImpl implements AuthorizationService {
   public UserCredentials login(String loginType, String email, String password) {
 
     if (authorizationRepository.isAuthorized(loginType, email, password)) {
+
       String id = idGenerator.generateId();
+
       authorizationRepository.saveAsLogged(email, loginType, id);
+
       if (AccountType.USER.equals(loginType)) {
+
         return new UserCredentials(id, email, namesProvider.getUserActions());
+
       }
+
       if (AccountType.COMPANY.equals(loginType)) {
+
         return new UserCredentials(id, email, namesProvider.getCompanyActions());
+
       }
+
     }
     return null;
   }

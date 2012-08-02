@@ -33,7 +33,6 @@ public class GuiceServletConfig extends GuiceServletContextListener {
       @Override
       protected void configureServlets() {
         serve("/gwtRequest").with(JobExRequestFactoryServlet.class);
-
         bind(JobRepository.class).to(JobRepositoryImpl.class);
         bind(JobSearchService.class).to(JobSearchServiceImpl.class);
         bind(JobAnnounceService.class).to(JobAnnounceServiceImpl.class);
