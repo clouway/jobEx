@@ -8,8 +8,11 @@ import com.google.gwt.place.shared.PlaceTokenizer;
  */
 public class PreviewCvPlace extends SecuredPlace {
 
-  public PreviewCvPlace(String linkText) {
-    super(linkText);
+  private Long id;
+
+  public PreviewCvPlace(Long id) {
+
+    this.id = id;
   }
 
   public PreviewCvPlace() {
@@ -17,15 +20,22 @@ public class PreviewCvPlace extends SecuredPlace {
   }
 
 
+  public Long getId() {
+    return id;
+  }
+
   public static class Tokenizer implements PlaceTokenizer<PreviewCvPlace> {
 
     public PreviewCvPlace getPlace(String token) {
-      return new PreviewCvPlace("select CV");
+      return new PreviewCvPlace(Long.valueOf(token));
     }
 
     public String getToken(PreviewCvPlace place) {
-      return "selectCV";
+      if (place.getId() == null) {
+        return "";
+      }
+      return String.valueOf(place.getId());
     }
-  }
 
+  }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEventHandler {
+public class UserCVsPresenter extends AbstractActivity {
 
   private JobExRequestFactory requestFactory;
 
@@ -58,6 +58,7 @@ public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEve
       public void onFailure(ServerFailure error) {
         view.notifyUserOfCommunicationError();
       }
+
       @Override
       public void onSuccess(List<String> response) {
         if (response != null && response.size() > 0) {
@@ -69,18 +70,7 @@ public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEve
     });
   }
 
-  /**
-   * Handles ApplyForJobEvent.
-   *
-   * @param event the event to be handled
-   */
-  @Override
-  public void onApplyForJob(ApplyForJobEvent event) {
-    view.setJobId(event.getJobId());
-    fetchCreatedCVs();
-  }
-
-  private void fetchCreatedCVs() {
+  public void fetchCreatedCVs() {
     JobExRequestFactory.CVsRequestContext requestContext = requestFactory.cvsRequestContext();
     requestContext.fetchCreatedCVs(provider.getUsername()).fire(new Receiver<List<CVProxy>>() {
       @Override
@@ -102,10 +92,11 @@ public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEve
     panel.setWidget(view);
   }
 
+  public void setId(Long jobId) {
+    view.setJobId(jobId);
+  }
+
   public void deleteCv(long cvId) {
-
-
-
     JobExRequestFactory.CVsRequestContext context = requestFactory.cvsRequestContext();
 
     context.delete(provider.getUsername(), cvId).fire(new Receiver<List<CVProxy>>() {
@@ -114,5 +105,9 @@ public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEve
         view.showCVs(response);
       }
     });
+  }
+
+  public void unsetId() {
+    view.deleteId();
   }
 }
