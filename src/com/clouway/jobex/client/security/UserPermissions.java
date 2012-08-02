@@ -7,14 +7,14 @@ import java.util.List;
  *
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public interface UserPermittedActions {
+public interface UserPermissions {
 
   /**
    * Sets a list of user permissions
    *
    * @param permissions:user permissions.
    */
-  public void setPermittedActions(List<String> permissions);
+  public void setPermissions(List<String> permissions);
 
   /**
    * checks if permission is previously been set
@@ -23,5 +23,7 @@ public interface UserPermittedActions {
    * @return :true if permission is previously been set,false otherwise;
    */
   public boolean isPermitted(String permission);
+
+
 
 }

@@ -36,7 +36,7 @@ public class NavigationMenu extends Composite implements IsWidget, NavigationMen
   PlaceController placeController;
 
 
-  private final MenuItemMapper menuItemMapper;
+  private final MenuPlacesMapper menuPlacesMapper;
 
   @UiField
   HTMLPanel container;
@@ -51,11 +51,11 @@ public class NavigationMenu extends Composite implements IsWidget, NavigationMen
 
 
   @Inject
-  public NavigationMenu(final PlaceController placeController, MenuItemMapper menuItemMapper) {
+  public NavigationMenu(final PlaceController placeController, MenuPlacesMapper menuPlacesMapper) {
 
     this.placeController = placeController;
 
-    this.menuItemMapper = menuItemMapper;
+    this.menuPlacesMapper = menuPlacesMapper;
 
     HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
 
@@ -96,7 +96,7 @@ public class NavigationMenu extends Composite implements IsWidget, NavigationMen
   public void setPermittedPlaces(List<String> permissions) {
     Nav items = new Nav();
     for (String permission : permissions) {
-      Place permittedPlace = menuItemMapper.getPlace(permission);
+      Place permittedPlace = menuPlacesMapper.getPlace(permission);
       if (permittedPlace != null) {
         items.add(createNavLink(permission, permittedPlace));
       }

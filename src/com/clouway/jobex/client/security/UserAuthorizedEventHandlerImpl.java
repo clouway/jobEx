@@ -3,6 +3,7 @@ package com.clouway.jobex.client.security;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
 import com.clouway.jobex.client.job.jobsearch.JobSearchView;
 import com.clouway.jobex.client.navigation.NavigationMenuController;
+import com.clouway.jobex.client.navigation.SecuredActivityMapper;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.inject.Inject;
 
@@ -17,25 +18,33 @@ public class UserAuthorizedEventHandlerImpl implements UserAuthorizedEventHandle
 
   private final UserCredentialsLocalStorage securityProvider;
 
-  private final UserPermittedActions permittedActions;
+  private final UserPermissions permissions;
 
   private final JobSearchView view;
 
   private final PlaceController controller;
 
+  private final SecuredActivityMapper activityMapper;
+
 
   @Inject
   public UserAuthorizedEventHandlerImpl(NavigationMenuController navigationMenuController,
                                         UserCredentialsLocalStorage securityProvider,
-                                        UserPermittedActions permittedActions,
-                                        JobSearchView view, PlaceController controller) {
+                                        UserPermissions permissions,
+                                        JobSearchView view,
+                                        PlaceController controller, SecuredActivityMapper activityMapper) {
 
     this.navigationMenuController = navigationMenuController;
+
     this.securityProvider = securityProvider;
-    this.permittedActions = permittedActions;
+
+    this.permissions = permissions;
+
     this.view = view;
+
     this.controller = controller;
 
+    this.activityMapper = activityMapper;
   }
 
   @Override
@@ -49,7 +58,9 @@ public class UserAuthorizedEventHandlerImpl implements UserAuthorizedEventHandle
 
     navigationMenuController.refresh();
 
-    permittedActions.setPermittedActions(actions);
+    permissions.setPermissions(actions);
+
+    activityMapper.setPermissions(actions);
 
     view.constructApplyButton();
 

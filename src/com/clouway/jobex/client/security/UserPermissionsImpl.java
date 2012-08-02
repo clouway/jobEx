@@ -6,13 +6,13 @@ import java.util.List;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public class UserPermittedActionsImpl implements UserPermittedActions {
+public class UserPermissionsImpl implements UserPermissions {
 
   private List<String> permittedActions = new ArrayList<String>();
 
 
   @Override
-  public void setPermittedActions(List<String> permissions) {
+  public void setPermissions(List<String> permissions) {
     permittedActions=permissions;
   }
 
@@ -24,7 +24,6 @@ public class UserPermittedActionsImpl implements UserPermittedActions {
       }
     }
     return false;
-
   }
 
 }

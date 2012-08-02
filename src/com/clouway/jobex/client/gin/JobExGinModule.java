@@ -1,14 +1,17 @@
 package com.clouway.jobex.client.gin;
 
 import com.clouway.jobex.client.cv.*;
+import com.clouway.jobex.client.cvsreview.SubmittedCVsPlace;
 import com.clouway.jobex.client.cvsreview.SubmittedCVsPresenter;
 import com.clouway.jobex.client.cvsreview.SubmittedCVsPresenterImpl;
 import com.clouway.jobex.client.cvsreview.SubmittedCVsView;
 import com.clouway.jobex.client.cvsreview.SubmittedCVsViewImpl;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePlace;
+import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
 import com.clouway.jobex.client.job.jobannounce.JobAnnounceView;
 import com.clouway.jobex.client.job.jobannounce.JobAnnounceViewImpl;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
+import com.clouway.jobex.client.job.jobsearch.JobSearchPresenter;
 import com.clouway.jobex.client.job.jobsearch.JobSearchView;
 import com.clouway.jobex.client.job.jobsearch.JobSearchViewImpl;
 import com.clouway.jobex.client.jobsreview.ReviewJobsPlace;
@@ -16,25 +19,22 @@ import com.clouway.jobex.client.jobsreview.ReviewJobsPresenter;
 import com.clouway.jobex.client.jobsreview.ReviewJobsPresenterImpl;
 import com.clouway.jobex.client.jobsreview.ReviewJobsView;
 import com.clouway.jobex.client.jobsreview.ReviewJobsViewImpl;
-import com.clouway.jobex.client.navigation.ActivityPlaceMetadata;
-import com.clouway.jobex.client.navigation.JobExPlaceHistoryMapper;
-import com.clouway.jobex.client.navigation.MenuItemMapper;
-import com.clouway.jobex.client.navigation.MenuItemMapperImpl;
-import com.clouway.jobex.client.navigation.NavigationMenu;
-import com.clouway.jobex.client.navigation.NavigationMenuController;
-import com.clouway.jobex.client.navigation.SecuredActivityMapper;
+import com.clouway.jobex.client.navigation.*;
 import com.clouway.jobex.client.security.AuthorizationPlace;
 import com.clouway.jobex.client.security.UserAuthorizedEventHandler;
 import com.clouway.jobex.client.security.UserAuthorizedEventHandlerImpl;
 import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.client.security.UserCredentialsLocalStorageImpl;
-import com.clouway.jobex.client.security.UserPermittedActions;
-import com.clouway.jobex.client.security.UserPermittedActionsImpl;
+import com.clouway.jobex.client.security.UserPermissions;
+import com.clouway.jobex.client.security.UserPermissionsImpl;
+import com.clouway.jobex.client.useraccess.login.LoginPlace;
+import com.clouway.jobex.client.useraccess.login.LoginPresenter;
 import com.clouway.jobex.client.useraccess.login.LoginView;
 import com.clouway.jobex.client.useraccess.login.LoginViewImpl;
-import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
 import com.clouway.jobex.client.useraccess.logout.LogoutEventHandler;
 import com.clouway.jobex.client.useraccess.logout.LogoutEventHandlerImpl;
+import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
+import com.clouway.jobex.client.useraccess.register.RegistrationPresenter;
 import com.clouway.jobex.client.useraccess.register.RegistrationView;
 import com.clouway.jobex.client.useraccess.register.RegistrationViewImpl;
 import com.clouway.jobex.shared.JobExRequestFactory;
@@ -47,7 +47,7 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import com.google.inject.TypeLiteral;
+import com.google.inject.name.Named;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 
@@ -95,21 +95,34 @@ public class JobExGinModule extends AbstractGinModule {
 
     bind(UserAuthorizedEventHandler.class).to(UserAuthorizedEventHandlerImpl.class);
 
-    bind(MenuItemMapper.class).to(MenuItemMapperImpl.class);
+    bind(MenuPlacesMapper.class).to(MenuPlacesMapperImpl.class);
 
-    bind(UserPermittedActions.class).to(UserPermittedActionsImpl.class).in(Singleton.class  );
+    bind(UserPermissions.class).to(UserPermissionsImpl.class).in(Singleton.class);
 
-    bind(new TypeLiteral<Map<Class<? extends Place>, ActivityPlaceMetadata>>() {
-    }).toProvider(PlacesMapProvider.class);
+    bind(SecuredActivityMapper.class).in(Singleton.class);
 
     bind(LogoutEventHandler.class).to(LogoutEventHandlerImpl.class);
 
   }
-
   @Provides
   @Singleton
   PlaceController getPlaceController(EventBus eventBus) {
     return new PlaceController(eventBus);
+  }
+
+  @Provides
+  @Named("allPlacesMap")
+  Map<String, Class<? extends Place>> allPlacesMap() {
+    Map<String, Class<? extends Place>> map = new HashMap<String, Class<? extends Place>>();
+
+    map.put(Permissions.HOME, JobSearchPlace.class);
+    map.put(Permissions.CREATE_CV, CreateCvPlace.class);
+    map.put(Permissions.PREVIEW_CV, PreviewCvPlace.class);
+    map.put(Permissions.ANNOUNCE_JOB, JobAnnouncePlace.class);
+    map.put(Permissions.PREVIEW_JOBS, ReviewJobsPlace.class);
+    map.put(Permissions.PREVIEW_APPLIED_CVS, SubmittedCVsPlace.class);
+//    map.put(Permissions.HOME, JobSearchPlace.class);
+    return map;
   }
 
   @Provides
@@ -132,6 +145,101 @@ public class JobExGinModule extends AbstractGinModule {
     placeMap.put(Permissions.NEW_REGISTRATION, new RegistrationPlace());
 
     return placeMap;
+  }
+
+  @Provides
+  Map<Class<? extends Place>, ActivityPlaceMetadata> map(final JobExGinjector injector) {
+
+    Map<Class<? extends Place>, ActivityPlaceMetadata> map = new HashMap<Class<? extends Place>, ActivityPlaceMetadata>();
+    map.put(RegistrationPlace.class, new ActivityPlaceMetadata<RegistrationPlace, RegistrationPresenter>() {
+      @Override
+      public RegistrationPresenter getActivity(RegistrationPlace registrationPlace) {
+        return injector.registrationPresenter();
+      }
+    });
+
+    map.put(AuthorizationPlace.class, new ActivityPlaceMetadata<AuthorizationPlace, LoginPresenter>() {
+      @Override
+      public LoginPresenter getActivity(AuthorizationPlace loginPlace) {
+        return injector.loginPresenter();
+      }
+    });
+
+
+    map.put(JobSearchPlace.class, new ActivityPlaceMetadata<JobSearchPlace, JobSearchPresenter>() {
+      @Override
+      public JobSearchPresenter getActivity(JobSearchPlace jobSearchPlace) {
+        return injector.jobSearchPresenter();
+      }
+    });
+
+    map.put(PageNotFoundPlace.class, new ActivityPlaceMetadata<PageNotFoundPlace, PageNotFoundActivity>() {
+      @Override
+      public PageNotFoundActivity getActivity(PageNotFoundPlace pageNotFoundPlace) {
+        return injector.pageNotFoundPlace();
+      }
+    });
+
+    map.put(CreateCvPlace.class, new ActivityPlaceMetadata<CreateCvPlace, CreatingNewCVWorkflow>() {
+      @Override
+      public CreatingNewCVWorkflow getActivity(CreateCvPlace createCvPlace) {
+        return injector.creatingNewCVWorkflow();
+      }
+    });
+
+    map.put(EditCVPlace.class, new ActivityPlaceMetadata<EditCVPlace, EditCvWorkflow>() {
+      @Override
+      public EditCvWorkflow getActivity(EditCVPlace editCVPlace) {
+        EditCvWorkflow editCvWorkflow = injector.editCvWorkflow();
+        editCvWorkflow.editCv((editCVPlace.getId()));
+        return editCvWorkflow;
+      }
+    });
+
+    map.put(PreviewCvPlace.class, new ActivityPlaceMetadata<PreviewCvPlace, UserCVsPresenter>() {
+      @Override
+      public UserCVsPresenter getActivity(PreviewCvPlace previewCvPlace) {
+        UserCVsPresenter presenter = injector.userCVsPresenter();
+        if (previewCvPlace.getId() != null) {
+          presenter.setId(previewCvPlace.getId());
+        } else {
+          presenter.unsetId();
+        }
+        return presenter;
+      }
+    });
+
+    map.put(JobAnnouncePlace.class, new ActivityPlaceMetadata<JobAnnouncePlace, JobAnnouncePresenterImpl>() {
+      @Override
+      public JobAnnouncePresenterImpl getActivity(JobAnnouncePlace jobAnnouncePlace) {
+        return injector.jobAnnouncePresenter();
+      }
+    });
+
+    map.put(ReviewJobsPlace.class, new ActivityPlaceMetadata<ReviewJobsPlace, ReviewJobsPresenterImpl>() {
+      @Override
+      public ReviewJobsPresenterImpl getActivity(ReviewJobsPlace reviewJobsPlace) {
+        return injector.jobsReviewPresenter();
+      }
+    });
+
+    map.put(SubmittedCVsPlace.class, new ActivityPlaceMetadata<SubmittedCVsPlace, SubmittedCVsPresenterImpl>() {
+      @Override
+      public SubmittedCVsPresenterImpl getActivity(SubmittedCVsPlace submittedCVsPlace) {
+        SubmittedCVsPresenterImpl presenter = injector.submittedCvsPresenter();
+        presenter.reviewSubmittedCVs(submittedCVsPlace.getJobId());
+        return presenter;
+      }
+    });
+
+    map.put(LoginPlace.class, new ActivityPlaceMetadata<LoginPlace, LoginPresenter>() {
+      @Override
+      public LoginPresenter getActivity(LoginPlace loginPlace) {
+        return injector.loginPresenter();
+      }
+    });
+
+    return map;
   }
 
 
