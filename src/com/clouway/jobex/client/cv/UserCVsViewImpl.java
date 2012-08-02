@@ -1,7 +1,6 @@
 package com.clouway.jobex.client.cv;
 
 
-import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.shared.CVProxy;
 import com.github.gwtbootstrap.client.ui.Button;
@@ -68,8 +67,8 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
   @Inject
   UserCredentialsLocalStorage provider;
 
-  @Inject
-  public UserCVsViewImpl(NavigationMenu menu) {
+
+  public UserCVsViewImpl() {
 
     cVCellTable = new CellTable<CVProxy>();
 
@@ -209,7 +208,7 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
   }
 
 
-  public void addSelectButton() {
+  private void addSelectButton() {
 
     selectButton.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
       @Override
@@ -218,13 +217,25 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
       }
     });
 
-
     int index = cVCellTable.getColumnIndex(selectButton);
 
     if (index == -1) {
       cVCellTable.addColumn(selectButton);
     }
+  }
 
+
+  private void removeSelectButton() {
+    int index = cVCellTable.getColumnIndex(selectButton);
+    if (index != -1) {
+      cVCellTable.removeColumn(index);
+    }
+  }
+
+  @Override
+  public void deleteId() {
+    jobId = null;
+    removeSelectButton();
   }
 
   @UiHandler("createCv")

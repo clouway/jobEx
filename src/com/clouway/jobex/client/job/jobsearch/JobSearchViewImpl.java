@@ -27,8 +27,11 @@ import java.util.List;
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
 public class JobSearchViewImpl extends Composite implements JobSearchView {
+
   private JobSearchPresenter presenter;
+
   private final PlaceController placeController;
+
   private final ButtonCellFactory factory;
 
   interface JobSearchViewImplUiBinder extends UiBinder<HTMLPanel, JobSearchViewImpl> {
@@ -64,7 +67,6 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
     this.factory = factory;
 
     initWidget(ourUiBinder.createAndBindUi(this));
-
 
     locationValue.addItem("all locations");
 
@@ -157,7 +159,7 @@ public class JobSearchViewImpl extends Composite implements JobSearchView {
 
       apply.setFieldUpdater(new FieldUpdater<JobProxy, String>() {
         public void update(int index, final JobProxy object, String value) {
-          placeController.goTo(new PreviewCvPlace());
+          placeController.goTo(new PreviewCvPlace(object.getId()));
         }
       });
       jobsCellTable.addColumn(apply, "Apply");
