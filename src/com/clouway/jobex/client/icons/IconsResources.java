@@ -34,5 +34,11 @@ public interface IconsResources extends ClientBundle {
   @Source("circle-delete.png")
   ImageResource delete();
 
+  @Source("lock_open.png")
+  ImageResource lock();
+
+  @Source("sign_up.png")
+  ImageResource singUp();
+
 
 }

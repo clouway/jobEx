@@ -10,7 +10,7 @@ public interface LoginView {
 
   void enableLoginButton();
 
-  void unsuccessfulLoginMessage();
+  void notifyIncorrectUsernameOrPassword();
 
   String getEmail();
 
@@ -18,5 +18,5 @@ public interface LoginView {
 
   String getLoginType();
   
-  void goToSearchPlace();
+  void goToWhereCameFrom();
 }

@@ -18,10 +18,21 @@
 
   }
 
+  .label {
+    font-size: 20px;
+    font-stretch: bold;
+  }
+
   </ui:style>
+
+  <ui:with field="res" type="com.clouway.jobex.client.icons.IconsResources"/>
 
   <g:HTMLPanel styleName="{style.container}">
 
+    <g:HTMLPanel>
+      <g:Image resource="{res.singUp}"/>
+      <g:Label text="Create new Account !" addStyleNames="{style.label}"/>
+    </g:HTMLPanel>
     <g:VerticalPanel>
 
       <g:Label text="Email:"/>
@@ -31,7 +42,7 @@
       <g:PasswordTextBox ui:field="password"/>
 
       <g:Label text="Register as:"/>
-      <g:ListBox ui:field="registrationType" width="150"/>
+      <g:ListBox ui:field="typesList" width="150"/>
 
       <b:Button ui:field="registerButton" text="Register"/>
     </g:VerticalPanel>

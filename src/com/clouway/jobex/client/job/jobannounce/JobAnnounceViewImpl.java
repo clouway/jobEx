@@ -42,17 +42,12 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
   @UiField
   com.github.gwtbootstrap.client.ui.Button announce;
 
-  @UiField(provided = true)
-  NavigationMenu navigation;
-
   private PlaceController placeController;
 
   @Inject
   public JobAnnounceViewImpl(PlaceController placeController,NavigationMenu navigation) {
 
     this.placeController = placeController;
-
-    this.navigation = navigation;
 
     initWidget(uiBinder.createAndBindUi(this));
 

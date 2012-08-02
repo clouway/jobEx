@@ -1,10 +1,8 @@
 package com.clouway.jobex.client.cv;
 
 
-import com.clouway.jobex.client.security.UsernameProvider;
-
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.shared.CVProxy;
-
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
@@ -16,17 +14,17 @@ import com.google.inject.Inject;
  */
 public class CreatingNewCVWorkflow extends AbstractActivity {
 
-
   private CreatingNewCVWorkflowView view;
 
   private final JobExRequestFactory factory;
 
-  private final UsernameProvider provider;
+  private final UserCredentialsLocalStorage provider;
 
   private JobExRequestFactory.CVsRequestContext context;
 
+
   @Inject
-  public CreatingNewCVWorkflow(CreatingNewCVWorkflowView view, JobExRequestFactory factory, UsernameProvider provider) {
+  public CreatingNewCVWorkflow(CreatingNewCVWorkflowView view, JobExRequestFactory factory, UserCredentialsLocalStorage provider) {
 
     this.view = view;
 
@@ -54,10 +52,9 @@ public class CreatingNewCVWorkflow extends AbstractActivity {
 
   public void create() {
 
-    view.flush();
+        view.flush();
 
-    context.fire();
-
+        context.fire();
   }
 
   @Override
@@ -66,4 +63,5 @@ public class CreatingNewCVWorkflow extends AbstractActivity {
     panel.setWidget((CreatingNewCVWorkflowViewImpl) view);
     initialize();
   }
+
 }

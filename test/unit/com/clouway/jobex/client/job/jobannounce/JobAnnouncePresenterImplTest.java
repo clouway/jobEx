@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.job.jobannounce;
 
 import com.clouway.jobex.RequestFactoryHelper;
-import com.clouway.jobex.client.security.CompanyNameProvider;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.server.job.Job;
 import com.clouway.jobex.server.job.jobannounce.JobAnnounceService;
 import com.clouway.jobex.shared.JobExRequestFactory;
@@ -23,14 +23,16 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class JobAnnouncePresenterImplTest {
 
   private JobAnnouncePresenterImpl presenter;
+
   private JobAnnounceService service;
+
   private Receiver<Void> receiver;
 
   @Mock
   private JobAnnounceView view;
 
   @Mock
-  private CompanyNameProvider companyNameProvider;
+  private UserCredentialsLocalStorage companyNameProvider;
 
   @Captor
   ArgumentCaptor<Job> jobCaptor;
@@ -57,14 +59,12 @@ public class JobAnnouncePresenterImplTest {
 
     String company = "Qwerty";
 
-    when(view.isConfirmed()).thenReturn(true);
-    when(companyNameProvider.getCompanyName()).thenReturn(company);
+    when(companyNameProvider.getUsername()).thenReturn(company);
 
     presenter.initialize();
     presenter.announceJob();
 
-    verify(view).isConfirmed();
-    verify(companyNameProvider).getCompanyName();
+    verify(companyNameProvider).getUsername();
     verify(service).announceJob(companyCaptor.capture(), jobCaptor.capture());
     verify(view).goToSearchPlace();
   }
@@ -72,13 +72,10 @@ public class JobAnnouncePresenterImplTest {
   @Test
   public void jobCannotBeAnnounceWithoutConfirmation() {
 
-    when(view.isConfirmed()).thenReturn(false);
-    when(companyNameProvider.getCompanyName()).thenReturn("Qwerty");
+    when(companyNameProvider.getUsername()).thenReturn("Qwerty");
 
     presenter.initialize();
     presenter.announceJob();
-
-    verify(view).isConfirmed();
     verify(service, never()).announceJob(companyCaptor.capture(), jobCaptor.capture());
   }
 }

@@ -1,6 +1,5 @@
 package com.clouway.jobex.client.jobsreview;
 
-import com.clouway.jobex.client.confirmation.Confirmation;
 import com.clouway.jobex.shared.JobProxy;
 
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.List;
 /**
  * @author Ivan Lazov <darkpain1989@gmail.com>
  */
-public interface ReviewJobsView extends Confirmation {
+public interface ReviewJobsView  {
 
   /**
    * Show announced jobs made be a company

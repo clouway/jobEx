@@ -10,9 +10,11 @@ public class LoginPlace extends Place {
 
   public static class Tokenizer implements PlaceTokenizer<LoginPlace> {
 
+
     public LoginPlace getPlace(String token) {
       return new LoginPlace();
     }
+
 
     public String getToken(LoginPlace place) {
       return "login";

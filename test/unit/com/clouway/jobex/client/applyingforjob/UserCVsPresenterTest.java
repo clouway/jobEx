@@ -1,9 +1,10 @@
 package com.clouway.jobex.client.applyingforjob;
 
+import com.clouway.jobex.RequestFactoryHelper;
 import com.clouway.jobex.client.cv.ApplyForJobEvent;
 import com.clouway.jobex.client.cv.UserCVsPresenter;
 import com.clouway.jobex.client.cv.UserCVsView;
-import com.clouway.jobex.client.security.UsernameProvider;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.server.applyingforjob.JobApplication;
 import com.clouway.jobex.server.applyingforjob.JobApplicationService;
 import com.clouway.jobex.server.cv.CV;
@@ -52,13 +53,14 @@ public class UserCVsPresenterTest {
   UserCVsView view;
 
   @Mock
-  UsernameProvider provider;
+  UserCredentialsLocalStorage provider;
 
   @Captor
   ArgumentCaptor<ArrayList<CVProxy>> returnedCVArgumentCaptures;
 
   @Captor
   ArgumentCaptor<List<CVProxy>> captor;
+
 
   @Before
   public void setUp() throws Exception {
@@ -74,7 +76,6 @@ public class UserCVsPresenterTest {
     context = factory.jobApplicationContext();
 
     presenter = new UserCVsPresenter(factory, view, provider);
-
 
   }
 
@@ -103,7 +104,6 @@ public class UserCVsPresenterTest {
 
   @Test
   public void notifiesUserOfSystemError() {
-
 
     doThrow(new RuntimeException()).when(jobApplicationService).applyForJob(isA(JobApplication.class));
 
@@ -171,6 +171,7 @@ public class UserCVsPresenterTest {
     verify(cvsService).fetchCreatedCVs(username);
 
     verify(view).goToCreateNewCVForm();
+
   }
 
   @Test
@@ -196,13 +197,11 @@ public class UserCVsPresenterTest {
 
   }
 
-
   @Test
   public void deletesUserCv() {
 
     Long cvId = 1l;
 
-    when(view.isConfirmed()).thenReturn(true);
 
     when(provider.getUsername()).thenReturn("username");
 
@@ -213,8 +212,6 @@ public class UserCVsPresenterTest {
     when(cvsService.delete("username", cvId)).thenReturn(cvList);
 
     presenter.deleteCv(cvId);
-
-    verify(view).isConfirmed();
 
     verify(cvsService).delete("username", cvId);
 
@@ -233,7 +230,7 @@ public class UserCVsPresenterTest {
 
     Long cvId = 1l;
 
-    when(view.isConfirmed()).thenReturn(false);
+    when(provider.isAuthorized()).thenReturn(true);
 
     when(provider.getUsername()).thenReturn("username");
 

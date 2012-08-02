@@ -2,7 +2,7 @@ package com.clouway.jobex.client.cv;
 
 
 import com.clouway.jobex.client.navigation.NavigationMenu;
-import com.clouway.jobex.client.security.UsernameProvider;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.shared.CVProxy;
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.ButtonCell;
@@ -10,6 +10,7 @@ import com.github.gwtbootstrap.client.ui.CellTable;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.i18n.shared.DateTimeFormat;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -50,9 +51,6 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
   @Inject
   PlaceController controller;
 
-  @UiField(provided = true)
-  NavigationMenu menu;
-
   private UserCVsPresenter presenter;
 
   private Long jobId;
@@ -67,11 +65,10 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
   };
 
   @Inject
-  UsernameProvider provider;
+  UserCredentialsLocalStorage provider;
 
   @Inject
   public UserCVsViewImpl(NavigationMenu menu) {
-    this.menu = menu;
 
     cVCellTable = new CellTable<CVProxy>();
 
@@ -90,7 +87,6 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
     }, "name");
 
 
-
     cVCellTable.addColumn(new TextColumn<CVProxy>() {
       @Override
       public String getValue(CVProxy object) {
@@ -102,7 +98,7 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
     cVCellTable.addColumn(new TextColumn<CVProxy>() {
       @Override
       public String getValue(CVProxy object) {
-        return String.valueOf(object.getDateOfBirth());
+        return String.valueOf(DateTimeFormat.getFormat("yyyy/MM/dd").format(object.getDateOfBirth()));
       }
     }, "Date of birth");
 
@@ -233,10 +229,5 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
   @UiHandler("createCv")
   public void onCreateNewCv(ClickEvent event) {
     controller.goTo(new CreateCvPlace());
-  }
-
-  @Override
-  public boolean isConfirmed() {
-    return Window.confirm("Delete selected CV?");
   }
 }

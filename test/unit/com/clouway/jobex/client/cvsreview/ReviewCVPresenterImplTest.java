@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.cvsreview;
 
-import com.clouway.jobex.client.job.jobsearch.RequestFactoryHelper;
+import com.clouway.jobex.RequestFactoryHelper;
 import com.clouway.jobex.server.cv.CV;
 import com.clouway.jobex.server.cv.CvsService;
 import com.clouway.jobex.server.emailservice.EmailService;
@@ -103,11 +103,9 @@ public class ReviewCVPresenterImplTest {
     Long jobId = 1l;
     String email = "ivan@mail.com";
 
-    when(view.isConfirmed()).thenReturn(true);
 
     presenter.sendEmailApproval(jobId, email);
 
-    verify(view).isConfirmed();
     verify(emailService).sendEmailApproval(jobIdCaptor.capture(), emailCaptor.capture());
     verify(view).showSentEmailNotification();
 
@@ -119,13 +117,12 @@ public class ReviewCVPresenterImplTest {
   public void cannotSendEmailWithoutConfirmation() {
 
     Long jobId = 1l;
+
     String email = "ivan@mail.com";
 
-    when(view.isConfirmed()).thenReturn(false);
 
     presenter.sendEmailApproval(jobId, email);
 
-    verify(view).isConfirmed();
     verify(emailService, never()).sendEmailApproval(jobIdCaptor.capture(), emailCaptor.capture());
   }
 }

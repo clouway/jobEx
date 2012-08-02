@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.jobsreview;
 
 import com.clouway.jobex.RequestFactoryHelper;
-import com.clouway.jobex.client.security.CompanyNameProvider;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.server.job.Job;
 import com.clouway.jobex.server.jobsreview.JobsReviewService;
 import com.clouway.jobex.shared.JobExRequestFactory;
@@ -36,7 +36,7 @@ public class JobsReviewPresenterImplTest {
   private ReviewJobsView view;
 
   @Mock
-  private CompanyNameProvider companyNameProvider;
+  private UserCredentialsLocalStorage companyNameProvider;
 
   @Captor
   private ArgumentCaptor<String> companyNameCaptor;
@@ -71,7 +71,7 @@ public class JobsReviewPresenterImplTest {
 
     listOfAnnouncedJobs.add(new Job());
 
-    when(companyNameProvider.getCompanyName()).thenReturn(companyName);
+    when(companyNameProvider.getUsername()).thenReturn(companyName);
     when(service.getAnnouncedJobsForCompany(companyNameCaptor.capture())).thenReturn(listOfAnnouncedJobs);
 
     presenter.reviewAnnouncedJobs(companyName);
@@ -100,12 +100,10 @@ public class JobsReviewPresenterImplTest {
 
     Long jobId = 1l;
 
-    when(view.isConfirmed()).thenReturn(true);
     when(service.deleteAnnouncedJob(jobIdCaptor.capture(), companyNameCaptor.capture())).thenReturn(listOfAnnouncedJobs);
 
     presenter.deleteAnnouncedJob(jobId, companyName);
 
-    verify(view).isConfirmed();
     verify(service).deleteAnnouncedJob(jobIdCaptor.capture(), companyNameCaptor.capture());
     verify(view).updateAnnounceJobs(announcedJobsCaptor.capture());
 
@@ -118,7 +116,6 @@ public class JobsReviewPresenterImplTest {
 
     Long jobId = 1l;
 
-    when(view.isConfirmed()).thenReturn(false);
 
     presenter.deleteAnnouncedJob(jobId, companyName);
 

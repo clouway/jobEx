@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.jobsreview;
 
-import com.clouway.jobex.client.job.jobsearch.RequestFactoryHelper;
+import com.clouway.jobex.RequestFactoryHelper;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.shared.JobProxy;
 import org.jmock.Expectations;
