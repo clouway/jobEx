@@ -93,9 +93,8 @@ public interface JobExRequestFactory extends RequestFactory {
 
     Request<Boolean> isValid(String sid);
 
-
+    Request<Void> logout(String email);
   }
-
 
   @Service(value = EmailService.class, locator = EmailServiceLocator.class)
   public interface EmailServiceContext extends RequestContext {

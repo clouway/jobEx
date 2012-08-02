@@ -76,4 +76,7 @@ public class AuthorizationRepositoryImpl implements AuthorizationRepository {
     Entity entity = service.prepare(query).asSingleEntity();
     return entity != null;
   }
+  public void deleteLoggedData(String email) {
+    service.delete(KeyFactory.createKey("Logged", email));
+  }
 }

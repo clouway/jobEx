@@ -4,6 +4,9 @@ import com.clouway.jobex.shared.AccountType;
 import com.clouway.jobex.shared.SecuredActionsNamesProvider;
 import com.clouway.jobex.shared.UserCredentials;
 import com.clouway.jobex.shared.exceptions.EmailAlreadyExistsException;
+import com.clouway.jobex.shared.exceptions.InvalidEmailFormatException;
+
+import java.util.UUID;
 
 /**
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
@@ -26,7 +29,11 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
   public void register(String registrationType, String email, String password) {
 
-    if (!authorizationRepository.isNotRegister(registrationType, email)) {
+    if(!email.matches("[a-zA-Z]*[0-9]*@[a-zA-Z]*.[a-zA-Z]*")){
+      throw new InvalidEmailFormatException();
+    }
+
+    if(!authorizationRepository.isNotRegister(registrationType,email)){
       throw new EmailAlreadyExistsException();
     }
     authorizationRepository.register(registrationType, email, password);
@@ -61,5 +68,10 @@ public class AuthorizationServiceImpl implements AuthorizationService {
   @Override
   public Boolean isValid(String sid) {
     return authorizationRepository.isSIDRegistered(sid);
+  }
+
+  @Override
+  public void logout(String email) {
+    authorizationRepository.deleteLoggedData(email);
   }
 }

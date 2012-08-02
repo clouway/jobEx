@@ -3,10 +3,10 @@ package com.clouway.jobex.server.useraccess;
 import com.clouway.jobex.shared.AccountType;
 import com.clouway.jobex.shared.SecuredActionsNamesProvider;
 import com.clouway.jobex.shared.UserCredentials;
+import com.clouway.jobex.shared.exceptions.InvalidEmailFormatException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -29,7 +29,7 @@ public class AuthorizationServiceImplTest {
 
   private String password = "password";
 
-  private String loinType = "type";
+  private String authorizationType = "type";
 
   private String generatedId = "123abc";
 
@@ -51,10 +51,6 @@ public class AuthorizationServiceImplTest {
     service = new AuthorizationServiceImpl(authorizationRepository, idGenerator,namesProvider);
 
   }
-
-
-
-
 
   @Test
   public void returnsTokenWithUserConstraintWhenUserCredentialsAreValid() {
@@ -96,6 +92,12 @@ public class AuthorizationServiceImplTest {
     assertThat(userCredentials.getSid(), is(equalTo("123")));
 
   }
+  
+  @Test(expected = InvalidEmailFormatException.class)
+  public void willNotRegisterWithEmailInWrongFormat(){
+
+    service.register(authorizationType, "wr?ongemail@abv.bg", password);
+  }
 
 
   @Test
@@ -103,19 +105,19 @@ public class AuthorizationServiceImplTest {
 
     when(idGenerator.generateId()).thenReturn("value");
 
-    when(authorizationRepository.isAuthorized(loinType, email, password)).thenReturn(true);
+    when(authorizationRepository.isAuthorized(authorizationType, email, password)).thenReturn(true);
 
-    service.login(loinType, email, password);
+    service.login(authorizationType, email, password);
 
-    verify(authorizationRepository).saveAsLogged(email, loinType, "value");
+    verify(authorizationRepository).saveAsLogged(email, authorizationType, "value");
   }
 
   @Test
   public void returnsNullTokenIdWhenCredentialsAreInvalid() {
 
-    when(authorizationRepository.isAuthorized(loinType, email, password)).thenReturn(false);
+    when(authorizationRepository.isAuthorized(authorizationType, email, password)).thenReturn(false);
 
-    UserCredentials userCredentials = service.login(loinType, email, password);
+    UserCredentials userCredentials = service.login(authorizationType, email, password);
 
     assertThat(userCredentials, is(nullValue()));
   }

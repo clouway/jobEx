@@ -33,6 +33,8 @@ import com.clouway.jobex.client.security.UserPermittedActionsImpl;
 import com.clouway.jobex.client.useraccess.login.LoginView;
 import com.clouway.jobex.client.useraccess.login.LoginViewImpl;
 import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
+import com.clouway.jobex.client.useraccess.logout.LogoutEventHandler;
+import com.clouway.jobex.client.useraccess.logout.LogoutEventHandlerImpl;
 import com.clouway.jobex.client.useraccess.register.RegistrationView;
 import com.clouway.jobex.client.useraccess.register.RegistrationViewImpl;
 import com.clouway.jobex.shared.JobExRequestFactory;
@@ -99,6 +101,9 @@ public class JobExGinModule extends AbstractGinModule {
 
     bind(new TypeLiteral<Map<Class<? extends Place>, ActivityPlaceMetadata>>() {
     }).toProvider(PlacesMapProvider.class);
+
+    bind(LogoutEventHandler.class).to(LogoutEventHandlerImpl.class);
+
   }
 
   @Provides

@@ -17,8 +17,7 @@ import com.google.gwt.user.client.ui.TextBox;
 /**
  * @author Krasimir Dimitrov (kpackapgo@gmail.com, krasimir.dimitrov@clouway.com)
  */
-public class RegistrationViewImpl extends Composite implements RegistrationView {
-
+public class RegistrationViewImpl extends Composite implements RegistrationView{
 
   private RegistrationPresenter presenter;
 
@@ -59,9 +58,10 @@ public class RegistrationViewImpl extends Composite implements RegistrationView 
   }
 
   @Override
-  public void userExistsMessage() {
-    Window.alert("Registration failed! Email already exists in the database.");
+  public void registrationErrorMessage() {
+    Window.alert("Registration failed. You have entered invalid or already existing email.");
   }
+
 
   @Override
   public void disableRegisterButton() {

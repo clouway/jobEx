@@ -39,7 +39,7 @@ public class RegistrationPresenter extends AbstractActivity {
 
       @Override
       public void onFailure(ServerFailure error) {
-        view.userExistsMessage();
+        view.registrationErrorMessage();
         view.enableRegisterButton();
       }
 

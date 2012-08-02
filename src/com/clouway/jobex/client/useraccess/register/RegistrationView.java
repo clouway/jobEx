@@ -10,7 +10,7 @@ public interface RegistrationView {
 
   void successfulRegistrationMessage();
 
-  void userExistsMessage();
+  void registrationErrorMessage();
 
   void disableRegisterButton();
 
