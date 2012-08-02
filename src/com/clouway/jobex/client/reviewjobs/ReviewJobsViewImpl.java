@@ -124,7 +124,10 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
 
     deleteAnnouncedJob.setFieldUpdater(new FieldUpdater<JobProxy, String>() {
       public void update(int index, JobProxy jobProxy, String value) {
-        //reviewJobsPresenter.deleteAnnouncedJob(jobProxy.getId(), companyNameProvider.getCompanyName());
+
+        if (Window.confirm("Delete selected job?")) {
+          //reviewJobsPresenter.deleteAnnouncedJob(jobProxy.getId(), companyNameProvider.getCompanyName());
+        }
       }
     });
   }
