@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public class UserCVsPresenter extends AbstractActivity  {
+public class UserCVsPresenter extends AbstractActivity {
 
   private JobExRequestFactory requestFactory;
 
@@ -105,5 +105,9 @@ public class UserCVsPresenter extends AbstractActivity  {
         view.showCVs(response);
       }
     });
+  }
+
+  public void unsetId() {
+    view.deleteId();
   }
 }

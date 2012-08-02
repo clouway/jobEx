@@ -8,7 +8,7 @@ import com.google.gwt.place.shared.PlaceTokenizer;
  */
 public class PreviewCvPlace extends SecuredPlace {
 
-  private  Long id;
+  private Long id;
 
   public PreviewCvPlace(Long id) {
 
@@ -27,11 +27,14 @@ public class PreviewCvPlace extends SecuredPlace {
   public static class Tokenizer implements PlaceTokenizer<PreviewCvPlace> {
 
     public PreviewCvPlace getPlace(String token) {
-      return new PreviewCvPlace();
+      return new PreviewCvPlace(Long.valueOf(token));
     }
 
     public String getToken(PreviewCvPlace place) {
-      return "selectCV";
+      if (place.getId() == null) {
+        return "";
+      }
+      return String.valueOf(place.getId());
     }
 
   }

@@ -208,7 +208,7 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
   }
 
 
-  public void addSelectButton() {
+  private void addSelectButton() {
 
     selectButton.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
       @Override
@@ -217,13 +217,25 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
       }
     });
 
-
     int index = cVCellTable.getColumnIndex(selectButton);
 
     if (index == -1) {
       cVCellTable.addColumn(selectButton);
     }
+  }
 
+
+  private void removeSelectButton() {
+    int index = cVCellTable.getColumnIndex(selectButton);
+    if (index != -1) {
+      cVCellTable.removeColumn(index);
+    }
+  }
+
+  @Override
+  public void deleteId() {
+    jobId = null;
+    removeSelectButton();
   }
 
   @UiHandler("createCv")

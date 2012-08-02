@@ -172,9 +172,10 @@ public class JobEx implements EntryPoint {
       public UserCVsPresenter getActivity(PreviewCvPlace previewCvPlace) {
         UserCVsPresenter presenter = injector.userCVsPresenter();
         if (previewCvPlace.getId() != null) {
-
+          presenter.setId(previewCvPlace.getId());
+        } else {
+          presenter.unsetId();
         }
-        presenter.setId(previewCvPlace.getId());
         return presenter;
       }
     });
