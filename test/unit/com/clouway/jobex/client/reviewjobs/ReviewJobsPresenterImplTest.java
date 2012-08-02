@@ -1,6 +1,7 @@
 package com.clouway.jobex.client.reviewjobs;
 
 import com.clouway.jobex.RequestFactoryHelper;
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.server.job.Job;
 import com.clouway.jobex.server.reviewjobs.JobsReviewService;
 import com.clouway.jobex.shared.JobExRequestFactory;
@@ -29,7 +30,9 @@ public class ReviewJobsPresenterImplTest {
 
   private ReviewJobsPresenter presenter;
   private JobsReviewService service;
-  private ReviewJobsReceiver receiver;
+
+  @Mock
+  private UserCredentialsLocalStorage userCredentials;
 
   @Mock
   private ReviewJobsView view;
@@ -53,11 +56,9 @@ public class ReviewJobsPresenterImplTest {
 
     JobExRequestFactory requestFactory = RequestFactoryHelper.create(JobExRequestFactory.class);
 
-    receiver = new ReviewJobsReceiver(view);
-
     service = RequestFactoryHelper.getService(JobsReviewService.class);
 
-    presenter = new ReviewJobsPresenterImpl(requestFactory, view);
+    presenter = new ReviewJobsPresenterImpl(requestFactory, view, userCredentials);
 
     listOfAnnouncedJobs = new ArrayList<Job>();
   }
@@ -67,14 +68,15 @@ public class ReviewJobsPresenterImplTest {
 
     listOfAnnouncedJobs.add(new Job());
 
+    when(userCredentials.getUsername()).thenReturn(companyName);
     when(service.getAnnouncedJobsForCompany(companyNameCaptor.capture())).thenReturn(listOfAnnouncedJobs);
 
-    presenter.reviewAnnouncedJobs(companyName);
+    presenter.reviewAnnouncedJobs();
 
+    verify(userCredentials).getUsername();
     verify(service).getAnnouncedJobsForCompany(companyNameCaptor.capture());
-    verify(view, never()).showNoAnnouncedJobsNotification();
-    verify(service).getAnnouncedJobsForCompany(companyName);
     verify(view).showAnnouncedJobs(announcedJobsCaptor.capture());
+    verify(view, never()).showNoAnnouncedJobsNotification();
 
     assertThat(companyName, is(equalTo(companyNameCaptor.getValue())));
   }
@@ -84,7 +86,7 @@ public class ReviewJobsPresenterImplTest {
 
     when(service.getAnnouncedJobsForCompany(companyNameCaptor.capture())).thenReturn(listOfAnnouncedJobs);
 
-    presenter.reviewAnnouncedJobs(companyName);
+    presenter.reviewAnnouncedJobs();
 
     verify(view).showNoAnnouncedJobsNotification();
     verify(view, never()).showAnnouncedJobs(announcedJobsCaptor.capture());
@@ -104,15 +106,5 @@ public class ReviewJobsPresenterImplTest {
 
     assertThat(jobId, is(equalTo(jobIdCaptor.getValue())));
     assertThat(companyName, is(equalTo(companyNameCaptor.getValue())));
-  }
-
-  @Test
-  public void announcedJobIsNotDeletedWhenConfirmationIsFalse() {
-
-    Long jobId = 1l;
-
-    presenter.deleteAnnouncedJob(jobId, companyName);
-
-    verify(service, never()).deleteAnnouncedJob(jobId, companyName);
   }
 }

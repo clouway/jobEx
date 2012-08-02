@@ -19,15 +19,15 @@ public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnn
 
   private final JobExRequestFactory requestFactory;
   private final JobAnnounceView view;
-  private final UserCredentialsLocalStorage companyNameProvider;
+  private final UserCredentialsLocalStorage userCredentials;
 
   private JobExRequestFactory.JobRequestContext requestContext;
 
   @Inject
-  public JobAnnouncePresenterImpl(JobExRequestFactory requestFactory, JobAnnounceView view, UserCredentialsLocalStorage companyNameProvider) {
+  public JobAnnouncePresenterImpl(JobExRequestFactory requestFactory, JobAnnounceView view, UserCredentialsLocalStorage userCredentials) {
     this.requestFactory = requestFactory;
     this.view = view;
-    this.companyNameProvider = companyNameProvider;
+    this.userCredentials = userCredentials;
   }
 
   /**
@@ -37,7 +37,9 @@ public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnn
     requestContext.fire();
   }
 
-
+  /**
+   * Prepare a new Job with empty properties and auto-generated id.
+   */
   public void prepareJob() {
 
     requestFactory.jobRequestContext().prepareNewJob().fire(new Receiver<JobProxy>() {
@@ -49,7 +51,7 @@ public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnn
 
         view.edit(requestContext, editableProxy);
 
-        requestContext.announceJob(companyNameProvider.getUsername(), editableProxy).to(new JobAnnounceReceiver(view));
+        requestContext.announceJob(userCredentials.getUsername(), editableProxy).to(new JobAnnounceReceiver(view));
       }
     });
   }
