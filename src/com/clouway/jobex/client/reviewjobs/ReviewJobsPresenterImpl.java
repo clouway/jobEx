@@ -52,10 +52,11 @@ public class ReviewJobsPresenterImpl extends AbstractActivity implements ReviewJ
 
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
 
+    reviewAnnouncedJobs();
+
     reviewJobsView.setPresenter(this);
 
     panel.setWidget((IsWidget) reviewJobsView);
 
-    reviewAnnouncedJobs();
   }
 }

@@ -52,7 +52,6 @@ public class SubmittedCVsReceiverTest {
 
     context.checking(new Expectations() {{
       oneOf(view).showNoSubmittedCVsNotification();
-      oneOf(view).goToReviewJobPlace();
     }});
 
     receiver.onSuccess(submittedCVs);

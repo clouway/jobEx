@@ -20,7 +20,6 @@ public class SubmittedCVsReceiver extends Receiver<List<CVProxy>> {
 
     if (response.size() == 0) {
       view.showNoSubmittedCVsNotification();
-      view.goToReviewJobPlace();
       return;
     }
 
