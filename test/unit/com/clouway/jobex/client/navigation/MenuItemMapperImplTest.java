@@ -33,15 +33,7 @@ public class MenuItemMapperImplTest {
     assertEquals(returnedPlace.getClass(), TestPlace.class);
   }
 
-  @Test
-  public void returnsPlaceNotFoundPlaceIsPlaceNameIsNotBound() {
 
-    Place place = menuItemMapperImpl.getPlace("notPlace");
-    
-    assertThat(place, is(notNullValue()));
-
-    assertEquals(place.getClass(),PageNotFoundPlace.class);
-  }
 
 
   class TestPlace extends Place {

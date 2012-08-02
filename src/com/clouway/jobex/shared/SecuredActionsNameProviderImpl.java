@@ -20,7 +20,6 @@ public class SecuredActionsNameProviderImpl implements SecuredActionsNamesProvid
   }
 
   private void setCommonLinks(ArrayList<String> actionsNames) {
-    actionsNames.add(Permissions.NEW_REGISTRATION);
     actionsNames.add(Permissions.HOME);
   }
 
