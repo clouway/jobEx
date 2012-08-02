@@ -11,6 +11,7 @@ import com.clouway.jobex.client.navigation.SecuredActivityMapper;
 import com.clouway.jobex.client.reviewjobs.ReviewJobsPresenterImpl;
 import com.clouway.jobex.client.security.UserAuthorizedEventHandler;
 import com.clouway.jobex.client.useraccess.login.LoginPresenter;
+import com.clouway.jobex.client.useraccess.logout.LogoutEventHandlerImpl;
 import com.clouway.jobex.client.useraccess.register.RegistrationPresenter;
 import com.clouway.jobex.client.useraccess.logout.LogoutEventHandler;
 import com.clouway.jobex.client.submittedcvs.SubmittedCVsPresenterImpl;
@@ -55,5 +56,7 @@ public interface JobExGinjector extends Ginjector {
   MenuPlacesMapper menuItemMapper();
 
   PageNotFoundActivity pageNotFoundPlace();
+
+  LogoutEventHandlerImpl logoutEventHandler();
 
 }

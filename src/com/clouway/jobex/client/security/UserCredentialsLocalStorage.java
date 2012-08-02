@@ -15,4 +15,5 @@ public interface UserCredentialsLocalStorage {
 
   boolean isAuthorized();
 
+  void deleteCookies();
 }
