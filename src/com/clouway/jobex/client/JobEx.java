@@ -1,7 +1,6 @@
 package com.clouway.jobex.client;
 
 
-import com.clouway.jobex.client.cv.ApplyForJobEvent;
 import com.clouway.jobex.client.cv.CreateCvPlace;
 import com.clouway.jobex.client.cv.CreatingNewCVWorkflow;
 import com.clouway.jobex.client.cv.EditCVPlace;
@@ -65,10 +64,6 @@ public class JobEx implements EntryPoint {
     final JobExGinjector injector = GWT.create(JobExGinjector.class);
 
     EventBus eventBus = injector.injectEventBus();
-
-    UserCVsPresenter presenter = injector.jobApplicationPresenter();
-
-    eventBus.addHandler(ApplyForJobEvent.TYPE, presenter);
 
     eventBus.addHandler(UserAuthorizedEvent.TYPE, injector.userAuthorizedEventhandler());
 
@@ -175,7 +170,12 @@ public class JobEx implements EntryPoint {
     map.put(PreviewCvPlace.class, new ActivityPlaceMetadata<PreviewCvPlace, UserCVsPresenter>() {
       @Override
       public UserCVsPresenter getActivity(PreviewCvPlace previewCvPlace) {
-        return injector.userCVsPresenter();
+        UserCVsPresenter presenter = injector.userCVsPresenter();
+        if (previewCvPlace.getId() != null) {
+
+        }
+        presenter.setId(previewCvPlace.getId());
+        return presenter;
       }
     });
   }
@@ -198,7 +198,9 @@ public class JobEx implements EntryPoint {
     map.put(SubmittedCVsPlace.class, new ActivityPlaceMetadata<SubmittedCVsPlace, SubmittedCVsPresenterImpl>() {
       @Override
       public SubmittedCVsPresenterImpl getActivity(SubmittedCVsPlace submittedCVsPlace) {
-        return injector.submittedCvsPresenter();
+        SubmittedCVsPresenterImpl presenter = injector.submittedCvsPresenter();
+        presenter.reviewSubmittedCVs(submittedCVsPlace.getJobId());
+        return presenter;
       }
     });
 

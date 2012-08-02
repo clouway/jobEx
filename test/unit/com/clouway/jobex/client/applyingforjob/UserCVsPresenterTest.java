@@ -1,7 +1,6 @@
 package com.clouway.jobex.client.applyingforjob;
 
 import com.clouway.jobex.RequestFactoryHelper;
-import com.clouway.jobex.client.cv.ApplyForJobEvent;
 import com.clouway.jobex.client.cv.UserCVsPresenter;
 import com.clouway.jobex.client.cv.UserCVsView;
 import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
@@ -83,7 +82,7 @@ public class UserCVsPresenterTest {
   @Test
   public void applyForJobWithSelectedCV() {
 
-    presenter.onApplyForJob(new ApplyForJobEvent(1l));
+
 
     presenter.applyForJob(1l, 2l, "username");
 
@@ -107,8 +106,6 @@ public class UserCVsPresenterTest {
 
     doThrow(new RuntimeException()).when(jobApplicationService).applyForJob(isA(JobApplication.class));
 
-    presenter.onApplyForJob(new ApplyForJobEvent(1l));
-
     presenter.applyForJob(1l, 2l, "username");
 
     ArgumentCaptor<JobApplication> jobApplicationArgumentCaptor = ArgumentCaptor.forClass(JobApplication.class);
@@ -129,7 +126,7 @@ public class UserCVsPresenterTest {
 
 
   @Test
-  public void showsAllCreatedCVsOnApplyForJob() {
+  public void listsAllCreatedCVsOnApplyForJob() {
 
     Long jobId = 1l;
 
@@ -141,7 +138,7 @@ public class UserCVsPresenterTest {
 
     when(provider.getUsername()).thenReturn(username);
 
-    presenter.onApplyForJob(new ApplyForJobEvent(jobId));
+    presenter.fetchCreatedCVs();
 
     verify(cvsService).fetchCreatedCVs(username);
 
@@ -158,15 +155,13 @@ public class UserCVsPresenterTest {
   @Test
   public void redirectsUserToCreatingNewCVFormIfReturnedCVListIsEmpty() {
 
-    Long jobId = 1l;
-
     ArrayList<CV> cvs = new ArrayList<CV>();
 
     when(cvsService.fetchCreatedCVs(username)).thenReturn(cvs);
 
     when(provider.getUsername()).thenReturn(username);
 
-    presenter.onApplyForJob(new ApplyForJobEvent(jobId));
+    presenter.fetchCreatedCVs();
 
     verify(cvsService).fetchCreatedCVs(username);
 
@@ -201,7 +196,6 @@ public class UserCVsPresenterTest {
   public void deletesUserCv() {
 
     Long cvId = 1l;
-
 
     when(provider.getUsername()).thenReturn("username");
 

@@ -1,7 +1,6 @@
 package com.clouway.jobex.client.cv;
 
 
-import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.shared.CVProxy;
 import com.github.gwtbootstrap.client.ui.Button;
@@ -68,8 +67,8 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
   @Inject
   UserCredentialsLocalStorage provider;
 
-  @Inject
-  public UserCVsViewImpl(NavigationMenu menu) {
+
+  public UserCVsViewImpl() {
 
     cVCellTable = new CellTable<CVProxy>();
 
