@@ -55,6 +55,4 @@ public interface UserCVsView extends IsWidget {
   void delete(int cvIndex);
 
   void deleteId();
-
-  void addSelectButton();
 }
