@@ -20,11 +20,7 @@ public class MenuItemMapperImpl implements MenuItemMapper {
 
 
   public Place getPlace(String placeName) {
-    Place place = placeMap.get(placeName);
-    if (place == null) {
-      return new PageNotFoundPlace();
-    }
-    return place;
+    return placeMap.get(placeName);
   }
 
   public void addPlace(String placeName, Place place) {

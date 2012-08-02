@@ -45,6 +45,7 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
 
   @UiField
   Label messages;
+
   @UiField
   Button createCv;
 
