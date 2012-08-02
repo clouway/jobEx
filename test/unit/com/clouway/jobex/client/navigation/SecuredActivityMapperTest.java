@@ -72,7 +72,7 @@ public class SecuredActivityMapperTest {
       }
     });
 
-    mapper = new SecuredActivityMapper(activityPlaceMap, provider);
+    mapper = new SecuredActivityMapper(activityPlaceMap, provider,null);
   }
 
   @Test

@@ -27,7 +27,11 @@ public class PreviewCvPlace extends SecuredPlace {
   public static class Tokenizer implements PlaceTokenizer<PreviewCvPlace> {
 
     public PreviewCvPlace getPlace(String token) {
-      return new PreviewCvPlace(Long.valueOf(token));
+      if (token != null && !"".equals(token)) {
+        return new PreviewCvPlace(Long.valueOf(token));
+      }
+      return new PreviewCvPlace();
+
     }
 
     public String getToken(PreviewCvPlace place) {
@@ -36,6 +40,5 @@ public class PreviewCvPlace extends SecuredPlace {
       }
       return String.valueOf(place.getId());
     }
-
   }
 }

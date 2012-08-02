@@ -13,11 +13,11 @@ import static org.junit.Assert.assertThat;
 public class UserPermittedActionsImplTest {
 
 
-  private UserPermittedActionsImpl actions = new UserPermittedActionsImpl();
+  private UserPermissionsImpl actions = new UserPermissionsImpl();
 
   @Test
   public void returnsTrueIfPermissionPresents() {
-    actions.setPermittedActions(new ArrayList<String>() {{
+    actions.setPermissions(new ArrayList<String>() {{
       add("action");
     }});
 

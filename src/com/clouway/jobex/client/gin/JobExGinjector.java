@@ -3,19 +3,17 @@ package com.clouway.jobex.client.gin;
 import com.clouway.jobex.client.cv.CreatingNewCVWorkflow;
 import com.clouway.jobex.client.cv.EditCvWorkflow;
 import com.clouway.jobex.client.cv.UserCVsPresenter;
-import com.clouway.jobex.client.cv.UserCVsView;
 import com.clouway.jobex.client.cvsreview.SubmittedCVsPresenterImpl;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPresenter;
 import com.clouway.jobex.client.jobsreview.ReviewJobsPresenterImpl;
-import com.clouway.jobex.client.navigation.MenuItemMapper;
+import com.clouway.jobex.client.navigation.MenuPlacesMapper;
 import com.clouway.jobex.client.navigation.PageNotFoundActivity;
+import com.clouway.jobex.client.navigation.SecuredActivityMapper;
 import com.clouway.jobex.client.security.UserAuthorizedEventHandler;
-import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.client.useraccess.login.LoginPresenter;
 import com.clouway.jobex.client.useraccess.register.RegistrationPresenter;
 import com.clouway.jobex.client.useraccess.logout.LogoutEventHandler;
-import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
 import com.google.gwt.place.shared.PlaceController;
@@ -32,11 +30,7 @@ public interface JobExGinjector extends Ginjector {
 
   EventBus injectEventBus();
 
-  ActivityMapper injectActivityMapper();
-
-  UserCVsPresenter jobApplicationPresenter();
-
-  UserCVsView jobApplicationView();
+  SecuredActivityMapper injectActivityMapper();
 
   JobSearchPresenter jobSearchPresenter();
 
@@ -58,9 +52,7 @@ public interface JobExGinjector extends Ginjector {
 
   UserAuthorizedEventHandler userAuthorizedEventhandler();
 
-  UserCredentialsLocalStorage credentialsStorage();
-
-  MenuItemMapper menuItemMapper();
+  MenuPlacesMapper menuItemMapper();
 
   PageNotFoundActivity pageNotFoundPlace();
 

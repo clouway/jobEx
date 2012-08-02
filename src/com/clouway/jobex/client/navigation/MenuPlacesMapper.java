@@ -5,7 +5,7 @@ import com.google.gwt.place.shared.Place;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public interface MenuItemMapper {
+public interface MenuPlacesMapper {
 
   public Place getPlace(String placeName);
 
