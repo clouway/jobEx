@@ -225,7 +225,10 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
     selectButton.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
       @Override
       public void update(int index, CVProxy cvProxy, String value) {
-        presenter.applyForJob(jobId, cvProxy.getId(), provider.getUsername());
+
+        if (Window.confirm("Apply for job with selected CV?")) {
+          presenter.applyForJob(jobId, cvProxy.getId(), provider.getUsername());
+        }
       }
     });
 

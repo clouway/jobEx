@@ -30,7 +30,7 @@ public class SubmittedCVsViewImpl extends Composite implements SubmittedCVsView 
   interface ReviewCVViewImplUiBinder extends UiBinder<Widget, SubmittedCVsViewImpl> {}
   private static ReviewCVViewImplUiBinder uiBinder = GWT.create(ReviewCVViewImplUiBinder.class);
 
-  private SubmittedCVsPresenterImpl reviewCVPresenter;
+  private SubmittedCVsPresenterImpl presenter;
 
   @UiField
   CellTable cvTable;
@@ -93,7 +93,10 @@ public class SubmittedCVsViewImpl extends Composite implements SubmittedCVsView 
 
     approveCV.setFieldUpdater(new FieldUpdater<CVProxy, String>() {
       public void update(int index, CVProxy cvProxy, String value) {
-        reviewCVPresenter.sendEmailApproval(jobId, email.getValue(cvProxy));
+
+        if (Window.confirm("Approve selected CV?")) {
+          presenter.sendEmailApproval(jobId, email.getValue(cvProxy));
+        }
       }
     });
   }
@@ -119,14 +122,10 @@ public class SubmittedCVsViewImpl extends Composite implements SubmittedCVsView 
   }
 
   public void setPresenter(SubmittedCVsPresenterImpl reviewCVPresenter) {
-    this.reviewCVPresenter = reviewCVPresenter;
+    this.presenter = reviewCVPresenter;
   }
 
   public void setJobId(Long jobId) {
     this.jobId = jobId;
-  }
-
-  public boolean isConfirmed() {
-    return Window.confirm("Approve selected CV?");
   }
 }
