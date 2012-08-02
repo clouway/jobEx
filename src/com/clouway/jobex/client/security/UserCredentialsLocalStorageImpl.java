@@ -37,4 +37,9 @@ public class UserCredentialsLocalStorageImpl implements UserCredentialsLocalStor
 
   }
 
+  @Override
+  public void deleteCookies() {
+    Cookies.removeCookie(sid);
+    Cookies.removeCookie(username);
+  }
 }

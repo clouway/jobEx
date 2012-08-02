@@ -16,6 +16,7 @@ public class SecuredActionsNameProviderImpl implements SecuredActionsNamesProvid
     actionsNames.add(Permissions.CREATE_CV);
     actionsNames.add(Permissions.EDIT_CV);
     actionsNames.add(Permissions.APPLY_FOR_JOB);
+    actionsNames.add(Permissions.LOG_OUT);
     return actionsNames;
   }
 
@@ -31,6 +32,7 @@ public class SecuredActionsNameProviderImpl implements SecuredActionsNamesProvid
     actionsNames.add(Permissions.APPROVE_CV);
     actionsNames.add(Permissions.PREVIEW_APPLIED_CVS);
     actionsNames.add(Permissions.PREVIEW_JOBS);
+    actionsNames.add(Permissions.LOG_OUT);
     return actionsNames;
   }
 

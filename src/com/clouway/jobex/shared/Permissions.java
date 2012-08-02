@@ -28,4 +28,6 @@ public class Permissions {
   public static String LOG_IN="Login";
 
   public static String NEW_REGISTRATION="Sign up";
+
+  public static String LOG_OUT="Log out";
 }

@@ -11,6 +11,7 @@ import com.clouway.jobex.client.security.AuthorizationPlace;
 import com.clouway.jobex.client.security.UserAuthorizationEvent;
 import com.clouway.jobex.client.security.UserAuthorizationEventHandler;
 import com.clouway.jobex.client.security.UserAuthorizedEvent;
+import com.clouway.jobex.client.useraccess.logout.LogoutEvent;
 import com.clouway.jobex.shared.Permissions;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.core.client.EntryPoint;
@@ -54,6 +55,7 @@ public class JobEx implements EntryPoint {
       }
     });
 
+    eventBus.addHandler(LogoutEvent.TYPE, injector.logoutEventHandler());
 
 //    Map<Class<? extends Place>, ActivityPlaceMetadata> map = new HashMap<Class<? extends Place>, ActivityPlaceMetadata>();
 

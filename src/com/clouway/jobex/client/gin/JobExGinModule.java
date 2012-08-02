@@ -42,9 +42,9 @@ import com.clouway.jobex.client.useraccess.login.LoginPlace;
 import com.clouway.jobex.client.useraccess.login.LoginPresenter;
 import com.clouway.jobex.client.useraccess.login.LoginView;
 import com.clouway.jobex.client.useraccess.login.LoginViewImpl;
+import com.clouway.jobex.client.useraccess.logout.LogoutPlace;import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
 import com.clouway.jobex.client.useraccess.logout.LogoutEventHandler;
 import com.clouway.jobex.client.useraccess.logout.LogoutEventHandlerImpl;
-import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
 import com.clouway.jobex.client.useraccess.register.RegistrationPresenter;
 import com.clouway.jobex.client.useraccess.register.RegistrationView;
 import com.clouway.jobex.client.useraccess.register.RegistrationViewImpl;
@@ -154,6 +154,8 @@ public class JobExGinModule extends AbstractGinModule {
     placeMap.put(Permissions.LOG_IN, new AuthorizationPlace());
 
     placeMap.put(Permissions.NEW_REGISTRATION, new RegistrationPlace());
+
+    placeMap.put(Permissions.LOG_OUT, new LogoutPlace());
 
     return placeMap;
   }
