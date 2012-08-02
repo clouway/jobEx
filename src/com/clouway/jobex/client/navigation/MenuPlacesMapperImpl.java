@@ -8,13 +8,13 @@ import java.util.Map;
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
  */
-public class MenuItemMapperImpl implements MenuItemMapper {
+public class MenuPlacesMapperImpl implements MenuPlacesMapper {
 
 
   Map<String, Place> placeMap;
 
   @Inject
-  public MenuItemMapperImpl(Map<String, Place> placeMap) {
+  public MenuPlacesMapperImpl(Map<String, Place> placeMap) {
     this.placeMap = placeMap;
   }
 
@@ -26,4 +26,5 @@ public class MenuItemMapperImpl implements MenuItemMapper {
   public void addPlace(String placeName, Place place) {
     placeMap.put(placeName, place);
   }
+
 }

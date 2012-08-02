@@ -19,7 +19,7 @@ public class PageNotFoundPanel extends Composite {
   public PageNotFoundPanel() {
 
     HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
-    initWidget(this);
+    initWidget(rootElement);
   }
 
 }

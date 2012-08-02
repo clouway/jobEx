@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.jobsreview;
 
-import com.clouway.jobex.client.security.UserPermittedActions;
+import com.clouway.jobex.client.security.UserPermissions;
 import com.clouway.jobex.shared.Permissions;
 import com.google.gwt.cell.client.AbstractSafeHtmlCell;
 import com.google.gwt.cell.client.ValueUpdater;
@@ -18,10 +18,10 @@ import com.google.inject.Inject;
  */
 public class ButtonCellFactory {
 
-  UserPermittedActions actions;
+  UserPermissions actions;
 
   @Inject
-  public ButtonCellFactory(UserPermittedActions actions) {
+  public ButtonCellFactory(UserPermissions actions) {
     this.actions = actions;
   }
 

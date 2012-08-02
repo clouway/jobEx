@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThat;
  */
 public class MenuItemMapperImplTest {
 
-  MenuItemMapperImpl menuItemMapperImpl = new MenuItemMapperImpl(new HashMap<String, Place>());
+  MenuPlacesMapperImpl menuItemMapperImpl = new MenuPlacesMapperImpl(new HashMap<String, Place>());
 
   @Test
   public void whatIsSavedIsWhatReturned() {
