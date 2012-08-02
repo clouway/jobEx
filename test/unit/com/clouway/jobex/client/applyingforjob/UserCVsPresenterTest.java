@@ -225,23 +225,5 @@ public class UserCVsPresenterTest {
 
   }
 
-  @Test
-  public void cannotDeleteUserCVWithoutConfirmation() {
 
-    Long cvId = 1l;
-
-    when(provider.isAuthorized()).thenReturn(true);
-
-    when(provider.getUsername()).thenReturn("username");
-
-    List<CV> cvList = new ArrayList<CV>();
-
-    cvList.add(new CV());
-
-    when(cvsService.delete("username", cvId)).thenReturn(cvList);
-
-    presenter.deleteCv(cvId);
-
-    verify(cvsService, never()).delete("username", cvId);
-  }
 }

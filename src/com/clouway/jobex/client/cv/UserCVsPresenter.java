@@ -9,6 +9,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 import java.util.List;
 
@@ -35,21 +36,37 @@ public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEve
   /**
    * Apply A Cv for job. i.e Send a job application with the Job id which the user wants to apply for and the CV id
    * which the user wants to apply with.
+   *
    * @param jobId
    * @param cvId             the id of the Cv with witch the user wants to apply for a job
    * @param employeeUsername : the username of person who applies for the JOB.
    */
   public void applyForJob(Long jobId, Long cvId, String employeeUsername) {
 
-    final JobExRequestFactory.JobApplicationRequestContext requestContext = requestFactory.jobApplicationContext();
+    JobExRequestFactory.JobApplicationRequestContext requestContext = requestFactory.jobApplicationContext();
 
-    final JobApplicationProxy applicationProxy = requestContext.create(JobApplicationProxy.class);
+    JobApplicationProxy applicationProxy = requestContext.create(JobApplicationProxy.class);
 
     applicationProxy.setCvId(cvId);
 
     applicationProxy.setJobId(jobId);
 
     applicationProxy.setUser(employeeUsername);
+
+    requestContext.applyForJob(applicationProxy).fire(new Receiver<List<String>>() {
+      @Override
+      public void onFailure(ServerFailure error) {
+        view.notifyUserOfCommunicationError();
+      }
+      @Override
+      public void onSuccess(List<String> response) {
+        if (response != null && response.size() > 0) {
+          view.showErrors(response);
+        } else {
+          view.notifyUserOfSuccessfulAppliance();
+        }
+      }
+    });
   }
 
   /**
@@ -86,6 +103,8 @@ public class UserCVsPresenter extends AbstractActivity implements ApplyForJobEve
   }
 
   public void deleteCv(long cvId) {
+
+
 
     JobExRequestFactory.CVsRequestContext context = requestFactory.cvsRequestContext();
 
