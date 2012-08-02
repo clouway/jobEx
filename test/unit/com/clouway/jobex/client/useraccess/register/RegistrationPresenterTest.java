@@ -45,7 +45,15 @@ public class RegistrationPresenterTest {
   }
 
   @Test
+  public void registrationButtonIsDisabledOnClick() {
+    presenter.register(registrationType, email, password);
+
+    verify(registrationView).disableRegisterButton();
+  }
+
+  @Test
   public void willRegisterUserOnSuccess() {
+
 
     presenter.register(registrationType, email, password);
 

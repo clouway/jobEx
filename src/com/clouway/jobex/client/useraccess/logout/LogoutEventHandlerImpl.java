@@ -19,7 +19,7 @@ public class LogoutEventHandlerImpl implements LogoutEventHandler{
 
   @Override
   public void onLogout(LogoutEvent event) {
-    JobExRequestFactory.AuthorizationContext logoutRequestContext = factory.authorizationContext();
+    JobExRequestFactory.AuthorizationRequestContext logoutRequestContext = factory.authorizationContext();
 
     logoutRequestContext.logout(event.getLoggedEmail()).to(new Receiver<Void>() {
       @Override

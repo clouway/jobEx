@@ -16,10 +16,4 @@ public interface RegistrationView {
 
   void enableRegisterButton();
 
-  String getEmail();
-
-  String getPassword();
-  
-  String getRegistrationType();
-
 }
