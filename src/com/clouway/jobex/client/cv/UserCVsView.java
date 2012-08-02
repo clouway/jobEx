@@ -57,6 +57,4 @@ public interface UserCVsView extends IsWidget {
   void deleteId();
 
   void addSelectButton();
-
-  boolean isConfirmed();
 }

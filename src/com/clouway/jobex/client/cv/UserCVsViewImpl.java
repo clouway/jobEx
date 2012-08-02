@@ -88,28 +88,13 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
       }
     }, "Name");
 
-    /*cVCellTable.addColumn(new Column<CVProxy, Date>(new DateCell()) {
-
-    cVCellTable.addColumn(new TextColumn<CVProxy>() {
-      @Override
-      public String getValue(CVProxy object) {
-        return object.getGender();
-      }
-    }, "gender")};*/
-
-
-/*
-    cVCellTable.addColumn(new TextColumn<CVProxy>() {
-      @Override
-      public String getValue(CVProxy object) {
-        return String.valueOf(DateTimeFormat.getFormat("yyyy/MM/dd").format(object.getDateOfBirth()));
+    cVCellTable.addColumn(new Column<CVProxy, Date>(new DateCell()) {
 
       @Override
       public Date getValue(CVProxy object) {
         return object.getDateOfBirth();
       }
     }, "Date of Birth");
-*/
 
     Column<CVProxy, String> editButton = new Column<CVProxy, String>(new ButtonCell()) {
       @Override
@@ -251,11 +236,6 @@ public class UserCVsViewImpl extends Composite implements UserCVsView {
   public void deleteId() {
     jobId = null;
     removeSelectButton();
-  }
-
-  @Override
-  public boolean isConfirmed() {
-    return false;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
   @UiHandler("createCv")

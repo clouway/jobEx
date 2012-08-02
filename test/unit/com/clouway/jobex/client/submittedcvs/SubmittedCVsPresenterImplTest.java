@@ -111,15 +111,4 @@ public class SubmittedCVsPresenterImplTest {
     assertThat(jobId, is(equalTo(jobIdCaptor.getValue())));
     assertThat(email, is(equalTo(emailCaptor.getValue())));
   }
-
-  @Test
-  public void emailIsNotSendWhenConfirmationIsFalse() {
-
-    Long jobId = 1l;
-    String email = "ivan@mail.com";
-
-    presenter.sendEmailApproval(jobId, email);
-
-    verify(emailService, never()).sendEmailApproval(jobIdCaptor.capture(), emailCaptor.capture());
-  }
 }

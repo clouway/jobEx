@@ -1,6 +1,6 @@
 package com.clouway.jobex.client.reviewjobs;
 
-
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.activity.shared.AbstractActivity;
@@ -19,22 +19,21 @@ public class ReviewJobsPresenterImpl extends AbstractActivity implements ReviewJ
 
   private JobExRequestFactory requestFactory;
   private ReviewJobsView reviewJobsView;
-
+  private UserCredentialsLocalStorage userCredentials;
 
   @Inject
-  public ReviewJobsPresenterImpl(JobExRequestFactory requestFactory, ReviewJobsView reviewJobsView) {
+  public ReviewJobsPresenterImpl(JobExRequestFactory requestFactory, ReviewJobsView reviewJobsView, UserCredentialsLocalStorage userCredentials) {
     this.requestFactory = requestFactory;
     this.reviewJobsView = reviewJobsView;
+    this.userCredentials = userCredentials;
   }
 
   /**
    * Review announced jobs for given company
-   *
-   * @param companyName - the name of the company
    */
-  public void reviewAnnouncedJobs(String companyName) {
+  public void reviewAnnouncedJobs() {
 
-    /*requestFactory.jobsReviewContext().getAnnouncedJobsForCompany(companyNameProvider.getCompanyName()).to(new ReviewJobsReceiver(reviewJobsView)).fire();*/
+    requestFactory.jobsReviewContext().getAnnouncedJobsForCompany(userCredentials.getUsername()).to(new ReviewJobsReceiver(reviewJobsView)).fire();
   }
 
   /**
@@ -57,6 +56,6 @@ public class ReviewJobsPresenterImpl extends AbstractActivity implements ReviewJ
 
     panel.setWidget((IsWidget) reviewJobsView);
 
-    /*reviewAnnouncedJobs(companyNameProvider.getCompanyName());*/
+    reviewAnnouncedJobs();
   }
 }

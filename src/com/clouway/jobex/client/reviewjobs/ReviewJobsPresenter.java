@@ -7,10 +7,8 @@ public interface ReviewJobsPresenter {
 
   /**
    * Review announced jobs for given company
-   *
-   * @param companyName - the name of the company
    */
-  void reviewAnnouncedJobs(String companyName);
+  void reviewAnnouncedJobs();
 
   /**
    * Delete announced job with given jobId
