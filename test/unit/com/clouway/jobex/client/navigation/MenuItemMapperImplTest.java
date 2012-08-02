@@ -18,18 +18,6 @@ public class MenuItemMapperImplTest {
   MenuItemMapperImpl menuItemMapperImpl = new MenuItemMapperImpl(new HashMap<String, Place>());
 
   @Test
-  public void shouldReturnPlaceAssociatedWithPlaceName() {
-
-    String placeName = "name";
-
-    Place place = menuItemMapperImpl.getPlace(placeName);
-
-    assertThat(place, is(notNullValue()));
-
-  }
-
-
-  @Test
   public void whatIsSavedIsWhatReturned() {
 
     String placeName = "name";
@@ -43,6 +31,16 @@ public class MenuItemMapperImplTest {
     assertThat(returnedPlace, is(notNullValue()));
 
     assertEquals(returnedPlace.getClass(), TestPlace.class);
+  }
+
+  @Test
+  public void returnsPlaceNotFoundPlaceIsPlaceNameIsNotBound() {
+
+    Place place = menuItemMapperImpl.getPlace("notPlace");
+    
+    assertThat(place, is(notNullValue()));
+
+    assertEquals(place.getClass(),PageNotFoundPlace.class);
   }
 
 
