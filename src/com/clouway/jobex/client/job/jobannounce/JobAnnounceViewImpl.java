@@ -1,7 +1,6 @@
 package com.clouway.jobex.client.job.jobannounce;
 
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
-import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.client.reviewjobs.ReviewJobsPlace;
 import com.clouway.jobex.shared.JobExRequestFactory;
 import com.clouway.jobex.shared.JobProxy;
@@ -48,7 +47,7 @@ public class JobAnnounceViewImpl extends Composite implements JobAnnounceView {
   private PlaceController placeController;
 
   @Inject
-  public JobAnnounceViewImpl(PlaceController placeController,NavigationMenu navigation) {
+  public JobAnnounceViewImpl(PlaceController placeController) {
 
     this.placeController = placeController;
 

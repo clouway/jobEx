@@ -52,10 +52,7 @@ public class CreatingNewCVWorkflowViewImpl extends Composite implements Creating
 
   private Driver driver = GWT.create(Driver.class);
 
-  @Inject
   public CreatingNewCVWorkflowViewImpl() {
-    HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
-    initWidget(rootElement);
 
     initWidget(ourUiBinder.createAndBindUi(this));
 

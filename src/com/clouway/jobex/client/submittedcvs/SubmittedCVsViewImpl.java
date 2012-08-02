@@ -1,7 +1,6 @@
 package com.clouway.jobex.client.submittedcvs;
 
 import com.clouway.jobex.client.reviewjobs.ReviewJobsPlace;
-import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.shared.CVProxy;
 import com.github.gwtbootstrap.client.ui.CellTable;
 import com.google.gwt.cell.client.ButtonCell;
@@ -35,15 +34,10 @@ public class SubmittedCVsViewImpl extends Composite implements SubmittedCVsView 
   @UiField
   CellTable cvTable;
 
-  @UiField(provided = true)
-  NavigationMenu menu;
-
   private PlaceController placeController;
 
   @Inject
-  public SubmittedCVsViewImpl(PlaceController placeController, NavigationMenu menu) {
-
-    this.menu = menu;
+  public SubmittedCVsViewImpl(PlaceController placeController) {
 
     this.placeController = placeController;
 

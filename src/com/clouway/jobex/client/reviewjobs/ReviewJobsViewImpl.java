@@ -1,7 +1,7 @@
 package com.clouway.jobex.client.reviewjobs;
 
+import com.clouway.jobex.client.security.UserCredentialsLocalStorage;
 import com.clouway.jobex.client.submittedcvs.SubmittedCVsPlace;
-import com.clouway.jobex.client.navigation.NavigationMenu;
 import com.clouway.jobex.shared.JobProxy;
 import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.DateCell;
@@ -39,21 +39,22 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
   @UiField
   CellTable<JobProxy> announcedJobsTable;
 
-  @UiField(provided = true)
-    NavigationMenu menu;
-  //private CompanyNameProvider companyNameProvider;
+/*  @UiField(provided = true)
+  NavigationMenu menu;*/
 
   @Inject
   private EventBus eventBus;
 
   private PlaceController placeController;
 
+  private UserCredentialsLocalStorage userCredentials;
+
   @Inject
-  public ReviewJobsViewImpl(NavigationMenu menu, final PlaceController placeController) {
+  public ReviewJobsViewImpl(final PlaceController placeController, final UserCredentialsLocalStorage userCredentials) {
 
-    this.menu = menu;
+    this.placeController = placeController;
 
-    //this.companyNameProvider = companyNameProvider;
+    this.userCredentials = userCredentials;
 
     initWidget(uiBinder.createAndBindUi(this));
 
@@ -126,7 +127,7 @@ public class ReviewJobsViewImpl extends Composite implements ReviewJobsView {
       public void update(int index, JobProxy jobProxy, String value) {
 
         if (Window.confirm("Delete selected job?")) {
-          //reviewJobsPresenter.deleteAnnouncedJob(jobProxy.getId(), companyNameProvider.getCompanyName());
+          reviewJobsPresenter.deleteAnnouncedJob(jobProxy.getId(), userCredentials.getUsername());
         }
       }
     });
