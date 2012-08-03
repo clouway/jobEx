@@ -35,4 +35,10 @@ public interface CVRepository {
    */
   List<JobApplication> getJobApplications(Long jobId);
 
+  /**
+   * Prepare new CV with empty properties and auto-generated id.
+   *
+   * @return - a CV
+   */
+  CV prepareNewCV();
 }

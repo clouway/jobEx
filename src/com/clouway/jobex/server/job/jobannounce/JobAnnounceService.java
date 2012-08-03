@@ -7,6 +7,18 @@ import com.clouway.jobex.server.job.Job;
  */
 public interface JobAnnounceService {
 
-  void announceJob(String companyName, Job job);
+  /**
+   * Prepare a new Job with empty properties and auto-generated id
+   *
+   * @return - a Job
+   */
+  Job prepareNewJob();
 
+  /**
+   * Announce new job
+   *
+   * @param companyName - the name of the company that announced the job
+   * @param job - the job that will be announced
+   */
+  void announceJob(String companyName, Job job);
 }

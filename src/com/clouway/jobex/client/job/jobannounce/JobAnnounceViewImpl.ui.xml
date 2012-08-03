@@ -20,16 +20,6 @@
 
     }
 
-    .tablePanel {
-      width: 100%;
-      /*background: rgba(110, 158, 255, 0.20);*/
-    }
-
-    .table {
-      width: 100%;
-      /*border: 1px solid;*/
-    }
-
     .title {
       font-size: 20px;
       font-style: bold;
@@ -59,6 +49,8 @@
         <b:Button ui:field="announce" text="Announce"/>
 
       </g:HorizontalPanel>
+
+      <b:AlertBlock animation="true" visible="false" ui:field="alert" close="false">AlertBlock</b:AlertBlock>
 
     </g:HTMLPanel>
 

@@ -52,6 +52,8 @@
 
       <b:Button ui:field="save" text="Save"/>
 
+      <b:AlertBlock animation="true" visible="false" ui:field="alert" close="false">AlertBlock</b:AlertBlock>
+
     </g:HTMLPanel>
 
   </g:HTMLPanel>

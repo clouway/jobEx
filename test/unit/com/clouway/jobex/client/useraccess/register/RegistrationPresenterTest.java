@@ -24,41 +24,36 @@ public class RegistrationPresenterTest {
   private RegistrationView registrationView;
 
   private AuthorizationService authorizationService;
-
   private String email = "test@email.com";
-
   private String password = "password";
 
   private String registrationType = "typeIsNotImportantInThisTest";
 
   @Before
-  public void setUp() {
-
+  public void setUp(){
     initMocks(this);
-
     factory = RequestFactoryHelper.create(JobExRequestFactory.class);
 
     authorizationService = RequestFactoryHelper.getService(AuthorizationService.class);
-
     presenter = new RegistrationPresenter(factory, registrationView);
-
   }
 
+
   @Test
-  public void registrationButtonIsDisabledOnClick() {
+  public void registrationButtonIsDisabledOnClick(){
     presenter.register(registrationType, email, password);
 
     verify(registrationView).disableRegisterButton();
+
   }
+
 
   @Test
   public void willRegisterUserOnSuccess() {
 
 
     presenter.register(registrationType, email, password);
-
     verify(registrationView).successfulRegistrationMessage();
-
     verify(registrationView).enableRegisterButton();
   }
 
@@ -71,6 +66,4 @@ public class RegistrationPresenterTest {
     verify(registrationView).registrationErrorMessage();
     verify(registrationView).enableRegisterButton();
   }
-
-
 }

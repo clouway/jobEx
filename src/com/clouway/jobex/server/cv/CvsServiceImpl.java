@@ -60,4 +60,14 @@ public class CvsServiceImpl implements CvsService {
 
     return repository.getSubmittedCVs(jobId, jobApplications);
   }
+
+  /**
+   * Prepare new CV with empty properties and auto-generated id.
+   *
+   * @return - a CV
+   */
+  public CV prepareNewCV() {
+
+    return repository.prepareNewCV();
+  }
 }

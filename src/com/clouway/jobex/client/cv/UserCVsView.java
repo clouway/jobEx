@@ -33,7 +33,7 @@ public interface UserCVsView extends IsWidget {
   /**
    * Sets view presenter;
    *
-   * @param presenter
+   * @param presenter - presenter
    */
   void setPresenter(UserCVsPresenter presenter);
 

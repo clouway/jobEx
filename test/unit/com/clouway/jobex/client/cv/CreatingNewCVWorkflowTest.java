@@ -9,13 +9,16 @@ import com.clouway.jobex.shared.JobExRequestFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 
+import java.util.Date;
+import java.util.List;
+
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -30,8 +33,6 @@ public class CreatingNewCVWorkflowTest {
 
   private CvsService service;
 
-  private JobExRequestFactory.CVsRequestContext context;
-
   private CreatingNewCVWorkflow workflow;
 
   @Mock
@@ -43,6 +44,20 @@ public class CreatingNewCVWorkflowTest {
 
   private String username = "user";
 
+  @Captor
+  ArgumentCaptor<JobExRequestFactory.CVsRequestContext> requestContextCaptor;
+
+  @Captor
+  ArgumentCaptor<CVProxy> cvProxyCaptor;
+
+  @Captor
+  ArgumentCaptor<String> usernameCaptor;
+
+  @Captor
+  ArgumentCaptor<CV> cvCaptor;
+
+  @Captor
+  ArgumentCaptor<List<String>> violations;
 
   @Before
   public void setUp() throws Exception {
@@ -53,46 +68,46 @@ public class CreatingNewCVWorkflowTest {
 
     service = RequestFactoryHelper.getService(CvsService.class);
 
-    context = factory.cvsRequestContext();
-
     workflow = new CreatingNewCVWorkflow(view, factory, provider);
 
   }
 
   @Test
-  public void shouldInitializeTheDriverWithTheRequestFactory() {
+  public void prepareNewCV() {
 
-    when(provider.getUsername()).thenReturn(username);
+    when(service.prepareNewCV()).thenReturn(new CV());
 
-    workflow.initialize();
+    workflow.prepareCV();
 
-    verify(view).initializeEditorWithRequestFactory(isA(JobExRequestFactory.class));
-
-    verify(view).edit(isA(JobExRequestFactory.CVsRequestContext.class), isA(CVProxy.class));
-
+    verify(service).prepareNewCV();
+    verify(view).edit(requestContextCaptor.capture(), cvProxyCaptor.capture());
   }
-
 
   @Test
-  public void flushesEditorAndFiresRequestContext() {
+  public void createNewCV() {
 
+    CV cv = new CV();
 
-    ArgumentCaptor<CV> cvArgumentCaptor = ArgumentCaptor.forClass(CV.class);
-
-    when(view.flush()).thenReturn(context);
-
-
+    when(service.prepareNewCV()).thenReturn(cv);
     when(provider.getUsername()).thenReturn(username);
 
-    workflow.initialize();
+    cv.setName("myName");
+    cv.setDateOfBirth(new Date());
+    cv.setPhoneNumber("0888123456");
+    cv.setSkills("skills");
 
-    workflow.create();
+    workflow.prepareCV();
+    workflow.createCV();
 
-    verify(service).add(eq(username), cvArgumentCaptor.capture());
+    verify(provider).getUsername();
+    verify(view).flush();
+    verify(service).add(usernameCaptor.capture(), cvCaptor.capture());
+    verify(view, never()).showConstraintViolations(violations.capture());
+    verify(view).reset();
+    verify(view).goToSelectCv();
 
-    assertThat(cvArgumentCaptor.getValue(), is(notNullValue()));
-
-    verify(view).notifyUserOfSuccessfulCVCreation();
+    assertThat(username, is(equalTo(usernameCaptor.getValue())));
+    assertThat(cv.getName(), is(equalTo(cvCaptor.getValue().getName())));
+    assertThat(cv.getPhoneNumber(), is(equalTo(cvCaptor.getValue().getPhoneNumber())));
   }
-
 }
