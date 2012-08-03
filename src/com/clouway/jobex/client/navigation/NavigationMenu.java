@@ -47,8 +47,8 @@ public class NavigationMenu extends Composite implements IsWidget, NavigationMen
   @UiField
   Brand usernameLabel;
 
-  
-
+  @UiField
+  Nav nav;
 
   @Inject
   public NavigationMenu(final PlaceController placeController, MenuPlacesMapper menuPlacesMapper) {
@@ -83,7 +83,7 @@ public class NavigationMenu extends Composite implements IsWidget, NavigationMen
 
   @Override
   public void setUsernameLabel(String username) {
-    usernameLabel.setText("user: "+username);
+    usernameLabel.setText("user: " + username);
   }
 
   @Override
@@ -94,14 +94,29 @@ public class NavigationMenu extends Composite implements IsWidget, NavigationMen
 
   @Override
   public void setPermittedPlaces(List<String> permissions) {
-    Nav items = new Nav();
+
+    clearNav();
     for (String permission : permissions) {
       Place permittedPlace = menuPlacesMapper.getPlace(permission);
       if (permittedPlace != null) {
-        items.add(createNavLink(permission, permittedPlace));
+        nav.add(createNavLink(permission, permittedPlace));
       }
     }
-    navBar.add(items);
+
+    navBar.add(nav);
+
     container.add(navBar);
+
   }
+
+  private void clearNav() {
+    int index = nav.getWidgetCount();
+    if (index > 0) {
+      for (int i = index-1; i >= 0; i--) {
+        nav.remove(i);
+      }
+    }
+  }
+
+
 }
