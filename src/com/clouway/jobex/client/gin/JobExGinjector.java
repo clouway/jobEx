@@ -62,4 +62,5 @@ public interface JobExGinjector extends Ginjector {
   LogoutEventHandler injectLogoutEventHandler();
 
   LogoutEventHandlerImpl logoutEventHandler();
+
 }
