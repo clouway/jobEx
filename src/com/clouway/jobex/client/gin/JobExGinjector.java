@@ -56,7 +56,4 @@ public interface JobExGinjector extends Ginjector {
 
   PageNotFoundActivity pageNotFoundPlace();
 
-  SubmittedCVsPresenterImpl reviewCVPresenter();
-
-  LogoutEventHandler injectLogoutEventHandler();
 }
