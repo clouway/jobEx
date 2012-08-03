@@ -42,7 +42,8 @@ import com.clouway.jobex.client.useraccess.login.LoginPlace;
 import com.clouway.jobex.client.useraccess.login.LoginPresenter;
 import com.clouway.jobex.client.useraccess.login.LoginView;
 import com.clouway.jobex.client.useraccess.login.LoginViewImpl;
-import com.clouway.jobex.client.useraccess.logout.LogoutPlace;import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
+import com.clouway.jobex.client.useraccess.logout.LogoutPlace;
+import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
 import com.clouway.jobex.client.useraccess.logout.LogoutEventHandler;
 import com.clouway.jobex.client.useraccess.logout.LogoutEventHandlerImpl;
 import com.clouway.jobex.client.useraccess.register.RegistrationPresenter;
@@ -115,6 +116,7 @@ public class JobExGinModule extends AbstractGinModule {
     bind(LogoutEventHandler.class).to(LogoutEventHandlerImpl.class);
 
   }
+
   @Provides
   @Singleton
   PlaceController getPlaceController(EventBus eventBus) {
@@ -251,6 +253,15 @@ public class JobExGinModule extends AbstractGinModule {
         return injector.loginPresenter();
       }
     });
+
+
+    map.put(LogoutPlace.class, new ActivityPlaceMetadata<LogoutPlace, LogoutEventHandlerImpl>() {
+      @Override
+      public LogoutEventHandlerImpl getActivity(LogoutPlace logoutPlace) {
+        return injector.logoutEventHandler();
+      }
+    });
+
 
     return map;
   }

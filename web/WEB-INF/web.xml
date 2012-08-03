@@ -6,6 +6,11 @@
          version="2.5">
 
 
+  
+  <welcome-file-list>
+    <welcome-file>jobex.html</welcome-file>
+  </welcome-file-list>
+
   <servlet>
     <servlet-name>requestFactory</servlet-name>
     <servlet-class>com.google.web.bindery.requestfactory.server.RequestFactoryServlet</servlet-class>

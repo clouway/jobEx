@@ -16,4 +16,5 @@ public interface RegistrationView {
 
   void enableRegisterButton();
 
+  void goToSearch();
 }
