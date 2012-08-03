@@ -1,5 +1,7 @@
 package com.clouway.jobex.server.job;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -11,10 +13,20 @@ public class Job {
   
   private Long version;
 
+  @NotNull
   private String company;
+
+  @NotNull(message = "Position cannot be empty!")
+  @Size(min = 5, max = 20, message = "Position length must be 5-20 characters!")
   private String position;
+
+  @Size(min = 1, message = "Category is not selected!")
   private String category;
+
+  @NotNull(message = "Expiration date is not selected!")
   private Date expirationDate;
+
+  @Size(min = 1, message = "Location is not selected!")
   private String location;
 
   public Job() {
@@ -82,8 +94,6 @@ public class Job {
   }
 
   public void setLocation(String location) {
-
     this.location = location;
-
   }
 }

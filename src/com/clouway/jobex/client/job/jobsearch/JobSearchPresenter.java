@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,6 +48,9 @@ public class JobSearchPresenter extends AbstractActivity {
 
     jobProxy.setLocation(location);
     jobProxy.setCategory(category);
+    jobProxy.setCompany("");
+    jobProxy.setExpirationDate(new Date());
+    jobProxy.setPosition("position");
 
     jobSearchRequest.search(jobProxy).fire(new Receiver<List<JobProxy>>() {
       @Override
@@ -62,7 +66,6 @@ public class JobSearchPresenter extends AbstractActivity {
 
       }
     });
-
   }
 
   public void start(AcceptsOneWidget panel, EventBus eventBus) {

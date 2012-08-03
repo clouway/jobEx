@@ -102,4 +102,16 @@ public class CvsServiceImplTest {
     verify(repository).getJobApplications(jobId);
     verify(repository).getSubmittedCVs(jobId, jobApplications);
   }
+
+  @Test
+  public void prepareNewCV() {
+
+    when(service.prepareNewCV()).thenReturn(new CV());
+
+    CV preparedCV = service.prepareNewCV();
+
+    verify(repository).prepareNewCV();
+
+    assertThat(preparedCV, is(notNullValue()));
+  }
 }

@@ -7,7 +7,9 @@ import com.clouway.jobex.shared.JobExRequestFactory;
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
@@ -34,34 +36,38 @@ public class CreatingNewCVWorkflow extends AbstractActivity {
 
   }
 
-  public void initialize() {
+  public void createCV() {
 
-    context = factory.cvsRequestContext();
+    view.flush();
 
-    CVProxy proxy = context.create(CVProxy.class);
-
-    context.add(provider.getUsername(), proxy).to(new CreatingNewCvReceiver(view));
-
-    CVProxy mutableProxy = context.edit(proxy);
-
-    view.initializeEditorWithRequestFactory(factory);
-
-    view.edit(context, mutableProxy);
-
+    context.fire();
   }
 
-  public void create() {
+  public void prepareCV() {
 
-        view.flush();
+    factory.cvsRequestContext().prepareNewCV().fire(new Receiver<CVProxy>() {
 
-        context.fire();
+      public void onSuccess(CVProxy response) {
+
+        context = factory.cvsRequestContext();
+        CVProxy editableProxy = context.edit(response);
+
+        view.edit(context, editableProxy);
+
+        context.add(provider.getUsername(), editableProxy).to(new CreatingNewCvReceiver(view));
+      }
+    });
   }
 
   @Override
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
+
+    prepareCV();
+
     view.setWorkFlow(this);
-    panel.setWidget((CreatingNewCVWorkflowViewImpl) view);
-    initialize();
+    view.reset();
+
+    panel.setWidget((IsWidget) view);
   }
 
 }

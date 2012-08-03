@@ -1,6 +1,5 @@
 package com.clouway.jobex.server.job.jobannounce;
 
-
 import com.clouway.jobex.server.job.Job;
 import com.clouway.jobex.server.job.JobRepository;
 import com.google.inject.Inject;
@@ -18,10 +17,20 @@ public class JobAnnounceServiceImpl implements JobAnnounceService {
   }
 
   /**
-   * Announce job with given companyName and Job
+   * Prepare a new Job with empty properties and auto-generated id
    *
-   * @param companyName a companyName
-   * @param job a job
+   * @return - a Job
+   */
+  public Job prepareNewJob() {
+
+    return repository.prepareNewJob();
+  }
+
+  /**
+   * Announce new job
+   *
+   * @param companyName - the name of the company that announced the job
+   * @param job - the job that will be announced
    */
   public void announceJob(String companyName, Job job) {
     repository.saveJob(companyName, job);

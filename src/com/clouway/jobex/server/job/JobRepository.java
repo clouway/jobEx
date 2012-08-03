@@ -74,4 +74,10 @@ public interface JobRepository {
    */
   void deleteJob(Long jobId);
 
+  /**
+   * Prepare a new Job with empty properties and auto-generated id
+   *
+   * @return - a Job
+   */
+  Job prepareNewJob();
 }

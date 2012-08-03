@@ -1,25 +1,36 @@
 package com.clouway.jobex.client.gin;
 
 import com.clouway.jobex.client.cv.*;
-import com.clouway.jobex.client.cvsreview.SubmittedCVsPlace;
-import com.clouway.jobex.client.cvsreview.SubmittedCVsPresenter;
-import com.clouway.jobex.client.cvsreview.SubmittedCVsPresenterImpl;
-import com.clouway.jobex.client.cvsreview.SubmittedCVsView;
-import com.clouway.jobex.client.cvsreview.SubmittedCVsViewImpl;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePlace;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
+import com.clouway.jobex.client.cv.UserCVsView;
+import com.clouway.jobex.client.cv.UserCVsViewImpl;
+import com.clouway.jobex.client.cv.CreatingNewCVWorkflowView;
+import com.clouway.jobex.client.cv.CreatingNewCVWorkflowViewImpl;
+import com.clouway.jobex.client.cv.EditCVWorkflowView;
+import com.clouway.jobex.client.cv.EditCVWorkflowViewImpl;
+import com.clouway.jobex.client.reviewjobs.ReviewJobsPlace;
+import com.clouway.jobex.client.submittedcvs.SubmittedCVsPlace;
+import com.clouway.jobex.client.reviewjobs.ReviewJobsPresenter;
+import com.clouway.jobex.client.reviewjobs.ReviewJobsPresenterImpl;
+import com.clouway.jobex.client.reviewjobs.ReviewJobsView;
+import com.clouway.jobex.client.reviewjobs.ReviewJobsViewImpl;
+import com.clouway.jobex.client.submittedcvs.SubmittedCVsPresenter;
+import com.clouway.jobex.client.submittedcvs.SubmittedCVsPresenterImpl;
+import com.clouway.jobex.client.submittedcvs.SubmittedCVsView;
+import com.clouway.jobex.client.submittedcvs.SubmittedCVsViewImpl;
 import com.clouway.jobex.client.job.jobannounce.JobAnnounceView;
 import com.clouway.jobex.client.job.jobannounce.JobAnnounceViewImpl;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPlace;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPresenter;
 import com.clouway.jobex.client.job.jobsearch.JobSearchView;
 import com.clouway.jobex.client.job.jobsearch.JobSearchViewImpl;
-import com.clouway.jobex.client.jobsreview.ReviewJobsPlace;
-import com.clouway.jobex.client.jobsreview.ReviewJobsPresenter;
-import com.clouway.jobex.client.jobsreview.ReviewJobsPresenterImpl;
-import com.clouway.jobex.client.jobsreview.ReviewJobsView;
-import com.clouway.jobex.client.jobsreview.ReviewJobsViewImpl;
 import com.clouway.jobex.client.navigation.*;
+import com.clouway.jobex.client.navigation.ActivityPlaceMetadata;
+import com.clouway.jobex.client.navigation.JobExPlaceHistoryMapper;
+import com.clouway.jobex.client.navigation.NavigationMenu;
+import com.clouway.jobex.client.navigation.NavigationMenuController;
+import com.clouway.jobex.client.navigation.SecuredActivityMapper;
 import com.clouway.jobex.client.security.AuthorizationPlace;
 import com.clouway.jobex.client.security.UserAuthorizedEventHandler;
 import com.clouway.jobex.client.security.UserAuthorizedEventHandlerImpl;
@@ -31,9 +42,9 @@ import com.clouway.jobex.client.useraccess.login.LoginPlace;
 import com.clouway.jobex.client.useraccess.login.LoginPresenter;
 import com.clouway.jobex.client.useraccess.login.LoginView;
 import com.clouway.jobex.client.useraccess.login.LoginViewImpl;
+import com.clouway.jobex.client.useraccess.logout.LogoutPlace;import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
 import com.clouway.jobex.client.useraccess.logout.LogoutEventHandler;
 import com.clouway.jobex.client.useraccess.logout.LogoutEventHandlerImpl;
-import com.clouway.jobex.client.useraccess.register.RegistrationPlace;
 import com.clouway.jobex.client.useraccess.register.RegistrationPresenter;
 import com.clouway.jobex.client.useraccess.register.RegistrationView;
 import com.clouway.jobex.client.useraccess.register.RegistrationViewImpl;
@@ -143,6 +154,8 @@ public class JobExGinModule extends AbstractGinModule {
     placeMap.put(Permissions.LOG_IN, new AuthorizationPlace());
 
     placeMap.put(Permissions.NEW_REGISTRATION, new RegistrationPlace());
+
+    placeMap.put(Permissions.LOG_OUT, new LogoutPlace());
 
     return placeMap;
   }

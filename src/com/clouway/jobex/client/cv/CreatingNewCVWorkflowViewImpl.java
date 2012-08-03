@@ -2,17 +2,22 @@ package com.clouway.jobex.client.cv;
 
 import com.clouway.jobex.shared.CVProxy;
 import com.clouway.jobex.shared.JobExRequestFactory;
+import com.github.gwtbootstrap.client.ui.AlertBlock;
+import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
+
+import java.util.List;
 
 /**
  * @author Adelin Ghanayem adelin.ghanaem@clouway.com
@@ -31,7 +36,10 @@ public class CreatingNewCVWorkflowViewImpl extends Composite implements Creating
   CVEditor editor;
 
   @UiField
-  com.github.gwtbootstrap.client.ui.Button create;
+  Button create;
+
+  @UiField
+  AlertBlock alert;
 
 
 
@@ -44,20 +52,11 @@ public class CreatingNewCVWorkflowViewImpl extends Composite implements Creating
 
   private Driver driver = GWT.create(Driver.class);
 
-  @Inject
   public CreatingNewCVWorkflowViewImpl() {
-    HTMLPanel rootElement = ourUiBinder.createAndBindUi(this);
-    initWidget(rootElement);
-  }
 
+    initWidget(ourUiBinder.createAndBindUi(this));
 
-  @Override
-  public void notifyUserOfSuccessfulCVCreation() {
-  }
-
-  @Override
-  public void initializeEditorWithRequestFactory(JobExRequestFactory requestFactory) {
-    driver.initialize(requestFactory, editor);
+    driver.initialize(editor);
   }
 
   @Override
@@ -70,15 +69,10 @@ public class CreatingNewCVWorkflowViewImpl extends Composite implements Creating
     return driver.flush();
   }
 
-  @Override
-  public void notifyUserOfConnectionError() {
-
-  }
 
   @Override
   public void setWorkFlow(CreatingNewCVWorkflow presenter) {
     this.presenter = presenter;
-    presenter.initialize();
   }
 
   @Override
@@ -88,9 +82,25 @@ public class CreatingNewCVWorkflowViewImpl extends Composite implements Creating
 
   @UiHandler("create")
   public void onCvCreate(ClickEvent event) {
-    presenter.create();
 
+    if (Window.confirm("Create this CV?")) {
+      presenter.createCV();
+    }
   }
 
+  public void showConstraintViolations(List<String> constraintViolations) {
 
+    StringBuilder builder = new StringBuilder();
+
+    for (String listOfError : constraintViolations) {
+      builder.append(listOfError).append(" ");
+    }
+
+    alert.setText(builder.toString());
+    alert.setVisible(true);
+  }
+
+  public void reset() {
+    alert.setVisible(false);
+  }
 }

@@ -9,16 +9,16 @@ import com.clouway.jobex.shared.JobExRequestFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -30,11 +30,7 @@ public class EditCvWorkflowTest {
 
 
   private JobExRequestFactory factory;
-
   private CvsService service;
-
-  private JobExRequestFactory.CVsRequestContext context;
-
   private EditCvWorkflow workflow;
 
   @Mock
@@ -43,7 +39,27 @@ public class EditCvWorkflowTest {
   @Mock
   private EditCVWorkflowView view;
 
-  private String username = "mail@mail.com";
+  @Captor
+  private ArgumentCaptor<JobExRequestFactory.CVsRequestContext> requestContextCaptor;
+
+  @Captor
+  private ArgumentCaptor<String> usernameCaptor;
+
+  @Captor
+  private ArgumentCaptor<Long> cvIdCaptor;
+
+  @Captor
+  private ArgumentCaptor<CVProxy> cvProxyCaptor;
+
+  @Captor
+  private ArgumentCaptor<CV> cvCaptor;
+
+  @Captor
+  private ArgumentCaptor<List<String>> violations;
+
+  private final Long cvId = 12l;
+  private final String username = "Ivan";
+  private CV cv;
 
   @Before
   public void setUp() throws Exception {
@@ -54,72 +70,48 @@ public class EditCvWorkflowTest {
 
     service = RequestFactoryHelper.getService(CvsService.class);
 
-    context = factory.cvsRequestContext();
-
     workflow = new EditCvWorkflow(factory, view, provider);
 
+    cv = new CV();
   }
 
   @Test
-  public void fetchCvProxyTobeEdited() {
+  public void getCVForEditing() {
 
-    CV cv = new CV(1l, "name", username, "1234567", "skill", new Date(), "male");
+    setCVForEditing();
 
-    ArgumentCaptor<CVProxy> cvProxyArgumentCaptor = ArgumentCaptor.forClass(CVProxy.class);
+    workflow.editCv(cvId);
 
-    when(service.fetchCreatedCv(username, 1l)).thenReturn(cv);
+    verify(provider).getUsername();
+    verify(service).fetchCreatedCv(usernameCaptor.capture(), cvIdCaptor.capture());
+    verify(view).edit(cvProxyCaptor.capture(), requestContextCaptor.capture());
 
-    when(provider.getUsername()).thenReturn(username);
-
-    workflow.editCv(1l);
-
-    verify(service).fetchCreatedCv(username, 1l);
-
-    verify(view).edit(cvProxyArgumentCaptor.capture(), isA(JobExRequestFactory.CVsRequestContext.class));
-
-    CVProxy editedCv = cvProxyArgumentCaptor.getValue();
-
-    assertThat(editedCv, is(notNullValue()));
-
-    assertThat(editedCv.getId(), is(equalTo(1l)));
-
-    assertThat(editedCv.getName(), is(equalTo("name")));
-
-    assertThat(editedCv.getPhoneNumber(), is(equalTo("1234567")));
-
-    assertThat(editedCv.getSkills(), is(equalTo("skill")));
-
+    assertThat(cvId, is(equalTo(cvIdCaptor.getValue())));
+    assertThat(username, is(equalTo(usernameCaptor.getValue())));
   }
 
-
   @Test
-  public void savesEditedProxy() {
+  public void saveEditedCV() {
 
-    CVProxy proxy = context.create(CVProxy.class);
+    setCVForEditing();
 
-    proxy.setId(1l);
-    proxy.setName("name");
-    proxy.setPhoneNumber("1234567");
-    proxy.setSkills("nothing ... !");
+    cv.setDateOfBirth(new Date());
+    cv.setName("name");
+    cv.setPhoneNumber("0884669080");
+    cv.setSkills("skills");
 
-    when(provider.getUsername()).thenReturn(username);
+    workflow.editCv(cvId);
+    workflow.saveEditedCV();
 
-    workflow.update(proxy, context);
-
-    ArgumentCaptor<CV> cvArgumentCaptor = ArgumentCaptor.forClass(CV.class);
-
-    verify(service).add(eq(username), cvArgumentCaptor.capture());
-
-    CV cv = cvArgumentCaptor.getValue();
-
-    assertThat(cv.getId(), is(equalTo(1l)));
-    assertThat(cv.getEmail(), is(equalTo("mail@mail.com")));
-    assertThat(cv.getName(), is(equalTo("name")));
-    assertThat(cv.getPhoneNumber(), is(equalTo("1234567")));
-    assertThat(cv.getSkills(), is(equalTo("nothing ... !")));
+    verify(service).add(usernameCaptor.capture(), cvCaptor.capture());
+    verify(view, never()).showConstraintViolations(violations.capture());
+    verify(view).reset();
     verify(view).goToCvPreview();
-
   }
 
+  private void setCVForEditing() {
 
+    when(provider.getUsername()).thenReturn(username);
+    when(service.fetchCreatedCv(username, cvId)).thenReturn(cv);
+  }
 }

@@ -1,5 +1,8 @@
 package com.clouway.jobex.server.cv;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,28 +18,22 @@ public class CV implements Serializable {
 
   private Long version;
 
+  @NotNull(message = "Name cannot be empty!")
+  @Size(min = 3, max = 20, message = "Name length must be from 3 to 20 characters!")
   private String name;
 
   private String email;
 
+  @NotNull(message = "Phone number cannot be empty!")
+  @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must contain only digits. Length 10 digits!")
   private String phoneNumber;
 
+  @NotNull(message = "Enter some skills!")
+  @Size(min = 5, max = 50, message = "Enter some more skills")
   private String skills;
 
+  @NotNull(message = "Date of birth is not selected!")
   private Date dateOfBirth;
-
-  private String gender;
-
-
-
-  public String getGender() {
-    return gender;
-  }
-
-  public void setGender(String gender) {
-    this.gender = gender;
-  }
-
 
   public Date getDateOfBirth() {
     return dateOfBirth;
@@ -85,14 +82,13 @@ public class CV implements Serializable {
     this.id = id;
   }
 
-  public CV(Long id, String name, String email, String phoneNumber, String skills,Date dateOfBirth,String gender) {
+  public CV(Long id, String name, String email, String phoneNumber, String skills,Date dateOfBirth) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.phoneNumber = phoneNumber;
     this.skills = skills;
     this.dateOfBirth = dateOfBirth;
-    this.gender = gender;
   }
 
   public Long getId() {

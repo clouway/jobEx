@@ -8,6 +8,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 
 /**
  * JobAnnouncePresenterImpl class is used to announce new jobs
@@ -18,46 +19,50 @@ public class JobAnnouncePresenterImpl extends AbstractActivity implements JobAnn
 
   private final JobExRequestFactory requestFactory;
   private final JobAnnounceView view;
-  private final UserCredentialsLocalStorage companyNameProvider;
+  private final UserCredentialsLocalStorage userCredentials;
 
   private JobExRequestFactory.JobRequestContext requestContext;
-  private JobProxy editableJobProxy;
 
   @Inject
-  public JobAnnouncePresenterImpl(JobExRequestFactory requestFactory, JobAnnounceView view, UserCredentialsLocalStorage companyNameProvider) {
+  public JobAnnouncePresenterImpl(JobExRequestFactory requestFactory, JobAnnounceView view, UserCredentialsLocalStorage userCredentials) {
     this.requestFactory = requestFactory;
     this.view = view;
-    this.companyNameProvider = companyNameProvider;
+    this.userCredentials = userCredentials;
   }
 
   /**
-   * Announce a job, i.e. fires the request
+   * Announce the prepared Job.
    */
   public void announceJob() {
     requestContext.fire();
   }
 
-  public void initialize() {
+  /**
+   * Prepare a new Job with empty properties and auto-generated id.
+   */
+  public void prepareJob() {
 
-    requestContext = requestFactory.jobRequestContext();
+    requestFactory.jobRequestContext().prepareNewJob().fire(new Receiver<JobProxy>() {
 
-    JobProxy jobProxy = requestContext.create(JobProxy.class);
+      public void onSuccess(JobProxy response) {
 
-    editableJobProxy = requestContext.edit(jobProxy);
+        requestContext = requestFactory.jobRequestContext();
+        JobProxy editableProxy = requestContext.edit(response);
 
-    requestContext.announceJob(companyNameProvider.getUsername(), editableJobProxy).to(new JobAnnounceReceiver(view));
+        view.edit(requestContext, editableProxy);
 
+        requestContext.announceJob(userCredentials.getUsername(), editableProxy).to(new JobAnnounceReceiver(view));
+      }
+    });
   }
 
   public void start(AcceptsOneWidget panel, EventBus eventBus) {
 
-    this.initialize();
+    prepareJob();
 
     view.setPresenter(this);
-
-    view.edit(requestContext, editableJobProxy);
+    view.reset();
 
     panel.setWidget((IsWidget) view);
-
   }
 }

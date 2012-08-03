@@ -1,9 +1,14 @@
 package com.clouway.jobex.client.cv;
 
-import com.google.web.bindery.requestfactory.shared.ServerFailure;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
+
+import javax.validation.ConstraintViolation;
+import java.util.HashSet;
+import java.util.List;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -19,31 +24,29 @@ public class CreatingNewCvReceiverTest {
 
   CreatingNewCvReceiver receiver;
 
+  @Captor
+  ArgumentCaptor<List<String>> violationsCaptor;
+
   @Before
   public void setUp() throws Exception {
     initMocks(this);
     receiver = new CreatingNewCvReceiver(view);
   }
 
-
   @Test
-  public void notifiesUserWhenCvIsSuccessfullyCreated() {
-
+  public void afterSuccessfulRequestGoToSelectCVPlace() {
 
     receiver.onSuccess(null);
 
-    verify(view).notifyUserOfSuccessfulCVCreation();
-
+    verify(view).reset();
+    verify(view).goToSelectCv();
   }
-
 
   @Test
-  public void notifiesUserOfConnectionError() {
+  public void showConstraintViolations() {
 
-    receiver.onFailure(new ServerFailure());
+    receiver.onConstraintViolation(new HashSet<ConstraintViolation<?>>());
 
-    verify(view).notifyUserOfConnectionError();
+    verify(view).showConstraintViolations(violationsCaptor.capture());
   }
-
-
 }

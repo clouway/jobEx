@@ -50,17 +50,31 @@ public class JobEditor extends Composite implements Editor<JobProxy> {
     }
   };
 
-  LeafValueEditorImpl categoryEditor;
+  LeafValueEditor<String> location = new LeafValueEditor<String>() {
 
-  LeafValueEditor<String> locationEditor;
+    public void setValue(String value) {
+      selectLocation.setValue(selectLocation.getSelectedIndex(), value);
+    }
+
+    public String getValue() {
+      return selectLocation.getValue(selectLocation.getSelectedIndex());
+    }
+  };
+
+  LeafValueEditor<String> category = new LeafValueEditor<String>() {
+
+    public void setValue(String value) {
+      selectCategory.setValue(selectCategory.getSelectedIndex(), value);
+    }
+
+    public String getValue() {
+      return selectCategory.getValue(selectCategory.getSelectedIndex());
+    }
+  };
 
   public JobEditor() {
 
     initWidget(uiBinder.createAndBindUi(this));
-
-    categoryEditor = new LeafValueEditorImpl(new ListBoxWrapperImpl(selectCategory));
-
-    locationEditor = new LeafValueEditorImpl(new ListBoxWrapperImpl(selectLocation));
 
     date.setStartDate(String.valueOf(new Date()));
   }

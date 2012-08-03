@@ -4,33 +4,21 @@
              xmlns:b2="urn:import:com.github.gwtbootstrap.datepicker.client.ui"
         >
 
-  <ui:style>
-    .datePicker {
-    width: 100px;
-  }
-
-  </ui:style>
-
   <g:HTMLPanel>
 
 
-    <g:Label text="name"/>
+    <g:Label text="Name"/>
     <b:TextBox ui:field="name"/>
 
 
-    <g:Label text="Date of birth"/>
+    <g:Label text="Date of Birth"/>
     <b2:DateBox ui:field="datePicker" format="dd/mm/yyyy" autoClose="true"/>
 
 
-    <g:Label text="Gender"/>
-    <b:ListBox ui:field="genderSelectBox">
-    </b:ListBox>
-
-
-    <g:Label text="phoneNumber"/>
+    <g:Label text="Phone Number"/>
     <b:TextBox ui:field="phoneNumber"/>
 
-    <g:Label text="skills"/>
+    <g:Label text="Skills"/>
     <b:TextBox ui:field="skills"/>
 
 

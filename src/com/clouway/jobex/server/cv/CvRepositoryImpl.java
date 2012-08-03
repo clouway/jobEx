@@ -30,8 +30,6 @@ public class CvRepositoryImpl implements CVRepository {
   @Override
   public List<CV> getCreatedCVs(String username) {
 
-    Key key = KeyFactory.createKey("User", username);
-
     Query query = new Query(cvKind);
 
     query.setFilter(new Query.FilterPredicate("username", Query.FilterOperator.EQUAL, username));
@@ -52,14 +50,13 @@ public class CvRepositoryImpl implements CVRepository {
             (String) entity.getProperty("email"),
             (String) entity.getProperty("phoneNumber"),
             (String) entity.getProperty("skills"),
-            (Date) entity.getProperty("dateOfBirth"),
-            (String) entity.getProperty("gender"));
+            (Date) entity.getProperty("dateOfBirth"));
   }
 
 
   public void save(String username, CV cv) {
 
-    Entity entity = null;
+    Entity entity;
 
     if (cv.getId() != null) {
       Key cvKey = KeyFactory.createKey(cvKind, cv.getId());
@@ -78,7 +75,6 @@ public class CvRepositoryImpl implements CVRepository {
     entity.setProperty("skills", cv.getSkills());
     entity.setProperty("username", username);
     entity.setProperty("dateOfBirth", cv.getDateOfBirth());
-    entity.setProperty("gender", cv.getGender());
     service.put(entity);
   }
 
@@ -168,4 +164,23 @@ public class CvRepositoryImpl implements CVRepository {
     return jobApplication;
   }
 
+  /**
+   * Prepare new CV with empty properties and auto-generated id.
+   *
+   * @return - a CV
+   */
+  public CV prepareNewCV() {
+
+    Entity entity = new Entity("CV");
+
+    entity.setProperty("name", "");
+    entity.setProperty("email", "");
+    entity.setProperty("phoneNumber", "");
+    entity.setProperty("skills", "");
+    entity.setProperty("dateOfBirth", new Date());
+
+    service.put(entity);
+
+    return getCv(entity.getKey().getId());
+  }
 }

@@ -11,8 +11,8 @@ import com.clouway.jobex.server.job.JobSearchLocator;
 import com.clouway.jobex.server.job.JobServiceLocator;
 import com.clouway.jobex.server.job.jobannounce.JobAnnounceService;
 import com.clouway.jobex.server.job.jobsearch.JobSearchServiceImpl;
-import com.clouway.jobex.server.jobsreview.JobsReviewService;
-import com.clouway.jobex.server.jobsreview.JobsReviewServiceLocator;
+import com.clouway.jobex.server.reviewjobs.JobsReviewService;
+import com.clouway.jobex.server.reviewjobs.JobsReviewServiceLocator;
 import com.clouway.jobex.server.useraccess.AuthorizationService;
 import com.clouway.jobex.server.useraccess.AuthorizationServiceLocator;
 import com.google.web.bindery.requestfactory.shared.Request;
@@ -54,16 +54,24 @@ public interface JobExRequestFactory extends RequestFactory {
 
     Request<List<CVProxy>> getSubmittedCVs(Long jobId);
 
+    Request<CVProxy> prepareNewCV();
   }
 
   @Service(value = JobAnnounceService.class, locator = JobServiceLocator.class)
   public interface JobRequestContext extends RequestContext {
 
     /**
-     * Announce a job with given companyName and JobProxy
+     * Prepare a new JobProxy with empty properties and auto-generated id.
      *
-     * @param companyName a companyName
-     * @param jobProxy    a jobProxy
+     * @return - a JobProxy
+     */
+    Request<JobProxy> prepareNewJob();
+
+    /**
+     * Announce the prepared JobProxy
+     *
+     * @param companyName - the name of the company which announces the job
+     * @param jobProxy - the job that will be announced
      * @return - null
      */
     Request<Void> announceJob(String companyName, JobProxy jobProxy);

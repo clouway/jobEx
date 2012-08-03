@@ -38,10 +38,6 @@ public interface CVProxy extends EntityProxy {
 
   void setEmail(String email);
 
-  public String getGender();
-
-  public void setGender(String gender);
-
   public Date getDateOfBirth();
 
   public void setDateOfBirth(Date dateOfBirth);

@@ -70,7 +70,7 @@ public class JobRepositoryImpl implements JobRepository {
    */
   public void saveJob(String companyName, Job job) {
 
-    Entity entity = new Entity("Job");
+    Entity entity = new Entity("Job", job.getId());
     entity.setProperty("company", companyName);
     entity.setProperty("position", job.getPosition());
     entity.setProperty("category", job.getCategory());
@@ -121,27 +121,18 @@ public class JobRepositoryImpl implements JobRepository {
 
   public Job getJob(Long jobId) {
 
-    Key ancestor = KeyFactory.createKey("Job", jobId);
+    Key key = KeyFactory.createKey("Job", jobId);
 
     Entity entity = null;
 
     try {
-      entity = datastoreService.get(ancestor);
+      entity = datastoreService.get(key);
     } catch (EntityNotFoundException e) {
       e.printStackTrace();
     }
 
-    return new Job(
-            entity.getKey().getId(),
-            entity.getProperty("company").toString(),
-            entity.getProperty("position").toString(),
-            entity.getProperty("category").toString(),
-            entity.getProperty("location").toString(),
-            (Date) entity.getProperty("expirationDate")
-    );
-
+    return createJob(entity);
   }
-
 
   /**
    * Delete job with given jobId
@@ -150,5 +141,37 @@ public class JobRepositoryImpl implements JobRepository {
    */
   public void deleteJob(Long jobId) {
     datastoreService.delete(KeyFactory.createKey("Job", jobId));
+  }
+
+  /**
+   * Prepare a new Job with empty properties and auto-generated id
+   *
+   * @return - a Job
+   */
+  public Job prepareNewJob() {
+
+    Entity entity = new Entity("Job");
+    entity.setProperty("company", "");
+    entity.setProperty("position", "");
+    entity.setProperty("category", "");
+    entity.setProperty("location", "");
+    entity.setProperty("expirationDate", new Date());
+    datastoreService.put(entity);
+
+    return getJob(entity.getKey().getId());
+  }
+
+  private Job createJob(Entity entity) {
+
+    Job job = new Job();
+
+    job.setId(entity.getKey().getId());
+    job.setCompany(entity.getProperty("company").toString());
+    job.setPosition(entity.getProperty("position").toString());
+    job.setCategory(entity.getProperty("category").toString());
+    job.setLocation(entity.getProperty("location").toString());
+    job.setExpirationDate((Date) entity.getProperty("expirationDate"));
+
+    return job;
   }
 }

@@ -3,17 +3,18 @@ package com.clouway.jobex.client.gin;
 import com.clouway.jobex.client.cv.CreatingNewCVWorkflow;
 import com.clouway.jobex.client.cv.EditCvWorkflow;
 import com.clouway.jobex.client.cv.UserCVsPresenter;
-import com.clouway.jobex.client.cvsreview.SubmittedCVsPresenterImpl;
 import com.clouway.jobex.client.job.jobannounce.JobAnnouncePresenterImpl;
 import com.clouway.jobex.client.job.jobsearch.JobSearchPresenter;
-import com.clouway.jobex.client.jobsreview.ReviewJobsPresenterImpl;
 import com.clouway.jobex.client.navigation.MenuPlacesMapper;
 import com.clouway.jobex.client.navigation.PageNotFoundActivity;
 import com.clouway.jobex.client.navigation.SecuredActivityMapper;
+import com.clouway.jobex.client.reviewjobs.ReviewJobsPresenterImpl;
 import com.clouway.jobex.client.security.UserAuthorizedEventHandler;
 import com.clouway.jobex.client.useraccess.login.LoginPresenter;
+import com.clouway.jobex.client.useraccess.logout.LogoutEventHandlerImpl;
 import com.clouway.jobex.client.useraccess.register.RegistrationPresenter;
 import com.clouway.jobex.client.useraccess.logout.LogoutEventHandler;
+import com.clouway.jobex.client.submittedcvs.SubmittedCVsPresenterImpl;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
 import com.google.gwt.place.shared.PlaceController;
@@ -59,4 +60,6 @@ public interface JobExGinjector extends Ginjector {
   SubmittedCVsPresenterImpl reviewCVPresenter();
 
   LogoutEventHandler injectLogoutEventHandler();
+
+  LogoutEventHandlerImpl logoutEventHandler();
 }
