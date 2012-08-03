@@ -57,8 +57,6 @@ public class JobEx implements EntryPoint {
 
     eventBus.addHandler(LogoutEvent.TYPE, injector.logoutEventHandler());
 
-
-
     SecuredActivityMapper mapper = injector.injectActivityMapper();
 
     ActivityManager activityManager = new ActivityManager(mapper, eventBus);

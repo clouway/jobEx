@@ -41,12 +41,14 @@ public class RegistrationPresenter extends AbstractActivity {
       public void onFailure(ServerFailure error) {
         view.registrationErrorMessage();
         view.enableRegisterButton();
+
       }
 
       @Override
       public void onSuccess(Void response) {
         view.successfulRegistrationMessage();
         view.enableRegisterButton();
+        view.goToSearch();
       }
     }).fire();
   }
